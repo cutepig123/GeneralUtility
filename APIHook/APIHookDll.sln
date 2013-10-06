@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "APIHookDll", "APIHookDll\APIHookDll.vcxproj", "{57FB8223-9FC5-4DFF-B96B-3C5B4BC06C94}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "APIHookExe", "APIHookExe\APIHookExe.vcxproj", "{805A4F7B-B1E0-478A-8F9A-5A7CA352AF86}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{57FB8223-9FC5-4DFF-B96B-3C5B4BC06C94}.Debug|Win32.ActiveCfg = Debug|Win32
+		{57FB8223-9FC5-4DFF-B96B-3C5B4BC06C94}.Debug|Win32.Build.0 = Debug|Win32
+		{57FB8223-9FC5-4DFF-B96B-3C5B4BC06C94}.Release|Win32.ActiveCfg = Release|Win32
+		{57FB8223-9FC5-4DFF-B96B-3C5B4BC06C94}.Release|Win32.Build.0 = Release|Win32
+		{805A4F7B-B1E0-478A-8F9A-5A7CA352AF86}.Debug|Win32.ActiveCfg = Debug|Win32
+		{805A4F7B-B1E0-478A-8F9A-5A7CA352AF86}.Debug|Win32.Build.0 = Debug|Win32
+		{805A4F7B-B1E0-478A-8F9A-5A7CA352AF86}.Release|Win32.ActiveCfg = Release|Win32
+		{805A4F7B-B1E0-478A-8F9A-5A7CA352AF86}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
