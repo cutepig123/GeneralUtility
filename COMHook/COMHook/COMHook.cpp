@@ -3,10 +3,6 @@
 
 #include "stdafx.h"
 #include <Windows.h>
-#include <assert.h>
-
-#define	CHK_HR_STS(x)	hr =(x); if(!SUCCEEDED(hr)) {assert(!#x);goto Exit;}
-#define	CHK_BOOL_STS(x)	 if(!(x)) {assert(!#x); hr=-1; goto Exit;}
 
 template <class INTERFACE>
 HRESULT HookMethod(
@@ -81,7 +77,7 @@ void TestFieldOffset()
 
 }
 
-int Test()
+int TestCOMHook()
 {
 	HRESULT		hr = 0;
 	CLSID		ClassID;
@@ -171,10 +167,4 @@ Exit:
 	return 0;
 }
 
-int _tmain(int argc, _TCHAR* argv[])
-{
-	int nRet = Test();
-	printf("Return %d\n", nRet);
-	return 0;
-}
 

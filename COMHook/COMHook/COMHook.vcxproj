@@ -86,10 +86,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="COMHook.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TestVirtualFtn.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
