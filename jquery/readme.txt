@@ -1,9 +1,9 @@
-½Ì³Ì
+æ•™ç¨‹
 *http://www.w3school.com.cn/jquery
 ------------Test1:	----------------
 *http://www.cnblogs.com/zhangziqiu/archive/2009/04/30/jQuery-Learn-1.html
 
-Ñ§Ï°ÄÚÈÝ£º
+å­¦ä¹ å†…å®¹ï¼š
 - $("#btnShow").bind("click", function(event){})
 - $("#divMsg").show()
 - $("#divMsg").hide()
