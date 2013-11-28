@@ -1,9 +1,9 @@
 MIME-Version: 1.0
-Content-Type: multipart/related; boundary="----=_NextPart_01CEEC96.526C1E70"
+Content-Type: multipart/related; boundary="----=_NextPart_01CEEC99.442E27B0"
 
 此文档为“单个文件网页”，也称为“Web 档案”文件。如果您看到此消息，但是您的浏览器或编辑器不支持“Web 档案”文件。请下载支持“Web 档案”的浏览器，如 Windows? Internet Explorer?。
 
-------=_NextPart_01CEEC96.526C1E70
+------=_NextPart_01CEEC99.442E27B0
 Content-Location: file:///C:/64C31270/AndroidApp.htm
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/html; charset="us-ascii"
@@ -32,27 +32,28 @@ w\:* {behavior:url(#default#VML);}
  <o:DocumentProperties>
   <o:Author>JSHe</o:Author>
   <o:LastAuthor>JSHe</o:LastAuthor>
-  <o:Revision>38</o:Revision>
-  <o:TotalTime>92</o:TotalTime>
+  <o:Revision>41</o:Revision>
+  <o:TotalTime>96</o:TotalTime>
   <o:Created>2013-11-28T14:33:00Z</o:Created>
-  <o:LastSaved>2013-11-28T16:02:00Z</o:LastSaved>
-  <o:Pages>1</o:Pages>
-  <o:Words>323</o:Words>
-  <o:Characters>1845</o:Characters>
+  <o:LastSaved>2013-11-28T16:23:00Z</o:LastSaved>
+  <o:Pages>2</o:Pages>
+  <o:Words>397</o:Words>
+  <o:Characters>2269</o:Characters>
   <o:Company>JSHe</o:Company>
-  <o:Lines>15</o:Lines>
-  <o:Paragraphs>4</o:Paragraphs>
-  <o:CharactersWithSpaces>2164</o:CharactersWithSpaces>
+  <o:Lines>18</o:Lines>
+  <o:Paragraphs>5</o:Paragraphs>
+  <o:CharactersWithSpaces>2661</o:CharactersWithSpaces>
   <o:Version>12.00</o:Version>
  </o:DocumentProperties>
 </xml><![endif]-->
-<link rel=3DdataStoreItem href=3D"AndroidApp.files/item0008.xml"
-target=3D"AndroidApp.files/props0009.xml">
+<link rel=3DdataStoreItem href=3D"AndroidApp.files/item0009.xml"
+target=3D"AndroidApp.files/props0010.xml">
 <link rel=3DthemeData href=3D"AndroidApp.files/themedata.thmx">
 <link rel=3DcolorSchemeMapping href=3D"AndroidApp.files/colorschememapping.=
 xml">
 <!--[if gte mso 9]><xml>
  <w:WordDocument>
+  <w:Zoom>120</w:Zoom>
   <w:TrackMoves>false</w:TrackMoves>
   <w:TrackFormatting/>
   <w:PunctuationKerning/>
@@ -386,10 +387,11 @@ n"/>
 @font-face
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;
-	mso-font-charset:0;
+	mso-font-charset:1;
 	mso-generic-font-family:roman;
+	mso-font-format:other;
 	mso-font-pitch:variable;
-	mso-font-signature:-536870145 1107305727 0 0 415 0;}
+	mso-font-signature:0 0 0 0 0 0;}
 @font-face
 	{font-family:Cambria;
 	panose-1:2 4 5 3 5 4 6 3 2 4;
@@ -450,7 +452,7 @@ h1
 	mso-pagination:lines-together;
 	page-break-after:avoid;
 	mso-outline-level:1;
-	mso-list:l1 level1 lfo3;
+	mso-list:l0 level1 lfo2;
 	font-size:22.0pt;
 	font-family:"Calibri","sans-serif";
 	mso-ascii-font-family:Calibri;
@@ -461,7 +463,8 @@ h1
 	mso-bidi-theme-font:minor-bidi;
 	mso-font-kerning:22.0pt;}
 h2
-	{mso-style-priority:9;
+	{mso-style-noshow:yes;
+	mso-style-priority:9;
 	mso-style-qformat:yes;
 	mso-style-link:"\6807\9898 2 Char";
 	mso-style-next:\6B63\6587;
@@ -472,11 +475,11 @@ h2
 	text-align:justify;
 	text-justify:inter-ideograph;
 	text-indent:-28.8pt;
-	line-height:173%;
+	line-height:172%;
 	mso-pagination:lines-together;
 	page-break-after:avoid;
 	mso-outline-level:2;
-	mso-list:l1 level2 lfo3;
+	mso-list:l0 level2 lfo2;
 	font-size:16.0pt;
 	font-family:"Cambria","serif";
 	mso-ascii-font-family:Cambria;
@@ -489,7 +492,8 @@ h2
 	mso-bidi-theme-font:major-bidi;
 	mso-font-kerning:1.0pt;}
 h3
-	{mso-style-priority:9;
+	{mso-style-noshow:yes;
+	mso-style-priority:9;
 	mso-style-qformat:yes;
 	mso-style-link:"\6807\9898 3 Char";
 	mso-style-next:\6B63\6587;
@@ -500,11 +504,11 @@ h3
 	text-align:justify;
 	text-justify:inter-ideograph;
 	text-indent:-36.0pt;
-	line-height:173%;
+	line-height:172%;
 	mso-pagination:lines-together;
 	page-break-after:avoid;
 	mso-outline-level:3;
-	mso-list:l1 level3 lfo3;
+	mso-list:l0 level3 lfo2;
 	font-size:16.0pt;
 	font-family:"Calibri","sans-serif";
 	mso-ascii-font-family:Calibri;
@@ -527,11 +531,11 @@ h4
 	text-align:justify;
 	text-justify:inter-ideograph;
 	text-indent:-43.2pt;
-	line-height:156%;
+	line-height:155%;
 	mso-pagination:lines-together;
 	page-break-after:avoid;
 	mso-outline-level:4;
-	mso-list:l1 level4 lfo3;
+	mso-list:l0 level4 lfo2;
 	font-size:14.0pt;
 	font-family:"Cambria","serif";
 	mso-ascii-font-family:Cambria;
@@ -556,11 +560,11 @@ h5
 	text-align:justify;
 	text-justify:inter-ideograph;
 	text-indent:-50.4pt;
-	line-height:156%;
+	line-height:155%;
 	mso-pagination:lines-together;
 	page-break-after:avoid;
 	mso-outline-level:5;
-	mso-list:l1 level5 lfo3;
+	mso-list:l0 level5 lfo2;
 	font-size:14.0pt;
 	font-family:"Calibri","sans-serif";
 	mso-ascii-font-family:Calibri;
@@ -583,11 +587,11 @@ h6
 	text-align:justify;
 	text-justify:inter-ideograph;
 	text-indent:-57.6pt;
-	line-height:133%;
+	line-height:132%;
 	mso-pagination:lines-together;
 	page-break-after:avoid;
 	mso-outline-level:6;
-	mso-list:l1 level6 lfo3;
+	mso-list:l0 level6 lfo2;
 	font-size:12.0pt;
 	font-family:"Cambria","serif";
 	mso-ascii-font-family:Cambria;
@@ -612,11 +616,11 @@ p.MsoHeading7, li.MsoHeading7, div.MsoHeading7
 	text-align:justify;
 	text-justify:inter-ideograph;
 	text-indent:-64.8pt;
-	line-height:133%;
+	line-height:132%;
 	mso-pagination:lines-together;
 	page-break-after:avoid;
 	mso-outline-level:7;
-	mso-list:l1 level7 lfo3;
+	mso-list:l0 level7 lfo2;
 	font-size:12.0pt;
 	font-family:"Calibri","sans-serif";
 	mso-ascii-font-family:Calibri;
@@ -642,11 +646,11 @@ p.MsoHeading8, li.MsoHeading8, div.MsoHeading8
 	text-align:justify;
 	text-justify:inter-ideograph;
 	text-indent:-72.0pt;
-	line-height:133%;
+	line-height:132%;
 	mso-pagination:lines-together;
 	page-break-after:avoid;
 	mso-outline-level:8;
-	mso-list:l1 level8 lfo3;
+	mso-list:l0 level8 lfo2;
 	font-size:12.0pt;
 	font-family:"Cambria","serif";
 	mso-ascii-font-family:Cambria;
@@ -671,11 +675,11 @@ p.MsoHeading9, li.MsoHeading9, div.MsoHeading9
 	text-align:justify;
 	text-justify:inter-ideograph;
 	text-indent:-79.2pt;
-	line-height:133%;
+	line-height:132%;
 	mso-pagination:lines-together;
 	page-break-after:avoid;
 	mso-outline-level:9;
-	mso-list:l1 level9 lfo3;
+	mso-list:l0 level9 lfo2;
 	font-size:10.5pt;
 	font-family:"Cambria","serif";
 	mso-ascii-font-family:Cambria;
@@ -766,6 +770,51 @@ p.MsoToc3, li.MsoToc3, div.MsoToc3
 	mso-bidi-font-family:"Times New Roman";
 	mso-bidi-theme-font:minor-bidi;
 	mso-font-kerning:1.0pt;}
+p.MsoHeader, li.MsoHeader, div.MsoHeader
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-link:"\9875\7709 Char";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:center;
+	mso-pagination:none;
+	tab-stops:center 207.65pt right 415.3pt;
+	layout-grid-mode:char;
+	border:none;
+	mso-border-bottom-alt:solid windowtext .75pt;
+	padding:0cm;
+	mso-padding-alt:0cm 0cm 1.0pt 0cm;
+	font-size:9.0pt;
+	font-family:"Calibri","sans-serif";
+	mso-ascii-font-family:Calibri;
+	mso-ascii-theme-font:minor-latin;
+	mso-fareast-font-family:SimSun;
+	mso-fareast-theme-font:minor-fareast;
+	mso-hansi-font-family:Calibri;
+	mso-hansi-theme-font:minor-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:minor-bidi;
+	mso-font-kerning:1.0pt;}
+p.MsoFooter, li.MsoFooter, div.MsoFooter
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-link:"\9875\811A Char";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:none;
+	tab-stops:center 207.65pt right 415.3pt;
+	layout-grid-mode:char;
+	font-size:9.0pt;
+	font-family:"Calibri","sans-serif";
+	mso-ascii-font-family:Calibri;
+	mso-ascii-theme-font:minor-latin;
+	mso-fareast-font-family:SimSun;
+	mso-fareast-theme-font:minor-fareast;
+	mso-hansi-font-family:Calibri;
+	mso-hansi-theme-font:minor-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:minor-bidi;
+	mso-font-kerning:1.0pt;}
 a:link, span.MsoHyperlink
 	{mso-style-priority:99;
 	color:blue;
@@ -814,7 +863,7 @@ p.MsoTocHeading, li.MsoTocHeading, div.MsoTocHeading
 	line-height:115%;
 	mso-pagination:widow-orphan lines-together;
 	page-break-after:avoid;
-	mso-list:l1 level1 lfo3;
+	mso-list:l0 level1 lfo2;
 	font-size:14.0pt;
 	font-family:"Cambria","serif";
 	mso-ascii-font-family:Cambria;
@@ -839,17 +888,9 @@ span.1Char
 	mso-bidi-font-size:22.0pt;
 	mso-font-kerning:22.0pt;
 	font-weight:bold;}
-span.Char
-	{mso-style-name:"\6279\6CE8\6846\6587\672C Char";
-	mso-style-noshow:yes;
-	mso-style-priority:99;
-	mso-style-unhide:no;
-	mso-style-locked:yes;
-	mso-style-link:\6279\6CE8\6846\6587\672C;
-	mso-ansi-font-size:9.0pt;
-	mso-bidi-font-size:9.0pt;}
 span.2Char
 	{mso-style-name:"\6807\9898 2 Char";
+	mso-style-noshow:yes;
 	mso-style-priority:9;
 	mso-style-unhide:no;
 	mso-style-locked:yes;
@@ -868,12 +909,19 @@ span.2Char
 	font-weight:bold;}
 span.3Char
 	{mso-style-name:"\6807\9898 3 Char";
+	mso-style-noshow:yes;
 	mso-style-priority:9;
 	mso-style-unhide:no;
 	mso-style-locked:yes;
 	mso-style-link:"\6807\9898 3";
 	mso-ansi-font-size:16.0pt;
 	mso-bidi-font-size:16.0pt;
+	font-family:"Calibri","sans-serif";
+	mso-ascii-font-family:Calibri;
+	mso-ascii-theme-font:minor-latin;
+	mso-hansi-font-family:Calibri;
+	mso-hansi-theme-font:minor-latin;
+	mso-font-kerning:1.0pt;
 	font-weight:bold;}
 span.4Char
 	{mso-style-name:"\6807\9898 4 Char";
@@ -968,15 +1016,64 @@ span.9Char
 	mso-hansi-theme-font:major-latin;
 	mso-bidi-font-family:"Times New Roman";
 	mso-bidi-theme-font:major-bidi;}
+span.Char
+	{mso-style-name:"\6279\6CE8\6846\6587\672C Char";
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:\6279\6CE8\6846\6587\672C;
+	mso-ansi-font-size:9.0pt;
+	mso-bidi-font-size:9.0pt;}
+span.Char0
+	{mso-style-name:"\9875\7709 Char";
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:\9875\7709;
+	mso-ansi-font-size:9.0pt;
+	mso-bidi-font-size:9.0pt;
+	font-family:"Calibri","sans-serif";
+	mso-ascii-font-family:Calibri;
+	mso-ascii-theme-font:minor-latin;
+	mso-hansi-font-family:Calibri;
+	mso-hansi-theme-font:minor-latin;
+	mso-font-kerning:1.0pt;}
+span.Char1
+	{mso-style-name:"\9875\811A Char";
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:\9875\811A;
+	mso-ansi-font-size:9.0pt;
+	mso-bidi-font-size:9.0pt;
+	font-family:"Calibri","sans-serif";
+	mso-ascii-font-family:Calibri;
+	mso-ascii-theme-font:minor-latin;
+	mso-hansi-font-family:Calibri;
+	mso-hansi-theme-font:minor-latin;
+	mso-font-kerning:1.0pt;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	mso-default-props:yes;
+	font-size:10.0pt;
+	mso-ansi-font-size:10.0pt;
+	mso-bidi-font-size:10.0pt;
+	mso-ascii-font-family:"Times New Roman";
+	mso-hansi-font-family:"Times New Roman";
 	mso-bidi-font-family:"Times New Roman";
-	mso-bidi-theme-font:minor-bidi;}
+	mso-bidi-theme-font:minor-bidi;
+	mso-font-kerning:0pt;}
  /* Page Definitions */
  @page
 	{mso-page-border-surround-header:no;
-	mso-page-border-surround-footer:no;}
+	mso-page-border-surround-footer:no;
+	mso-footnote-separator:url("AndroidApp.files/header.htm") fs;
+	mso-footnote-continuation-separator:url("AndroidApp.files/header.htm") fcs;
+	mso-endnote-separator:url("AndroidApp.files/header.htm") es;
+	mso-endnote-continuation-separator:url("AndroidApp.files/header.htm") ecs;}
 @page Section1
 	{size:595.3pt 841.9pt;
 	margin:72.0pt 90.0pt 72.0pt 90.0pt;
@@ -988,91 +1085,71 @@ div.Section1
 	{page:Section1;}
  /* List Definitions */
  @list l0
-	{mso-list-id:128673946;
-	mso-list-type:hybrid;
-	mso-list-template-ids:757727790 67698703 67698713 67698715 67698703 676987=
-13 67698715 67698703 67698713 67698715;}
-@list l0:level1
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:21.0pt;
-	text-indent:-21.0pt;}
-@list l1
 	{mso-list-id:911890773;
 	mso-list-template-ids:67698725;}
-@list l1:level1
+@list l0:level1
 	{mso-level-style-link:"\6807\9898 1";
 	mso-level-text:%1;
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	margin-left:21.6pt;
 	text-indent:-21.6pt;}
-@list l1:level2
+@list l0:level2
 	{mso-level-style-link:"\6807\9898 2";
 	mso-level-text:"%1\.%2";
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	margin-left:28.8pt;
 	text-indent:-28.8pt;}
-@list l1:level3
+@list l0:level3
 	{mso-level-style-link:"\6807\9898 3";
 	mso-level-text:"%1\.%2\.%3";
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	margin-left:36.0pt;
 	text-indent:-36.0pt;}
-@list l1:level4
+@list l0:level4
 	{mso-level-style-link:"\6807\9898 4";
 	mso-level-text:"%1\.%2\.%3\.%4";
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	margin-left:43.2pt;
 	text-indent:-43.2pt;}
-@list l1:level5
+@list l0:level5
 	{mso-level-style-link:"\6807\9898 5";
 	mso-level-text:"%1\.%2\.%3\.%4\.%5";
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	margin-left:50.4pt;
 	text-indent:-50.4pt;}
-@list l1:level6
+@list l0:level6
 	{mso-level-style-link:"\6807\9898 6";
 	mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6";
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	margin-left:57.6pt;
 	text-indent:-57.6pt;}
-@list l1:level7
+@list l0:level7
 	{mso-level-style-link:"\6807\9898 7";
 	mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7";
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	margin-left:64.8pt;
 	text-indent:-64.8pt;}
-@list l1:level8
+@list l0:level8
 	{mso-level-style-link:"\6807\9898 8";
 	mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8";
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	margin-left:72.0pt;
 	text-indent:-72.0pt;}
-@list l1:level9
+@list l0:level9
 	{mso-level-style-link:"\6807\9898 9";
 	mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8\.%9";
 	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	margin-left:79.2pt;
 	text-indent:-79.2pt;}
-@list l2
-	{mso-list-id:1964458036;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-1595764420 67698703 67698713 67698715 67698703 6769=
-8713 67698715 67698703 67698713 67698715;}
-@list l2:level1
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:21.0pt;
-	text-indent:-21.0pt;}
 ol
 	{margin-bottom:0cm;}
 ul
@@ -1094,16 +1171,10 @@ ul
 	mso-para-margin:0cm;
 	mso-para-margin-bottom:.0001pt;
 	mso-pagination:widow-orphan;
-	font-size:10.5pt;
-	mso-bidi-font-size:11.0pt;
-	font-family:"Calibri","sans-serif";
-	mso-ascii-font-family:Calibri;
-	mso-ascii-theme-font:minor-latin;
-	mso-hansi-font-family:Calibri;
-	mso-hansi-theme-font:minor-latin;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
 	mso-bidi-font-family:"Times New Roman";
-	mso-bidi-theme-font:minor-bidi;
-	mso-font-kerning:1.0pt;}
+	mso-bidi-theme-font:minor-bidi;}
 table.MsoTableGrid
 	{mso-style-name:\7F51\683C\578B;
 	mso-tstyle-rowband-size:0;
@@ -1134,7 +1205,7 @@ table.MsoTableGrid
 	mso-font-kerning:1.0pt;}
 </style>
 <![endif]--><!--[if gte mso 9]><xml>
- <o:shapedefaults v:ext=3D"edit" spidmax=3D"2050"/>
+ <o:shapedefaults v:ext=3D"edit" spidmax=3D"4098"/>
 </xml><![endif]--><!--[if gte mso 9]><xml>
  <o:shapelayout v:ext=3D"edit">
   <o:idmap v:ext=3D"edit" data=3D"1"/>
@@ -1167,10 +1238,11 @@ si-theme-font:
 pan
  style=3D'mso-element:field-separator'></span></span><![endif]--><span
  lang=3DEN-US><span class=3DMsoHyperlink><span style=3D'mso-no-proof:yes'><a
- href=3D"#_Toc373441609">2<span style=3D'color:windowtext;text-decoration:n=
-one;
- text-underline:none'><span style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; </span></span><span
+ href=3D"#_Toc373447952"><span style=3D'mso-fareast-font-family:"Times New =
+Roman"'>2</span><span
+ style=3D'color:windowtext;text-decoration:none;text-underline:none'><span
+ style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></sp=
+an><span
  lang=3DEN-US style=3D'font-family:SimSun;mso-ascii-font-family:Calibri;mso=
 -ascii-theme-font:
  minor-latin;mso-fareast-font-family:SimSun;mso-fareast-theme-font:minor-fa=
@@ -1187,7 +1259,7 @@ e;
 ><span
  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
 e;
- text-underline:none'> PAGEREF _Toc373441609 \h </span><span style=3D'color=
+ text-underline:none'> PAGEREF _Toc373447952 \h </span><span style=3D'color=
 :windowtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
 an
@@ -1198,7 +1270,7 @@ e;
  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
-06F0063003300370033003400340031003600300039000000</w:data>
+06F0063003300370033003400340037003900350032000000</w:data>
  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
 wtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
@@ -1208,7 +1280,7 @@ n><span
  style=3D'mso-no-proof:yes'><o:p></o:p></span></span></p>
  <p class=3DMsoToc2 style=3D'tab-stops:52.5pt right dotted 414.8pt'><span
  class=3DMsoHyperlink><span lang=3DEN-US style=3D'mso-no-proof:yes'><a
- href=3D"#_Toc373441610">2.1<span style=3D'color:windowtext;text-decoration=
+ href=3D"#_Toc373447953">2.1<span style=3D'color:windowtext;text-decoration=
 :none;
  text-underline:none'><span style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nb=
 sp;&nbsp;&nbsp;&nbsp; </span></span><span
@@ -1228,7 +1300,7 @@ e;
 ><span
  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
 e;
- text-underline:none'> PAGEREF _Toc373441610 \h </span><span style=3D'color=
+ text-underline:none'> PAGEREF _Toc373447953 \h </span><span style=3D'color=
 :windowtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
 an
@@ -1239,7 +1311,7 @@ e;
  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
-06F0063003300370033003400340031003600310030000000</w:data>
+06F0063003300370033003400340037003900350033000000</w:data>
  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
 wtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
@@ -1249,10 +1321,11 @@ n><span
  lang=3DEN-US style=3D'mso-no-proof:yes'><o:p></o:p></span></p>
  <p class=3DMsoToc3 style=3D'tab-stops:84.0pt right dotted 414.8pt'><span
  class=3DMsoHyperlink><span lang=3DEN-US style=3D'mso-no-proof:yes'><a
- href=3D"#_Toc373441611">2.1.1<span style=3D'color:windowtext;text-decorati=
-on:none;
- text-underline:none'><span style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+ href=3D"#_Toc373447954"><span style=3D'mso-fareast-font-family:"Times New =
+Roman"'>2.1.1</span><span
+ style=3D'color:windowtext;text-decoration:none;text-underline:none'><span
+ style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ </span></span><span
  lang=3DEN-US style=3D'font-family:SimSun;mso-ascii-font-family:Calibri;mso=
 -ascii-theme-font:
  minor-latin;mso-fareast-font-family:SimSun;mso-fareast-theme-font:minor-fa=
@@ -1269,7 +1342,7 @@ e;
 ><span
  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
 e;
- text-underline:none'> PAGEREF _Toc373441611 \h </span><span style=3D'color=
+ text-underline:none'> PAGEREF _Toc373447954 \h </span><span style=3D'color=
 :windowtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
 an
@@ -1280,7 +1353,7 @@ e;
  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
-06F0063003300370033003400340031003600310031000000</w:data>
+06F0063003300370033003400340037003900350034000000</w:data>
  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
 wtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
@@ -1290,10 +1363,102 @@ n><span
  lang=3DEN-US style=3D'mso-no-proof:yes'><o:p></o:p></span></p>
  <p class=3DMsoToc3 style=3D'tab-stops:84.0pt right dotted 414.8pt'><span
  class=3DMsoHyperlink><span lang=3DEN-US style=3D'mso-no-proof:yes'><a
- href=3D"#_Toc373441612">2.1.2<span style=3D'color:windowtext;text-decorati=
+ href=3D"#_Toc373447955"><span style=3D'font-family:SimSun;mso-ascii-theme-=
+font:
+ minor-fareast;mso-fareast-font-family:SimSun;mso-fareast-theme-font:minor-=
+fareast;
+ mso-hansi-theme-font:minor-fareast'>2.1.2</span><span style=3D'color:windo=
+wtext;
+ text-decoration:none;text-underline:none'><span style=3D'mso-tab-count:1'>=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+ lang=3DEN-US style=3D'font-family:SimSun;mso-ascii-theme-font:minor-fareas=
+t;
+ mso-fareast-font-family:SimSun;mso-fareast-theme-font:minor-fareast;
+ mso-hansi-theme-font:minor-fareast'><span lang=3DEN-US>&#32452;&#24577;&#3=
+6719;&#20214;</span></span><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'><span style=3D'mso-tab-count:1 dotted'>... </span></s=
+pan><!--[if supportFields]><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
+><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'> PAGEREF _Toc373447955 \h </span><span style=3D'color=
+:windowtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-separator'></span></span><![endif]--><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'>1</span><span style=3D'color:windowtext;display:none;
+ mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
+9]><xml>
+  <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
+06F0063003300370033003400340037003900350035000000</w:data>
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
+wtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
+n><span
+ lang=3DEN-US style=3D'mso-no-proof:yes'><o:p></o:p></span></p>
+ <p class=3DMsoToc3 style=3D'tab-stops:84.0pt right dotted 414.8pt'><span
+ class=3DMsoHyperlink><span lang=3DEN-US style=3D'mso-no-proof:yes'><a
+ href=3D"#_Toc373447956">2.1.3<span style=3D'color:windowtext;text-decorati=
 on:none;
  text-underline:none'><span style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nb=
 sp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+ style=3D'font-family:SimSun;mso-ascii-theme-font:minor-fareast;mso-fareast=
+-font-family:
+ SimSun;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-far=
+east'>web</span>
+ service<span lang=3DEN-US style=3D'font-family:SimSun;mso-ascii-font-famil=
+y:Calibri;
+ mso-ascii-theme-font:minor-latin;mso-fareast-font-family:SimSun;mso-fareas=
+t-theme-font:
+ minor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-lat=
+in'><span
+ lang=3DEN-US>&#22914;&#20309;&#33719;&#21462;&#30828;&#20214;&#20449;&#246=
+87;&#65311;</span></span><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'><span style=3D'mso-tab-count:1 dotted'>... </span></s=
+pan><!--[if supportFields]><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
+><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'> PAGEREF _Toc373447956 \h </span><span style=3D'color=
+:windowtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-separator'></span></span><![endif]--><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'>1</span><span style=3D'color:windowtext;display:none;
+ mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
+9]><xml>
+  <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
+06F0063003300370033003400340037003900350036000000</w:data>
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
+wtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
+n><span
+ lang=3DEN-US style=3D'mso-no-proof:yes'><o:p></o:p></span></p>
+ <p class=3DMsoToc3 style=3D'tab-stops:84.0pt right dotted 414.8pt'><span
+ class=3DMsoHyperlink><span lang=3DEN-US style=3D'mso-no-proof:yes'><a
+ href=3D"#_Toc373447957"><span style=3D'mso-fareast-font-family:"Times New =
+Roman"'>2.1.4</span><span
+ style=3D'color:windowtext;text-decoration:none;text-underline:none'><span
+ style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ </span></span><span
  lang=3DEN-US style=3D'font-family:SimSun;mso-ascii-font-family:Calibri;mso=
 -ascii-theme-font:
  minor-latin;mso-fareast-font-family:SimSun;mso-fareast-theme-font:minor-fa=
@@ -1310,42 +1475,7 @@ e;
 ><span
  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
 e;
- text-underline:none'> PAGEREF _Toc373441612 \h </span><span style=3D'color=
-:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-separator'></span></span><![endif]--><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'>1</span><span style=3D'color:windowtext;display:none;
- mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
-9]><xml>
-  <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
-06F0063003300370033003400340031003600310032000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
-wtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
-n><span
- lang=3DEN-US style=3D'mso-no-proof:yes'><o:p></o:p></span></p>
- <p class=3DMsoToc3 style=3D'tab-stops:84.0pt right dotted 414.8pt'><span
- class=3DMsoHyperlink><span lang=3DEN-US style=3D'mso-no-proof:yes'><a
- href=3D"#_Toc373441613">2.1.3<span style=3D'color:windowtext;text-decorati=
-on:none;
- text-underline:none'><span style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>UI<span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'><span style=3D'mso-tab-count:1 dotted'> </span></span=
-><!--[if supportFields]><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
-><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'> PAGEREF _Toc373441613 \h </span><span style=3D'color=
+ text-underline:none'> PAGEREF _Toc373447957 \h </span><span style=3D'color=
 :windowtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
 an
@@ -1356,7 +1486,44 @@ e;
  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
-06F0063003300370033003400340031003600310033000000</w:data>
+06F0063003300370033003400340037003900350037000000</w:data>
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
+wtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
+n><span
+ lang=3DEN-US style=3D'mso-no-proof:yes'><o:p></o:p></span></p>
+ <p class=3DMsoToc3 style=3D'tab-stops:84.0pt right dotted 414.8pt'><span
+ class=3DMsoHyperlink><span lang=3DEN-US style=3D'mso-no-proof:yes'><a
+ href=3D"#_Toc373447958"><span style=3D'mso-fareast-font-family:"Times New =
+Roman"'>2.1.5</span><span
+ style=3D'color:windowtext;text-decoration:none;text-underline:none'><span
+ style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ </span></span><span
+ style=3D'mso-fareast-font-family:"Times New Roman"'>UI</span><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'><span style=3D'mso-tab-count:1 dotted'> </span></span=
+><!--[if supportFields]><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
+><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'> PAGEREF _Toc373447958 \h </span><span style=3D'color=
+:windowtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-separator'></span></span><![endif]--><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'>3</span><span style=3D'color:windowtext;display:none;
+ mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
+9]><xml>
+  <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
+06F0063003300370033003400340037003900350038000000</w:data>
  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
 wtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
@@ -1371,7 +1538,7 @@ US><o:p>&nbsp;</o:p></span></p>
 
 <p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
 
-<h1><a name=3D"_Toc373441609"><![if !supportLists]><span lang=3DEN-US
+<h1><a name=3D"_Toc373447952"><![if !supportLists]><span lang=3DEN-US
 style=3D'mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;
 mso-bidi-font-family:Calibri;mso-bidi-theme-font:minor-latin'><span
 style=3D'mso-list:Ignore'>2<span style=3D'font:7.0pt "Times New Roman"'>&nb=
@@ -1381,9 +1548,12 @@ font-family:
 Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:SimSun;
 mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;mso-hans=
 i-theme-font:
-minor-latin'>&#23458;&#25143;&#38656;&#27714;</span></a></h1>
+minor-latin'>&#23458;&#25143;&#38656;&#27714;</span></a><span style=3D'mso-=
+bookmark:
+_Toc373447952'></span><span lang=3DEN-US style=3D'mso-fareast-font-family:"=
+Times New Roman"'><o:p></o:p></span></h1>
 
-<h2><a name=3D"_Toc373441610"><![if !supportLists]><span lang=3DEN-US
+<h2><a name=3D"_Toc373447953"><![if !supportLists]><span lang=3DEN-US
 style=3D'mso-fareast-font-family:Cambria;mso-fareast-theme-font:major-latin;
 mso-bidi-font-family:Cambria;mso-bidi-theme-font:major-latin'><span
 style=3D'mso-list:Ignore'>2.1<span style=3D'font:7.0pt "Times New Roman"'>&=
@@ -1395,7 +1565,7 @@ mso-fareast-theme-font:major-fareast;mso-hansi-font-family:Cambria;mso-hans=
 i-theme-font:
 major-latin'>&#35299;&#20915;&#26041;&#26696;</span></a></h2>
 
-<h3><a name=3D"_Toc373441611"><![if !supportLists]><span lang=3DEN-US
+<h3><a name=3D"_Toc373447954"><![if !supportLists]><span lang=3DEN-US
 style=3D'mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;
 mso-bidi-font-family:Calibri;mso-bidi-theme-font:minor-latin'><span
 style=3D'mso-list:Ignore'>2.1.1<span style=3D'font:7.0pt "Times New Roman"'=
@@ -1405,7 +1575,10 @@ ont:
 minor-latin;mso-fareast-font-family:SimSun;mso-fareast-theme-font:minor-far=
 east;
 mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin'>&#24635;&#2=
-0307;&#26041;&#26696;</span></a></h3>
+0307;&#26041;&#26696;</span></a><span
+style=3D'mso-bookmark:_Toc373447954'></span><span lang=3DEN-US style=3D'mso=
+-fareast-font-family:
+"Times New Roman"'><o:p></o:p></span></h3>
 
 <p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
 
@@ -1457,18 +1630,297 @@ minor-latin'>&#26174;&#31034;</span></p>
 
 <p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
 
-<h3><a name=3D"_Toc373441612"><![if !supportLists]><span lang=3DEN-US
+<h3><a name=3D"_Toc373447955"><![if !supportLists]><span lang=3DEN-US
+style=3D'font-family:SimSun;mso-ascii-theme-font:minor-fareast;mso-fareast-=
+font-family:
+SimSun;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fare=
+ast;
+mso-bidi-font-family:SimSun;mso-bidi-theme-font:minor-fareast'><span
+style=3D'mso-list:Ignore'>2.1.2<span style=3D'font:7.0pt "Times New Roman"'=
+>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style=3D'font-family:SimSun;mso-ascii-=
+theme-font:
+minor-fareast;mso-fareast-font-family:SimSun;mso-fareast-theme-font:minor-f=
+areast;
+mso-hansi-theme-font:minor-fareast'>&#32452;&#24577;&#36719;&#20214;</span>=
+</a><span
+lang=3DEN-US style=3D'font-family:SimSun;mso-ascii-theme-font:minor-fareast;
+mso-fareast-font-family:SimSun;mso-fareast-theme-font:minor-fareast;mso-han=
+si-theme-font:
+minor-fareast'><o:p></o:p></span></h3>
+
+<p class=3DMsoNormal><span style=3D'font-family:SimSun;mso-ascii-font-famil=
+y:Calibri;
+mso-ascii-theme-font:minor-latin;mso-fareast-font-family:SimSun;mso-fareast=
+-theme-font:
+minor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-lati=
+n'>&#32452;&#24577;&#36719;&#20214;</span></p>
+
+<p class=3DMsoNormal><span style=3D'font-family:SimSun;mso-ascii-font-famil=
+y:Calibri;
+mso-ascii-theme-font:minor-latin;mso-fareast-font-family:SimSun;mso-fareast=
+-theme-font:
+minor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-lati=
+n'>&#21448;&#31216;&#32452;&#24577;&#30417;&#25511;&#36719;&#20214;&#31995;=
+&#32479;&#36719;&#20214;&#12290;&#35793;&#33258;&#33521;&#25991;</span><span
+lang=3DEN-US>SCADA,</span><span style=3D'font-family:SimSun;mso-ascii-font-=
+family:
+Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:SimSun;
+mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;mso-hans=
+i-theme-font:
+minor-latin'>&#21363;</span><span lang=3DEN-US> Supervisory Control and Data
+Acquisition</span><span style=3D'font-family:SimSun;mso-ascii-font-family:C=
+alibri;
+mso-ascii-theme-font:minor-latin;mso-fareast-font-family:SimSun;mso-fareast=
+-theme-font:
+minor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-lati=
+n'>&#65288;&#25968;&#25454;&#37319;&#38598;&#19982;&#30417;&#35270;&#25511;=
+&#21046;&#65289;</span><span
+lang=3DEN-US> </span></p>
+
+<p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
+
+<p class=3DMsoNormal><span style=3D'font-family:SimSun;mso-ascii-font-famil=
+y:Calibri;
+mso-ascii-theme-font:minor-latin;mso-fareast-font-family:SimSun;mso-fareast=
+-theme-font:
+minor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-lati=
+n'>&#21151;&#33021;</span></p>
+
+<p class=3DMsoNormal><span style=3D'font-family:SimSun;mso-ascii-font-famil=
+y:Calibri;
+mso-ascii-theme-font:minor-latin;mso-fareast-font-family:SimSun;mso-fareast=
+-theme-font:
+minor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-lati=
+n'>&#23454;&#26102;&#25968;&#25454;&#24211;&#12289;&#23454;&#26102;&#25511;=
+&#21046;&#12289;</span><span
+lang=3DEN-US>SCADA</span><span style=3D'font-family:SimSun;mso-ascii-font-f=
+amily:
+Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:SimSun;
+mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;mso-hans=
+i-theme-font:
+minor-latin'>&#12289;&#36890;&#35759;&#21450;&#32852;&#32593;&#12289;&#2432=
+0;&#25918;&#25968;&#25454;&#25509;&#21475;&#12289;&#23545;</span><span
+lang=3DEN-US>I/O</span><span style=3D'font-family:SimSun;mso-ascii-font-fam=
+ily:
+Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:SimSun;
+mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;mso-hans=
+i-theme-font:
+minor-latin'>&#35774;&#22791;&#30340;&#24191;&#27867;&#25903;&#25345;&#6529=
+2;</span><span
+lang=3DEN-US>script</span></p>
+
+<p class=3DMsoNormal><span lang=3DEN-US>UI</span><span style=3D'font-family=
+:SimSun;
+mso-ascii-font-family:Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-=
+font-family:
+SimSun;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;
+mso-hansi-theme-font:minor-latin'>&#21151;&#33021;&#65306;</span> <span
+style=3D'font-family:SimSun;mso-ascii-font-family:Calibri;mso-ascii-theme-f=
+ont:
+minor-latin;mso-fareast-font-family:SimSun;mso-fareast-theme-font:minor-far=
+east;
+mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin'>&#23454;&#2=
+6102;&#30417;&#25511;</span>
+<span style=3D'font-family:SimSun;mso-ascii-font-family:Calibri;mso-ascii-t=
+heme-font:
+minor-latin;mso-fareast-font-family:SimSun;mso-fareast-theme-font:minor-far=
+east;
+mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin'>&#20135;&#2=
+9983;&#21151;&#33021;&#25253;&#34920;</span>
+<span style=3D'font-family:SimSun;mso-ascii-font-family:Calibri;mso-ascii-t=
+heme-font:
+minor-latin;mso-fareast-font-family:SimSun;mso-fareast-theme-font:minor-far=
+east;
+mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin'>&#26174;&#3=
+1034;&#21382;&#21490;&#26354;&#32447;&#12289;&#23454;&#26102;&#26354;&#3244=
+7;&#12289;&#25552;&#20384;&#25253;&#35686;&#31561;&#21151;&#33021;</span></=
+p>
+
+<p class=3DMsoNormal><span lang=3DEN-US>OPC-XML</span></p>
+
+<p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
+
+<h3><a name=3D"_Toc373447956"><![if !supportLists]><span lang=3DEN-US
 style=3D'mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;
 mso-bidi-font-family:Calibri;mso-bidi-theme-font:minor-latin'><span
-style=3D'mso-list:Ignore'>2.1.2<span style=3D'font:7.0pt "Times New Roman"'=
+style=3D'mso-list:Ignore'>2.1.3<span style=3D'font:7.0pt "Times New Roman"'=
+>&nbsp; </span></span></span><![endif]><span
+lang=3DEN-US style=3D'font-family:SimSun;mso-ascii-theme-font:minor-fareast;
+mso-fareast-font-family:SimSun;mso-fareast-theme-font:minor-fareast;mso-han=
+si-theme-font:
+minor-fareast'>web</span><span lang=3DEN-US> service</span></a><span
+style=3D'mso-bookmark:_Toc373447956'><span style=3D'font-family:SimSun;mso-=
+ascii-font-family:
+Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:SimSun;
+mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;mso-hans=
+i-theme-font:
+minor-latin'>&#22914;&#20309;&#33719;&#21462;&#30828;&#20214;&#20449;&#2468=
+7;&#65311;</span></span></h3>
+
+<table class=3DMsoTableGrid border=3D1 cellspacing=3D0 cellpadding=3D0 widt=
+h=3D963
+ style=3D'width:722.55pt;border-collapse:collapse;border:none;mso-border-al=
+t:
+ solid black .5pt;mso-border-themecolor:text1;mso-yfti-tbllook:1184;mso-pad=
+ding-alt:
+ 0cm 5.4pt 0cm 5.4pt'>
+ <tr style=3D'mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=3D463 valign=3Dtop style=3D'width:347.55pt;border:solid black 1=
+.0pt;
+  mso-border-themecolor:text1;mso-border-alt:solid black .5pt;mso-border-th=
+emecolor:
+  text1;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=3DMsoNormal><b style=3D'mso-bidi-font-weight:normal'><span
+  style=3D'font-family:SimSun;mso-ascii-font-family:Calibri;mso-ascii-theme=
+-font:
+  minor-latin;mso-fareast-font-family:SimSun;mso-fareast-theme-font:minor-f=
+areast;
+  mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin'>&#26041;&=
+#26696;</span><span
+  lang=3DEN-US><o:p></o:p></span></b></p>
+  </td>
+  <td width=3D500 valign=3Dtop style=3D'width:375.0pt;border:solid black 1.=
+0pt;
+  mso-border-themecolor:text1;border-left:none;mso-border-left-alt:solid bl=
+ack .5pt;
+  mso-border-left-themecolor:text1;mso-border-alt:solid black .5pt;mso-bord=
+er-themecolor:
+  text1;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=3DMsoNormal><b style=3D'mso-bidi-font-weight:normal'><span lang=
+=3DEN-US>Comment<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr style=3D'mso-yfti-irow:1'>
+  <td width=3D463 valign=3Dtop style=3D'width:347.55pt;border:solid black 1=
+.0pt;
+  mso-border-themecolor:text1;border-top:none;mso-border-top-alt:solid blac=
+k .5pt;
+  mso-border-top-themecolor:text1;mso-border-alt:solid black .5pt;mso-borde=
+r-themecolor:
+  text1;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=3DMsoNormal><span lang=3DEN-US>OPC-XML<o:p></o:p></span></p>
+  </td>
+  <td width=3D500 valign=3Dtop style=3D'width:375.0pt;border-top:none;borde=
+r-left:
+  none;border-bottom:solid black 1.0pt;mso-border-bottom-themecolor:text1;
+  border-right:solid black 1.0pt;mso-border-right-themecolor:text1;mso-bord=
+er-top-alt:
+  solid black .5pt;mso-border-top-themecolor:text1;mso-border-left-alt:soli=
+d black .5pt;
+  mso-border-left-themecolor:text1;mso-border-alt:solid black .5pt;mso-bord=
+er-themecolor:
+  text1;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=3DMsoNormal><span style=3D'font-family:SimSun;mso-ascii-font-fam=
+ily:
+  Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:SimSun;
+  mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;
+  mso-hansi-theme-font:minor-latin'>&#22914;&#26524;&#32452;&#24577;&#36719=
+;&#20214;&#26412;&#36523;&#23601;&#26377;&#36825;&#20010;&#21151;&#33021;&#=
+65292;&#37027;&#23427;&#26412;&#36523;&#23601;&#21487;&#20197;&#25104;&#209=
+98;&#20026;&#19968;&#20010;</span><span
+  lang=3DEN-US>webserver</span></p>
+  <p class=3DMsoNormal><span style=3D'font-family:SimSun;mso-ascii-font-fam=
+ily:
+  Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:SimSun;
+  mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;
+  mso-hansi-theme-font:minor-latin'>&#36825;&#26679;&#26381;&#21153;&#22120=
+;&#31471;&#20960;&#20046;&#19981;&#38656;&#35201;&#20160;&#20040;&#32534;&#=
+30721;</span><span
+  lang=3DEN-US><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style=3D'mso-yfti-irow:2'>
+  <td width=3D463 valign=3Dtop style=3D'width:347.55pt;border:solid black 1=
+.0pt;
+  mso-border-themecolor:text1;border-top:none;mso-border-top-alt:solid blac=
+k .5pt;
+  mso-border-top-themecolor:text1;mso-border-alt:solid black .5pt;mso-borde=
+r-themecolor:
+  text1;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=3DMsoNormal><span style=3D'font-family:SimSun;mso-ascii-font-fam=
+ily:
+  Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:SimSun;
+  mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;
+  mso-hansi-theme-font:minor-latin'>&#32452;&#24577;&#36719;&#20214;&#26377=
+;&#25552;&#20379;</span><span
+  lang=3DEN-US>plugin</span><span style=3D'font-family:SimSun;mso-ascii-fon=
+t-family:
+  Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:SimSun;
+  mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;
+  mso-hansi-theme-font:minor-latin'>&#33719;&#21462;&#20449;&#24687;&#26041=
+;&#27861;</span></p>
+  </td>
+  <td width=3D500 valign=3Dtop style=3D'width:375.0pt;border-top:none;borde=
+r-left:
+  none;border-bottom:solid black 1.0pt;mso-border-bottom-themecolor:text1;
+  border-right:solid black 1.0pt;mso-border-right-themecolor:text1;mso-bord=
+er-top-alt:
+  solid black .5pt;mso-border-top-themecolor:text1;mso-border-left-alt:soli=
+d black .5pt;
+  mso-border-left-themecolor:text1;mso-border-alt:solid black .5pt;mso-bord=
+er-themecolor:
+  text1;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=3DMsoNormal><span style=3D'font-family:SimSun;mso-ascii-font-fam=
+ily:
+  Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:SimSun;
+  mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;
+  mso-hansi-theme-font:minor-latin'>&#19987;&#29992;&#65292;&#20272;&#35745=
+;&#19981;&#22810;&#21543;</span></p>
+  </td>
+ </tr>
+ <tr style=3D'mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=3D463 valign=3Dtop style=3D'width:347.55pt;border:solid black 1=
+.0pt;
+  mso-border-themecolor:text1;border-top:none;mso-border-top-alt:solid blac=
+k .5pt;
+  mso-border-top-themecolor:text1;mso-border-alt:solid black .5pt;mso-borde=
+r-themecolor:
+  text1;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=3DMsoNormal><span style=3D'font-family:SimSun;mso-ascii-font-fam=
+ily:
+  Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:SimSun;
+  mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;
+  mso-hansi-theme-font:minor-latin'>&#32452;&#24577;&#36719;&#20214;&#26080=
+;&#20219;&#20309;&#25509;&#21475;</span></p>
+  </td>
+  <td width=3D500 valign=3Dtop style=3D'width:375.0pt;border-top:none;borde=
+r-left:
+  none;border-bottom:solid black 1.0pt;mso-border-bottom-themecolor:text1;
+  border-right:solid black 1.0pt;mso-border-right-themecolor:text1;mso-bord=
+er-top-alt:
+  solid black .5pt;mso-border-top-themecolor:text1;mso-border-left-alt:soli=
+d black .5pt;
+  mso-border-left-themecolor:text1;mso-border-alt:solid black .5pt;mso-bord=
+er-themecolor:
+  text1;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=3DMsoNormal><span style=3D'font-family:SimSun;mso-ascii-font-fam=
+ily:
+  Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:SimSun;
+  mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;
+  mso-hansi-theme-font:minor-latin'>&#38590;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
+
+<p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
+
+<h3><a name=3D"_Toc373447957"><![if !supportLists]><span lang=3DEN-US
+style=3D'mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;
+mso-bidi-font-family:Calibri;mso-bidi-theme-font:minor-latin'><span
+style=3D'mso-list:Ignore'>2.1.4<span style=3D'font:7.0pt "Times New Roman"'=
 >&nbsp; </span></span></span><![endif]><span
 style=3D'font-family:SimSun;mso-ascii-font-family:Calibri;mso-ascii-theme-f=
 ont:
 minor-latin;mso-fareast-font-family:SimSun;mso-fareast-theme-font:minor-far=
 east;
 mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin'>&#36890;&#2=
-0449;&#26041;&#26696;</span></a>
-</h3>
+0449;&#26041;&#26696;</span></a><span
+style=3D'mso-bookmark:_Toc373447957'></span><span style=3D'mso-fareast-font=
+-family:
+"Times New Roman"'> <span lang=3DEN-US><o:p></o:p></span></span></h3>
 
 <p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
 
@@ -1700,11 +2152,10 @@ er-themecolor:
   <p class=3DMsoNormal><span lang=3DEN-US>http://pymotw.com/2/SimpleXMLRPCS=
 erver/</span></p>
   <p class=3DMsoNormal><span lang=3DEN-US>If you mean with &quot;Web Servic=
-e&quot;
-  something accessed by other Programms SimpleXMLRPCServer might be right f=
-or
-  you. It is included with every Python install since Version 2.2.</span></=
-p>
+e&quot; something
+  accessed by other Programms SimpleXMLRPCServer might be right for you. It=
+ is
+  included with every Python install since Version 2.2.</span></p>
   <p class=3DMsoNormal><span lang=3DEN-US>For Simple human accessible thing=
 s I
   usually use Pythons SimpleHTTPServer which also comes with every install.
@@ -2016,6 +2467,17 @@ ily:
 <span
   lang=3DEN-US>file:///F:/doc/20131128AndroidApp/webservice/json-xml-rpc/te=
 st.html</span></p>
+  <p class=3DMsoNormal></p>
+  </td>
+ </tr>
+ <tr style=3D'mso-yfti-irow:9'>
+  <td width=3D463 valign=3Dtop style=3D'width:347.55pt;border:solid black 1=
+.0pt;
+  mso-border-themecolor:text1;border-top:none;mso-border-top-alt:solid blac=
+k .5pt;
+  mso-border-top-themecolor:text1;mso-border-alt:solid black .5pt;mso-borde=
+r-themecolor:
+  text1;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'mso-no-proof:yes'><!--[i=
 f gte vml 1]><v:shapetype
    id=3D"_x0000_t75" coordsize=3D"21600,21600" o:spt=3D"75" o:preferrelativ=
@@ -2047,18 +2509,8 @@ ble;
    <v:imagedata src=3D"AndroidApp.files/image001.png" o:title=3D""/>
   </v:shape><![endif]--><![if !vml]><img width=3D1328 height=3D111
   src=3D"AndroidApp.files/image002.jpg" v:shapes=3D"_x56fe__x7247__x0020_1"=
-><![endif]></span></p>
-  </td>
- </tr>
- <tr style=3D'mso-yfti-irow:9'>
-  <td width=3D463 valign=3Dtop style=3D'width:347.55pt;border:solid black 1=
-.0pt;
-  mso-border-themecolor:text1;border-top:none;mso-border-top-alt:solid blac=
-k .5pt;
-  mso-border-top-themecolor:text1;mso-border-alt:solid black .5pt;mso-borde=
-r-themecolor:
-  text1;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal><span lang=3DEN-US>Ruby on Rails1.2</span></p>
+><![endif]></span><span
+  lang=3DEN-US>uby on Rails1.2</span></p>
   </td>
   <td width=3D71 valign=3Dtop style=3D'width:53.55pt;border-top:none;border=
 -left:
@@ -2179,7 +2631,7 @@ d black .5pt;
   mso-border-left-themecolor:text1;mso-border-alt:solid black .5pt;mso-bord=
 er-themecolor:
   text1;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal><span lang=3DEN-US>Xml rpc<o:p></o:p></span></p>
+  <p class=3DMsoNormal><span lang=3DEN-US>Xml rpc</span></p>
   </td>
   <td width=3D1344 valign=3Dtop style=3D'width:1008.3pt;border-top:none;bor=
 der-left:
@@ -2306,12 +2758,15 @@ icle/details/11556363</span></p>
 
 <p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
 
-<h3><a name=3D"_Toc373441613"><![if !supportLists]><span lang=3DEN-US
+<h3><a name=3D"_Toc373447958"><![if !supportLists]><span lang=3DEN-US
 style=3D'mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;
 mso-bidi-font-family:Calibri;mso-bidi-theme-font:minor-latin'><span
-style=3D'mso-list:Ignore'>2.1.3<span style=3D'font:7.0pt "Times New Roman"'=
+style=3D'mso-list:Ignore'>2.1.1<span style=3D'font:7.0pt "Times New Roman"'=
 >&nbsp; </span></span></span><![endif]><span
-lang=3DEN-US>UI</span></a></h3>
+lang=3DEN-US style=3D'mso-fareast-font-family:"Times New Roman"'>UI</span><=
+/a><span
+lang=3DEN-US style=3D'mso-fareast-font-family:"Times New Roman"'><o:p></o:p=
+></span></h3>
 
 <table class=3DMsoTableGrid border=3D1 cellspacing=3D0 cellpadding=3D0
  style=3D'border-collapse:collapse;border:none;mso-border-alt:solid black .=
@@ -2460,16 +2915,16 @@ er-themecolor:
 
 </html>
 
-------=_NextPart_01CEEC96.526C1E70
-Content-Location: file:///C:/64C31270/AndroidApp.files/item0008.xml
+------=_NextPart_01CEEC99.442E27B0
+Content-Location: file:///C:/64C31270/AndroidApp.files/item0009.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
 
 <b:Sources xmlns:b=3D"http://schemas.openxmlformats.org/officeDocument/2006=
 /bibliography" xmlns=3D"http://schemas.openxmlformats.org/officeDocument/20=
 06/bibliography" SelectedStyle=3D"\APA.XSL" StyleName=3D"APA"/>
-------=_NextPart_01CEEC96.526C1E70
-Content-Location: file:///C:/64C31270/AndroidApp.files/props0009.xml
+------=_NextPart_01CEEC99.442E27B0
+Content-Location: file:///C:/64C31270/AndroidApp.files/props0010.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
 
@@ -2478,7 +2933,7 @@ Content-Type: text/xml
 s:ds=3D"http://schemas.openxmlformats.org/officeDocument/2006/customXml"><d=
 s:schemaRefs><ds:schemaRef ds:uri=3D"http://schemas.openxmlformats.org/offi=
 ceDocument/2006/bibliography"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01CEEC96.526C1E70
+------=_NextPart_01CEEC99.442E27B0
 Content-Location: file:///C:/64C31270/AndroidApp.files/themedata.thmx
 Content-Transfer-Encoding: base64
 Content-Type: application/vnd.ms-officetheme
@@ -2495,51 +2950,51 @@ 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
-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
-AQAAnAoAAAAA
+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
+dGhlbWUvdGhlbWUvX3JlbHMvdGhlbWVNYW5hZ2VyLnhtbC5yZWxzhI9NCsIwFIT3gncIb2/TuhCR
+Jt2I0K3UA4TkNQ02PyRR7O0NriwILodhvplpu5edyRNjMt4xaKoaCDrplXGawW247I5AUhZOidk7
+ZLBggo5vN+0VZ5FLKE0mJFIoLjGYcg4nSpOc0IpU+YCuOKOPVuQio6ZByLvQSPd1faDxmwF8xSS9
+YhB71QAZllCa/7P9OBqJZy8fFl3+UUFz2YUFKKLGzOAjm6pMBMpburrE3wAAAP//AwBQSwECLQAU
+AAYACAAAACEAgoq8E/oAAAAcAgAAEwAAAAAAAAAAAAAAAAAAAAAAW0NvbnRlbnRfVHlwZXNdLnht
+bFBLAQItABQABgAIAAAAIQCl1qfnwAAAADYBAAALAAAAAAAAAAAAAAAAACsBAABfcmVscy8ucmVs
+c1BLAQItABQABgAIAAAAIQBreZYWgwAAAIoAAAAcAAAAAAAAAAAAAAAAABQCAAB0aGVtZS90aGVt
+ZS90aGVtZU1hbmFnZXIueG1sUEsBAi0AFAAGAAgAAAAhADu92/ypBgAAXRsAABYAAAAAAAAAAAAA
+AAAA0QIAAHRoZW1lL3RoZW1lL3RoZW1lMS54bWxQSwECLQAUAAYACAAAACEADdGQn7YAAAAbAQAA
+JwAAAAAAAAAAAAAAAACuCQAAdGhlbWUvdGhlbWUvX3JlbHMvdGhlbWVNYW5hZ2VyLnhtbC5yZWxz
+UEsFBgAAAAAFAAUAXQEAAKkKAAAAAA==
 
-------=_NextPart_01CEEC96.526C1E70
+------=_NextPart_01CEEC99.442E27B0
 Content-Location: file:///C:/64C31270/AndroidApp.files/colorschememapping.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -2549,7 +3004,7 @@ Content-Type: text/xml
  bg1=3D"lt1" tx1=3D"dk1" bg2=3D"lt2" tx2=3D"dk2" accent1=3D"accent1" accent=
 2=3D"accent2" accent3=3D"accent3" accent4=3D"accent4" accent5=3D"accent5" a=
 ccent6=3D"accent6" hlink=3D"hlink" folHlink=3D"folHlink"/>
-------=_NextPart_01CEEC96.526C1E70
+------=_NextPart_01CEEC99.442E27B0
 Content-Location: file:///C:/64C31270/AndroidApp.files/image002.jpg
 Content-Transfer-Encoding: base64
 Content-Type: image/jpeg
@@ -2976,7 +3431,82 @@ YOZDaKd5U391P++v/rUeVN/dT/vr/wCtRYOZDaKd5U391P8Avr/61HlTf3U/76/+tRYOZDaKd5U3
 91P++v8A61HlTf3U/wC+v/rUWDmQ2ineVN/dT/vr/wCtR5U391P++v8A61Fg5kNop3lTf3U/76/+
 tR5U391P++v/AK1Fg5kNop3lTf3U/wC+v/rUeVN/dT/vr/61Fg5kf//Z
 
-------=_NextPart_01CEEC96.526C1E70
+------=_NextPart_01CEEC99.442E27B0
+Content-Location: file:///C:/64C31270/AndroidApp.files/header.htm
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="us-ascii"
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml"
+xmlns:o=3D"urn:schemas-microsoft-com:office:office"
+xmlns:w=3D"urn:schemas-microsoft-com:office:word"
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml"
+xmlns=3D"http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=3DContent-Type content=3D"text/html; charset=3Dus-ascii">
+<meta name=3DProgId content=3DWord.Document>
+<meta name=3DGenerator content=3D"Microsoft Word 12">
+<meta name=3DOriginator content=3D"Microsoft Word 12">
+<link id=3DMain-File rel=3DMain-File href=3D"../AndroidApp.htm">
+<![if IE]>
+<base href=3D"file:///C:\64C31270\AndroidApp.files\header.htm"
+id=3D"webarch_temp_base_tag">
+<![endif]><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext=3D"edit" spidmax=3D"4098"/>
+</xml><![endif]-->
+</head>
+
+<body lang=3DZH-CN link=3Dblue vlink=3Dpurple>
+
+<div style=3D'mso-element:footnote-separator' id=3Dfs>
+
+<p class=3DMsoNormal><span lang=3DEN-US><span style=3D'mso-special-characte=
+r:footnote-separator'><![if !supportFootnotes]>
+
+<hr align=3Dleft size=3D1 width=3D"33%">
+
+<![endif]></span></span></p>
+
+</div>
+
+<div style=3D'mso-element:footnote-continuation-separator' id=3Dfcs>
+
+<p class=3DMsoNormal><span lang=3DEN-US><span style=3D'mso-special-characte=
+r:footnote-continuation-separator'><![if !supportFootnotes]>
+
+<hr align=3Dleft size=3D1>
+
+<![endif]></span></span></p>
+
+</div>
+
+<div style=3D'mso-element:endnote-separator' id=3Des>
+
+<p class=3DMsoNormal><span lang=3DEN-US><span style=3D'mso-special-characte=
+r:footnote-separator'><![if !supportFootnotes]>
+
+<hr align=3Dleft size=3D1 width=3D"33%">
+
+<![endif]></span></span></p>
+
+</div>
+
+<div style=3D'mso-element:endnote-continuation-separator' id=3Decs>
+
+<p class=3DMsoNormal><span lang=3DEN-US><span style=3D'mso-special-characte=
+r:footnote-continuation-separator'><![if !supportFootnotes]>
+
+<hr align=3Dleft size=3D1>
+
+<![endif]></span></span></p>
+
+</div>
+
+</body>
+
+</html>
+
+------=_NextPart_01CEEC99.442E27B0
 Content-Location: file:///C:/64C31270/AndroidApp.files/image001.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -3292,19 +3822,20 @@ gAAIDGoCiDsM6uaH8SAAAiAAAiAAAiAAAiAAAiAAAiDQowTSjh492qMVQDgIgAAIgAAIgAAIgAAI
 gAAIgAAIgMCgJZDW3d09aI2H4SAAAiAAAiAAAiAAAiAAAiAAAiAAAj1KAM9Z9CheCAcBEAABEAAB
 EAABEAABEAABEACBQU3g/wP1wb+HRP/wKwAAAABJRU5ErkJggk==
 
-------=_NextPart_01CEEC96.526C1E70
+------=_NextPart_01CEEC99.442E27B0
 Content-Location: file:///C:/64C31270/AndroidApp.files/filelist.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml; charset="utf-8"
 
 <xml xmlns:o=3D"urn:schemas-microsoft-com:office:office">
  <o:MainFile HRef=3D"../AndroidApp.htm"/>
- <o:File HRef=3D"item0008.xml"/>
- <o:File HRef=3D"props0009.xml"/>
+ <o:File HRef=3D"item0009.xml"/>
+ <o:File HRef=3D"props0010.xml"/>
  <o:File HRef=3D"themedata.thmx"/>
  <o:File HRef=3D"colorschememapping.xml"/>
  <o:File HRef=3D"image001.png"/>
  <o:File HRef=3D"image002.jpg"/>
+ <o:File HRef=3D"header.htm"/>
  <o:File HRef=3D"filelist.xml"/>
 </xml>
-------=_NextPart_01CEEC96.526C1E70--
+------=_NextPart_01CEEC99.442E27B0--
