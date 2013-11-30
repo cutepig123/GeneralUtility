@@ -1,0 +1,41 @@
+<Panel name       = "Editable"
+       layout     = "XAXIS">
+
+  <Panel name           = "Text Boxes"
+         layout         = "CEN_YAXIS"
+         anchorPoint    = "CORNERRU"
+         drawBounds     = "true"
+         drawBackground = "true">
+ 
+    <BordersColor x = "216" y = "169" z =  "0" />
+    <BGColor      x =  "50" y =  "50" z = "50" />
+  
+    <Label name = "Title">
+      <Text string = "TextBoxes" fontIndex ="1">
+       <Color r = "255" g = "180" b = "40" />
+      </Text>
+    </Label>   
+
+    <Separator ratio = "1.0"  />
+
+      <TextBox callbackString = "box1">
+        <Dimensions x = "100" />
+        <Color      x = "255" y =  "0" z = "0" />
+        <Text   string  = "Edit me" />
+      </TextBox>
+      
+      <TextBox callbackString = "box2">
+        <Color      x = "0" y =  "255" z = "0" />
+        <Dimensions x = "150" />
+        <Text   string  = "Edit me too" />
+      </TextBox>
+  
+      <TextBox callbackString = "box3">
+        <Dimensions x = "200" />
+        <Color      x = "0" y =  "0" z = "255" />
+        <Text   string  = "Please edit me too" />
+      </TextBox>
+      
+  </Panel>
+
+</Panel>

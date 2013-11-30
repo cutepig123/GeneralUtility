@@ -1,0 +1,10 @@
+  <Texture  type        = "TEXTURE_2D"
+            path        = "TexturedButtons.PNG" 
+            mipmap      = "true">
+
+    <Wrap   s           = "REPEAT"
+            t           = "REPEAT" />
+
+    <Filter mag         = "LINEAR" 
+            min         = "LINEAR_MIPMAP_LINEAR" />
+  </Texture>

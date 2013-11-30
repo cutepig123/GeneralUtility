@@ -1,0 +1,50 @@
+<Panel name       = "Others..."
+       layout     = "XAXIS">
+
+    <Panel name           = "ComboP"
+           layout         = "CEN_YAXIS"
+           anchorPoint    = "CORNERRU"
+           drawBounds     = "true"
+           drawBackground = "true">
+
+     <BordersColor x = "216" y = "169" z =  "0" />
+     <BGColor    x =  "50" y =  "50" z = "50" />
+
+     <Label name = "Title">
+      <Text string = "ComboBox" fontIndex ="1" >
+         <Color r = "255" g = "180" b = "40" />
+      </Text>
+     </Label>
+
+     <Separator ratio = "1.0"  />
+
+     <ComboBox callbackString = "cb1">
+
+       <ScrollingColor r = "215" y = "170" z =  "0" />
+       <BordersColor   x = "215" y = "169" z =  "0" />
+       <BGColor        x =  "50" y =  "50" z = "50" />
+
+       <Item string = "My First Item" />
+       <Item string = "My Second Item" />
+       <Item string = "My Third Item" />
+       <Item string = "Select this item to exit" />
+    </ComboBox>
+    
+    <Separator ratio = "1.0"  />
+
+    <ComboBox callbackString = "cb2">
+
+       <ScrollingColor r = "215" y = "170" z =  "0" />
+       <BordersColor   x = "215" y = "169" z =  "0" />
+       <BGColor        x =  "50" y =  "50" z = "50" />
+
+       <Item string = "one" />
+       <Item string = "two" />
+       <Item string = "three" />
+       <Item string = "four" />
+    </ComboBox>
+  
+  </Panel>
+
+</Panel>
+

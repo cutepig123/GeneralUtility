@@ -1,0 +1,68 @@
+<Panel name       = "Checkable"
+       layout     = "XAXIS">
+
+  <Panel name           = "RButtons"
+         layout         = "CEN_YAXIS"
+         anchorPoint    = "CORNERRU"
+         drawBounds     = "true"
+         drawBackground = "true">
+  
+    <BGColor    x =  "50" y =  "50" z = "50" />
+    <BordersColor x = "216" y = "169" z =  "0" />
+  
+    <Label name = "Title">
+      <Text string = "Radio Buttons" fontIndex ="1">
+       <Color r = "255" g = "180" b = "40" />
+      </Text>
+    </Label>     
+    <Separator ratio = "1.0"  />
+    
+      <RadioButton callbackString = "rb1"
+                   alphaFadeScale = "1.5"
+                   checked        = "true">
+        <Text   string  = "Radio Button 1" />
+      </RadioButton>
+      
+      <RadioButton callbackString = "rb2"
+                   alphaFadeScale = "1.5">
+        <Text   string  = "Radio Button 2" />
+      </RadioButton>
+  
+      <RadioButton callbackString = "rb3"
+                   alphaFadeScale = "1.5">
+        <Text   string  = "Radio Button 3" />
+      </RadioButton>
+      
+  </Panel>
+
+  <Panel name           = "CBoxes"
+         layout         = "CEN_YAXIS"
+         anchorPoint    = "CORNERRU"
+         drawBounds     = "true"
+         drawBackground = "true">
+
+    <BordersColor x = "216" y = "169" z =  "0" />
+    <BGColor      x =  "50" y =  "50" z = "50" />
+  
+    <Label name = "Title">
+      <Text string = "Check Boxes" fontIndex ="1">
+       <Color r = "255" g = "180" b = "40" />
+      </Text>
+    </Label>     
+    <Separator ratio = "1.0"  />
+    
+    <CheckBox callbackString = "cb1"
+          checked    = "true">
+      <Text   string  = "Check Box 1" />
+    </CheckBox>
+
+    <CheckBox callbackString = "cb2">
+      <Text   string  = "Check Box 2" />
+    </CheckBox>
+  
+    <CheckBox callbackString = "cb3">
+      <Text   string  = "Check Box 3" />
+    </CheckBox>
+  </Panel>
+
+</Panel>

@@ -1,0 +1,36 @@
+<Panel name           = "Color Sliders Group"
+       layout         = "CEN_YAXIS"
+       anchorPoint    = "CORNERRU"
+       drawBounds     = "true"
+       drawBackground = "true">
+
+  <BordersColor x = "216" y = "169" z =  "0" />
+  <BGColor      x =  "50" y =  "50" z = "50" />
+  <Position     x = "-10" y = "10"/>
+
+
+  <Label name = "Title">
+    <Text string = "Color Sliders" fontIndex ="1">
+      <Color r = "255" g = "180" b = "40" />
+    </Text>
+  </Label>
+
+  <Separator ratio = "1.0"  />
+ 
+  <Slider    callbackString = "red"
+             progress       = "0.0">
+    <Text    string  = "Red" />
+  </Slider>
+  
+  <Slider    callbackString = "green"
+             progress       =  "0.0">
+    <Text    string  = "Green" />
+  </Slider>
+  
+  <Slider    callbackString = "blue"
+             progress       = "0.0">
+
+    <Text    string  = "Blue" />
+  </Slider>  
+
+</Panel>

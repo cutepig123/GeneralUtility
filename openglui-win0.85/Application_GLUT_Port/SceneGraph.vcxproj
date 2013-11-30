@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E083D0E3-4B69-469B-B81A-43B34DC994D8}</ProjectGuid>
+    <RootNamespace>SceneGraph</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.21005.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>Debug\</OutDir>
+    <IntDir>Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>..\glut-3.7.6-bin;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>..\glut-3.7.6-bin;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>Release\</OutDir>
+    <IntDir>Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;tinyxml.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)SceneGraph.exe</OutputFile>
+      <AdditionalLibraryDirectories>../lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)SceneGraph.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;glpng.lib;tinyxml.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(ProjectName).exe</OutputFile>
+      <AdditionalLibraryDirectories>..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Gui\GUIAlphaElement.cpp" />
+    <ClCompile Include="..\Gui\GUIButton.cpp" />
+    <ClCompile Include="..\Gui\GUICheckBox.cpp" />
+    <ClCompile Include="..\Gui\GUIClippedRectangle.cpp" />
+    <ClCompile Include="..\Gui\GUIComboBox.cpp" />
+    <ClCompile Include="..\Gui\GUIFont.cpp" />
+    <ClCompile Include="..\Gui\GUIFontManager.cpp" />
+    <ClCompile Include="..\Gui\GUIFrame.cpp" />
+    <ClCompile Include="..\Gui\GUILabel.cpp" />
+    <ClCompile Include="..\Gui\GUIPanel.cpp" />
+    <ClCompile Include="..\Gui\GUIRadioButton.cpp" />
+    <ClCompile Include="..\Gui\GUIRectangle.cpp" />
+    <ClCompile Include="..\Gui\GUISeparator.cpp" />
+    <ClCompile Include="..\Gui\GUISlider.cpp" />
+    <ClCompile Include="..\Gui\GUITabbedPanel.cpp" />
+    <ClCompile Include="..\Gui\GUITexCoordDescriptor.cpp" />
+    <ClCompile Include="..\Gui\GUIText.cpp" />
+    <ClCompile Include="..\Gui\GUITextBox.cpp" />
+    <ClCompile Include="..\libglpng-1.45.orig\src\glpng.c" />
+    <ClCompile Include="..\Tools\Benchmark.cpp" />
+    <ClCompile Include="..\Tools\Font.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\Tools\FPSCounter.cpp" />
+    <ClCompile Include="..\Tools\GLee.cpp" />
+    <ClCompile Include="..\Tools\Image.cpp" />
+    <ClCompile Include="..\Tools\IOXMLObject.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\Tools\Logger.cpp" />
+    <ClCompile Include="..\Tools\MediaPathManager.cpp" />
+    <ClCompile Include="..\Tools\NamedObject.cpp" />
+    <ClCompile Include="..\Tools\Perlin.cpp" />
+    <ClCompile Include="..\Tools\String.cpp" />
+    <ClCompile Include="..\Tools\TextureUtils.cpp" />
+    <ClCompile Include="..\Tools\Timer.cpp" />
+    <ClCompile Include="..\Tools\XMLArbiter.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="..\Events\GUIEvent.cpp" />
+    <ClCompile Include="..\Events\KeyEvent.cpp" />
+    <ClCompile Include="..\Events\MouseEvent.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Headers.h" />
+    <ClInclude Include="..\Math\MathUtils.h" />
+    <ClInclude Include="..\Math\Tuple2.h" />
+    <ClInclude Include="..\Math\Tuple3.h" />
+    <ClInclude Include="..\Math\Tuple4.h" />
+    <ClInclude Include="..\Gui\GUIAlphaElement.h" />
+    <ClInclude Include="..\Gui\GUIButton.h" />
+    <ClInclude Include="..\Gui\GUICheckBox.h" />
+    <ClInclude Include="..\Gui\GUIClippedRectangle.h" />
+    <ClInclude Include="..\Gui\GUIComboBox.h" />
+    <ClInclude Include="..\Gui\GUIFont.h" />
+    <ClInclude Include="..\Gui\GUIFontManager.h" />
+    <ClInclude Include="..\Gui\GUIFrame.h" />
+    <ClInclude Include="..\Gui\GUILabel.h" />
+    <ClInclude Include="..\Gui\GUIPanel.h" />
+    <ClInclude Include="..\Gui\GUIRadioButton.h" />
+    <ClInclude Include="..\Gui\GUIRectangle.h" />
+    <ClInclude Include="..\Gui\GUISeparator.h" />
+    <ClInclude Include="..\Gui\GUISlider.h" />
+    <ClInclude Include="..\Gui\GUITabbedPanel.h" />
+    <ClInclude Include="..\Gui\GUITexCoordDescriptor.h" />
+    <ClInclude Include="..\Gui\GUIText.h" />
+    <ClInclude Include="..\Gui\GUITextBox.h" />
+    <ClInclude Include="..\Gui\GUIUtils.h" />
+    <ClInclude Include="..\Tools\Benchmark.h" />
+    <ClInclude Include="..\Tools\DistanceObject.h" />
+    <ClInclude Include="..\Tools\Font.h" />
+    <ClInclude Include="..\Tools\FPSCounter.h" />
+    <ClInclude Include="..\Tools\GenUtilsList.h" />
+    <ClInclude Include="..\Tools\GLee.h" />
+    <ClInclude Include="..\Tools\Image.h" />
+    <ClInclude Include="..\Tools\IOXMLObject.h" />
+    <ClInclude Include="..\Tools\Logger.h" />
+    <ClInclude Include="..\Tools\MediaInfo.h" />
+    <ClInclude Include="..\Tools\MediaPathManager.h" />
+    <ClInclude Include="..\Tools\Mutex.h" />
+    <ClInclude Include="..\Tools\NamedObject.h" />
+    <ClInclude Include="..\Tools\Perlin.h" />
+    <ClInclude Include="..\Tools\String.h" />
+    <ClInclude Include="..\Tools\TextureUtils.h" />
+    <ClInclude Include="..\Tools\Timer.h" />
+    <ClInclude Include="..\Tools\tinyxml.h" />
+    <ClInclude Include="..\Tools\XMLArbiter.h" />
+    <ClInclude Include="..\Events\GUIEvent.h" />
+    <ClInclude Include="..\Events\GUIEventListener.h" />
+    <ClInclude Include="..\Events\KeyEvent.h" />
+    <ClInclude Include="..\Events\MouseEvent.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

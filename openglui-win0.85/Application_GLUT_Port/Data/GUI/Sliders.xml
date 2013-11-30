@@ -1,0 +1,76 @@
+<Panel name       = "Sliders"
+       layout     = "XAXIS">
+
+  <Panel name           = "vSliders"
+         layout         = "CEN_YAXIS"
+         anchorPoint    = "CORNERRU"
+         drawBounds     = "true"
+         drawBackground = "true">
+
+    <BordersColor x = "216" y = "169" z =  "0" />
+    <BGColor    x =  "50" y =  "50" z = "50" />
+  
+    <Label name = "Title">
+      <Text string = "Vertical" fontIndex ="1">
+        <Color r = "255" g = "180" b = "40" />
+      </Text>
+    </Label>
+
+    <Separator ratio = "1.0"  />
+    
+    <Panel name           = "Sliders"
+           layout         = "XAXIS">
+  
+      <Interval y = "0"/>
+
+      <Slider callbackString = "vs1"
+              orientation  = "VERTICAL"
+              progress     =  "0.75">
+      </Slider>
+
+      <Slider callbackString = "vs2"
+              orientation  = "VERTICAL"
+          progress     =  "0.25">
+      </Slider>
+
+      <Slider callbackString = "vs3"
+              orientation  = "VERTICAL"
+        progress     =  "0.75">
+      </Slider>
+  
+      <Slider callbackString = "vs4"
+              orientation  = "VERTICAL"
+              progress     =  "0.25">
+      </Slider>
+    </Panel>
+
+  </Panel>
+
+    <Panel name           = "Sliders"
+           layout         = "CEN_YAXIS"
+           anchorPoint    = "CORNERRU"
+           drawBounds     = "true"
+           drawBackground = "true">
+
+     <BordersColor x = "216" y = "169" z =  "0" />
+     <BGColor    x =  "50" y =  "50" z = "50" />
+
+     <Label name = "Title">
+      <Text string = "Horizontal" fontIndex ="1">
+         <Color r = "255" g = "180" b = "40" />
+      </Text>
+     </Label>
+
+     <Separator ratio = "1.0"  />
+
+     <Slider callbackString = "s1"
+             progress       =  "0.5">
+      <Text    string  = "Slider 1: 5" />
+     </Slider>
+  
+     <Slider callbackString = "s2"
+             progress     =  "0.5">
+      <Text    string  = "Slider 2: 5" />
+     </Slider>
+    </Panel>
+</Panel>

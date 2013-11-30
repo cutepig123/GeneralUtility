@@ -1,0 +1,84 @@
+<Panel name       = "Buttons"
+       layout     = "XAXIS">
+
+    <Panel name           = "Buttons"
+           layout         = "CEN_YAXIS"
+           anchorPoint    = "CORNERRU"
+           drawBounds     = "true"
+           drawBackground = "true">
+ 
+    <BordersColor x = "216" y = "169" z =  "0" />
+    <BGColor    x =  "50" y =  "50" z = "50" />
+
+    <Label name = "Title">
+      <Text string = "Regular" fontIndex ="1">
+       <Color r = "255" g = "180" b = "40" />
+      </Text>
+    </Label> 
+
+    <Separator ratio = "1.0"  />
+    
+    <Button callbackString = "b1">
+      <Color    x =  "255" y =  "0" z = "0" />
+      <Text    string  = "Red Button" />
+    </Button>
+    
+    <Button callbackString = "b2">
+      <Color    z =  "255" x =  "0" y = "0" />
+      <Text    string  = "Blue Button" />
+    </Button>
+  
+    <Button callbackString = "b3">
+      <Color   y =  "255" x =  "0" z = "0" />
+      <Text    string  = "Green Button" />
+    </Button>
+  </Panel>
+  
+  <Panel name           = "TButtons"
+         layout         = "CEN_YAXIS"
+         anchorPoint    = "CORNERRU"
+         drawBounds     = "true"
+         drawBackground = "true">
+  
+    <BordersColor x = "216" y = "169" z =  "0" />
+    <BGColor  x =  "50" y =  "50" z = "50" />
+  
+    <Label name = "Title">
+      <Text  string = "Textured" fontIndex ="1">
+      <Color r = "255" g = "180" b = "40" />
+      </Text>
+    </Label>
+  
+    <Separator ratio = "1.0"  />
+  
+    <Panel name           = "Buttons"
+           layout         = "XAXIS">
+  
+      <Button callbackString = "mario"
+              minAlpha       = "1.0">
+    
+        <BordersColor x = "216" y = "169" z =  "0" />
+        <Color        r = "1.0" g = "1.0" b = "1.0" />
+  
+        <TextureRectangle x    = "4" y = "64" z = "67" w = "0" />
+        <Texture          description = "ButtonsCover.xml"/>
+  
+        <Dimensions x = "64" y = "64" />
+      </Button>
+  
+  
+      <Button callbackString = "nvidia"
+              minAlpha       = "1.0">
+    
+        <BordersColor x = "216" y = "169" z =  "0" />
+        <Color        r = "1.0" g = "1.0" b = "1.0" />
+  
+        <TextureRectangle x    = "71" y = "57" z = "159" w = "0" />
+        <Texture          description = "ButtonsCover.xml"/>
+        
+        <Dimensions x = "64" y = "64" />
+      </Button>
+  
+    </Panel>
+  </Panel>
+</Panel>

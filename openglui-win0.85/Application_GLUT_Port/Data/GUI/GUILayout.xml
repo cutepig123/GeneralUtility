@@ -1,0 +1,85 @@
+<Panel visible     = "true"
+       name        = "Main Frame">
+
+  <Texture  type        = "TEXTURE_2D"
+            path        = "GUIElements.PNG" 
+            mode        = "MODULATE"
+            mipmap      = "true">
+
+    <Wrap   s           = "REPEAT"
+            t           = "REPEAT" />
+
+    <Filter mag         = "LINEAR" 
+            min         = "LINEAR_MIPMAP_LINEAR" />
+  </Texture>
+  
+  <Font path = "ArialSmall.tga" />
+  <Panel description = "ColorSliders.xml" />
+
+  <Panel name           = "Parent"
+         layout         = "CEN_YAXIS"
+         drawBounds     = "true"
+         drawBackground = "true">
+
+    <BordersColor     x    = "216" y = "169" z =   "0" />
+    <BGColor          x    = "255" y = "255" z = "1.0" w = "1.0"/>
+    <Texture          type = "TEXTURE_2D" path = "opengl.jpg" />
+    <TextureRectangle x    = "0.0" y = "0.0" z = "1.0" w = "1.0" />
+
+    <TabbedPanel callbackString = "tabs">   
+       <TabButtonsBordersColor  x = "50" g = "50" b = "50" />
+       <TabButtonsColor         x = "255" g = "180" b = "40" />
+       <BordersColor            x = "216" y = "169" z =  "0" />
+       <BGColor                 x =  "50" y =  "50" z = "50" />
+ 
+       <Panel description = "Sliders.xml"   />
+       <Panel description = "Buttons.xml"   />
+       <Panel description = "Editable.xml"  />
+       <Panel description = "Checkable.xml" />
+       <Panel description = "Others.xml"    />
+    </TabbedPanel>
+
+  </Panel>
+
+  <Panel name        = "EParent"
+         anchorPoint = "CORNERRD">
+ 
+     <BordersColor x = "216" y = "169" z =  "0" />
+     <BGColor      x =  "50" y =  "50" z = "50" />
+     <Position     x = "-10" y = "-10"/>
+     
+    <Button callbackString = "exit">
+      <EdgeOffsets x = "0.0" y = "0.0" />
+      <Text    string  = "EXIT" />
+    </Button>
+
+  </Panel>
+  
+  <Panel name           = "DStats"
+         layout         = "YAXIS"
+         drawBounds     = "true"
+         anchorPoint    = "CORNERLU"
+         drawBackground = "true"> 
+
+    <BGColor      x =  "50" y =  "50" z = "50" />
+    <BordersColor x = "216" y = "169" z =  "0" />
+
+    <Position    x = "10" y = "10"/>
+    <Interval    y = "2" />
+
+    <Label name = "Title">    
+      <Text string = "FPS Monitor" fontIndex ="1">
+         <Color r = "255" g = "180" b = "40" />
+       </Text>
+    </Label>
+    <Separator ratio = "1.0" />
+    <Label name = "fpsCounter"><Text string = "Current FPS:" /></Label>
+    
+  </Panel>
+     
+  <TexCoordsDesc xStart = "201" yStart = "2" xEnd = "233" yEnd = "34" type = "SLIDER"/>
+  <TexCoordsDesc xStart = "167" yStart = "2" xEnd = "199" yEnd = "34" type = "CHECK_BOX"/>
+  <TexCoordsDesc xStart = "131" yStart = "1" xEnd = "165" yEnd = "35" type = "CHECK_BOX_MARK"/>
+  <TexCoordsDesc xStart =   "1" yStart = "1" xEnd =  "65" yEnd = "66" type = "RADIO_BUTTON"/>
+  <TexCoordsDesc xStart =  "66" yStart = "2" xEnd = "130" yEnd = "66" type = "CHECK_RB_MARK"/>
+</Panel>
