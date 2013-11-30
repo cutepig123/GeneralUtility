@@ -14,6 +14,8 @@
 	<input id="btnMouseOver" type="button" value="MouseOver" /><br />
 	<input id="btnFadeToggle" type="button" value="FadeToggle" /><br />
 	<input id="btnAnimate" type="button" value="Animate(seems no work)" /><br />
+	<input id="btnGetHtml" type="button" value="GetHtml" /><br />
+	<input id="btnGetAttr" type="button" value="GetAttr" /><br />
 	<input id="btnChange" type="button" value="ÐÞ¸ÄÄÚÈÝÎª Hello World, too!" />
     <script type="text/javascript" >
         $("#btnShow").bind("click", function(event) { $("#divMsg").show(); });
@@ -24,7 +26,9 @@
         $("#btnChange").bind("click", function(event) { $("#divMsg").html("Hello World, too!"); });      
 		$("#btnFadeToggle").click(function() { $("#divMsg").fadeToggle("slow"); });      
 		$("#btnAnimate").click(function() { $("#divMsg").animate({left:'250px'}); });      
-		$(document).ready(function(){$("#divMsg").html("document is ready");});
+		$("#btnGetHtml").click(function() { alert($("#divMsg").html()) });      
+		$("#btnGetAttr").click(function() { $("#divMsg").attr("href","http://www.w3school.com.cn/jquery")});      
+		$(document).ready(function(){$("#divMsg").html("document is <b>ready</b>");});
     </script>
 </body>
 </html>
