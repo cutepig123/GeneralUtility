@@ -9,7 +9,7 @@
 class CStandardPageWnd : public CWindowWnd, public INotifyUI
 {
 public:
-   UINT GetClassStyle() const;
+  // UINT GetClassStyle() const;
    void OnFinalMessage(HWND hWnd);
    LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
 

@@ -11,10 +11,10 @@
 ////////////////////////////////////////////////////////////////////////
 //
 
-UINT CStandardPageWnd::GetClassStyle() const 
-{ 
-   return UI_CLASSSTYLE_CHILD; 
-}
+//UINT CStandardPageWnd::GetClassStyle() const 
+//{ 
+//   return UI_CLASSSTYLE_CHILD; 
+//}
 
 void CStandardPageWnd::OnFinalMessage(HWND /*hWnd*/) 
 { 

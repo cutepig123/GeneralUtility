@@ -12,8 +12,8 @@ class CFrameWindowWnd : public CWindowWnd, public INotifyUI
 public:
    CFrameWindowWnd() : m_hWndClient(NULL) { };
    LPCTSTR GetWindowClassName() const { return _T("UIMainFrame"); };
-   UINT GetClassStyle() const { return UI_CLASSSTYLE_FRAME; };
-   void OnFinalMessage(HWND /*hWnd*/) { delete this; };
+//   UINT GetClassStyle() const { return UI_CLASSSTYLE_FRAME; };
+ //  void OnFinalMessage(HWND /*hWnd*/) { delete this; };
 
    void Notify(TNotifyUI& msg)
    {
@@ -30,24 +30,24 @@ public:
       if( uMsg == WM_DESTROY ) {
          ::PostQuitMessage(0L);
       }
-      if( uMsg == WM_SETFOCUS ) {
-         ::SetFocus(m_hWndClient);
-      }
-      if( uMsg == WM_SIZE ) {
+     // if( uMsg == WM_SETFOCUS ) {		// this msg WM_SETFOCUS Can be removed
+     //    ::SetFocus(m_hWndClient);
+     // }
+      if( uMsg == WM_SIZE ) {	// Cannot remove
          RECT rcClient;
          ::GetClientRect(m_hWnd, &rcClient);
          ::MoveWindow(m_hWndClient, rcClient.left, rcClient.top, rcClient.right - rcClient.left, rcClient.bottom - rcClient.top, TRUE);
          return 0;
       }
-      if( uMsg == WM_ERASEBKGND ) {
+   /*   if( uMsg == WM_ERASEBKGND ) {	// Can be removed
          return 1;
-      }
-      if( uMsg == WM_PAINT ) {
-         PAINTSTRUCT ps = { 0 };
-         ::BeginPaint(m_hWnd, &ps);
-         ::EndPaint(m_hWnd, &ps);
-         return 0;
-      }
+      }*/
+      //if( uMsg == WM_PAINT ) {		// Can be removed
+      //   PAINTSTRUCT ps = { 0 };
+      //   ::BeginPaint(m_hWnd, &ps);
+      //   ::EndPaint(m_hWnd, &ps);
+      //   return 0;
+      //}
       return CWindowWnd::HandleMessage(uMsg, wParam, lParam);
    }
 
