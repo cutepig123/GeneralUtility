@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0041)http://www.viksoe.dk/code/windowless1.htm -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><meta name="Author" content="Bjarke Viksoe"><meta name="Copyright" content="Copyright © 2001 viksoe.dk, All Rights Reserved."><meta name="Keywords" content="viksoe.dk, source code, windows, ui: become windowless, cpp"><title>viksoe.dk - UI: Become windowless</title><link rel="stylesheet" type="text/css" href="./viksoe.dk - UI  Become windowless_files/style.css"><style type="text/css"></style></head><body><p align="center"></p><table border="0" cellpadding="0" cellspacing="0" width="100%" style="display:block; max-width: 70em; margin: auto;"> <tbody><tr> <td background="./viksoe.dk - UI  Become windowless_files/ulc.gif" height="36" width="180">&nbsp;</td> <td background="./viksoe.dk - UI  Become windowless_files/ul.gif" height="36">&nbsp;</td> <td background="./viksoe.dk - UI  Become windowless_files/urc.gif" height="36" width="36">&nbsp;</td></tr> <tr> <td background="./viksoe.dk - UI  Become windowless_files/l.gif" valign="top" width="180"><nav> <a href="http://www.viksoe.dk/code/index.htm"><img alt="Home" title="Home" border="0" height="36" hspace="0" src="./viksoe.dk - UI  Become windowless_files/i_home.gif" width="180"></a><br> <a href="http://www.viksoe.dk/code/all_news.htm"><img alt="Recent changes" title="Recent changes" border="0" height="36" hspace="0" src="./viksoe.dk - UI  Become windowless_files/i_news.gif" width="180"></a><br> <img border="0" height="36" hspace="0" src="./viksoe.dk - UI  Become windowless_files/l.gif" width="180" alt=""><br> <a href="http://www.viksoe.dk/code/all_atl.htm"><img alt="ATL code" title="ATL code" border="0" height="36" hspace="0" src="./viksoe.dk - UI  Become windowless_files/i_atl.gif" width="180"></a><br> <a href="http://www.viksoe.dk/code/all_wtl.htm"><img alt="WTL code" title="WTL code" border="0" height="36" hspace="0" src="./viksoe.dk - UI  Become windowless_files/i_wtl.gif" width="180"></a><br> <a href="http://www.viksoe.dk/code/all_mfc.htm"><img alt="MFC code" title="MFC code" border="0" height="36" hspace="0" src="./viksoe.dk - UI  Become windowless_files/i_mfc.gif" width="180"></a><br> <a href="http://www.viksoe.dk/code/all_cpp.htm"><img alt="C++ code" title="C++ code" border="0" height="36" hspace="0" src="./viksoe.dk - UI  Become windowless_files/i_cpp.gif" width="180"></a><br> <a href="http://www.viksoe.dk/code/all_net.htm"><img alt=".Net code" title=".Net code" border="0" height="36" hspace="0" src="./viksoe.dk - UI  Become windowless_files/i_net.gif" width="180"></a><br> <a href="http://www.viksoe.dk/code/all_wince.htm"><img alt="PocketPC code" title="PocketPC code" border="0" height="36" hspace="0" src="./viksoe.dk - UI  Become windowless_files/i_wince.gif" width="180"></a><br> <a href="http://www.viksoe.dk/code/all_misc.htm"><img alt="Miscellaneous" title="Miscellaneous" border="0" height="36" hspace="0" src="./viksoe.dk - UI  Become windowless_files/i_misc.gif" width="180"></a><br> </nav></td> <td valign="top" align="left"> <p align="center"><img width="225" height="45" src="./viksoe.dk - UI  Become windowless_files/logo.gif" alt="viksoe.dk"></p><a name="top"></a><article><header><h1>UI: Become windowless</h1></header>
+<p><img src="./viksoe.dk - UI  Become windowless_files/windowless1.gif" alt="UI: Become windowless"></p>
+<small><font color="darkgray">Written by Bjarke Viksoe.</font></small><br><small><font color="darkgray">This article was submitted <time pubdate="pubdate" datetime="2005-06-26">6/26/2005</time>.</font></small><br><br><br>
+A request on the 
+<a href="http://groups.yahoo.com/group/wtl/" target="_blank">Yahoo WTL newsgroup</a> 
+and a 
+<a href="http://blogs.msdn.com/oldnewthing/archive/2005/02/11/371042.aspx" target="_blank">blog-article</a> 
+sparked some interest to look closer at creating a <b>windowless user-interface</b>. Traditionally, Windows applications are
+built upon the GDI/User windowing hierarchy, and thus restricted in several areas.
+While you can certainly generate a nice application quickly with the built-in control-set and get a standard clean look,
+you will soon enough stumble upon the limitations of the Windows controls - especially if you want to build something
+that looks a little more flashy. The native Win32 custom-draw/owner-draw technique is limited, next to no support for 
+transparent windows, rigid control scaling/resizing and the Common Controls are merely remnants of Windows Explorer, 
+Office or Internet Explorer widgets.
+
+<p>
+
+A windowless user-interface doesn't make use of the native Win32 controls. Instead it custom
+paints every control and widget on the screen - including labels, buttons, list control, etc. etc.
+Variations of this kind of interface is not new: "Skinning" has been widely accepted for its
+cool application-look, as seen in Nullsoft's WinAmp and the MS Media Player. But skinning is usually only
+feasible for small applications hosting a limited number of dialogs. If you're building a large
+database-driven application, you'll want to have a solid framework to back your dialog design up.
+
+</p><p>
+
+So I was looking at the 
+<a href="http://www.microsoft.com/businesssolutions/crm/" target="_blank">Microsoft CRM</a> 
+application. 
+In my opinion, this is one of the most successful 
+<a href="http://blogs.msdn.com/aaronel/articles/230420.aspx" target="_blank">DHTML interfaces</a> 
+I've seen (I should know because I've previously been assigned on a large browser-based CRM product). 
+The MS CRM interface looks very Windows XP-like, but it also has several cool features, such as a 
+navigation bar, a highly flexible list control and several shaded/gradient tool panels. 
+I thought this would be a nice look to build for my windowless framework. I've previously tested a DHTML 
+interface with this look, but wasn't satisfied - mostly because integrating with the browser (IE) was painfully 
+complicated.
+
+</p><p>
+
+<img src="./viksoe.dk - UI  Become windowless_files/windowless1a.gif" align="right" border="0" width="143" height="90" alt="Direct UI sample" hspace="6">
+Even if constructing a windowless user-interface is a lot of hard work, it pays off in the end. 
+But you do need to implement your own dialog builder, button-design, keyboard interface and lots of little things you take for granted. 
+Actually it's not the painting of buttons and toolbars that take the most planning and effort; it's supporting keyboard shortcuts, 
+tab-navigation, automatic tooltips and a scalable design. 
+And then there are the mandatory - but often overlooked - features, such as list column-sorting, intuitive focus changes and 
+overflow scrolling that need to be addressed.
+
+</p><h2>The design</h2>
+
+My <b>Direct UI</b> user-interface takes bits and pieces from other UI models. Specifically it borrows
+ideas of the "controls-inside-controls" design from the Java AWT framework, 
+XML dialog-resources from .NET,
+event-bubbling from DHTML 
+and C++ helper classes from MFC.
+The code doesn't actually use the WTL library like most of my <a href="http://www.viksoe.dk/code/all_wtl.htm">other user 
+interface samples</a> on this website.
+It's pure Win32 calls.
+
+<p>
+
+One of the requirements for the framework was that it could be placed in an external DLL. This had a 
+<i>nasty impact on the design</i>, because C++ templates are not by any sane method exportable 
+in a DLL. So, a clean C++ old-skool (MFC) design is enforced, 
+with single inheritance and few (if not none) macros.
+<br>
+A window is built by nesting controls inside each other. Some controls are containers (such as the ToolBar, which
+contains ToolButtons). To insert a ToolBar button, you simply construct a <code>CToolButton</code> C++ class
+and add it to the <code>CToolPanel</code> control container. Most containers define layout algorithms such as the
+vertical layout-panel, which arranges the contained elements below each other - a feature known from Java AWT.
+</p><p>
+Using a Java-like design, such as the layout containers, make sure that your controls will rescale automatically when
+the window is resized. But anyone who has done any Java development knows how limiting its control layout features 
+are and has wished to kick the authors of the
+<a href="http://java.sun.com/j2se/1.3/docs/api/java/awt/GridBagLayout.html" target="_blank">GridBagLayout</a> 
+class in the nuts. So there's also room for a dialog layout-panel, which allows you to put controls at a fixed position,
+but with the option of scaling based on various stretching rules.
+<br>
+Constructing an entire window by hand is tedious, so there's a small XML parser included (extremely fast, extremely
+non-compliant) which parses and builds a window from an XML string.
+<br>
+The framework caches all of its Win32 brushes and pens. Most of the GDI resources saved on window handles are 
+probably spent on this. But these kinds of objects are light-weight; it's the paint job that gets an incredible overhaul.
+<br>
+Native Win32 controls are used only for the <code>EDIT</code> control. This control contains so much functionality
+that it would take ages to do a decent replacement. Single-line edit controls are created on the fly (when you click on the
+frame) and multi-line edits are always visible. So the framework does have the ability to embed native Win32 controls
+and even ActiveX controls, but at the expense of screen flickering and severe restrictions in the visual effects I'm planning.
+
+</p><h3>Alluring text</h3>
+
+The real benefits of this type of interface are the simple things. For instance, you can with one single swoop replace
+all occurences of Win32 <code>DrawText()</code> with <code>DrawPrettyHtmlFormattedText()</code> - which
+instantly gives you icons, customizable text-colors and clickable hyperlinks in the entire user-interface. With one single
+line of code, you can now add HTML links in the statusbar panel.
+<br>
+Similar, you are not restricted to only put <code>CToolButton</code> controls inside the ToolBar. Any kind of control
+can be added. This also goes for the list control, which quickly can be made cool by adding some group-labels, or just
+by adding buttons or HTML links. Since the individual controls rarely erase the background, most of them will actually fit 
+transparently inside the other container controls, so once you've made a neat widget it can be reused in the 
+entire user interface.
+
+<h3>3D Animations</h3>
+
+Another cool effect that can be easily added is the ability to do 3D rendering directly on the canvas.
+Just throw in some DirectX calls and you'll be able to write cool page transitions, highlight a control with
+some cool sparkling particle-effect or just put some glow effect on the edit-box with focus.
+<br>
+You can also read about how I <a href="http://www.viksoe.dk/code/windowless2.htm">integrated DirectX</a> into the application.
+
+<h2>The sample</h2>
+
+This may all sound very nice. However, the sample presented here is just the initial stage of a windowless framework
+I'll use for further testing.
+The library will need to mature a bit and go through a few rewrite cycles before I'll attempt to actually incorporate
+it in a real application. Still, it's pretty functional already. Enjoy.
+<br>
+Wangchyz has a project on Google Code where's he's trying to extend the library, adding fixes and new samples.
+
+<p>
+
+The sample should be run with <b>DirectX 9</b> installed and a modern 3D graphics card. Otherwise
+you will not be able to view the pretty 3D animations.
+
+
+</p><h2>Source Code Dependencies</h2>
+<a href="http://msdn.microsoft.com/vstudio/" target="_blank" animsrc="no">Microsoft Visual C++ 6.0</a><br>
+<a href="http://www.microsoft.com/directx/" target="_blank" animsrc="no">Microsoft DirectX 9 SDK</a><br>
+
+<h2>Useful Links</h2>
+<a href="http://code.google.com/p/duilib/" target="_blank" animsrc="no">An extended version: Duilib</a><br>
+<a name="download"></a><h2>Download Files</h2>
+<section><table><tbody><tr><td><img src="./viksoe.dk - UI  Become windowless_files/download.gif" alt="Download" border="0"></td><td><a href="http://www.viksoe.dk/code/downloads/directui.zip">Demonstration <small>(96 Kb)</small></a><br>
+<a href="http://www.viksoe.dk/code/downloads/directui_src.zip">Source Code <small>(127 Kb)</small></a><br>
+</td></tr></tbody></table></section></article><br><a href="http://www.viksoe.dk/code/windowless1.htm#top"><small><font color="darkgray">To the top</font></small></a><p>&nbsp;</p> <p class="news">&nbsp;</p> </td> <td background="./viksoe.dk - UI  Become windowless_files/rl.gif" width="36"><img height="1" src="./viksoe.dk - UI  Become windowless_files/rl.gif" width="36" alt=""></td></tr> <tr align="left"> <td background="./viksoe.dk - UI  Become windowless_files/llc.gif" height="36" width="180">&nbsp;</td> <td background="./viksoe.dk - UI  Become windowless_files/bl.gif" height="36">&nbsp;</td> <td background="./viksoe.dk - UI  Become windowless_files/lrc.gif" height="36" width="36">&nbsp;</td></tr></tbody></table><p></p><!-- Site Meter BEGIN --><a target="_top" href="http://www.sitemeter.com/stats.asp?site=sm9viksoe" id="idSiteMeterHREF"><img border="0" alt="Site Meter" src="./viksoe.dk - UI  Become windowless_files/meter.asp"></a><iframe frameborder="0" width="0" height="0" src="about:blank" style="display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 0px 0px;"></iframe><script type="text/javascript" src="./viksoe.dk - UI  Become windowless_files/counter.js"></script><script type="application/javascript" src="./viksoe.dk - UI  Become windowless_files/analytics.js"></script><noscript>&lt;a href="http://sm9.sitemeter.com/stats.asp?site=sm9viksoe" target="_top"&gt;&lt;img src="http://sm9.sitemeter.com/meter.asp?site=sm9viksoe" alt="Site Meter" border="0"&gt;&lt;/a&gt;</noscript><!-- Site Meter END -->
+<script type="text/javascript">var vglnk = {api_url: '//api.viglink.com/api', key: '0dff9ade2d1125af6c910069b6d6e155'};</script><script type="text/javascript" async="" src="./viksoe.dk - UI  Become windowless_files/vglnk.js"></script></body><iframe frameborder="0" marginheight="0" marginwidth="0" scrolling="no" width="2" height="2" src="./viksoe.dk - UI  Become windowless_files/log.htm" style="display: none;"></iframe><script src="./viksoe.dk - UI  Become windowless_files/saved_resource"></script></html>

@@ -1,0 +1,87 @@
+BODY {
+	BACKGROUND-COLOR: white; COLOR: black; SCROLLBAR-HIGHLIGHT-COLOR: buttonface; SCROLLBAR-SHADOW-COLOR: buttonface; SCROLLBAR-3DLIGHT-COLOR: buttonhighlight; SCROLLBAR-TRACK-COLOR: buttonface; SCROLLBAR-DARKSHADOW-COLOR: buttonshadow; MARGIN-BOTTOM: 0px;
+}
+TD {
+	FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+H3 {
+	MARGIN-BOTTOM: 4px
+}
+H4 {
+	MARGIN-BOTTOM: 6px
+}
+CODE {
+	COLOR: blue; FONT-FAMILY: Courier New, sans-serif; FONT-SIZE: 1em
+}
+PRE {
+	COLOR: blue; FONT-SIZE: 1em; BACKGROUND-COLOR: #eeeeee; MARGIN: 3px; PADDING: 14px 14px 14px 14px
+}
+A {
+	COLOR: #0099cc;	TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #0099cc; TEXT-DECORATION: underline
+}
+A[href^="http:"] {
+	BACKGROUND: url(/code/site/remote.gif) right center no-repeat; PADDING-RIGHT: 15px
+}
+A[href^="http:"]:hover {
+	BACKGROUND: url(/code/site/remote_a.gif) right center no-repeat
+}
+A[href^="http://www.viksoe.dk"] {
+	BACKGROUND: transparent; PADDING-RIGHT: 0px
+}
+A[href^="http://www.viksoe.dk"]:hover {
+	BACKGROUND: transparent
+}
+A[href^="http://www.sitemeter.com"] {
+	BACKGROUND: transparent; PADDING-RIGHT: 0px
+}
+A[href^="http://www.addthis.com"] {
+	BACKGROUND: transparent; PADDING-RIGHT: 0px
+}
+A[href^="http://www.sitemeter.com"]:hover {
+	BACKGROUND: transparent
+}
+A[animsrc^="no"] {
+	BACKGROUND: transparent; PADDING-RIGHT: 0px
+}
+A[animsrc^="no"]:hover {
+	BACKGROUND: transparent
+}
+.header {
+	FONT-SIZE: 250%; FONT-WEIGHT: bolder; WIDTH: auto; HEIGHT: 100%; text-shadow: 0.1em 0.1em 0.05em #CCC
+}
+.stylecolor {
+	COLOR: #0099cc
+}
+.filelist {
+	BACKGROUND-COLOR: #eeeeee; WIDTH: 100%; BORDER-RADIUS: 10px
+}
+.filelistheader {
+	WIDTH: auto; FONT-SIZE: 110%; FONT-WEIGHT: bolder; CURSOR: pointer; CURSOR: hand
+}
+.listsection {
+	BACKGROUND-COLOR: #eeeeee; WIDTH: auto; PADDING: 14px 14px 14px 14px
+}
+.smalllistsection {
+	BACKGROUND-COLOR: #eeeeee; WIDTH: auto; PADDING: 14px 14px 14px 14px; FONT-SIZE: smaller
+}
+.interface TABLE {
+	BORDER: #c0c0c0 thin solid
+}
+.interface TH {
+	BACKGROUND-COLOR: #d4d4d4
+}
+.interface TD {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.codemark {
+	FLOAT: right; TEXT-ALIGN: right; POSITION: relative; TOP: -6px; FONT-FAMILY: Georgia, Arial, Helvetica; COLOR: #727272; FONT-SIZE: 140%; FONT-WEIGHT: bold
+}
+.hotmark {
+	VERTICAL-ALIGN: text-bottom; FONT-FAMILY: Georgia, Arial, Helvetica; COLOR: #727272; FONT-SIZE: 140%; FONT-WEIGHT: bold
+}
+.letterpress H1 {
+	TEXT-SHADOW: 0px 2px 2px #6d6d6d; COLOR: #222; FONT: 60px 'LeagueGothicRegular'
+}
