@@ -26,11 +26,27 @@ LRESULT CStandardPageWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
    if( uMsg == WM_CREATE ) {     
       m_pm.Init(m_hWnd);
       CDialogBuilder builder;
-      CControlUI* pRoot = builder.Create(GetDialogResource());
+	  LPCTSTR pStrRes = GetDialogResource();
+	  CControlUI* pRoot = builder.Create(pStrRes);
       ASSERT(pRoot && "Failed to parse XML");
       m_pm.AttachDialog(pRoot);
       m_pm.AddNotifier(this);
       Init();
+
+	  if (0)
+	  {
+		  char acFilePath[MAX_PATH];
+		  GetModuleFileName(GetModuleHandle(NULL), acFilePath, MAX_PATH);
+		  char *p = strrchr(acFilePath, '\\');
+		  p[1] = 0;
+		  LPCTSTR pStrWin = GetWindowClassName();
+		  strcat(acFilePath, pStrWin);
+		  strcat(acFilePath, ".xml");
+
+		  FILE *fp = fopen(acFilePath, "wb");
+		  fwrite(pStrRes, strlen(pStrRes),1,fp);
+		  fclose(fp);
+	  }
       return 0;
    }
    LRESULT lRes = 0;
@@ -62,6 +78,29 @@ LPCTSTR CStartPageWnd::GetWindowClassName() const
 
 LPCTSTR CStartPageWnd::GetDialogResource() const 
 { 
+	if (0)
+	{
+		char acFilePath[MAX_PATH];
+		GetModuleFileName(GetModuleHandle(NULL), acFilePath, MAX_PATH);
+		char *p = strrchr(acFilePath, '\\');
+		p[1] = 0;
+		LPCTSTR pStrWin = GetWindowClassName();
+		strcat(acFilePath, pStrWin);
+		strcat(acFilePath, ".xml");
+
+		FILE *fp = fopen(acFilePath, "rb");
+		if (fp)
+		{
+			fseek(fp, 0, SEEK_END);
+			long lFSz = ftell(fp);
+			char *s = new char[lFSz + 1];
+			fread(s, lFSz, 1, fp);
+			fclose(fp);
+			s[lFSz] = 0;
+			return s;
+		}
+	}
+	
    return "<Dialog>"
       "<HorizontalLayout>"
         "<VerticalLayout width=\"150\" >"
