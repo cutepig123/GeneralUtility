@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "App", "App\App.vcxproj", "{DBA7A099-6C0F-4157-8849-F32D61D5C154}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UIlib", "UIlib\UIlib.vcxproj", "{48E6F740-DE8F-4D5B-87E5-4C560AD1AD03}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+		Template|Win32 = Template|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBA7A099-6C0F-4157-8849-F32D61D5C154}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DBA7A099-6C0F-4157-8849-F32D61D5C154}.Debug|Win32.Build.0 = Debug|Win32
+		{DBA7A099-6C0F-4157-8849-F32D61D5C154}.Release|Win32.ActiveCfg = Release|Win32
+		{DBA7A099-6C0F-4157-8849-F32D61D5C154}.Release|Win32.Build.0 = Release|Win32
+		{DBA7A099-6C0F-4157-8849-F32D61D5C154}.Template|Win32.ActiveCfg = Release|Win32
+		{DBA7A099-6C0F-4157-8849-F32D61D5C154}.Template|Win32.Build.0 = Release|Win32
+		{48E6F740-DE8F-4D5B-87E5-4C560AD1AD03}.Debug|Win32.ActiveCfg = Debug|Win32
+		{48E6F740-DE8F-4D5B-87E5-4C560AD1AD03}.Debug|Win32.Build.0 = Debug|Win32
+		{48E6F740-DE8F-4D5B-87E5-4C560AD1AD03}.Release|Win32.ActiveCfg = Release|Win32
+		{48E6F740-DE8F-4D5B-87E5-4C560AD1AD03}.Release|Win32.Build.0 = Release|Win32
+		{48E6F740-DE8F-4D5B-87E5-4C560AD1AD03}.Template|Win32.ActiveCfg = Template|Win32
+		{48E6F740-DE8F-4D5B-87E5-4C560AD1AD03}.Template|Win32.Build.0 = Template|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
