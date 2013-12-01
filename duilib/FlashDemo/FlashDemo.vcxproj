@@ -80,8 +80,6 @@
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnicodeDebug|Win32'">
-    <OutDir>.\Debug_u\</OutDir>
-    <IntDir>.\Debug_u\</IntDir>
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnicodeRelease|Win32'">
@@ -211,7 +209,6 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>comsuppwd.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../bin/FlashDemo_ud.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>.\Debug_u/FlashDemo.pdb</ProgramDatabaseFile>

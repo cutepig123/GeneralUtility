@@ -20,7 +20,7 @@ const HandleInfo g_HandleInfo[] =
 	{ offsetof(RECT, left), offsetof(RECT, bottom),     1, 0,  0, -1, 6, 4 },
 	{ offsetof(RECT, left), offsetof(RECT, top),        0, 1,  0,  0, 5, 7 }
 };
-
+ 
 // this array is indexed by the offset of the RECT member / sizeof(int)
 const RectInfo g_RectInfo[] =
 {
