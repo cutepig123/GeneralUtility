@@ -132,6 +132,7 @@ LPCTSTR CStartPageWnd::GetDialogResource() const
                 "<TextPanel name=\"link_configure\" text=\"<i 6 50><a><f 6>Opsætning</f></a>\n<h>\n<c #444540>Opsætning giver adgang til konfiguration af de mange kørsels-systemer og regler.\" />"
                 "<TextPanel name=\"link_reports\" text=\"<i 5 50><a><f 6>Rapporter</f></a>\n<h>\n<c #444540>Rapporter giver dig overblik over registre samt hverdagens ture og bestillinger.\n\nGennem statistik og lister kan du hurtigt f?præsenteret historiske data fra systemet.\" />"
               "</TileLayout>"
+			  "<ActiveX clsid=\"{8856F961-340A-11D0-A96B-00C04FD705A2}\" width=\"400\"  height=\"400\" />"
             "</VerticalLayout>"
           "</WindowCanvas>"
         "</VerticalLayout>"
