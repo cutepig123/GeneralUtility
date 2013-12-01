@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{bec4850b-b417-4e82-9cb6-42cc1fb236c2}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Views">
+      <UniqueIdentifier>{0b456e77-aa31-443e-a193-0afc8d3f5488}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Blocks">
+      <UniqueIdentifier>{721b39d9-0a6b-446b-8503-286e71ec1c03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{bc3eb5bd-3706-494f-a8ca-f41cb2abdfd0}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Header Files\View Headers">
+      <UniqueIdentifier>{64477350-7dbd-458f-8826-8dcc252850e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Block Headers">
+      <UniqueIdentifier>{f5fa93fa-a4c5-4657-8a38-d2c66efdf5c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Dialog Headers">
+      <UniqueIdentifier>{15b0b12a-ca4d-4be3-b4f2-5a184d4f7433}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Misc Headers">
+      <UniqueIdentifier>{7e5ec6dc-793b-48f9-8d2c-295dbb3dfb9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{b0b11866-94f9-4265-afd9-62ac1647055c}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ChildFrm.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplorerView.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptView.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="Blocks\BlockDelay.cpp">
+      <Filter>Source Files\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="Blocks\BlockFileClose.cpp">
+      <Filter>Source Files\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="Blocks\BlockFileOpen.cpp">
+      <Filter>Source Files\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="Blocks\BlockFileRead.cpp">
+      <Filter>Source Files\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="Blocks\BlockFileWrite.cpp">
+      <Filter>Source Files\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="Blocks\BlockInput.cpp">
+      <Filter>Source Files\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="Blocks\BlockOutput.cpp">
+      <Filter>Source Files\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="Blocks\BlockRoot.cpp">
+      <Filter>Source Files\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="Blocks\BlockStart.cpp">
+      <Filter>Source Files\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="Blocks\BlockStop.cpp">
+      <Filter>Source Files\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="Blocks\BlockUserBlock.cpp">
+      <Filter>Source Files\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="Blocks\BlockVariableChoose.cpp">
+      <Filter>Source Files\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="Blocks\BlockVariableCompare.cpp">
+      <Filter>Source Files\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="Blocks\BlockVariableCounter.cpp">
+      <Filter>Source Files\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="Blocks\BlockVariableSet.cpp">
+      <Filter>Source Files\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="Blocks\BlockVariableSplit.cpp">
+      <Filter>Source Files\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="mainfrm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RoutePlanner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptDoc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptStudio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Serializer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ScriptStudio.rc">
+      <Filter>Source Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ChildFrm.h">
+      <Filter>Header Files\View Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplorerView.h">
+      <Filter>Header Files\View Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptView.h">
+      <Filter>Header Files\View Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Blocks\BlockDelay.h">
+      <Filter>Header Files\Block Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Blocks\BlockFileClose.h">
+      <Filter>Header Files\Block Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Blocks\BlockFileOpen.h">
+      <Filter>Header Files\Block Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Blocks\BlockFileRead.h">
+      <Filter>Header Files\Block Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Blocks\BlockFileWrite.h">
+      <Filter>Header Files\Block Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Blocks\BlockInput.h">
+      <Filter>Header Files\Block Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Blocks\BlockOutput.h">
+      <Filter>Header Files\Block Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Blocks\BlockRoot.h">
+      <Filter>Header Files\Block Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Blocks\BlockStart.h">
+      <Filter>Header Files\Block Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Blocks\BlockStop.h">
+      <Filter>Header Files\Block Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Blocks\BlockUserBlock.h">
+      <Filter>Header Files\Block Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Blocks\BlockVariableChoose.h">
+      <Filter>Header Files\Block Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Blocks\BlockVariableCompare.h">
+      <Filter>Header Files\Block Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Blocks\BlockVariableCounter.h">
+      <Filter>Header Files\Block Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Blocks\BlockVariableSet.h">
+      <Filter>Header Files\Block Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Blocks\BlockVariableSplit.h">
+      <Filter>Header Files\Block Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="AboutDlg.h">
+      <Filter>Header Files\Dialog Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="RenameDlg.h">
+      <Filter>Header Files\Dialog Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="atlctrlsext.h">
+      <Filter>Header Files\Misc Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="atlgdix.h">
+      <Filter>Header Files\Misc Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="atlwinmisc.h">
+      <Filter>Header Files\Misc Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolCmdBar.h">
+      <Filter>Header Files\Misc Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowAnim.h">
+      <Filter>Header Files\Misc Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RoutePlanner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptBlock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptDoc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Serializer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\blocks.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\insert.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\navigate.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ScriptStudio.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ScriptStudiodoc.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\toolbar.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="res\ScriptStudio.exe.manifest">
+      <Filter>Resource Files</Filter>
+    </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="res\cur00001.cur">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="res\cur00002.cur">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="res\idi_drag.cur">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="res\idi_hand.cur">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="res\idi_nowa.cur">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="res\idi_plac.cur">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

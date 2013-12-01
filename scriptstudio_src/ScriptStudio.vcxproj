@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <SccProjectName />
+    <SccLocalPath />
+    <ProjectGuid>{684F04FC-B237-4902-90F5-734ECF296900}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\Debug\</OutDir>
+    <IntDir>C:\Temp\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>F:\_codes\crash_report\CrashRpt_v.1.4.2_r1609\thirdparty\wtl;F:\Program Files\Microsoft Visual Studio 10.0\VC\atlmfc\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>F:\Program Files\Microsoft Visual Studio 10.0\VC\atlmfc\lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\Release\</OutDir>
+    <IntDir>C:\Temp\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <Optimization>Disabled</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <MinimalRebuild>true</MinimalRebuild>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;STRICT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>C:\Temp\</AssemblerListingLocation>
+      <BrowseInformation>true</BrowseInformation>
+      <PrecompiledHeaderOutputFile>C:\Temp\ScriptStudio.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <ObjectFileName>C:\Temp\</ObjectFileName>
+      <ProgramDataBaseFileName>C:\Temp\</ProgramDataBaseFileName>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+    </ClCompile>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\Debug\ScriptStudio.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0406</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug\ScriptStudio.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>.\Debug\ScriptStudio.exe</OutputFile>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <StringPooling>true</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <Optimization>MinSpace</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;STRICT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>C:\Temp\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>C:\Temp\ScriptStudio.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <ObjectFileName>C:\Temp\</ObjectFileName>
+      <ProgramDataBaseFileName>C:\Temp\</ProgramDataBaseFileName>
+    </ClCompile>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\Release\ScriptStudio.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0406</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release\ScriptStudio.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>.\Release\ScriptStudio.exe</OutputFile>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="ChildFrm.cpp" />
+    <ClCompile Include="ExplorerView.cpp" />
+    <ClCompile Include="ScriptView.cpp" />
+    <ClCompile Include="Blocks\BlockDelay.cpp" />
+    <ClCompile Include="Blocks\BlockFileClose.cpp" />
+    <ClCompile Include="Blocks\BlockFileOpen.cpp" />
+    <ClCompile Include="Blocks\BlockFileRead.cpp" />
+    <ClCompile Include="Blocks\BlockFileWrite.cpp" />
+    <ClCompile Include="Blocks\BlockInput.cpp" />
+    <ClCompile Include="Blocks\BlockOutput.cpp" />
+    <ClCompile Include="Blocks\BlockRoot.cpp" />
+    <ClCompile Include="Blocks\BlockStart.cpp" />
+    <ClCompile Include="Blocks\BlockStop.cpp" />
+    <ClCompile Include="Blocks\BlockUserBlock.cpp" />
+    <ClCompile Include="Blocks\BlockVariableChoose.cpp" />
+    <ClCompile Include="Blocks\BlockVariableCompare.cpp" />
+    <ClCompile Include="Blocks\BlockVariableCounter.cpp" />
+    <ClCompile Include="Blocks\BlockVariableSet.cpp" />
+    <ClCompile Include="Blocks\BlockVariableSplit.cpp" />
+    <ClCompile Include="mainfrm.cpp" />
+    <ClCompile Include="RoutePlanner.cpp" />
+    <ClCompile Include="ScriptBlock.cpp" />
+    <ClCompile Include="ScriptDoc.cpp" />
+    <ClCompile Include="ScriptStudio.cpp" />
+    <ClCompile Include="Serializer.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ScriptStudio.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ChildFrm.h" />
+    <ClInclude Include="ExplorerView.h" />
+    <ClInclude Include="ScriptView.h" />
+    <ClInclude Include="Blocks\BlockDelay.h" />
+    <ClInclude Include="Blocks\BlockFileClose.h" />
+    <ClInclude Include="Blocks\BlockFileOpen.h" />
+    <ClInclude Include="Blocks\BlockFileRead.h" />
+    <ClInclude Include="Blocks\BlockFileWrite.h" />
+    <ClInclude Include="Blocks\BlockInput.h" />
+    <ClInclude Include="Blocks\BlockOutput.h" />
+    <ClInclude Include="Blocks\BlockRoot.h" />
+    <ClInclude Include="Blocks\BlockStart.h" />
+    <ClInclude Include="Blocks\BlockStop.h" />
+    <ClInclude Include="Blocks\BlockUserBlock.h" />
+    <ClInclude Include="Blocks\BlockVariableChoose.h" />
+    <ClInclude Include="Blocks\BlockVariableCompare.h" />
+    <ClInclude Include="Blocks\BlockVariableCounter.h" />
+    <ClInclude Include="Blocks\BlockVariableSet.h" />
+    <ClInclude Include="Blocks\BlockVariableSplit.h" />
+    <ClInclude Include="AboutDlg.h" />
+    <ClInclude Include="RenameDlg.h" />
+    <ClInclude Include="atlctrlsext.h" />
+    <ClInclude Include="atlgdix.h" />
+    <ClInclude Include="atlwinmisc.h" />
+    <ClInclude Include="ToolCmdBar.h" />
+    <ClInclude Include="WindowAnim.h" />
+    <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="RoutePlanner.h" />
+    <ClInclude Include="ScriptBlock.h" />
+    <ClInclude Include="ScriptDoc.h" />
+    <ClInclude Include="Serializer.h" />
+    <ClInclude Include="stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\blocks.bmp" />
+    <Image Include="res\insert.bmp" />
+    <Image Include="res\navigate.bmp" />
+    <Image Include="res\ScriptStudio.ico" />
+    <Image Include="res\ScriptStudiodoc.ico" />
+    <Image Include="res\toolbar.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="res\cur00001.cur" />
+    <CustomBuild Include="res\cur00002.cur" />
+    <CustomBuild Include="res\idi_drag.cur" />
+    <CustomBuild Include="res\idi_hand.cur" />
+    <CustomBuild Include="res\idi_nowa.cur" />
+    <CustomBuild Include="res\idi_plac.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="res\ScriptStudio.exe.manifest" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
