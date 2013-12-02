@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "TestHtmlControl.h"
+#include "MiniHTML.h"
 
 #define MAX_LOADSTRING 100
 
@@ -10,6 +11,7 @@
 HINSTANCE hInst;								// 当前实例
 TCHAR szTitle[MAX_LOADSTRING];					// 标题栏文本
 TCHAR szWindowClass[MAX_LOADSTRING];			// 主窗口类名
+CMiniHtmlCtrl *g_pCtrl = 0;
 
 // 此代码模块中包含的函数的前向声明: 
 ATOM				MyRegisterClass(HINSTANCE hInstance);
@@ -168,6 +170,11 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 	switch (message)
 	{
 	case WM_INITDIALOG:
+		if (!g_pCtrl)
+			g_pCtrl = new CMiniHtmlCtrl;
+		g_pCtrl->SubclassWindow(GetDlgItem(hDlg, IDC_STATIC_HTML));
+		g_pCtrl->SetWindowText("<B>Bold</B> Normal");
+
 		return (INT_PTR)TRUE;
 
 	case WM_COMMAND:

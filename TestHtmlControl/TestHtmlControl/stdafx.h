@@ -5,17 +5,15 @@
 
 #pragma once
 
-#include "targetver.h"
+#define WINVER            0x0500
+#define _WIN32_IE         0x0501
+#define _RICHEDIT_VER     0x0100
 
-#define WIN32_LEAN_AND_MEAN             //  从 Windows 头文件中排除极少使用的信息
-// Windows 头文件: 
-#include <windows.h>
+#define _CRT_SECURE_NO_DEPRECATE
 
-// C 运行时头文件
-#include <stdlib.h>
-#include <malloc.h>
-#include <memory.h>
-#include <tchar.h>
+#include <atlbase.h>
+#include <atlapp.h>
+#include <atlctrls.h>
 
 
 // TODO:  在此处引用程序需要的其他头文件
