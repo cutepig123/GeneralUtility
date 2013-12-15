@@ -1,0 +1,35 @@
+div.tabBlock {
+clear:both;
+margin-top:-1px;
+border:1px solid #CCC;
+padding:5px;
+}
+div.tabs {
+margin-bottom:-1px;
+overflow:hidden;
+}
+div.tabs ul {
+margin:0;
+padding:0;
+list-style:none;
+}
+div.tabs ul li {
+float:left;
+height:25px;
+margin:0 3px;
+line-height:25px;
+font-size:9pt;
+border:1px solid #CCC;
+overflow:hidden;
+}
+div.tabs ul li a {
+display:block;
+padding:3px;
+color:#000;
+text-decoration:none;
+}
+div.tabs ul li.active a,
+div.tabs ul li a:hover {
+color:#FFF;
+background:#999;
+}
