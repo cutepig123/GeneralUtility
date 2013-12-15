@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Hello World jQuery!</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+</head>
+<body>
+    <div id="msg"></div>
+	<input type=button onclick="showMsg()" value="Click me">
+    <script type="text/javascript" >
+        
+	function showMsg() {
+	  //$(e.target).attr('disabled', true);
+	  $.ajax({
+		url: 'msg.php',
+		error: function(xhr) {
+		  alert('Ajax request ∞l…˙Âe’`');
+		  //$(e.target).attr('disabled', false);
+		},
+		success: function(response) {
+		  $('#msg').html(response);
+		  $('#msg').fadeIn();
+		  setTimeout(function(){
+			$('#msg').fadeOut();
+			//$(e.target).attr('disabled', false);
+		  }, 3000);
+		}
+	  });
+	}
+    </script>
+</body>
+</html>
