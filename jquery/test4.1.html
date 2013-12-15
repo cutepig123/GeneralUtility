@@ -24,8 +24,13 @@
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
 	<script type="text/javascript" src="mytoolbox.js"></script>
 	<script type="text/javascript">
-	
-		$('.test').mytoolbox();
+		var debug = $('#debug');
+
+		$('.test').mytoolbox({
+			callback: function () {
+				debug.html(debug.html() + this.id + '<br />');
+			}
+		});
 	
 	</script>
 </body>
