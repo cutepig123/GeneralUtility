@@ -7,6 +7,13 @@
 </head>
 <body>
     <div id="msg"></div>
+	
+	<select id="gender">
+	  <option>Male</option>
+	  <option>Female</option>
+	</select>
+	<input type="text" id="name"/>
+
 	<input type=button onclick="showMsg()" value="Click me">
     <script type="text/javascript" >
         
@@ -14,6 +21,7 @@
 	  //$(e.target).attr('disabled', true);
 	  $.ajax({
 		url: 'msg.php',
+		data: {gender: $('#gender').val(), name: $('#name').val()},
 		error: function(xhr) {
 		  alert('Ajax request °lÉúåeÕ`');
 		  //$(e.target).attr('disabled', false);
