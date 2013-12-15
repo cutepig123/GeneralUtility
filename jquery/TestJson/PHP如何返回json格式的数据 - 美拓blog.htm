@@ -1,0 +1,800 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="zh-CN"><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>PHP如何返回json格式的数据 - 美拓blog</title>
+	<meta name="author" content="独孤逸辰">
+	<meta name="copyright" content="powered by 美拓blog">
+	<meta http-equiv="x-ua-compatible" content="ie=7">
+	<meta name="description" content="关注新技术,关注前端开发,web技术分享、示例、学习,崔久代的小窝">
+	<meta name="keywords" content="美拓blog, 美拓,美拓博客,前端开发技术,网页设计, SEO, 用户体验,CSS, XHTML, Javascript, js,Nodejs,php,WordPress,Photoshop,ps,thinkphp,Ruby,Python,vim,Linux,正则表达式,生活,工作SEO, 用户体验">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="google-site-verification" content="HL3_jAsCGhbVN8NWOrb0eGBnkW1dFbqh1LDmb3zb8j0">
+	<link rel="stylesheet" href="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/style.css" type="text/css" media="screen">
+	<link rel="shortcut icon" href="http://blog.meituo.net/mt.ico" type="image/x-icon">
+	<link rel="alternate" type="application/rss+xml" title="美拓blog RSS Feed" href="http://blog.meituo.net/feed/">
+	<link rel="pingback" href="http://blog.meituo.net/xmlrpc.php">
+    <script src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/ga.js" async="" type="text/javascript"></script><script async="" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/cbgapi.loaded_1"></script><script async="" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/cbgapi.loaded_0"></script><script src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <!--[if IE 6]>
+    <script src="http://blog.meituo.net/wp-content/themes/prower/js/mtAnnounce.js" type="text/javascript" charset="utf-8"></script>
+    <![endif]-->
+		<link rel="archives" title="2013 年七月" href="http://blog.meituo.net/2013/07/">
+	<link rel="archives" title="2013 年五月" href="http://blog.meituo.net/2013/05/">
+	<link rel="archives" title="2012 年七月" href="http://blog.meituo.net/2012/07/">
+	<link rel="archives" title="2012 年五月" href="http://blog.meituo.net/2012/05/">
+	<link rel="archives" title="2012 年三月" href="http://blog.meituo.net/2012/03/">
+	<link rel="archives" title="2012 年二月" href="http://blog.meituo.net/2012/02/">
+	<link rel="archives" title="2011 年十一月" href="http://blog.meituo.net/2011/11/">
+	<link rel="archives" title="2011 年九月" href="http://blog.meituo.net/2011/09/">
+	<link rel="archives" title="2011 年七月" href="http://blog.meituo.net/2011/07/">
+	<link rel="archives" title="2011 年六月" href="http://blog.meituo.net/2011/06/">
+	<link rel="archives" title="2011 年五月" href="http://blog.meituo.net/2011/05/">
+	<link rel="archives" title="2011 年四月" href="http://blog.meituo.net/2011/04/">
+	<link rel="archives" title="2011 年三月" href="http://blog.meituo.net/2011/03/">
+	<link rel="archives" title="2011 年二月" href="http://blog.meituo.net/2011/02/">
+	<link rel="archives" title="2011 年一月" href="http://blog.meituo.net/2011/01/">
+	<link rel="archives" title="2010 年十二月" href="http://blog.meituo.net/2010/12/">
+	<link rel="archives" title="2010 年十一月" href="http://blog.meituo.net/2010/11/">
+	<link rel="archives" title="2010 年十月" href="http://blog.meituo.net/2010/10/">
+	<link rel="archives" title="2010 年九月" href="http://blog.meituo.net/2010/09/">
+	<link rel="archives" title="2010 年八月" href="http://blog.meituo.net/2010/08/">
+	<link rel="archives" title="2010 年三月" href="http://blog.meituo.net/2010/03/">
+	<link rel="archives" title="2010 年二月" href="http://blog.meituo.net/2010/02/">
+	<link rel="archives" title="2010 年一月" href="http://blog.meituo.net/2010/01/">
+	<link rel="archives" title="2009 年十二月" href="http://blog.meituo.net/2009/12/">
+	<link rel="archives" title="2009 年十一月" href="http://blog.meituo.net/2009/11/">
+	<link rel="archives" title="2009 年十月" href="http://blog.meituo.net/2009/10/">
+	<link rel="archives" title="2009 年九月" href="http://blog.meituo.net/2009/09/">
+	<link rel="archives" title="2009 年八月" href="http://blog.meituo.net/2009/08/">
+	<link rel="archives" title="2009 年七月" href="http://blog.meituo.net/2009/07/">
+		<link rel="alternate" type="application/rss+xml" title="美拓blog » PHP如何返回json格式的数据 评论 feed" href="http://blog.meituo.net/2010/09/26/php%e5%a6%82%e4%bd%95%e8%bf%94%e5%9b%9ejson%e6%a0%bc%e5%bc%8f%e7%9a%84%e6%95%b0%e6%8d%ae/feed/">
+<script type="text/javascript" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/comment-reply.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.meituo.net/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.meituo.net/wp-includes/wlwmanifest.xml"> 
+<link rel="index" title="美拓blog" href="http://blog.meituo.net/">
+<link rel="start" title="你每次都会遇到的IE6的css的bugs" href="http://blog.meituo.net/2009/07/23/%e4%bd%a0%e6%af%8f%e6%ac%a1%e9%83%bd%e4%bc%9a%e9%81%87%e5%88%b0%e7%9a%84ie6%e7%9a%84css%e7%9a%84bugs/">
+<link rel="prev" title="利用google LocalSearch 批量获取区域坐标" href="http://blog.meituo.net/2010/09/23/%e5%88%a9%e7%94%a8google-localsearch-%e6%89%b9%e9%87%8f%e8%8e%b7%e5%8f%96%e5%8c%ba%e5%9f%9f%e5%9d%90%e6%a0%87/">
+<link rel="next" title="响应上、下键enter键其实很简单" href="http://blog.meituo.net/2010/09/26/%e5%93%8d%e5%ba%94%e4%b8%8a%e3%80%81%e4%b8%8b%e9%94%aeenter%e9%94%ae%e5%85%b6%e5%ae%9e%e5%be%88%e7%ae%80%e5%8d%95/">
+<meta name="generator" content="WordPress 3.0.1">
+<link rel="canonical" href="http://blog.meituo.net/2010/09/26/php%e5%a6%82%e4%bd%95%e8%bf%94%e5%9b%9ejson%e6%a0%bc%e5%bc%8f%e7%9a%84%e6%95%b0%e6%8d%ae/">
+<link rel="shortlink" href="http://blog.meituo.net/?p=574">
+<script type="text/javascript" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/audio-player.js"></script>
+<script type="text/javascript">AudioPlayer.setup("http://blog.meituo.net/wp-content/plugins/audio-player/assets/player.swf?ver=2.0.4.6", {width:"290",animation:"yes",encode:"yes",initialvolume:"60",remaining:"no",noinfo:"no",buffer:"5",checkpolicy:"no",rtl:"no",bg:"E5E5E5",text:"333333",leftbg:"CCCCCC",lefticon:"333333",volslider:"666666",voltrack:"FFFFFF",rightbg:"B4B4B4",rightbghover:"999999",righticon:"333333",righticonhover:"FFFFFF",track:"FFFFFF",loader:"009900",border:"CCCCCC",tracker:"DDDDDD",skip:"666666",pagebg:"FFFFFF",transparentpagebg:"yes"});</script><style media="screen" type="text/css">p.audioplayer_container span {visibility:hidden;height:24px;overflow:hidden;padding:0;border:none;}</style>
+<script language="javascript" type="text/javascript">
+<!--
+		function collapseThread( theId ) {
+			var comment = document.getElementById(theId);
+			if(!comment)
+			{
+				alert("ERROR:\nThe document structure is different\nfrom what Threaded Comments expects.\nYou are missing the element '"+theId+"'");
+				return;
+			}
+			var theBody = findBody(comment);
+			if(comment.className.indexOf("collapsed") > -1) {
+				comment.className = comment.className.replace(" collapsed", "");;
+			} else {
+				comment.className += " collapsed";
+			}
+		}
+
+		function expandThread( theId ) {
+			var comment = document.getElementById(theId);
+			if(!comment)
+			{
+				alert("ERROR:\nThe document structure is different\nfrom what Threaded Comments expects.\nYou are missing the element '"+theId+"'");
+				return;
+			}
+			var theBody = findBody(comment);
+			if(comment.className.indexOf("collapsed") > -1) {
+				comment.className = comment.className.replace(" collapsed", "");;
+			} 
+		}
+		
+		function findBody(el)
+		{
+			var divs = el.getElementsByTagName("div");
+			var ret;
+			for(var i = 0; i < divs.length; ++i) {
+				if(divs.item(i).className.indexOf("body") > -1)
+					return divs.item(i);
+			}
+			return false;
+		}
+	
+		function onAddComment() {
+			//checkDocumentIntegrity();
+			var el = document.getElementById("commentform");
+			// Future release: Check if form is filled correctly and mark the form fields.
+			el.submit();
+		}
+		
+		function moveAddCommentBelow(theId, threadId, collapse)
+		{
+			expandThread( theId );
+			var addComment = document.getElementById("addcomment");
+			if(!addComment)
+			{
+			  	alert("ERROR:\nThreaded Comments can't find the 'addcomment' div.\nThis is probably because you have changed\nthe comments.php file.\nMake sure there is a tag around the form\nthat has the id 'addcomment'"); 
+				return
+			}
+			var comment = document.getElementById(theId);
+			if(collapse)
+			{
+				for(var i = 0; i < comment.childNodes.length; ++i) {
+					var c = comment.childNodes.item(i);
+					if(typeof(c.className) == "string" && c.className.indexOf("collapsed")<0) {
+						c.className += " collapsed";
+					}
+				}
+			}
+			addComment.parentNode.removeChild(addComment);
+
+			comment.appendChild(addComment);
+			if(comment.className.indexOf("alt")>-1) {
+				addComment.className = addComment.className.replace(" alt", "");					
+			} else {
+				addComment.className += " alt";
+			}
+		        var replyId = document.getElementById("comment_reply_ID");
+			if(replyId == null)
+			{
+				alert("Brians Threaded Comments Error:\nThere is no hidden form field called\n'comment_reply_ID'. This is probably because you\nchanged the comments.php file and forgot\nto include the field. Please take a look\nat the original comments.php and copy the\nform field over.");
+			}
+			replyId.value = threadId;
+			var reRootElement = document.getElementById("reroot");
+			if(reRootElement == null)
+			{
+				alert("Brians Threaded Comments Error:\nThere is no anchor tag called 'reroot' where\nthe comment form starts.\nPlease compare your comments.php to the original\ncomments.php and copy the reroot anchor tag over.");
+			}
+			reRootElement.style.display = "block";
+			var aTags = comment.getElementsByTagName("A");
+			var anc = aTags.item(0).id;
+			//document.location.href = "#"+anc;
+			document.getElementById("comment").focus();
+		}
+
+		function checkDocumentIntegrity()
+		{
+			str = "";
+			
+			str += checkElement("reroot","div tag");
+			str += checkElement("addcomment", "div tag");
+			str += checkElement("comment_reply_ID", "hidden form field");
+			str += checkElement("content", "div tag");
+			str += checkElement("comment", "textfield");
+			str += checkElement("addcommentanchor", "anchor tag");
+			
+			if(str != "")
+			{
+				str = "Brian's Threaded Comments are missing some of the elements that are required for it to function correctly.\nThis is probably the because you have changed the original comments.php that was included with the plugin.\n\nThese are the errors:\n" + str;
+				str += "\nYou should compare your comments.php with the original comments.php and make sure the required elements have not been removed.";
+
+				alert(str);
+			}
+		}
+               
+		function checkElement(theId, elDesc)
+		{
+			var el = document.getElementById(theId);
+			if(!el)
+			{
+				if(elDesc == null)
+					elDesc = "element";
+				return "- The "+elDesc+" with the ID '" +theId + "' is missing\n"; 
+			}
+			else 
+				return "";
+		}
+		
+		function reRoot()
+		{
+			var addComment = document.getElementById("addcomment");			
+			var reRootElement = document.getElementById("reroot");
+			reRootElement.style.display = "none";
+			var content = document.getElementById("content-main");
+			if( !content )
+				content = document.getElementById("content");
+			if( content )
+			{
+				addComment.parentNode.removeChild(addComment);
+				content.appendChild(addComment);
+			}
+			addComment.className = addComment.className.replace(" alt", "");
+			document.location.href = "#addcommentanchor";
+			document.getElementById("comment").focus();				
+			document.getElementById("comment_reply_ID").value = "0";
+		}			
+		
+		function changeCommentSize(d)
+		{
+			var el = document.getElementById("comment");
+			var height = parseInt(el.style.height);
+			if(!height && el.offsetHeight)
+				height = el.offsetHeight;
+			height += d;
+			if(height < 20) 
+				height = 20;
+			el.style.height = height+"px";
+		}		
+-->
+</script>
+<style type="text/css">
+.comment 
+{
+	position: 				relative;
+	margin:					3px;
+	margin-top:				6px;
+/*	border: 				1px solid #666; */
+	padding:				4px 4px 4px 8px;
+	background-color:		#fff;
+}
+
+.odd
+{
+	background-color: #f8f8f8;
+}
+
+.comment div {
+	position: 				relative;
+}
+
+.comment .comment img
+{
+	margin: 				0px;
+}
+
+.comment .collapseicon 
+{
+	width: 					13px;
+	height: 				13px;
+	overflow:				hidden;
+	background-image: 		url(http://blog.meituo.net/wp-content/plugins/briansthreadedcomments.php?image=subthread-open.png);
+}
+
+.collapsed .collapseicon 
+{
+	background-image: 		url(http://blog.meituo.net/wp-content/plugins/briansthreadedcomments.php?image=subthread.png);
+}
+
+
+.comment .reply {
+	text-align: 			right;
+	font-size: 				80%;
+	padding: 				0px 6px 6px 0px;
+}
+
+.comment
+{
+	border: 	1px solid #ddd;
+	margin-top: 			10px;
+}
+
+input#subscribe
+{
+	width: auto;
+}
+
+.comment .body .content
+{
+	padding:				0px 3px 0px 3px;
+	/*width: 					100%;	*/
+	overflow: 				auto; 
+}
+
+.comment .title abbr
+{
+	border: none;
+}
+
+.collapsed .body, .collapsed .comment
+{
+	display:				none;
+}
+ 
+#commentform textarea {
+	width: 97%;
+}
+
+.btc_gravatar {
+	float: right;
+	margin: 3px 3px 4px 4px;
+}
+</style>
+	<link type="text/css" rel="stylesheet" href="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/shCore.css">
+	<link type="text/css" rel="stylesheet" href="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/shThemeDefault.css">
+<script defer="defer" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/sf_main.htm"></script><script src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/sf_preloader.jsp" type="text/javascript"></script><script src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/sf_code.jsp" type="text/javascript"></script><script src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/base_single_icon.js" type="text/javascript"></script></head>
+
+<body>
+<div id="top">
+	<div class="w970">
+		<ul>
+			<li class="page_item"><a title="首页" href="http://blog.meituo.net/">首页</a></li>
+			<li class="page_item"><a title="首页" href="http://lib.meituo.net/">实验室</a></li>
+			<li class="page_item page-item-3"><a href="http://blog.meituo.net/about/" title="关于我">关于我</a></li>
+<li class="page_item page-item-9"><a href="http://blog.meituo.net/%e9%93%be%e6%8e%a5/" title="链接">链接</a></li>
+			<li class="page_item"><a title="RSS订阅" href="http://blog.meituo.net/feed/">订阅</a></li>
+		</ul>
+		<div class="description">漂泊在路上</div>
+	</div>
+</div>
+<div id="header">
+	<div class="w970">
+		<h1><a href="http://blog.meituo.net/">美拓blog</a></h1>
+		<div id="search">
+			<form id="searchform" method="get" action="http://blog.meituo.net">
+				<input name="s" id="s" size="20" type="text">
+				<input value="搜索" type="submit">
+			</form>
+		</div>
+	</div>
+</div>
+<div id="nav">
+        <ul class="mainnav">
+			<li><a title="Home" href="http://blog.meituo.net/">首 页</a></li>
+							<li class="cat-item cat-item-55"><a href="http://blog.meituo.net/category/as/" title="查看 as 下的所有文章">as</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://blog.meituo.net/category/csshtml/" title="查看 css/html 下的所有文章">css/html</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://blog.meituo.net/category/javascript/" title="查看 JavaScript 下的所有文章">JavaScript</a>
+<ul class="children">
+	<li class="cat-item cat-item-3"><a href="http://blog.meituo.net/category/javascript/ajax/" title="查看 ajax 下的所有文章">ajax</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://blog.meituo.net/category/javascript/jquery/" title="查看 jQuery 下的所有文章">jQuery</a>
+</li>
+	<li class="cat-item cat-item-98"><a href="http://blog.meituo.net/category/javascript/nodejs/" title="查看 nodeJS 下的所有文章">nodeJS</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://blog.meituo.net/category/linux/" title="查看 Linux 下的所有文章">Linux</a>
+</li>
+	<li class="cat-item cat-item-26"><a href="http://blog.meituo.net/category/mysql/" title="查看 Mysql 下的所有文章">Mysql</a>
+</li>
+	<li class="cat-item cat-item-9 current-cat"><a href="http://blog.meituo.net/category/php/" title="查看 PHP 下的所有文章">PHP</a>
+</li>
+	<li class="cat-item cat-item-10"><a href="http://blog.meituo.net/category/photoshop/" title="查看 PS 下的所有文章">PS</a>
+</li>
+	<li class="cat-item cat-item-47"><a href="http://blog.meituo.net/category/python/" title="查看 Python 下的所有文章">Python</a>
+</li>
+	<li class="cat-item cat-item-93"><a href="http://blog.meituo.net/category/ruby/" title="查看 Ruby 下的所有文章">Ruby</a>
+</li>
+	<li class="cat-item cat-item-72"><a href="http://blog.meituo.net/category/software/" title="查看 Software 下的所有文章">Software</a>
+</li>
+	<li class="cat-item cat-item-6"><a href="http://blog.meituo.net/category/wordpress/" title="查看 WordPress 下的所有文章">WordPress</a>
+</li>
+	<li class="cat-item cat-item-27"><a href="http://blog.meituo.net/category/%e6%8a%80%e6%9c%af%e4%b9%8b%e5%a4%96/" title="查看 其他 下的所有文章">其他</a>
+</li>
+	<li class="cat-item cat-item-23"><a href="http://blog.meituo.net/category/%e6%b5%8f%e8%a7%88%e5%99%a8/" title="查看 浏览器 下的所有文章">浏览器</a>
+<ul class="children">
+	<li class="cat-item cat-item-109"><a href="http://blog.meituo.net/category/%e6%b5%8f%e8%a7%88%e5%99%a8/chrome/" title="查看 chrome 下的所有文章">chrome</a>
+</li>
+	<li class="cat-item cat-item-96"><a href="http://blog.meituo.net/category/%e6%b5%8f%e8%a7%88%e5%99%a8/%e7%81%ab%e7%8b%90/" title="查看 firefox 下的所有文章">firefox</a>
+</li>
+	<li class="cat-item cat-item-24"><a href="http://blog.meituo.net/category/%e6%b5%8f%e8%a7%88%e5%99%a8/ie/" title="IE6-9">IE</a>
+</li>
+</ul>
+</li>
+            </ul>
+</div><div class="toggle_sidebar">	<a href="javascript:;">	隐藏侧边栏&gt;&gt;	</a></div>
+<div class="w970">
+	<div id="main">
+	<div class="post_nav">
+		<span class="alignleft">« <a href="http://blog.meituo.net/2010/09/23/%e5%88%a9%e7%94%a8google-localsearch-%e6%89%b9%e9%87%8f%e8%8e%b7%e5%8f%96%e5%8c%ba%e5%9f%9f%e5%9d%90%e6%a0%87/" rel="prev">利用google LocalSearch 批量获取区域坐标</a></span>
+		<span class="alignright"><a href="http://blog.meituo.net/2010/09/26/%e5%93%8d%e5%ba%94%e4%b8%8a%e3%80%81%e4%b8%8b%e9%94%aeenter%e9%94%ae%e5%85%b6%e5%ae%9e%e5%be%88%e7%ae%80%e5%8d%95/" rel="next">响应上、下键enter键其实很简单</a> »</span>
+	</div>
+	<div class="post-574 post type-post hentry category-php category-ajax category-jquery tag-json tag-php" id="post-574">
+
+		<div class="content">
+
+			<h2>PHP如何返回json格式的数据 <div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe title="+1" data-gapiattached="true" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/fastbutton.htm" name="I1_1387124148534" id="I1_1387124148534" vspace="0" tabindex="0" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" marginwidth="0" marginheight="0" hspace="0" frameborder="0" scrolling="no" width="100%"></iframe></div></h2>
+                          <div class="meta">
+                            <span class="time">发布时间：2010/09/26</span>
+                            <span>分类：<a href="http://blog.meituo.net/category/php/" title="查看 PHP 的全部文章" rel="category tag">PHP</a>,<a href="http://blog.meituo.net/category/javascript/ajax/" title="查看 ajax 的全部文章" rel="category tag">ajax</a>,<a href="http://blog.meituo.net/category/javascript/jquery/" title="查看 jQuery 的全部文章" rel="category tag">jQuery</a></span>
+                            <span>标签： <a href="http://blog.meituo.net/tag/json/" rel="tag">JSON</a> <a href="http://blog.meituo.net/tag/php/" rel="tag">PHP</a></span>   
+                            <span class="time">58,108 views</span>
+                            <span>转载请说明出处:<a id="post-574" href="http://blog.meituo.net/2010/09/26/php%e5%a6%82%e4%bd%95%e8%bf%94%e5%9b%9ejson%e6%a0%bc%e5%bc%8f%e7%9a%84%e6%95%b0%e6%8d%ae/" rel="bookmark" title="PHP如何返回json格式的数据">美拓blog</a></span>
+                            <span></span>
+                          </div>
+                          
+					<p>我们常见一些网站在做ajax时返回JSON格式的数据:<br>
+<div class="addcaption"><img style="display: block;" class="addimgbor" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/json.png" alt="返回的是json格式的数据"><span>返回的是json格式的数据</span></div><br>
+<span id="more-574"></span><br>
+这有什么好处那？很显然前端在接到返回的数据时可以直接使用，而不用再用<code>eval('(+ returnString +)')</code> 或者<code> $.parseJSON(returnString ) </code> （jQuery的函数）来转化为js对象，这样显然为用户省电了。。。<br>
+在网上搜索了一下，这个问题在搜索中文信息的时候比较少，一些说是返回json的都是在前端进行的转化处理，根本不是返回JSON格式，其实返回json相当的简单。</p>
+<h3> 原来的数据就是JSON格式</h3>
+<p><a href="http://blog.meituo.net/wp-content/uploads/php_return_json/get_json.html" target="_blank"> 下例</a>来自《锋利的jQuery》：</p>
+<div class="syntaxhighlighter  " id="highlighter_612423"><div class="bar                                                                       "><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><embed id="highlighter_612423_clipboard" type="application/x-shockwave-flash" title="copy to clipboard" allowscriptaccess="always" wmode="transparent" flashvars="highlighterId=highlighter_612423" menu="false" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/clipboard.swf" height="16" width="16"></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines"><div class="line alt1"><table><tbody><tr><td class="number"><code>01</code></td><td class="content"><code class="plain">$(</code><code class="keyword">function</code><code class="plain">(){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>02</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">$(</code><code class="string">'#send'</code><code class="plain">).click(</code><code class="keyword">function</code><code class="plain">() {</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>03</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">$.getJSON(</code><code class="string">'<a href="http://blog.meituo.net/wp-content/uploads/php_return_json/test.js">http://blog.meituo.net/wp-content/uploads/php_return_json/test.js</a>'</code><code class="plain">, </code><code class="keyword">function</code><code class="plain">(data) {</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>04</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">$(</code><code class="string">'#resText'</code><code class="plain">).empty();</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>05</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">var</code> <code class="plain">html = </code><code class="string">''</code><code class="plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>06</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">$.each( data&nbsp; , </code><code class="keyword">function</code><code class="plain">(commentIndex, comment) {</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>07</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">html += </code><code class="string">'&lt;div class="comment"&gt;&lt;h6&gt;'</code> <code class="plain">+ comment[</code><code class="string">'username'</code><code class="plain">] + </code><code class="string">':&lt;/h6&gt;&lt;p class="para"&gt;'</code> <code class="plain">+ comment[</code><code class="string">'content'</code><code class="plain">] + </code><code class="string">'&lt;/p&gt;&lt;/div&gt;'</code><code class="plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>08</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">})</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>09</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">$(</code><code class="string">'#resText'</code><code class="plain">).html(html);</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>10</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">})</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>11</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">})</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>12</code></td><td class="content"><code class="plain">})</code></td></tr></tbody></table></div></div></div>
+<p>你需要做的就是将数据存储为格式正确的 .json或者.js 文件。以下为示例所传送的json格式的数据</p>
+<div class="syntaxhighlighter  " id="highlighter_79753"><div class="bar                                                                        "><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><embed id="highlighter_79753_clipboard" type="application/x-shockwave-flash" title="copy to clipboard" allowscriptaccess="always" wmode="transparent" flashvars="highlighterId=highlighter_79753" menu="false" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/clipboard.swf" height="16" width="16"></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines"><div class="line alt1"><table><tbody><tr><td class="number"><code>01</code></td><td class="content"><code class="plain">[</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>02</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">{</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>03</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="string">"username"</code><code class="plain">: </code><code class="string">"张三"</code><code class="plain">,</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>04</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="string">"content"</code><code class="plain">: </code><code class="string">"沙发."</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>05</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">},</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>06</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">{</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>07</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="string">"username"</code><code class="plain">: </code><code class="string">"李四"</code><code class="plain">,</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>08</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="string">"content"</code><code class="plain">: </code><code class="string">"板凳."</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>09</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">},</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>10</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">{</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>11</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="string">"username"</code><code class="plain">: </code><code class="string">"王五"</code><code class="plain">,</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>12</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="string">"content"</code><code class="plain">: </code><code class="string">"地板."</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>13</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>14</code></td><td class="content"><code class="plain">]</code></td></tr></tbody></table></div></div></div>
+<h3> php输出JSON格式</h3>
+<p>那么php如何输出json格式？php 使用json_encode函数，然后jQuery使用datatype:json 就可以了嘛? 它的输出如下：</p>
+<p><div style="width: 682px;" class="addcaption"><img style="display: block; width: 672px;" class="addimgbor" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/json_string.png" alt="php 使用json_encode函数，jQuery使用datatype:json的返回类型"><span>php 使用json_encode函数，jQuery使用datatype:json的返回类型</span></div><br>
+显然并非所愿。还是字符串，到底怎么实现？其实很简单，只要在php文件头部加入以下代码:</p>
+<div class="syntaxhighlighter  " id="highlighter_185053"><div class="bar      "><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><embed id="highlighter_185053_clipboard" type="application/x-shockwave-flash" title="copy to clipboard" allowscriptaccess="always" wmode="transparent" flashvars="highlighterId=highlighter_185053" menu="false" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/clipboard.swf" height="16" width="16"></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines"><div class="line alt1"><table><tbody><tr><td class="number"><code>1</code></td><td class="content"><code class="plain">header(</code><code class="string">'Content-type: text/json'</code><code class="plain">);</code></td></tr></tbody></table></div></div></div>
+<p>这个头就是告知此文件输出类型为 json，这种形式我们见的最多的是验证码——php输出验证图片，有时php可以输出css文件，js文件等做一些有趣的事情。好的，我们测试一下吧。<a href="http://blog.meituo.net/wp-content/uploads/php_return_json/php_get_json.html" target="_blank">查看示例 </a></p>
+<p>示例代码：</p>
+<div class="syntaxhighlighter  " id="highlighter_4849"><div class="bar                                           "><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><embed id="highlighter_4849_clipboard" type="application/x-shockwave-flash" title="copy to clipboard" allowscriptaccess="always" wmode="transparent" flashvars="highlighterId=highlighter_4849" menu="false" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/clipboard.swf" height="16" width="16"></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines"><div class="line alt1"><table><tbody><tr><td class="number"><code>01</code></td><td class="content"><code class="plain">&lt; ?php</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>02</code></td><td class="content"><code class="plain">header(</code><code class="string">'Content-type: text/json'</code><code class="plain">);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>03</code></td><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>04</code></td><td class="content"><code class="variable">$fruits</code> <code class="plain">= </code><code class="keyword">array</code> <code class="plain">(</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>05</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="string">"fruits"</code>&nbsp; <code class="plain">=&gt; </code><code class="keyword">array</code><code class="plain">(</code><code class="string">"a"</code> <code class="plain">=&gt; </code><code class="string">"orange"</code><code class="plain">, </code><code class="string">"b"</code> <code class="plain">=&gt; </code><code class="string">"banana"</code><code class="plain">, </code><code class="string">"c"</code> <code class="plain">=&gt; </code><code class="string">"apple"</code><code class="plain">),</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>06</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="string">"numbers"</code> <code class="plain">=&gt; </code><code class="keyword">array</code><code class="plain">(1, 2, 3, 4, 5, 6),</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>07</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="string">"holes"</code>&nbsp;&nbsp; <code class="plain">=&gt; </code><code class="keyword">array</code><code class="plain">(</code><code class="string">"first"</code><code class="plain">, 5 =&gt; </code><code class="string">"second"</code><code class="plain">, </code><code class="string">"third"</code><code class="plain">)</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>08</code></td><td class="content"><code class="plain">);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>09</code></td><td class="content"><code class="functions">echo</code> <code class="plain">json_encode(</code><code class="variable">$fruits</code><code class="plain">);</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>10</code></td><td class="content"><code class="plain">?&gt;</code></td></tr></tbody></table></div></div></div>
+			<div id="share">
+				分享到:
+				<a rel="nofollow" id="renren-share" title="人人网">人人网</a>
+				<a rel="nofollow" id="sina-share" title="新浪微博">新浪微博</a>
+				<a rel="nofollow" id="tencent-share" title="腾讯微博">腾讯微博</a>
+				<a rel="nofollow" id="douban-share" title="豆瓣">豆瓣</a>
+				<a rel="nofollow" id="kaixin001-share" title="开心网">开心网</a>
+				<a rel="nofollow" id="netease-share" title="网易微博">网易微博</a>
+				<a rel="nofollow" id="facebook-share" title="Facebook">Facebook</a>
+				<a rel="nofollow" id="twitter-share" title="Twitter">Twitter</a>
+				<a rel="nofollow" id="delicious-share" title="Delicious">Delicious</a>
+			</div>
+
+		</div>
+	</div>
+	<div id="post_metadata" style="padding:0 0 10px 0;">
+		<!--
+		<h3>日志信息 &raquo;</h3>
+		<div class="content">
+			该日志于2010-09-26 18:11由 独孤逸辰 发表在<a href="http://blog.meituo.net/category/php/" title="查看 PHP 的全部文章" rel="category tag">PHP</a>, <a href="http://blog.meituo.net/category/javascript/ajax/" title="查看 ajax 的全部文章" rel="category tag">ajax</a>, <a href="http://blog.meituo.net/category/javascript/jquery/" title="查看 jQuery 的全部文章" rel="category tag">jQuery</a>分类下，
+						你可以<a href="#respond">发表评论</a>。除了可以将这个日志以保留<a href="http://blog.meituo.net/2010/09/26/php%e5%a6%82%e4%bd%95%e8%bf%94%e5%9b%9ejson%e6%a0%bc%e5%bc%8f%e7%9a%84%e6%95%b0%e6%8d%ae/" rel="bookmark">源地址</a>及作者的情况下<a href="http://blog.meituo.net/2010/09/26/php%e5%a6%82%e4%bd%95%e8%bf%94%e5%9b%9ejson%e6%a0%bc%e5%bc%8f%e7%9a%84%e6%95%b0%e6%8d%ae/trackback/" rel="trackback">引用</a>到你的网站或博客，还可以通过<a href='http://blog.meituo.net/2010/09/26/php%e5%a6%82%e4%bd%95%e8%bf%94%e5%9b%9ejson%e6%a0%bc%e5%bc%8f%e7%9a%84%e6%95%b0%e6%8d%ae/feed/'>RSS 2.0</a>订阅这个日志的所有评论。
+					</div>
+	-->
+	</div>
+	<div class="post_class">
+		<h3>相关日志 »</h3>
+		<ul class="related_post"><li><a href="http://blog.meituo.net/2010/08/29/%e8%8e%b7%e5%be%97gravatar%e5%a4%b4%e5%83%8f%e7%9a%84%e4%b8%a4%e7%a7%8d%e6%96%b9%e6%b3%95php%ef%bc%8cjs/" title="获得Gravatar头像的两种方法(php，js)">获得Gravatar头像的两种方法(php，js)</a></li><li><a href="http://blog.meituo.net/2010/08/28/native%e6%9c%ac%e5%9c%b0json%e5%af%b9%e8%b1%a1/" title="native(本地)JSON对象">native(本地)JSON对象</a></li><li><a href="http://blog.meituo.net/2010/08/28/%e5%9f%ba%e4%ba%8ephp%e7%9a%84curl%e5%bf%ab%e9%80%9f%e5%85%a5%e9%97%a8/" title="基于PHP的cURL快速入门">基于PHP的cURL快速入门</a></li><li><a href="http://blog.meituo.net/2010/03/17/firephp-%e7%9a%84%e9%85%8d%e7%bd%ae%e5%8f%8a%e4%bd%bf%e7%94%a8/" title="firephp 的配置及使用">firephp 的配置及使用</a></li><li><a href="http://blog.meituo.net/2010/01/07/thinkphp%e4%b8%8bckeditorckfinder%e7%9a%84%e5%9b%be%e7%89%87%e4%b8%8a%e4%bc%a0%e9%85%8d%e7%bd%ae/" title="thinkphp下ckeditor+ckfinder的图片上传配置">thinkphp下ckeditor+ckfinder的图片上传配置</a></li><li><a href="http://blog.meituo.net/2009/11/14/%e7%94%b5%e9%a9%b4%e5%bf%bd%e7%8e%b0lamp-brother%e7%9a%84php%e5%85%a8%e5%a5%97%e8%a7%86%e9%a2%91%e4%b8%8b%e8%bd%bd/" title="电驴忽现lamp brother的php、linux全套视频下载（附thinkphp下载方法）">电驴忽现lamp brother的php、linux全套视频下载（附thinkphp下载方法）</a></li></ul><script type="text/javascript">
+		setTimeout(function () {
+			var link = document.createElement("link");
+			link.rel = "stylesheet";
+			link.href= "http://dtmvdvtzf8rz0.cloudfront.net/static/css-text/plain.css";
+			link.type= "text/css";
+			document.getElementsByTagName("body")[0].appendChild(link);
+		}, 1);
+		</script>	</div>
+	<div id="comments">
+	<h3>9条评论	<small><a href="#postcomment" title="发表评论">▼</a></small></h3>
+</div>
+	<ol class="comment_list">
+				<li class="comment even thread-even depth-1" id="comment-148">
+				<div id="div-comment-148" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt="" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/995b9a18c4481e54b536f092a8ebced8.jpg" class="avatar avatar-48 photo" height="48" width="48">		<cite class="fn"><a href="http://idamag.com/blog" rel="external nofollow" class="url">idamag</a></cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://blog.meituo.net/2010/09/26/php%e5%a6%82%e4%bd%95%e8%bf%94%e5%9b%9ejson%e6%a0%bc%e5%bc%8f%e7%9a%84%e6%95%b0%e6%8d%ae/comment-page-1/#comment-148">
+			2010/11/07 于 22:53</a>		</div>
+
+		<p>你的截图里面不是已经是json对象了吗？</p>
+
+		<div class="reply">
+		<a rel="nofollow" class="comment-reply-login" href="http://blog.meituo.net/wp-login.php?redirect_to=http%3A%2F%2Fblog.meituo.net%2F2010%2F09%2F26%2Fphp%25e5%25a6%2582%25e4%25bd%2595%25e8%25bf%2594%25e5%259b%259ejson%25e6%25a0%25bc%25e5%25bc%258f%25e7%259a%2584%25e6%2595%25b0%25e6%258d%25ae%2F">登录并回复</a>		</div>
+				</div>
+		</li>
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-149">
+				<div id="div-comment-149" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt="" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/995b9a18c4481e54b536f092a8ebced8.jpg" class="avatar avatar-48 photo" height="48" width="48">		<cite class="fn"><a href="http://idamag.com/blog" rel="external nofollow" class="url">idamag</a></cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://blog.meituo.net/2010/09/26/php%e5%a6%82%e4%bd%95%e8%bf%94%e5%9b%9ejson%e6%a0%bc%e5%bc%8f%e7%9a%84%e6%95%b0%e6%8d%ae/comment-page-1/#comment-149">
+			2010/11/07 于 23:08</a>		</div>
+
+		<p>看错了。。学习了，解决了一个疑惑~</p>
+
+		<div class="reply">
+		<a rel="nofollow" class="comment-reply-login" href="http://blog.meituo.net/wp-login.php?redirect_to=http%3A%2F%2Fblog.meituo.net%2F2010%2F09%2F26%2Fphp%25e5%25a6%2582%25e4%25bd%2595%25e8%25bf%2594%25e5%259b%259ejson%25e6%25a0%25bc%25e5%25bc%258f%25e7%259a%2584%25e6%2595%25b0%25e6%258d%25ae%2F">登录并回复</a>		</div>
+				</div>
+		</li>
+		<li class="comment even thread-even depth-1" id="comment-251">
+				<div id="div-comment-251" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt="" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/ea52029160e7a4671d41d2a39fb29441.png" class="avatar avatar-48 photo" height="48" width="48">		<cite class="fn"><a href="http://www.qiqicartoon.com/" rel="external nofollow" class="url">朱琦</a></cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://blog.meituo.net/2010/09/26/php%e5%a6%82%e4%bd%95%e8%bf%94%e5%9b%9ejson%e6%a0%bc%e5%bc%8f%e7%9a%84%e6%95%b0%e6%8d%ae/comment-page-1/#comment-251">
+			2011/08/20 于 12:23</a>		</div>
+
+		<p>不错</p>
+
+		<div class="reply">
+		<a rel="nofollow" class="comment-reply-login" href="http://blog.meituo.net/wp-login.php?redirect_to=http%3A%2F%2Fblog.meituo.net%2F2010%2F09%2F26%2Fphp%25e5%25a6%2582%25e4%25bd%2595%25e8%25bf%2594%25e5%259b%259ejson%25e6%25a0%25bc%25e5%25bc%258f%25e7%259a%2584%25e6%2595%25b0%25e6%258d%25ae%2F">登录并回复</a>		</div>
+				</div>
+		</li>
+		<li class="comment odd alt thread-odd thread-alt depth-1 parent" id="comment-379">
+				<div id="div-comment-379" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt="" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/edafd5876b500b95b424a2166b4d7ad8.png" class="avatar avatar-48 photo" height="48" width="48">		<cite class="fn">djks</cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://blog.meituo.net/2010/09/26/php%e5%a6%82%e4%bd%95%e8%bf%94%e5%9b%9ejson%e6%a0%bc%e5%bc%8f%e7%9a%84%e6%95%b0%e6%8d%ae/comment-page-1/#comment-379">
+			2012/05/14 于 17:51</a>		</div>
+
+		<p>要在firebug中直接有JSON选项是怎么做到的？</p>
+
+		<div class="reply">
+		<a rel="nofollow" class="comment-reply-login" href="http://blog.meituo.net/wp-login.php?redirect_to=http%3A%2F%2Fblog.meituo.net%2F2010%2F09%2F26%2Fphp%25e5%25a6%2582%25e4%25bd%2595%25e8%25bf%2594%25e5%259b%259ejson%25e6%25a0%25bc%25e5%25bc%258f%25e7%259a%2584%25e6%2595%25b0%25e6%258d%25ae%2F">登录并回复</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-admin bypostauthor even depth-2" id="comment-382">
+				<div id="div-comment-382" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt="" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/bd5f63d0e12344acabc7909e82155d51.png" class="avatar avatar-48 photo" height="48" width="48">		<cite class="fn">独孤逸辰</cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://blog.meituo.net/2010/09/26/php%e5%a6%82%e4%bd%95%e8%bf%94%e5%9b%9ejson%e6%a0%bc%e5%bc%8f%e7%9a%84%e6%95%b0%e6%8d%ae/comment-page-1/#comment-382">
+			2012/05/19 于 19:16</a>		</div>
+
+		<p>php返回json 格式就可以啊</p>
+
+		<div class="reply">
+		<a rel="nofollow" class="comment-reply-login" href="http://blog.meituo.net/wp-login.php?redirect_to=http%3A%2F%2Fblog.meituo.net%2F2010%2F09%2F26%2Fphp%25e5%25a6%2582%25e4%25bd%2595%25e8%25bf%2594%25e5%259b%259ejson%25e6%25a0%25bc%25e5%25bc%258f%25e7%259a%2584%25e6%2595%25b0%25e6%258d%25ae%2F">登录并回复</a>		</div>
+				</div>
+		</li>
+</ul>
+</li>
+		<li class="comment odd alt thread-even depth-1" id="comment-10577">
+				<div id="div-comment-10577" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt="" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/a7d313e7c1d551fd7074b36ef978275c.png" class="avatar avatar-48 photo" height="48" width="48">		<cite class="fn"><a href="http://www.0x7c.com/" rel="external nofollow" class="url">0x7c</a></cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://blog.meituo.net/2010/09/26/php%e5%a6%82%e4%bd%95%e8%bf%94%e5%9b%9ejson%e6%a0%bc%e5%bc%8f%e7%9a%84%e6%95%b0%e6%8d%ae/comment-page-1/#comment-10577">
+			2013/04/21 于 00:46</a>		</div>
+
+		<p>赞一个，最近也在试用php+json+jquery.</p>
+
+		<div class="reply">
+		<a rel="nofollow" class="comment-reply-login" href="http://blog.meituo.net/wp-login.php?redirect_to=http%3A%2F%2Fblog.meituo.net%2F2010%2F09%2F26%2Fphp%25e5%25a6%2582%25e4%25bd%2595%25e8%25bf%2594%25e5%259b%259ejson%25e6%25a0%25bc%25e5%25bc%258f%25e7%259a%2584%25e6%2595%25b0%25e6%258d%25ae%2F">登录并回复</a>		</div>
+				</div>
+		</li>
+		<li class="comment even thread-odd thread-alt depth-1" id="comment-14914">
+				<div id="div-comment-14914" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt="" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/4f4ad515bce3b95a9a483616b4d93ea2.png" class="avatar avatar-48 photo" height="48" width="48">		<cite class="fn"><a href="http://www.outlet-af.com/" rel="external nofollow" class="url">outlet</a></cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://blog.meituo.net/2010/09/26/php%e5%a6%82%e4%bd%95%e8%bf%94%e5%9b%9ejson%e6%a0%bc%e5%bc%8f%e7%9a%84%e6%95%b0%e6%8d%ae/comment-page-1/#comment-14914">
+			2013/07/06 于 09:28</a>		</div>
+
+		<p>以前只懂得用 eval（json_coder） 没想到 jquery 有 parseJSON</p>
+
+		<div class="reply">
+		<a rel="nofollow" class="comment-reply-login" href="http://blog.meituo.net/wp-login.php?redirect_to=http%3A%2F%2Fblog.meituo.net%2F2010%2F09%2F26%2Fphp%25e5%25a6%2582%25e4%25bd%2595%25e8%25bf%2594%25e5%259b%259ejson%25e6%25a0%25bc%25e5%25bc%258f%25e7%259a%2584%25e6%2595%25b0%25e6%258d%25ae%2F">登录并回复</a>		</div>
+				</div>
+		</li>
+	</ol>
+	<div class="navigation">
+        <span class="alignleft"></span>
+        <span class="alignright"></span>
+    </div>
+		<div id="respond">
+		<h3 id="post_comment">发表评论 »</h3>
+		<div id="cancel_comment_reply"><a rel="nofollow" id="cancel-comment-reply-link" href="http://blog.meituo.net/2010/09/26/php%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE/#respond" style="display:none;">点击这里取消回复。</a></div>
+					<p>要发表评论，您必须先<a href="http://blog.meituo.net/wp-login.php?redirect_to=http%3A%2F%2Fblog.meituo.net%2F2010%2F09%2F26%2Fphp%25e5%25a6%2582%25e4%25bd%2595%25e8%25bf%2594%25e5%259b%259ejson%25e6%25a0%25bc%25e5%25bc%258f%25e7%259a%2584%25e6%2595%25b0%25e6%258d%25ae%2F">登录</a>。</p>
+				<script type="text/javascript">
+			<!--//--><![CDATA[//><!--
+			var commenttextarea = document.getElementById('comment');
+			commenttextarea.onkeydown = function quickSubmit(e) {
+				if (!e) var e = window.event;
+				if (e.ctrlKey && e.keyCode == 13){
+					document.getElementById('submit').click();
+				}
+			};
+			//--><!]]>
+		</script>
+	</div>
+			</div>
+	<div id="sidebar">
+	<ul>
+		            <li><h2>最新日志</h2>
+								<ul>
+										<li><a href="http://blog.meituo.net/2013/07/26/%e6%89%8b%e6%9c%ba%e7%ab%af%e6%b5%8f%e8%a7%88%e5%99%a8-fixed-%e5%ae%9a%e4%bd%8d%e9%97%ae%e9%a2%98/">手机端浏览器 fixed 定位问题</a></li>
+										<li><a href="http://blog.meituo.net/2013/05/30/%e8%b0%88%e4%ba%ba%e7%94%9f%ef%bc%8c%e6%89%af%e7%90%86%e6%83%b3/">谈人生，扯理想</a></li>
+										<li><a href="http://blog.meituo.net/2012/07/24/%e5%89%8d%e7%ab%af%e6%99%8b%e7%ba%a7%e4%b9%8b%e8%b7%af%e7%b3%bb%e5%88%97/">前端晋级之路系列</a></li>
+										<li><a href="http://blog.meituo.net/2012/05/01/vim%e6%8f%92%e4%bb%b6-%e6%a0%bc%e5%bc%8f%e5%8c%96css/">vim插件 格式化css</a></li>
+										<li><a href="http://blog.meituo.net/2012/03/17/%e5%9b%9e%e9%a1%be2011%ef%bc%8c%e5%b1%95%e6%9c%9b2012/">回顾2011，展望2012</a></li>
+										<li><a href="http://blog.meituo.net/2012/03/12/chrome-%e6%8f%92%e4%bb%b6-google-search-result-tidy/">chrome 插件 Google Search Result Tidy</a></li>
+										<li><a href="http://blog.meituo.net/2012/03/06/chrome%e6%8f%92%e4%bb%b6%e4%b9%8b%e4%ba%ba%e4%ba%ba%e7%bd%91/">chrome插件之人人网</a></li>
+										<li><a href="http://blog.meituo.net/2012/02/29/chrome%e7%89%88%e4%ba%ba%e4%ba%ba%e7%94%b5%e5%8f%b0%e5%8f%91%e5%b8%83/">chrome版人人电台发布</a></li>
+										<li><a href="http://blog.meituo.net/2011/11/16/%e5%ae%9e%e7%8e%b0ie6%e4%b8%8b%e7%9a%84%e5%8d%8a%e9%80%8f%e6%98%8e%e6%95%88%e6%9e%9c%e7%9a%84%e5%85%bc%e5%ae%b9%e6%96%b9%e6%b3%95/">实现IE6下的半透明效果的兼容方法</a></li>
+										<li><a href="http://blog.meituo.net/2011/11/09/firefox%e4%b8%8breflow%e5%af%bc%e8%87%b4flash%e9%87%8d%e6%96%b0%e5%8a%a0%e8%bd%bd%e7%9a%84%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95/">firefox下reflow导致flash重新加载的解决方法</a></li>
+									</ul>
+			</li>
+
+			<li><h2>最新评论</h2>
+				
+<ul>
+<li>强几:<a href="http://blog.meituo.net/2013/05/30/%e8%b0%88%e4%ba%ba%e7%94%9f%ef%bc%8c%e6%89%af%e7%90%86%e6%83%b3/#comment-17202" title="on 谈人生，扯理想">博主还是回家找比较好</a></li>
+<li>橘子:<a href="http://blog.meituo.net/2013/05/30/%e8%b0%88%e4%ba%ba%e7%94%9f%ef%bc%8c%e6%89%af%e7%90%86%e6%83%b3/#comment-16854" title="on 谈人生，扯理想">博主，俺在学习你的代码哩~挑篇能看懂的博文回复下。</a></li>
+<li>林:<a href="http://blog.meituo.net/2011/05/01/%e4%b8%89%e6%98%9f%e4%b8%bb%e5%b1%8f%e5%b9%95%e5%ba%94%e7%94%a8%e7%a8%8b%e5%ba%8fcom-sec-android-app-twlauncher%e6%84%8f%e5%a4%96%e5%81%9c%e6%ad%a2%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95/#comment-16757" title="on 三星主屏幕应用程序(com.sec.android.app.twlauncher)意外停止解决方法">謝謝  ,    爾且好難按到播號鍵按到竟然哭了  :))</a></li>
+<li>小K:<a href="http://blog.meituo.net/2011/05/01/%e4%b8%89%e6%98%9f%e4%b8%bb%e5%b1%8f%e5%b9%95%e5%ba%94%e7%94%a8%e7%a8%8b%e5%ba%8fcom-sec-android-app-twlauncher%e6%84%8f%e5%a4%96%e5%81%9c%e6%ad%a2%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95/#comment-15770" title="on 三星主屏幕应用程序(com.sec.android.app.twlauncher)意外停止解决方法">这种方式真的很好。我居然搞定了。只是要提前把数据进行备份呢。</a></li>
+<li>outlet:<a href="http://blog.meituo.net/2013/05/30/%e8%b0%88%e4%ba%ba%e7%94%9f%ef%bc%8c%e6%89%af%e7%90%86%e6%83%b3/#comment-14915" title="on 谈人生，扯理想">2，可以跟我走 | 要求就算有点高啦</a></li>
+</ul>	
+			</li>
+                              <!--
+			<li><h2>日志存档</h2>
+				<form class="tags" id="archiveform" action=""> 
+					<select name="archive_chrono" onchange="window.location = 
+					(document.forms.archiveform.archive_chrono[ 
+					document.forms.archiveform.archive_chrono.selectedIndex].value);"> 
+					<option value=''>请选择月份查看</option> 
+						<option value='http://blog.meituo.net/2013/07/'> 2013 年七月 &nbsp;(1)</option>
+	<option value='http://blog.meituo.net/2013/05/'> 2013 年五月 &nbsp;(1)</option>
+	<option value='http://blog.meituo.net/2012/07/'> 2012 年七月 &nbsp;(1)</option>
+	<option value='http://blog.meituo.net/2012/05/'> 2012 年五月 &nbsp;(1)</option>
+	<option value='http://blog.meituo.net/2012/03/'> 2012 年三月 &nbsp;(3)</option>
+	<option value='http://blog.meituo.net/2012/02/'> 2012 年二月 &nbsp;(1)</option>
+	<option value='http://blog.meituo.net/2011/11/'> 2011 年十一月 &nbsp;(2)</option>
+	<option value='http://blog.meituo.net/2011/09/'> 2011 年九月 &nbsp;(2)</option>
+	<option value='http://blog.meituo.net/2011/07/'> 2011 年七月 &nbsp;(3)</option>
+	<option value='http://blog.meituo.net/2011/06/'> 2011 年六月 &nbsp;(1)</option>
+	<option value='http://blog.meituo.net/2011/05/'> 2011 年五月 &nbsp;(3)</option>
+	<option value='http://blog.meituo.net/2011/04/'> 2011 年四月 &nbsp;(1)</option>
+	<option value='http://blog.meituo.net/2011/03/'> 2011 年三月 &nbsp;(6)</option>
+	<option value='http://blog.meituo.net/2011/02/'> 2011 年二月 &nbsp;(2)</option>
+	<option value='http://blog.meituo.net/2011/01/'> 2011 年一月 &nbsp;(5)</option>
+	<option value='http://blog.meituo.net/2010/12/'> 2010 年十二月 &nbsp;(3)</option>
+	<option value='http://blog.meituo.net/2010/11/'> 2010 年十一月 &nbsp;(10)</option>
+	<option value='http://blog.meituo.net/2010/10/'> 2010 年十月 &nbsp;(5)</option>
+	<option value='http://blog.meituo.net/2010/09/'> 2010 年九月 &nbsp;(6)</option>
+	<option value='http://blog.meituo.net/2010/08/'> 2010 年八月 &nbsp;(35)</option>
+	<option value='http://blog.meituo.net/2010/03/'> 2010 年三月 &nbsp;(5)</option>
+	<option value='http://blog.meituo.net/2010/02/'> 2010 年二月 &nbsp;(2)</option>
+	<option value='http://blog.meituo.net/2010/01/'> 2010 年一月 &nbsp;(7)</option>
+	<option value='http://blog.meituo.net/2009/12/'> 2009 年十二月 &nbsp;(3)</option>
+	<option value='http://blog.meituo.net/2009/11/'> 2009 年十一月 &nbsp;(16)</option>
+	<option value='http://blog.meituo.net/2009/10/'> 2009 年十月 &nbsp;(4)</option>
+	<option value='http://blog.meituo.net/2009/09/'> 2009 年九月 &nbsp;(4)</option>
+	<option value='http://blog.meituo.net/2009/08/'> 2009 年八月 &nbsp;(2)</option>
+	<option value='http://blog.meituo.net/2009/07/'> 2009 年七月 &nbsp;(1)</option>
+ 
+					</select> 
+				</form>
+			</li>
+                     -->
+			<li><h2>标签云</h2>
+				<ul>
+				<li>
+				<div class="tags">
+					<a href="http://blog.meituo.net/tag/android/" class="tag-link-99" title="3 个话题" style="font-size: 13.875px;">android</a>
+<a href="http://blog.meituo.net/tag/autocomplete/" class="tag-link-52" title="2 个话题" style="font-size: 13.125px;">Autocomplete</a>
+<a href="http://blog.meituo.net/tag/chrome/" class="tag-link-109" title="3 个话题" style="font-size: 13.875px;">chrome</a>
+<a href="http://blog.meituo.net/tag/compressor/" class="tag-link-54" title="1 个话题" style="font-size: 12px;">Compressor</a>
+<a href="http://blog.meituo.net/tag/css/" class="tag-link-19" title="16 个话题" style="font-size: 17.8125px;">css</a>
+<a href="http://blog.meituo.net/tag/css3/" class="tag-link-67" title="2 个话题" style="font-size: 13.125px;">css3</a>
+<a href="http://blog.meituo.net/tag/e-texteditor/" class="tag-link-73" title="4 个话题" style="font-size: 14.5px;">E-texteditor</a>
+<a href="http://blog.meituo.net/tag/fckeditor/" class="tag-link-49" title="1 个话题" style="font-size: 12px;">Fckeditor</a>
+<a href="http://blog.meituo.net/tag/firebug/" class="tag-link-76" title="3 个话题" style="font-size: 13.875px;">firebug</a>
+<a href="http://blog.meituo.net/tag/firefox/" class="tag-link-25" title="6 个话题" style="font-size: 15.4375px;">Firefox</a>
+<a href="http://blog.meituo.net/tag/google/" class="tag-link-70" title="2 个话题" style="font-size: 13.125px;">google</a>
+<a href="http://blog.meituo.net/tag/google-map/" class="tag-link-62" title="2 个话题" style="font-size: 13.125px;">google map</a>
+<a href="http://blog.meituo.net/tag/greasemonkey/" class="tag-link-71" title="2 个话题" style="font-size: 13.125px;">Greasemonkey</a>
+<a href="http://blog.meituo.net/tag/html/" class="tag-link-20" title="10 个话题" style="font-size: 16.625px;">html</a>
+<a href="http://blog.meituo.net/tag/ie/" class="tag-link-24" title="6 个话题" style="font-size: 15.4375px;">IE</a>
+<a href="http://blog.meituo.net/tag/ie6/" class="tag-link-45" title="2 个话题" style="font-size: 13.125px;">IE6</a>
+<a href="http://blog.meituo.net/tag/image/" class="tag-link-57" title="1 个话题" style="font-size: 12px;">image</a>
+<a href="http://blog.meituo.net/tag/javascript/" class="tag-link-18" title="37 个话题" style="font-size: 20px;">JavaScript</a>
+<a href="http://blog.meituo.net/tag/jquery/" class="tag-link-7" title="19 个话题" style="font-size: 18.25px;">jQuery</a>
+<a href="http://blog.meituo.net/tag/json/" class="tag-link-50" title="2 个话题" style="font-size: 13.125px;">JSON</a>
+<a href="http://blog.meituo.net/tag/mysql/" class="tag-link-26" title="1 个话题" style="font-size: 12px;">Mysql</a>
+<a href="http://blog.meituo.net/tag/nodejs/" class="tag-link-98" title="1 个话题" style="font-size: 12px;">nodeJS</a>
+<a href="http://blog.meituo.net/tag/php/" class="tag-link-9" title="8 个话题" style="font-size: 16.0625px;">PHP</a>
+<a href="http://blog.meituo.net/tag/ps/" class="tag-link-17" title="1 个话题" style="font-size: 12px;">ps</a>
+<a href="http://blog.meituo.net/tag/python/" class="tag-link-47" title="2 个话题" style="font-size: 13.125px;">Python</a>
+<a href="http://blog.meituo.net/tag/swfupload/" class="tag-link-56" title="2 个话题" style="font-size: 13.125px;">swfupload</a>
+<a href="http://blog.meituo.net/tag/thinkphp/" class="tag-link-38" title="1 个话题" style="font-size: 12px;">thinkphp</a>
+<a href="http://blog.meituo.net/tag/tools/" class="tag-link-86" title="1 个话题" style="font-size: 12px;">tools</a>
+<a href="http://blog.meituo.net/tag/wordpress/" class="tag-link-6" title="2 个话题" style="font-size: 13.125px;">WordPress</a>
+<a href="http://blog.meituo.net/tag/%e4%bd%9c%e7%94%a8%e5%9f%9f/" class="tag-link-40" title="1 个话题" style="font-size: 12px;">作用域</a>
+<a href="http://blog.meituo.net/tag/%e5%88%86%e4%ba%ab/" class="tag-link-42" title="2 个话题" style="font-size: 13.125px;">分享</a>
+<a href="http://blog.meituo.net/tag/%e5%9b%bd%e5%ad%a6%e5%a0%82/" class="tag-link-37" title="1 个话题" style="font-size: 12px;">国学堂</a>
+<a href="http://blog.meituo.net/tag/%e5%a4%a7%e5%ad%a6/" class="tag-link-36" title="1 个话题" style="font-size: 12px;">大学</a>
+<a href="http://blog.meituo.net/tag/%e5%b9%bf%e5%91%8a/" class="tag-link-97" title="1 个话题" style="font-size: 12px;">广告</a>
+<a href="http://blog.meituo.net/tag/%e5%be%ae%e6%a0%bc%e5%bc%8f/" class="tag-link-34" title="1 个话题" style="font-size: 12px;">微格式</a>
+<a href="http://blog.meituo.net/tag/%e6%88%91%e7%9a%84%e9%94%99/" class="tag-link-28" title="1 个话题" style="font-size: 12px;">我的错</a>
+<a href="http://blog.meituo.net/tag/%e6%8f%92%e4%bb%b6/" class="tag-link-41" title="2 个话题" style="font-size: 13.125px;">插件</a>
+<a href="http://blog.meituo.net/tag/%e6%90%9c%e7%8b%97%e7%9a%ae%e8%82%a4/" class="tag-link-35" title="1 个话题" style="font-size: 12px;">搜狗皮肤</a>
+<a href="http://blog.meituo.net/tag/%e6%af%95%e4%b8%9a/" class="tag-link-51" title="1 个话题" style="font-size: 12px;">毕业</a>
+<a href="http://blog.meituo.net/tag/%e6%b2%b9%e7%8c%b4/" class="tag-link-59" title="2 个话题" style="font-size: 13.125px;">油猴</a>
+<a href="http://blog.meituo.net/tag/%e6%b5%8f%e8%a7%88%e5%99%a8/" class="tag-link-23" title="2 个话题" style="font-size: 13.125px;">浏览器</a>
+<a href="http://blog.meituo.net/tag/%e7%94%9f%e6%b4%bb/" class="tag-link-29" title="7 个话题" style="font-size: 15.75px;">生活</a>
+<a href="http://blog.meituo.net/tag/%e7%bf%bb%e8%af%91/" class="tag-link-44" title="8 个话题" style="font-size: 16.0625px;">翻译</a>
+<a href="http://blog.meituo.net/tag/%e8%be%93%e5%85%a5%e6%b3%95/" class="tag-link-53" title="1 个话题" style="font-size: 12px;">输入法</a>
+<a href="http://blog.meituo.net/tag/%e9%bb%91%e5%ae%a2/" class="tag-link-16" title="1 个话题" style="font-size: 12px;">黑客</a>				</div>
+				</li>
+				</ul>
+			</li>
+                       
+			 <li id="linkcat-2" class="linkcat"><h2>友情链接</h2>
+	<ul class="xoxo blogroll">
+<li><a href="http://37haitao.com/" target="_blank">37海淘</a></li>
+<li><a href="http://blog.cooer.net/" rel="colleague" title="小成成，哈哈" target="_blank">Deemstone's Blog</a></li>
+<li><a href="http://www.denisdeng.com/" rel="friend" title="friend" target="_blank">Denis' Blog</a></li>
+<li><a href="http://idamag.com/blog" target="_blank">iDamaG™</a></li>
+<li><a href="http://blog.interidea.org/" rel="friend" title="创业者" target="_blank">Interidea.org</a></li>
+<li><a href="http://mex7.org/wp/" target="_blank">MEX</a></li>
+<li><a href="http://www.mhyang.com/blog/" rel="friend met co-worker" title="恩，很有技术深度的家伙" target="_blank">sfsfs</a></li>
+<li><a href="http://www.js8.in/" title="专注前端开发,分享Javascript/CSS/PHP等Web前端开发技巧" target="_blank">三水清</a></li>
+<li><a href="http://www.oncoding.cn/" title="淘宝" target="_blank">幼学笔记</a></li>
+<li><a href="http://www.linhaiyun.com/" rel="friend" target="_blank">拾起那记事本</a></li>
+<li><a href="http://wentao.me/" rel="friend" target="_blank">文韬的BLOG</a></li>
+<li><a href="http://jser.me/" rel="colleague" title="同事" target="_blank">草依山</a></li>
+<li><a href="http://www.nuobaokeji.com/" rel="sibling" title="又一个ThinkPHP站" target="_blank">诺宝科技</a></li>
+<li><a href="http://cbmacera.com/" title="一个thinkPHP的站点" target="_blank">陶瓷科学研究所</a></li>
+
+	</ul>
+</li>
+<li id="linkcat-90" class="linkcat"><h2>链接收藏</h2>
+	<ul class="xoxo blogroll">
+<li><a href="http://www.brunildo.org/test/index.html" title="css 的各种bug介绍" target="_blank">CSS tests and experiments</a></li>
+<li><a href="http://www.w3help.org/zh-cn/causes/index.html" target="_blank">兼容性</a></li>
+<li><a href="http://www.iecss.com/" target="_blank">浏览器默认样式</a></li>
+
+	</ul>
+</li>
+			 <!--
+            <li><h2>我正干什么<span style="font-size: 0.7em">（人间网）</span></h2>
+                <script src='http://renjian.com/js/renseaApi.js?width=240&height=200' type='text/javascript'></script>
+                <script src='http://renjian.com/statuses/user_timeline/cuijiudai.json?count=10&callback=renseaApiCallback' type='text/javascript'></script>
+            </li>
+
+           
+<script type="text/javascript" src="http://www.google.com/reader/ui/publisher-zh_CN.js"></script>
+<script type="text/javascript" src="http://www.google.com/reader/public/javascript/user/01199405582486522270/state/com.google/starred?n=6&callback=GRC_p(%7Bc%3A%22gray%22%2Ct%3A%22google%20reader%20%5Cu5171%5Cu4EAB%22%2Cs%3A%22false%22%2Cn%3A%22true%22%2Cb%3A%22false%22%7D)%3Bnew%20GRC"></script>
+		
+                <li><h2>网站统计</h2>
+                <div id="referer"><a href="http://www.clicki.cc/">统计系统</a></div>
+                <script src="http://www.clicki.cc/refer/feeler.php?siteid=32748"></script>
+                </li>
+          
+                        
+					<li><h2>博客管理</h2>
+						<ul>
+														<li><a href="http://blog.meituo.net/wp-login.php">登录</a></li>
+													</ul>
+		
+					</li>
+               -->
+                   
+			</ul>
+</div>
+</div>
+<script gapi_processed="true" type="text/javascript" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/plusone.js">
+  {lang: 'zh-CN'}
+</script>
+<div id="footer">
+	<div class="w970">
+	©2009-2010 美拓blog All Rights Reservied<br>
+	Powered by <a href="http://wordpress.org/" target="_blank">WordPress</a>,host by <a href="https://my.laoxuehost.com/aff.php?aff=338"> 老薛主机</a>.
+	
+<!-- cnzz -->
+<script src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/stat.php" language="JavaScript"></script><script src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=2404474" target="_blank" title="站长统计">站长统计</a>
+
+<!-- google tongji -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-18263538-1']);
+  _gaq.push(['_setDomainName', '.meituo.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- baidu tongji -->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F7fde32041b03f9052734eed0c60792ff' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/h.js" type="text/javascript"></script>
+
+    </div>
+</div><link type="text/css" href="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/plain.txt" rel="stylesheet"><iframe style="width: 1px; height: 1px; position: absolute; top: -100px;" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/postmessageRelay.htm" id="oauth2relay306884014" name="oauth2relay306884014"></iframe>
+
+<!-- SyntaxHighlighter Stuff -->
+<script type="text/javascript" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/shCore.js"></script>
+		<script type="text/javascript" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/shBrushJScript.js"></script>
+		<script type="text/javascript" src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/shBrushPhp.js"></script>
+		<script type="text/javascript">
+	SyntaxHighlighter.config.clipboardSwf = 'http://blog.meituo.net/wp-content/plugins/syntaxhighlighter2/files/clipboard.swf';
+	SyntaxHighlighter.all();
+</script>
+
+		    <script src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/mtAnnounce.js" type="text/javascript" charset="utf-8"></script>
+<script src="PHP%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9Ejson%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%95%B0%E6%8D%AE%20-%20%E7%BE%8E%E6%8B%93blog_files/meituo.js" type="text/javascript" charset="utf-8"></script>
+
+
+<iframe style="position: absolute; width: 1px; height: 1px; top: 0px; left: 0px; visibility: hidden;"></iframe><sfmsg data="{&quot;imageCount&quot;:0,&quot;ip&quot;:&quot;1.1.1.1&quot;}" id="sfMsgId"></sfmsg></body></html>

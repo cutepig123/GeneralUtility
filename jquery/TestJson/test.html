@@ -13,12 +13,9 @@
         
 	$(function(){
 	     $('#send').click(function() {
-	          $.getJSON('test.js', function(data) {
+	          $.getJSON('test.php', function(data) {
 	              $('#resText').empty();
-	               var html = '';
-	               $.each( data  , function(commentIndex, comment) {
-	                   html += '<div class="comment"><h6>' + comment['username'] + ':</h6><p class="para">' + comment['content'] + '</p></div>';
-	               })
+	               var html = '' + JSON.stringify(data);
 	              $('#resText').html(html);
 	         })
 	    })
