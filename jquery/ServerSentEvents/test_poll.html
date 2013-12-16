@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Hello World jQuery!</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+</head>
+<body>
+    <div id="result">divMsg</div>
+	
+    <script type="text/javascript" >
+       window.setInterval(function(){
+			$.ajax({ 
+				url:'demo_see.php',
+				success:function(data){
+					$('#result').html(data);
+				} 
+			});
+		},500);
+    </script>
+</body>
+</html>
