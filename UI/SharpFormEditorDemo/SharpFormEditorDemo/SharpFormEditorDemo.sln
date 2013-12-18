@@ -1,0 +1,19 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpFormEditorDemo", "SharpFormEditorDemo.csproj", "{F6A689AB-DF28-4666-9221-F7BD872EE7A1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F6A689AB-DF28-4666-9221-F7BD872EE7A1}.Debug|Default.ActiveCfg = Debug|Any CPU
+		{F6A689AB-DF28-4666-9221-F7BD872EE7A1}.Debug|Default.Build.0 = Debug|Any CPU
+		{F6A689AB-DF28-4666-9221-F7BD872EE7A1}.Release|Default.ActiveCfg = Release|Any CPU
+		{F6A689AB-DF28-4666-9221-F7BD872EE7A1}.Release|Default.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

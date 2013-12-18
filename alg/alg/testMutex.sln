@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testMutex", "testMutex.vcproj", "{1DB36C4E-E904-482E-92B9-F2C7BE66D134}"
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{1DB36C4E-E904-482E-92B9-F2C7BE66D134}.Debug.ActiveCfg = Debug|Win32
+		{1DB36C4E-E904-482E-92B9-F2C7BE66D134}.Debug.Build.0 = Debug|Win32
+		{1DB36C4E-E904-482E-92B9-F2C7BE66D134}.Release.ActiveCfg = Release|Win32
+		{1DB36C4E-E904-482E-92B9-F2C7BE66D134}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
