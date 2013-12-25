@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Hello World jQuery!</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+</head>
+<body>
+    <div id="resText"></div>
+	<div id="content"></div>
+	<input type=button id="send" value="Click me">
+	
+	<script type="text/javascript" >
+        
+	function add(element, type, value, name) {
+		//Create an input type dynamically.   
+		var element = document.createElement(element);
+		//Assign different attributes to the element. 
+		element.type = type;
+		element.value = value; // Really? You want the default value to be the type string?
+		element.name = name;  // And the name too?
+		
+		var foo = document.getElementById("content");
+		//Append the element in page (in span).  
+		foo.appendChild(element);
+	}
+
+	function parsejson(data){
+		$('#resText').empty();
+	   var html = '' + JSON.stringify(data);
+	  $('#resText').html(html);
+	  
+	  for( var i=0; i<data.length; i++)
+	  {
+		var cur =data[i];
+		if( cur.element.toLowerCase()=="input" )
+			add(cur.element, cur.type, cur.value, cur.name);
+	  }
+	}
+	
+	$(function(){
+	   $('#send').click(function() {  
+	   
+	   $.ajax({
+		  url: 'test.js',
+		  dataType: 'json',
+		  success: function(result){
+		  
+			$('#resText').html( $('#resText').html() + "<br>\ntoken recieved: " + result.token);
+		  },
+		  error: function(request, textStatus, errorThrown) {
+			$('#resText').html( $('#resText').html() + "<br>\n"+textStatus);
+		  },
+		  complete: function(request, textStatus) { //for additional info
+			$('#resText').html( $('#resText').html() + "<br>\n"+(request.responseText + textStatus);
+			
+		  }
+		});
+
+		//  $.getJSON('test.js', parsejson);
+	 });   
+	});
+
+    </script>
+</body>
+</html>
