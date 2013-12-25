@@ -6,23 +6,21 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 </head>
 <body>
-    <div id="resText"></div>
+    <div id="resText" style="visibility:none"></div>
 	<div id="content"></div>
 	<input type=button id="send" value="Click me">
 	
 	<script type="text/javascript" >
         
-	function add(element, type, value, name) {
+	function create(element_type, type, value, name) {
 		//Create an input type dynamically.   
-		var element = document.createElement(element);
+		var element = document.createElement(element_type);
 		//Assign different attributes to the element. 
 		element.type = type;
 		element.value = value; // Really? You want the default value to be the type string?
 		element.name = name;  // And the name too?
 		
-		var foo = document.getElementById("content");
-		//Append the element in page (in span).  
-		foo.appendChild(element);
+		return element;
 	}
 
 	function parsejson(data){
@@ -30,11 +28,19 @@
 	   var html = '' + JSON.stringify(data);
 	  $('#resText').html(html);
 	  
+	  var foo = document.getElementById("content");
+		
 	  for( var i=0; i<data.length; i++)
 	  {
 		var cur =data[i];
-		if( cur.element.toLowerCase()=="input" )
-			add(cur.element, cur.type, cur.value, cur.name);
+		var elem =cur.element.toLowerCase();
+		var element;
+		if( elem=="input" )
+			element =create(cur.element, cur.type, cur.value, cur.name);
+		else if(elem=="image")
+		;
+		
+		foo.appendChild(element);
 	  }
 	}
 	
@@ -45,15 +51,17 @@
 		  url: 'test.js',
 		  dataType: 'json',
 		  success: function(result){
-		  
-			$('#resText').html( $('#resText').html() + "<br>\ntoken recieved: " + result.token);
+			var a=$('#resText').html() + "<br>\n" + "token recieved: " + result.token;
+			$('#resText').html( a );
+			parsejson(result);
 		  },
 		  error: function(request, textStatus, errorThrown) {
-			$('#resText').html( $('#resText').html() + "<br>\n"+textStatus);
+		  
+			alert(textStatus);
 		  },
 		  complete: function(request, textStatus) { //for additional info
-			$('#resText').html( $('#resText').html() + "<br>\n"+(request.responseText + textStatus);
-			
+			var a=$('#resText').html() + "<br>\n" + request.responseText + textStatus;
+			$('#resText').html( a );
 		  }
 		});
 
