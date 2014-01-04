@@ -1,0 +1,1 @@
+javascript:(function(){var s = document.createElement('script');s.setAttribute('type','text/javascript');s.setAttribute('src','http://localhost/git_repos/GitHub/GeneralUtility/jquery/MyPocket/AddToPocket.js');document.head.appendChild(s);})();
