@@ -25,10 +25,10 @@
 	var videoCss = [
 		'',
 		'position:absolute',
-		'width:610px',
+		'width:1010px',
 		'height:500px',
 		'top:-500px',
-		'left:50%',
+		'left:0%',
 		'margin-left:-306px',
 		'z-index:1000000000000',
 		'background:#000',
@@ -114,12 +114,12 @@
 		cover.style.cssText += coverCss.join(';');
 
 		var v = document.createElement('video');
-		v.setAttribute('height','500');
-		v.setAttribute('width','610');
+		//v.setAttribute('height','500');
+		//v.setAttribute('width','610');
 		v.setAttribute('controls','true');
 		v.setAttribute('autoplay','true');
 		v.style.cssText += videoCss.join(';');
-		v.src = mp4Src;
+		v.src = mp4Src2;
 		
 		
 		var a = document.createElement('a');		
