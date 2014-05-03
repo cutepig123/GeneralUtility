@@ -8,7 +8,7 @@
 <body>
     <div id="resText" style="visibility:none"></div>
 	<div id="content"></div>
-	<input type=button id="send" value="Click me">
+	
 	
 	<script type="text/javascript" >
         
@@ -45,7 +45,7 @@
 	}
 	
 	$(function(){
-	   $('#send').click(function() {  
+	   //$('#send').click(function() {  
 	   
 	   $.ajax({
 		  url: 'test.js',
@@ -66,7 +66,7 @@
 		});
 
 		//  $.getJSON('test.js', parsejson);
-	 });   
+	 //});   
 	});
 
     </script>

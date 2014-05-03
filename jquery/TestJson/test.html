@@ -13,7 +13,7 @@
         
 	$(function(){
 	     $('#send').click(function() {
-	          $.getJSON('test.php', function(data) {
+	          $.getJSON('test.js', function(data) {
 	              $('#resText').empty();
 	               var html = '' + JSON.stringify(data);
 	              $('#resText').html(html);

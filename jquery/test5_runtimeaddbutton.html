@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> New Document </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+ </head>
+
+ <body>
+<div id="fooBar"></div>
+
+<input type=button style="position: absolute; left: 100px; top: 100px;"  value="specific position">
+
+<script type="text/javascript" >
+
+
+  function add(type) {
+    //Create an input type dynamically.   
+    var element = document.createElement("input");
+    //Assign different attributes to the element. 
+    element.type = type;
+    element.value = type; // Really? You want the default value to be the type string?
+    element.name = type;  // And the name too?
+    element.onclick = function() { // Note this is a function
+        alert("blabla");
+    };
+
+    var foo = document.getElementById("fooBar");
+    //Append the element in page (in span).  
+    foo.appendChild(element);
+}
+
+add('button');
+add('edit');
+
+</script>
+
+ </body>
+</html>
