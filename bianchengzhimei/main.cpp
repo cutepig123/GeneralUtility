@@ -1,7 +1,7 @@
 
-void ex1_1();
+void ex();
 
 int main()
 {
-	ex1_1();
+	ex();
 }

@@ -1,3 +1,8 @@
+cmake_minimum_required(VERSION 2.8)
 project(test)
-add_executable(test main.cpp)
-add_executable(test ex1.1.cpp)
+
+file( GLOB  APP_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ex*.cpp )
+foreach( testsourcefile ${APP_SOURCES} )
+    string( REPLACE ".cpp" "" testname ${testsourcefile} )
+	add_executable( ${testname} main.cpp ${testsourcefile} )
+endforeach( testsourcefile ${APP_SOURCES} )
