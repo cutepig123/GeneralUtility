@@ -1,17 +1,7 @@
-#include <iostream>
-#include <algorithm>
+#include "inc.h"
+
 // 翻转烙饼
 // todo: 尚未完成最终方案
-
-template <class T>
-void print(T begin, T end)
-{
-	for (; begin != end; ++begin)
-	{
-		std::cout << *begin;
-	}
-	std::cout << std::endl;
-}
 
 template <class T>
 void flip(T begin, T end)
