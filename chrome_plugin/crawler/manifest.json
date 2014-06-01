@@ -12,7 +12,7 @@
   "permissions": ["","tabs"],  //关于 permissions 字段的详情请参阅声明权限
 
   //关于 background 字段请参阅事件页面
-  "background": {"scripts": ["b.js","c.js"],"persistent": false},
+  "background": {"scripts": ["b.js"],"persistent": false},
 
   //指定这个字段后，将会在浏览器右上角显示你的扩展的图标，这里没有指定图标，所以会出现一个默认的拼图图标
   //关于 brower_action 字段请参阅浏览器按钮
