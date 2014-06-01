@@ -1,0 +1,20 @@
+{
+  //关于 manifest.json 的详情请参阅格式：清单文件，这里仅提供简单的注释
+
+  //下面两个字段是必须要有的
+  "name": "小爬虫",
+  "manifest_version": 2,  //这个字段的值必须是 2
+
+  "version": "1.0",   //指定扩展的版本
+  "description": "接口http://localhost:12345/savehtml/savehtml.ashx?h=文件内容&n=文件名字",  //扩展的描述信息
+
+  //<all_urls>表示能对任意网站使用这个扩展；同时由于需要在页面中注入脚本，所以要用到 tabs 权限。
+  "permissions": ["","tabs"],  //关于 permissions 字段的详情请参阅声明权限
+
+  //关于 background 字段请参阅事件页面
+  "background": {"scripts": ["b.js","c.js"],"persistent": false},
+
+  //指定这个字段后，将会在浏览器右上角显示你的扩展的图标，这里没有指定图标，所以会出现一个默认的拼图图标
+  //关于 brower_action 字段请参阅浏览器按钮
+  "browser_action": {"default_title": "爬下这个站"}  //注意：最后一个字段后面（例如这里的“}”后面）不要多一个逗号“,”，否则载入扩展时会报错。
+}
