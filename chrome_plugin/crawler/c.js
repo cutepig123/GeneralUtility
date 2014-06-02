@@ -67,6 +67,26 @@ function handlerHtml(targetHtml) {
     }
 }
 
+function extractLinks(targetHtml, currUrl){
+	var regex1 =/<a([^>]+)>/ig;
+	var result1;
+	// extract <a>
+	while(result1 = regex1.exec(targetHtml))
+	{
+		// extract href=
+		var regex2 =/href=[\"\']?([^\s\"\']+)[\"\']?/ig;
+		var result2 = regex2.exec(result1[1]);
+		if(result2)
+		{
+			console.log("Checking: " +result2[1]);
+			if( result2[1].toLowerCase().indexOf(currUrl.toLowerCase()) >=0 )
+				console.log("Finding: " +result2[1]);
+		}
+	}
+}
+
+extractLinks(document.getElementsByTagName('html')[0].innerHTML, document.URL);
+
 //这里我加入了文档类型声明，让接口能生成一个完整的网页文件
 handlerHtml('<!DOCTYPE html><html>' + document.getElementsByTagName('html')[0].innerHTML + '</html>');
 

@@ -9,7 +9,7 @@
   "description": "接口http://localhost:12345/savehtml/savehtml.ashx?h=文件内容&n=文件名字",  //扩展的描述信息
 
   //<all_urls>表示能对任意网站使用这个扩展；同时由于需要在页面中注入脚本，所以要用到 tabs 权限。
-  "permissions": ["","tabs"],  //关于 permissions 字段的详情请参阅声明权限
+  "permissions": ["<all_urls>","tabs"],  //关于 permissions 字段的详情请参阅声明权限
 
   //关于 background 字段请参阅事件页面
   "background": {"scripts": ["b.js"],"persistent": false},

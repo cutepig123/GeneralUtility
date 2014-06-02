@@ -1,5 +1,6 @@
 chrome.browserAction.onClicked.addListener(
-function ( ) {
+function (tab ) {
+ var tablink = tab.url;
  chrome.tabs.executeScript({ file: 'c.js' }); 
  }
 );
