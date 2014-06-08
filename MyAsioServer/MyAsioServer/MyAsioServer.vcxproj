@@ -54,7 +54,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -87,10 +87,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AsynServer.cpp" />
+    <ClCompile Include="httpClient.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyAsioClient.cpp" />
     <ClCompile Include="MyAsioServer.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="httpServer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
