@@ -94,7 +94,11 @@
          connections. For instance, if you want an HTTP proxy server on
          IP address 10.0.0.1 port 100, this would be the command sequence
 
->addlistener
+>
+addlistener
+Org.Mentalis.Proxy.Http.HttpListener
+host:0.0.0.0;int:8080
+
 Please enter the full class name of the Listener object you're trying to add:
  (ie. Org.Mentalis.Proxy.Http.HttpListener)
 Org.Mentalis.Proxy.Http.HttpListener

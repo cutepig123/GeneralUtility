@@ -3,7 +3,7 @@
 		Version: 1.0		Date: 2002/04/14
 */
 /*
-    Copyright © 2002, The KPD-Team
+    Copyright ?2002, The KPD-Team
     All rights reserved.
     http://www.mentalis.org/
 
