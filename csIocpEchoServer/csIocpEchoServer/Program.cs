@@ -7,6 +7,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
+// http://msdn.microsoft.com/en-us/library/system.net.sockets.socketasynceventargs(v=vs.110).aspx
+
 namespace csIocpEchoServer
 {
     // Represents a collection of reusable SocketAsyncEventArgs objects.   
