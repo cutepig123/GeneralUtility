@@ -3,6 +3,7 @@
 #include "stdio.h"
 #include "windows.h"
 #include "assert.h"
+#include "stdio.h"
 
 struct MY_PROCESS
 {
@@ -53,9 +54,6 @@ int MyWait(MY_PROCESS const *pProc)
 	return 0;
 }
 
-
-
-
 void DispLastError() 
 { 
     // Retrieve the system error message for the last-error code
@@ -75,7 +73,6 @@ void DispLastError()
 
     // Display the error message and exit the process
 
-    char lpDisplayBuf[1000]; 
     printf(TEXT("\tfailed with error %d: %s\n"), 
         dw, lpMsgBuf); 
     
@@ -93,11 +90,17 @@ int main(int argc, char* argv[])
 	VERIFY(hJob);
 
 	JOBOBJECT_EXTENDED_LIMIT_INFORMATION jobInfo;
-	memset(&jobInfo,0,sizeof(jobInfo));
-	jobInfo.BasicLimitInformation.LimitFlags =JOB_OBJECT_LIMIT_PROCESS_MEMORY;
-	jobInfo.PeakProcessMemoryUsed =30e6;
 
-	//VERIFY( SetInformationJobObject(hJob,JobObjectExtendedLimitInformation,&jobInfo,sizeof(jobInfo)));
+	// 1- limit job memory
+	// this one can run successfully...
+	if (1)
+	{
+		memset(&jobInfo, 0, sizeof(jobInfo));
+		jobInfo.BasicLimitInformation.LimitFlags = JOB_OBJECT_LIMIT_JOB_MEMORY;
+		jobInfo.JobMemoryLimit = (size_t)20e6;
+
+		VERIFY(SetInformationJobObject(hJob, JobObjectExtendedLimitInformation, &jobInfo, sizeof(jobInfo)));
+	}
 
 	JOBOBJECT_EXTENDED_LIMIT_INFORMATION jobInfoQ;
 	DWORD lReturnLengthQ;
@@ -115,10 +118,6 @@ int main(int argc, char* argv[])
 
 	VERIFY( AssignProcessToJobObject(hJob,proc.hProcess));
 	
-	system("pause");
-	VERIFY(TerminateJobObject(hJob,0));
-	system("pause");
-
 	MyWait(&proc);
 
 Exit:
