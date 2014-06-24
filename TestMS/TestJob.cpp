@@ -91,24 +91,12 @@ int main(int argc, char* argv[])
 
 	JOBOBJECT_EXTENDED_LIMIT_INFORMATION jobInfo;
 
-	// limit process memory
-	// Q: why fails??
-	if (0)
-	{
-		memset(&jobInfo, 0, sizeof(jobInfo));
-		jobInfo.BasicLimitInformation.LimitFlags = JOB_OBJECT_LIMIT_PROCESS_MEMORY;
-		jobInfo.PeakProcessMemoryUsed = (size_t)300e6;
-
-		VERIFY(SetInformationJobObject(hJob, JobObjectExtendedLimitInformation, &jobInfo, sizeof(jobInfo)));
-	}
-
 	// 1- limit job memory
 	// this one can run successfully...
-	// 2- // kill on job close
 	if (1)
 	{
 		memset(&jobInfo, 0, sizeof(jobInfo));
-		jobInfo.BasicLimitInformation.LimitFlags = JOB_OBJECT_LIMIT_JOB_MEMORY | JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE;
+		jobInfo.BasicLimitInformation.LimitFlags = JOB_OBJECT_LIMIT_JOB_MEMORY;
 		jobInfo.JobMemoryLimit = (size_t)20e6;
 
 		VERIFY(SetInformationJobObject(hJob, JobObjectExtendedLimitInformation, &jobInfo, sizeof(jobInfo)));
@@ -130,15 +118,7 @@ int main(int argc, char* argv[])
 
 	VERIFY( AssignProcessToJobObject(hJob,proc.hProcess));
 	
-	if (0)
-	{
-		system("pause");
-		VERIFY(TerminateJobObject(hJob, 0));
-	}
-
-	system("pause");
-
-	//MyWait(&proc);
+	MyWait(&proc);
 
 Exit:
 
