@@ -83,7 +83,7 @@ void DispLastError()
 #define CHK_STS		if(sts<0) {DispLastError();printf("Error line %d\n", __LINE__); goto Exit;}
 #define VERIFY(x)	if(!(x)) {sts=-1;CHK_STS;}
 
-int main(int argc, char* argv[])
+int main_job(int argc, char* argv[])
 {
 	int sts =0;
 	HANDLE hJob= CreateJobObject(0,"MyJob");
@@ -97,7 +97,7 @@ int main(int argc, char* argv[])
 	{
 		memset(&jobInfo, 0, sizeof(jobInfo));
 		jobInfo.BasicLimitInformation.LimitFlags = JOB_OBJECT_LIMIT_JOB_MEMORY;
-		jobInfo.JobMemoryLimit = (size_t)20e6;
+		jobInfo.JobMemoryLimit = (size_t)2e9;	//2GB
 
 		VERIFY(SetInformationJobObject(hJob, JobObjectExtendedLimitInformation, &jobInfo, sizeof(jobInfo)));
 	}
