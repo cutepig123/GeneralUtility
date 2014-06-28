@@ -62,6 +62,8 @@ protected:
 	afx_msg void OnCbnSelchangeComparemethodcombo();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnBnClickedCmpDateSizeContent();
 };
 
 //{{AFX_INSERT_LOCATION}}

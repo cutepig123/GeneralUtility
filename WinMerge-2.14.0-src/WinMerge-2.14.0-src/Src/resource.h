@@ -294,6 +294,7 @@
 #define IDC_SINGLE_INSTANCE             1161
 #define IDC_IGNORE_SMALLTIMEDIFF        1162
 #define IDC_LINE_COLORING_GROUP         1163
+#define IDC_CMP_DATE_SIZE_CONTENT       1163
 #define IDC_VIEW_LINE_DIFFERENCES       1164
 #define IDC_BREAK_TYPE                  1168
 #define IDC_SCOLOR_KEYWORDS_BOLD        1169

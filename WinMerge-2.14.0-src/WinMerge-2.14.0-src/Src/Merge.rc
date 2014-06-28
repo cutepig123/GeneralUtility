@@ -1682,6 +1682,8 @@ BEGIN
     LTEXT           "&Quick compare limit (MB):",IDC_STATIC,7,60,200,8
     EDITTEXT        IDC_COMPARE_QUICKC_LIMIT,7,70,50,14,ES_AUTOHSCROLL,ES_NUMBER
     PUSHBUTTON      "Defaults",IDC_COMPAREFOLDER_DEFAULTS,7,184,70,14
+    CONTROL         "Com&pare full content in Date + Size mode",IDC_CMP_DATE_SIZE_CONTENT,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,97,222,10
 END
 
 #ifndef _MAC

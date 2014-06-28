@@ -456,6 +456,9 @@ void UpdateDiffItem(DIFFITEM & di, BOOL & bExists, CDiffContext *pCtxt)
 	}
 }
 
+
+int g_isDateSzOptionalChkContent =1;
+
 /**
  * @brief Compare two diffitems and add results to difflist in context.
  *
@@ -520,6 +523,27 @@ void CompareDiffItem(DIFFITEM &di, CDiffContext * pCtxt)
 				// Really compare
 				FolderCmp folderCmp;
 				di.diffcode.diffcode |= folderCmp.prepAndCompareTwoFiles(pCtxt, di);
+
+				if( pCtxt->m_nCompMethod == CMP_DATE_SIZE && g_isDateSzOptionalChkContent && 
+					(di.diffcode.diffcode & DIFFCODE::DIFF) )
+				{
+					di.diffcode.diffcode &= ~DIFFCODE::DIFF;
+
+					pCtxt->m_nCompMethod =CMP_QUICK_CONTENT;
+					di.diffcode.diffcode |= folderCmp.prepAndCompareTwoFiles(pCtxt, di);
+					pCtxt->m_nCompMethod =CMP_DATE_SIZE;
+
+					TCHAR *pccode =_T("Unknown");
+
+					if(di.diffcode.diffcode & DIFFCODE::DIFF)
+						pccode =_T("DIFF");
+					else if(di.diffcode.diffcode & DIFFCODE::SAME)
+						pccode =_T("SAME");
+
+					TRACE(_T("Optional Compare File %s %s code %s\n"), di.left.filename.c_str(), 
+						di.right.filename.c_str(), pccode);
+				}
+
 				StoreDiffData(di, pCtxt, &folderCmp);
 			}
 		}

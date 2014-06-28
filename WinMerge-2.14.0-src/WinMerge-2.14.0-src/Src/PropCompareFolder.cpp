@@ -20,6 +20,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 static const int Mega = 1024 * 1024;
+extern int g_isDateSzOptionalChkContent;
 
 /** 
  * @brief Constructor.
@@ -51,6 +52,7 @@ BEGIN_MESSAGE_MAP(PropCompareFolder, CPropertyPage)
 	ON_BN_CLICKED(IDC_COMPAREFOLDER_DEFAULTS, OnDefaults)
 	//}}AFX_MSG_MAP
 	ON_CBN_SELCHANGE(IDC_COMPAREMETHODCOMBO, OnCbnSelchangeComparemethodcombo)
+	ON_BN_CLICKED(IDC_CMP_DATE_SIZE_CONTENT, &PropCompareFolder::OnBnClickedCmpDateSizeContent)
 END_MESSAGE_MAP()
 
 /** 
@@ -109,6 +111,9 @@ BOOL PropCompareFolder::OnInitDialog()
 	else
 		pBtn->EnableWindow(FALSE);
 
+	CButton * pBtn2 = (CButton*) GetDlgItem(IDC_CMP_DATE_SIZE_CONTENT);
+	pBtn2->SetCheck(g_isDateSzOptionalChkContent );
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -141,4 +146,11 @@ void PropCompareFolder::OnCbnSelchangeComparemethodcombo()
 		pBtn->EnableWindow(TRUE);
 	else
 		pBtn->EnableWindow(FALSE);
+}
+
+
+void PropCompareFolder::OnBnClickedCmpDateSizeContent()
+{
+	CButton * pBtn = (CButton*) GetDlgItem(IDC_CMP_DATE_SIZE_CONTENT);
+	g_isDateSzOptionalChkContent =pBtn->GetCheck();
 }
