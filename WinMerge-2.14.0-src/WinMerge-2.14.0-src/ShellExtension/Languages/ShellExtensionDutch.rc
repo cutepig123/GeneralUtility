@@ -1,0 +1,46 @@
+//Microsoft Developer Studio generated resource script.
+//
+// $Id: ShellExtensionDutch.rc 6847 2009-06-13 15:34:28Z gerundt $
+
+#include "../resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Dutch (Netherlands) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NLD)
+#ifdef _WIN32
+LANGUAGE LANG_DUTCH, SUBLANG_DUTCH
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_PROJNAME            "ShellExtension"
+    IDS_CONTEXT_MENU        "WinMerge"
+    IDS_CONTEXT_HELP        "Openen met WinMerge"
+    IDS_CONTEXT_HELP_MANYITEMS "Gelieve niet meer dan 2 items te selecteren"
+    IDS_COMPARE             "Vergelijken"
+    IDS_COMPARE_ELLIPSIS    "Vergelijken..."
+    IDS_COMPARE_TO          "Vergelijken met"
+    IDS_HELP_SAVETHIS       "Dit pad opslaan. Selecteer een ander pad om te vergelijken met dit pad."
+    IDS_HELP_COMPARESAVED   "Vergelijken met opgeslagen pad (%1)"
+    IDS_RESELECT_FIRST      "Eerste opnieuw selecteren"
+END
+
+#endif    // Dutch (Netherlands) resources
+/////////////////////////////////////////////////////////////////////////////

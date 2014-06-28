@@ -1,0 +1,46 @@
+//Microsoft Developer Studio generated resource script.
+//
+// $Id: ShellExtensionCzech.rc 3204 2006-04-09 12:58:21Z kimmov $
+
+#include "../resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Czech resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CSY)
+#ifdef _WIN32
+LANGUAGE LANG_CZECH, SUBLANG_DEFAULT
+#pragma code_page(1250)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_PROJNAME            "ShellExtension"
+    IDS_CONTEXT_MENU        "WinMerge"
+    IDS_CONTEXT_HELP        "Otevøít ve WinMerge"
+    IDS_CONTEXT_HELP_MANYITEMS "Prosím vyberte ne více než 2 položky."
+    IDS_COMPARE             "Porovnat"
+    IDS_COMPARE_ELLIPSIS    "Porovnat..."
+    IDS_COMPARE_TO          "Porovnat s"
+    IDS_HELP_SAVETHIS       "Uloží tuto cestu do pamìti. Potom vyberte jinou cestu k porovnání s touto cestou."
+    IDS_HELP_COMPARESAVED   "Porovná s cestou uloženou do pamìti (%1)"
+    IDS_RESELECT_FIRST      "Porovnat znovu"
+END
+
+#endif    // Czech resources
+/////////////////////////////////////////////////////////////////////////////
