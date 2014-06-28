@@ -1,0 +1,46 @@
+// WatchEndOfLog.idl : IDL source for WatchEndOfLog.dll
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (WatchEndOfLog.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+	[
+		object,
+		uuid(47E6B958-C17A-4024-9BE1-68DCC92DD46E),
+		dual,
+		helpstring("IWinMergeScript Interface"),
+		pointer_default(unique)
+	]
+	interface IWinMergeScript : IDispatch
+	{
+		[propget, id(1), helpstring("property PluginEvent")] HRESULT PluginEvent([out, retval] BSTR *pVal);
+		[propget, id(2), helpstring("property PluginDescription")] HRESULT PluginDescription([out, retval] BSTR *pVal);
+		[propget, id(3), helpstring("property PluginFileFilters")] HRESULT PluginFileFilters([out, retval] BSTR *pVal);
+		[propget, id(4), helpstring("property PluginIsAutomatic")] HRESULT PluginIsAutomatic([out, retval] VARIANT_BOOL *pVal);
+		[id(5), helpstring("method UnpackBufferA")] HRESULT UnpackBufferA([in] SAFEARRAY(unsigned char) * pBuffer, [in] INT * pSize, [in] VARIANT_BOOL * pbChanged, [in] INT * pSubcode, [out, retval] VARIANT_BOOL * pbSuccess);
+		[id(6), helpstring("method PackBufferA")] HRESULT PackBufferA([in] SAFEARRAY(unsigned char) * pBuffer, [in] INT * pSize, [in] VARIANT_BOOL * pbChanged, [in] INT subcode, [out, retval] VARIANT_BOOL * pbSuccess);
+		[id(7), helpstring("method UnpackFile")] HRESULT UnpackFile([in] BSTR fileSrc, [in] BSTR fileDst, VARIANT_BOOL * pbChanged, INT * pSubcode, [out, retval] VARIANT_BOOL * pbSuccess);
+		[id(8), helpstring("method PackFile")] HRESULT PackFile([in] BSTR fileSrc, [in] BSTR fileDst, VARIANT_BOOL * pbChanged, INT pSubcode, [out, retval] VARIANT_BOOL * pbSuccess);
+	};
+
+[
+	uuid(C7638C3E-90C9-4058-823B-0E87DBDD670B),
+	version(1.0),
+	helpstring("WatchEndOfLog 1.0 Type Library")
+]
+library WatchEndOfLogLib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	[
+		uuid(9A95205E-B62C-4258-B81C-A106BAFC4F94),
+		helpstring("WinMergeScript Class")
+	]
+	coclass WinMergeScript
+	{
+		[default] interface IWinMergeScript;
+	};
+};

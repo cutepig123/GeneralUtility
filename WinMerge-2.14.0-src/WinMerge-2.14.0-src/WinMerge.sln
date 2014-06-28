@@ -1,0 +1,19 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Merge", "Src\Merge.vcproj", "{2A81DB64-C062-48AF-8D2E-23B68320142D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		UnicodeDebug|Win32 = UnicodeDebug|Win32
+		UnicodeRelease|Win32 = UnicodeRelease|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A81DB64-C062-48AF-8D2E-23B68320142D}.UnicodeDebug|Win32.ActiveCfg = UnicodeDebug|Win32
+		{2A81DB64-C062-48AF-8D2E-23B68320142D}.UnicodeDebug|Win32.Build.0 = UnicodeDebug|Win32
+		{2A81DB64-C062-48AF-8D2E-23B68320142D}.UnicodeRelease|Win32.ActiveCfg = UnicodeRelease|Win32
+		{2A81DB64-C062-48AF-8D2E-23B68320142D}.UnicodeRelease|Win32.Build.0 = UnicodeRelease|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

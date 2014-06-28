@@ -1,0 +1,46 @@
+//Microsoft Developer Studio generated resource script.
+//
+// $Id: ShellExtensionItalian.rc 3204 2006-04-09 12:58:21Z kimmov $
+
+#include "../resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Italian (Italy) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ITA)
+#ifdef _WIN32
+LANGUAGE LANG_ITALIAN, SUBLANG_ITALIAN
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_PROJNAME            "ShellExtension"
+    IDS_CONTEXT_MENU        "WinMerge"
+    IDS_CONTEXT_HELP        "Apri con WinMerge"
+    IDS_CONTEXT_HELP_MANYITEMS "Seleziona un massimo di 2 elementi"
+    IDS_COMPARE             "Confronta"
+    IDS_COMPARE_ELLIPSIS    "Confronta..."
+    IDS_COMPARE_TO          "Confronta con"
+    IDS_HELP_SAVETHIS       "Salva questo percorso. Selezionane poi un altro da confrontare con questo."
+    IDS_HELP_COMPARESAVED   "Confronta con il percorso salvato (%1)"
+    IDS_RESELECT_FIRST      "Torna a selezionare il primo"
+END
+
+#endif    // Italian (Italy) resources
+/////////////////////////////////////////////////////////////////////////////
