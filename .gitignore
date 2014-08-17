@@ -224,3 +224,8 @@ UnicodeDebug
 Debug_u
 /duilib/360SafeDemo/Debug_u/vc120.idb
 /barcode/*.asv
+
+*.ib_pdb_index
+vc*.idb
+CL*.tlog
+
