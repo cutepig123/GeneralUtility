@@ -21,6 +21,4 @@ atom
   ;
 
 // ignore white space characters
-Space
-  :  (' ' | '\t' | '\r' | '\n') 
-  ;
+WS : [ \t\r\n]+ -> skip ;
