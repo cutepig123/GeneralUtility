@@ -1,10 +1,16 @@
 %{
 #include <string>
+#include <io.h>
 #include "node.h"
 #include "parser.hpp"
 #define SAVE_TOKEN yylval.string = new std::string(yytext, yyleng)
 #define TOKEN(t) (yylval.token = t)
-extern "C" int yywrap() { return 0; }
+extern "C" int yywrap() { return 1; }	// stop when End 
+
+#define fileno _fileno
+#define isatty _isatty
+#define vsnprintf _vsnprintf
+
 %}
 
 %%
