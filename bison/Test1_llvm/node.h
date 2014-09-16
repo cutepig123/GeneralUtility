@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <llvm/IR/Value.h>
+#include <llvm/Value.h>
 
 class CodeGenContext;
 class NStatement;

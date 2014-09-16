@@ -3,7 +3,7 @@ set File=%1
 set Rule=%2
 
 path %path%;F:\Program Files\Java\jdk1.7.0_07\bin
-SET CLASSPATH=.;F:\ANTLR\antlr-4.4-complete.jar;%CLASSPATH%
+SET CLASSPATH=.;F:\wamp\www\git_repos\GitHub\GeneralUtility\ANTLRTest\antlr-4.4-complete.jar;%CLASSPATH%
 
 md tmp
 cd tmp
