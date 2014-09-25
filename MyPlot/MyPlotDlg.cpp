@@ -10,6 +10,11 @@
 #define new DEBUG_NEW
 #endif
 
+#define	MODE_THIS		0
+#define	MODE_CONTROL	1
+#define	MODE_CONTROL2	2
+
+int g_mode =MODE_THIS;
 
 // CAboutDlg dialog used for App About
 
@@ -55,6 +60,7 @@ CMyPlotDlg::CMyPlotDlg(CWnd* pParent /*=NULL*/)
 void CMyPlotDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_COMBO1, m_combo1);
 }
 
 BEGIN_MESSAGE_MAP(CMyPlotDlg, CDialog)
@@ -63,6 +69,8 @@ BEGIN_MESSAGE_MAP(CMyPlotDlg, CDialog)
 	ON_WM_QUERYDRAGICON()
 	//}}AFX_MSG_MAP
 	ON_BN_CLICKED(IDOK, OnBnClickedOk)
+	ON_WM_ERASEBKGND()
+	ON_CBN_SELCHANGE(IDC_COMBO1, &CMyPlotDlg::OnCbnSelchangeCombo1)
 END_MESSAGE_MAP()
 
 
@@ -96,6 +104,9 @@ BOOL CMyPlotDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
+	m_combo1.AddString("MODE_THIS");
+	m_combo1.AddString("MODE_CONTROL");
+	m_combo1.AddString("MODE_CONTROL2");
 	
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -116,6 +127,8 @@ void CMyPlotDlg::OnSysCommand(UINT nID, LPARAM lParam)
 // If you add a minimize button to your dialog, you will need the code below
 //  to draw the icon.  For MFC applications using the document/view model,
 //  this is automatically done for you by the framework.
+
+
 
 void CMyPlotDlg::OnPaint() 
 {
@@ -138,7 +151,25 @@ void CMyPlotDlg::OnPaint()
 	}
 	else
 	{
-		CDialog::OnPaint();
+		if( g_mode ==MODE_THIS )
+		{
+			CPaintDC dc(this);
+			dc.Rectangle(10,10,100,50);
+			dc.TextOutA(20,20,"Test",4);
+		}
+		else if( g_mode ==MODE_CONTROL )
+		{
+			CPaintDC dc(GetDlgItem(IDC_STATIC_X));
+			OnBnClickedOk();
+		}
+
+		else if( g_mode ==MODE_CONTROL2 )
+		{
+			CPaintDC pdc();
+			CWindowDC dc(GetDlgItem(IDC_STATIC_X)); 
+			dc.Rectangle(10,10,100,50);
+			dc.TextOutA(20,20,"Test",4);
+		}
 	}
 }
 
@@ -268,4 +299,20 @@ void CMyPlotDlg::OnBnClickedOk()
 	CWnd *pWnd = GetDlgItem(IDC_STATIC_X);
 
 	Plot(n,ax,ay,pWnd);
+}
+
+
+BOOL CMyPlotDlg::OnEraseBkgnd(CDC* pDC)
+{
+	// TODO: Add your message handler code here and/or call default
+
+	return CDialog::OnEraseBkgnd(pDC);
+}
+
+
+void CMyPlotDlg::OnCbnSelchangeCombo1()
+{
+	// TODO: Add your control notification handler code here
+	g_mode =m_combo1.GetCurSel();
+	Invalidate();
 }

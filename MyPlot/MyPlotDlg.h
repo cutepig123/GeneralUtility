@@ -2,6 +2,7 @@
 //
 
 #pragma once
+#include "afxwin.h"
 
 
 // CMyPlotDlg dialog
@@ -30,4 +31,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedOk();
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+	CComboBox m_combo1;
+	afx_msg void OnCbnSelchangeCombo1();
 };
