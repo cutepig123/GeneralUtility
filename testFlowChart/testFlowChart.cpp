@@ -77,85 +77,33 @@ struct MyAlgEnv
 	{
 		assert(pinid< vInPin.size());
 		return dynamic_cast<T*>(vInPin[pinid]);
-		
 	}
 
 	template <class T>
 	T* findOutPin(int pinid)
 	{
-		
 		assert(pinid< vOutPin.size());
 		return dynamic_cast<T*>(vOutPin[pinid]);
-			
-		return 0;
 	}
 };
 
 class Flow
 {
 public:
-	//struct Alg
-	//{
-	//	AlgthmBase* alg;
-	//	std::vector<PinTypeBase*> vInPin;    // size ==alg->m_vPins.size()
-	//	std::vector<PinTypeBase*> vOutPin;    // size ==alg->m_vPins.size()
-	//};
-
 	std::vector< AlgthmBase* > m_algs;
 
-	struct COnn
+	struct Conn
 	{
 		std::pair<int, int> src;
 		std::pair<int, int> dst;
 	};
-	std::vector<COnn > m_conns;
+	std::vector<Conn > m_conns;
 
-	/*template <class T>
-	T* findInPin(AlgthmBase *alg, int pinid)
-	{
-		for (size_t i = 0, n = m_algs.size(); i<n; i++)
-		{
-			if (m_algs[i].alg == alg)
-			{
-				assert(pinid< m_algs[i].vInPin.size());
-				return dynamic_cast<T*>(m_algs[i].vInPin[pinid]);
-			}
-		}
-		return 0;
-	}
-
-	template <class T>
-	T* findOutPin(AlgthmBase *alg, int pinid)
-	{
-		for (size_t i = 0, n = m_algs.size(); i<n; i++)
-		{
-			if (m_algs[i].alg == alg)
-			{
-				assert(pinid< m_algs[i].vOutPin.size());
-				return dynamic_cast<T*>(m_algs[i].vOutPin[pinid]);
-			}
-		}
-		return 0;
-	}*/
-
+	
 	short AddModule(const char *name, int *pid)
 	{
 		AlgthmBase* alg = CrteateAlgInst(name);
 
-		/*Alg stAlg;
-		stAlg.alg = alg;
-
-		size_t n = alg->m_vInPins.size();
-		stAlg.vInPin.resize(n);
-		for (size_t i = 0; i<n; i++)
-			stAlg.vInPin[i] = CreatePinInst(alg->m_vInPins[i].m_type.c_str());
-		
-		n = alg->m_vOutPins.size();
-		stAlg.vOutPin.resize(n);
-		for (size_t i = 0; i<n; i++)
-			stAlg.vOutPin[i] = CreatePinInst(alg->m_vOutPins[i].m_type.c_str());
-		
-		m_algs.push_back(stAlg);*/
 		m_algs.push_back(alg);
 		*pid = m_algs.size() - 1;
 		return 0;
@@ -171,7 +119,7 @@ public:
 		assert(alg1->m_vOutPins.size()>pinid1);
 		assert(alg2->m_vInPins.size()>pinid2);
 
-		COnn conn;
+		Conn conn;
 		conn.src = std::make_pair(mod1, pinid1);
 		conn.dst = std::make_pair(mod2, pinid2);
 		m_conns.push_back(conn);
@@ -180,7 +128,7 @@ public:
 
 	struct RunItem{
 		int aligId;	// curent algorithm idx
-		std::vector<std::pair<int, int> > vtrigPin;	// next alg & pins that be triggerd by this alg
+		std::vector<std::vector<std::pair<int, int> > > vtrigPin;	// next alg & pins that be triggerd by this alg
 		std::vector<int> vIsInputValid;	// status of every input pins
 		MyAlgEnv	m_algEnv;
 	};
@@ -236,7 +184,7 @@ public:
 		// fill RunItem.vtrigPin, vGraph
 		for (size_t i = 0; i < m_conns.size(); i++)
 		{
-			COnn &conn = m_conns[i];
+			Conn &conn = m_conns[i];
 			assert(conn.src.first <nAlg);
 			assert(conn.dst.first <nAlg);
 			AlgthmBase *algSrc = m_algs[conn.src.first];
@@ -246,7 +194,8 @@ public:
 
 			// fill vtrigPin
 			RunItem &item = env.m_vRunItem[conn.src.first];
-			item.vtrigPin.push_back(conn.dst);
+			item.vtrigPin.resize(algSrc->m_vOutPins.size());
+			item.vtrigPin[conn.src.second].push_back(conn.dst);
 
 			// fill vGraph
 #define G(x,y) env.m_vGraph[y*nAlg+x]
@@ -282,19 +231,22 @@ public:
 				//set vIsInputValid of next tasks
 				for (size_t j = 0; j < env.m_vRunItem[nAlgId].vtrigPin.size(); j++)
 				{
-					auto next = env.m_vRunItem[nAlgId].vtrigPin[j];
-
-					// fill vIsInputValid
-					env.m_vRunItem[next.first].vIsInputValid[next.second] = 1;
-
-					// fill data
-					env.m_vRunItem[nAlgId].m_algEnv.vOutPin[j]->Copy(env.m_vRunItem[next.first].m_algEnv.vInPin[next.second]);
-
-					// if input of next task is ready, then add to nextPreparedJobs
-					if (std::find(env.m_vRunItem[next.first].vIsInputValid.begin(),
-						env.m_vRunItem[next.first].vIsInputValid.end(), 0) == env.m_vRunItem[next.first].vIsInputValid.end())
+					auto vcurrTrigPort = env.m_vRunItem[nAlgId].vtrigPin[j];
+					for (size_t k = 0; k < vcurrTrigPort.size(); k++)
 					{
-						nextPreparedJobs.push_back(next.first);
+						auto next = vcurrTrigPort[k];
+						// fill vIsInputValid
+						env.m_vRunItem[next.first].vIsInputValid[next.second] = 1;
+
+						// fill data
+						env.m_vRunItem[nAlgId].m_algEnv.vOutPin[j]->Copy(env.m_vRunItem[next.first].m_algEnv.vInPin[next.second]);
+
+						// if input of next task is ready, then add to nextPreparedJobs
+						if (std::find(env.m_vRunItem[next.first].vIsInputValid.begin(),
+							env.m_vRunItem[next.first].vIsInputValid.end(), 0) == env.m_vRunItem[next.first].vIsInputValid.end())
+						{
+							nextPreparedJobs.push_back(next.first);
+						}
 					}
 				}
 			}
@@ -431,12 +383,12 @@ void test()
 
 	int mid_add, mid_start, mid_start2, mid_end;
 	flow.AddModule("AlgthmOutDbl", &mid_start); 
-	flow.AddModule("AlgthmOutDbl", &mid_start2);
+	//flow.AddModule("AlgthmOutDbl", &mid_start2);
 	flow.AddModule("Alg_Add", &mid_add);
 	flow.AddModule("AlgthmInDbl", &mid_end);
 
 	flow.ConnectModule(mid_start, 0, mid_add, 0);
-	flow.ConnectModule(mid_start2, 0, mid_add, 1);
+	flow.ConnectModule(mid_start, 0, mid_add, 1);
 	flow.ConnectModule(mid_add, 0, mid_end, 0);
 	flow.run();
 }
