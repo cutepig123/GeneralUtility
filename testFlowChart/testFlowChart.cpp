@@ -12,6 +12,10 @@
 #include <assert.h>
 #include <memory>
 
+
+#define	ALG_NAME_START "AlgthmStart"
+#define	ALG_NAME_END "AlgthmEnd"
+
 class PinTypeBase
 {
 public:
@@ -40,6 +44,7 @@ public:
 	std::string            m_name;
 	virtual short run(MyAlgEnv *flow) = 0;
 	virtual AlgthmBase* Create() = 0;
+	virtual void config(void *p){}	//allow user config the alg
 };
 
 std::map<std::string, std::vector<std::shared_ptr<PinTypeBase> > > g_PinTypes;
@@ -51,9 +56,10 @@ short RegisterPinType(std::shared_ptr<PinTypeBase> type)
 	return 0;
 }
 
-short RegisterAlgthm(std::shared_ptr<AlgthmBase> pAlg)
+short RegisterAlgthm(const char *name, std::shared_ptr<AlgthmBase> pAlg)
 {
-	g_algs[pAlg->m_name].push_back( pAlg);
+	pAlg->m_name =name;
+	g_algs[name].push_back( pAlg);
 	return 0;
 }
 
@@ -128,13 +134,22 @@ public:
 	};
 	std::vector<Conn > m_conns;
 
-	
-	short AddModule(const char *name, int *pid)
+	short ConfigModule(int id, void *p)
+	{
+		assert(m_algs.size()>id);
+		m_algs[id]->config(p);
+	}
+
+	short AddModule(const char *name, int *pid, void *p=0)
 	{
 		AlgthmBase* alg = CrteateAlgInst(name);
 
 		m_algs.push_back(alg);
 		*pid = m_algs.size() - 1;
+
+		if (p)
+			alg->config(p);
+
 		return 0;
 	}
 
@@ -167,6 +182,8 @@ public:
 		std::vector<int> m_vGraph;	// Run sequence graph
 		std::vector<int> m_preparedJobs;	// size is dynamically changing
 		std::vector<RunItem> m_vRunItem;
+		int m_startId;	//start and end item
+		int m_endId;
 	};
 
 	short buildGraph(Env	&env)
@@ -175,12 +192,19 @@ public:
 		
 		env.m_vGraph.resize(nAlg*nAlg, -1);	// Run sequence graph
 		env.m_vRunItem.resize(nAlg);
+		env.m_startId = env.m_startId = -1;
 
 		// fill RunItem except vtrigPin[]
 		for (size_t algId = 0; algId<nAlg; algId++)
 		{
 			RunItem &item = env.m_vRunItem[algId];
 			AlgthmBase *alg = m_algs[algId];
+
+			// fill m_startId & m_endId
+			if (alg->m_name == ALG_NAME_START)
+				env.m_startId = algId;
+			else if (alg->m_name == ALG_NAME_END)
+				env.m_endId= algId;
 
 			// algid
 			item.aligId = algId;
@@ -200,6 +224,13 @@ public:
 			item.m_algEnv.vOutPin.resize(nOutput);
 			for (size_t i = 0; i<nOutput; i++)
 				item.m_algEnv.vOutPin[i] = CreatePinInst(alg->m_vOutPins[i].m_type.c_str());
+		}
+
+		// fill m_startId to m_preparedJobs 
+		assert((env.m_startId >= 0 && env.m_endId >= 0) || (env.m_startId < 0 && env.m_endId < 0));
+		if (env.m_startId >= 0 && env.m_endId >= 0)
+		{
+			env.m_preparedJobs.push_back(env.m_startId);
 		}
 
 		// fill preparedJobs
@@ -235,10 +266,22 @@ public:
 		return 0;
 	}
 
-	short run()
+	short run(std::vector<PinTypeBase*>    *pvInPins = 0, std::vector<PinTypeBase*>    *pvOutPins = 0)
 	{
 		Env	env;
 		buildGraph(env);
+
+		// fill input pins of start 
+		assert((env.m_startId >= 0 && env.m_endId >= 0) || (env.m_startId < 0 && env.m_endId < 0));
+		if (env.m_startId >= 0 && env.m_endId >= 0)
+		{
+			assert(pvInPins->size() == env.m_vRunItem[env.m_startId].m_algEnv.vInPin.size());
+			for (size_t i = 0; i < env.m_vRunItem[env.m_startId].m_algEnv.vInPin.size(); i++)
+			{
+				(*pvInPins)[i]->Copy(env.m_vRunItem[env.m_startId].m_algEnv.vInPin[i]);
+				env.m_vRunItem[env.m_startId].vIsInputValid[i] = 1;
+			}
+		}
 
 		while (1)
 		{
@@ -283,6 +326,21 @@ public:
 				break;
 		}
 
+		// check endid's input is filled!!
+		if (env.m_startId >= 0 && env.m_endId >= 0)
+		{
+			assert(pvOutPins->size() == env.m_vRunItem[env.m_endId].m_algEnv.vOutPin.size());
+
+			// all input should be ready now
+			assert(std::find(env.m_vRunItem[env.m_endId].vIsInputValid.begin(), env.m_vRunItem[env.m_endId].vIsInputValid.end(),
+				0) == env.m_vRunItem[env.m_endId].vIsInputValid.end());
+
+			for (size_t i = 0; i < env.m_vRunItem[env.m_endId].m_algEnv.vOutPin.size(); i++)
+			{
+				env.m_vRunItem[env.m_endId].m_algEnv.vOutPin[i]->Copy((*pvOutPins)[i]);
+			}
+		}
+
 		return 0;
 	}
 };
@@ -319,7 +377,21 @@ public:
 	double m_d;
 };
 
-class AlgthmAdd :public AlgthmBase
+template <class T>
+class AlgthmCommImpl:public AlgthmBase
+{
+public:
+	virtual AlgthmBase *Create()
+	{
+		AlgthmBase *p=new T;
+		p->m_name =m_name;
+		p->m_vInPins =m_vInPins;
+		p->m_vOutPins =m_vOutPins;
+		return p;
+	}
+};
+
+class AlgthmAdd :public AlgthmCommImpl<AlgthmAdd>
 {
 public:
 	AlgthmAdd()
@@ -330,7 +402,7 @@ public:
 		m_vInPins[1].m_type = "double";
 		m_vOutPins[0].m_type = "double";
 
-		m_name = "Alg_Add";
+		//m_name = "Alg_Add";
 	}
 
 	short run(MyAlgEnv *flow)
@@ -343,13 +415,9 @@ public:
 		return 0;
 	}
 
-	AlgthmBase *Create()
-	{
-		return new AlgthmAdd;
-	}
 };
 
-class AlgthmOutDbl :public AlgthmBase
+class AlgthmOutDbl :public AlgthmCommImpl<AlgthmOutDbl>
 {
 public:
 	AlgthmOutDbl()
@@ -368,13 +436,9 @@ public:
 		return 0;
 	}
 
-	AlgthmBase *Create()
-	{
-		return new AlgthmOutDbl;
-	}
 };
 
-class AlgthmInDbl :public AlgthmBase
+class AlgthmInDbl :public AlgthmCommImpl<AlgthmInDbl>
 {
 public:
 	AlgthmInDbl()
@@ -382,7 +446,7 @@ public:
 		m_vInPins.resize(1);
 		m_vInPins[0].m_type = "double";
 
-		m_name = "AlgthmInDbl";
+		//m_name = "AlgthmInDbl";
 	}
 
 	short run(MyAlgEnv *flow)
@@ -392,25 +456,46 @@ public:
 		return 0;
 	}
 
-	AlgthmBase *Create()
+	
+};
+
+class AlgthmStartEnd:public AlgthmCommImpl<AlgthmStartEnd>
+{
+public:
+	short run(MyAlgEnv *flow)
 	{
-		return new AlgthmInDbl;
+		for (size_t i = 0; i < m_vInPins.size(); i++)
+		{
+			PinTypeBase* in = flow->findInPin<PinTypeBase>(i);
+			PinTypeBase* out = flow->findOutPin<PinTypeBase>(i);
+			in->Copy(out);
+		}
+		
+		return 0;
+	}
+
+	virtual void config(void *p){
+		std::vector<Pin>    *pvPins = (std::vector<Pin>*)p;
+		m_vOutPins = m_vInPins = *pvPins;
 	}
 };
 
 // User codes
 void test()
 {
-	RegisterPinType(std::shared_ptr<PinTypeBase>(new PinDouble));
-	RegisterAlgthm(std::shared_ptr<AlgthmBase>(new AlgthmAdd));
-	RegisterAlgthm(std::shared_ptr<AlgthmBase>(new AlgthmInDbl));
-	RegisterAlgthm(std::shared_ptr<AlgthmBase>(new AlgthmOutDbl));
+	RegisterPinType( std::shared_ptr<PinTypeBase>(new PinDouble));
+	RegisterAlgthm("Alg_Add", std::shared_ptr<AlgthmBase>(new AlgthmAdd));
+	RegisterAlgthm("AlgthmInDbl", std::shared_ptr<AlgthmBase>(new AlgthmInDbl));
+	RegisterAlgthm("AlgthmOutDbl", std::shared_ptr<AlgthmBase>(new AlgthmOutDbl));
+	RegisterAlgthm(ALG_NAME_START, std::shared_ptr<AlgthmBase>(new AlgthmStartEnd));
+	RegisterAlgthm(ALG_NAME_END, std::shared_ptr<AlgthmBase>(new AlgthmStartEnd));
 
-	//for (int i = 0; i < 4; i++)
+	if (0)
 	{
 		Flow flow;
 
 		int mid_add, mid_start, mid_start2, mid_end;
+
 		flow.AddModule("AlgthmOutDbl", &mid_start);
 		flow.AddModule("Alg_Add", &mid_add);
 		flow.AddModule("AlgthmInDbl", &mid_end);
@@ -422,12 +507,55 @@ void test()
 
 		ResetPool();
 	}
+
+	{
+		Flow flow;
+
+		int mid_add, mid_start, mid_end;
+
+		//设置开始结束pin的数量和类型
+		std::vector<AlgthmBase::Pin>    vInPins;
+		vInPins.resize(2);
+		vInPins[0].m_type = "double";
+		vInPins[1].m_type = "double";
+
+		std::vector<AlgthmBase::Pin>    vOutPins;
+		vOutPins.resize(1);
+		vOutPins[0].m_type = "double";
+
+		flow.AddModule(ALG_NAME_START, &mid_start, &vInPins);
+		flow.AddModule(ALG_NAME_END, &mid_end, &vOutPins);
+
+		flow.AddModule("Alg_Add", &mid_add);
+		
+		flow.ConnectModule(mid_start, 0, mid_add, 0);
+		flow.ConnectModule(mid_start, 1, mid_add, 1);
+		flow.ConnectModule(mid_add, 0, mid_end, 0);
+
+		PinDouble aPinIn[2];
+		aPinIn[0].m_d = 1;
+		aPinIn[1].m_d = 2;
+		std::vector<PinTypeBase*> vPinIn(2);
+		vPinIn[0] = &aPinIn[0];
+		vPinIn[1] = &aPinIn[1];
+
+		PinDouble aPinOut[2];
+		std::vector<PinTypeBase*> vPinOut(1);
+		vPinOut[0] = &aPinOut[0];
+
+		flow.run(&vPinIn, &vPinOut);
+
+		printf("Output %f\n", aPinOut[0].m_d);
+
+		ResetPool();
+	}
+
 }
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	_CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_DEBUG);
+	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	//_CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_DEBUG);
 
 	//new int;
 
