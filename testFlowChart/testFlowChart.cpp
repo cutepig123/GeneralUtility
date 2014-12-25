@@ -1,12 +1,16 @@
 // testFlowChart.cpp : Defines the entry point for the console application.
 //
 
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 #include "stdafx.h"
 #include <vector>
 #include <string>
 #include <map>
 #include <algorithm>
 #include <assert.h>
+#include <memory>
 
 class PinTypeBase
 {
@@ -38,33 +42,58 @@ public:
 	virtual AlgthmBase* Create() = 0;
 };
 
-std::map<std::string, PinTypeBase*> g_PinTypes;
-std::map<std::string, AlgthmBase*> g_algs;
+std::map<std::string, std::vector<std::shared_ptr<PinTypeBase> > > g_PinTypes;
+std::map<std::string, std::vector<std::shared_ptr<AlgthmBase>> > g_algs;
 
-short RegisterPinType(PinTypeBase *type)
+short RegisterPinType(std::shared_ptr<PinTypeBase> type)
 {
-	g_PinTypes[type->m_type] = type;
+	g_PinTypes[type->m_type].push_back( type);
 	return 0;
 }
 
-short RegisterAlgthm(AlgthmBase *pAlg)
+short RegisterAlgthm(std::shared_ptr<AlgthmBase> pAlg)
 {
-	g_algs[pAlg->m_name] = pAlg;
+	g_algs[pAlg->m_name].push_back( pAlg);
 	return 0;
+}
+
+void ResetPool()
+{
+	for (auto it = g_PinTypes.begin(); it != g_PinTypes.end(); ++it)
+		it->second.resize(1);
+
+	for (auto it = g_algs.begin(); it != g_algs.end(); ++it)
+		it->second.resize(1);
 }
 
 PinTypeBase* CreatePinInst(const char *name)
 {
-	auto it = g_PinTypes.find(name);
-	assert(it != g_PinTypes.end());
-	return it->second->Create();
+	auto itv = g_PinTypes.find(name);
+	assert(itv != g_PinTypes.end());
+	/*for (auto it = itv->second.begin(); it != itv->second.end(); ++it)
+	{
+		if (it->unique())
+			return *it;
+	}
+	return itv->second[0]->Create();*/
+	std::shared_ptr<PinTypeBase> t (itv->second[0]->Create());
+	itv->second.push_back(t);
+	return t.get();
 }
 
 AlgthmBase* CrteateAlgInst(const char *name)
 {
-	auto it = g_algs.find(name);
-	assert(it != g_algs.end());
-	return it->second->Create();
+	auto itv = g_algs.find(name);
+	assert(itv != g_algs.end());
+	/*for (auto it = itv->second.begin(); it != itv->second.end(); ++it)
+	{
+		if (it->unique())
+			return *it;
+	}
+	return itv->second[0]->Create();*/
+	std::shared_ptr<AlgthmBase> t(itv->second[0]->Create());
+	itv->second.push_back(t);
+	return t.get();
 }
 
 struct MyAlgEnv
@@ -205,8 +234,6 @@ public:
 
 		return 0;
 	}
-
-	
 
 	short run()
 	{
@@ -374,27 +401,36 @@ public:
 // User codes
 void test()
 {
-	RegisterPinType(new PinDouble);
-	RegisterAlgthm(new AlgthmAdd);
-	RegisterAlgthm(new AlgthmInDbl);
-	RegisterAlgthm(new AlgthmOutDbl);
+	RegisterPinType(std::shared_ptr<PinTypeBase>(new PinDouble));
+	RegisterAlgthm(std::shared_ptr<AlgthmBase>(new AlgthmAdd));
+	RegisterAlgthm(std::shared_ptr<AlgthmBase>(new AlgthmInDbl));
+	RegisterAlgthm(std::shared_ptr<AlgthmBase>(new AlgthmOutDbl));
 
-	Flow flow;
+	//for (int i = 0; i < 4; i++)
+	{
+		Flow flow;
 
-	int mid_add, mid_start, mid_start2, mid_end;
-	flow.AddModule("AlgthmOutDbl", &mid_start); 
-	//flow.AddModule("AlgthmOutDbl", &mid_start2);
-	flow.AddModule("Alg_Add", &mid_add);
-	flow.AddModule("AlgthmInDbl", &mid_end);
+		int mid_add, mid_start, mid_start2, mid_end;
+		flow.AddModule("AlgthmOutDbl", &mid_start);
+		flow.AddModule("Alg_Add", &mid_add);
+		flow.AddModule("AlgthmInDbl", &mid_end);
 
-	flow.ConnectModule(mid_start, 0, mid_add, 0);
-	flow.ConnectModule(mid_start, 0, mid_add, 1);
-	flow.ConnectModule(mid_add, 0, mid_end, 0);
-	flow.run();
+		flow.ConnectModule(mid_start, 0, mid_add, 0);
+		flow.ConnectModule(mid_start, 0, mid_add, 1);
+		flow.ConnectModule(mid_add, 0, mid_end, 0);
+		flow.run();
+
+		ResetPool();
+	}
 }
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	_CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_DEBUG);
+
+	//new int;
+
 	test();
 	return 0;
 }
