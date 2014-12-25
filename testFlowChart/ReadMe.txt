@@ -9,11 +9,15 @@
 ========================================================================
 
 1. Implement short buildRunSeq(std::vector< RunItem> &algSeqs) function
+-->Done
 
-2. Support warp a Flow to an algorithm
+2. Support to warp a Flow to an algorithm
 
 3. Support serialization
 
 4.考虑如何实现允许动态输入pin的参数
 貌似实现了2，这个就不是问题了
+
+5. 用一个统一的内存分配器，以便容易处理内存泄露
+
 /////////////////////////////////////////////////////////////////////////////

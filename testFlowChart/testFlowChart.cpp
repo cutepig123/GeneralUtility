@@ -19,7 +19,7 @@ public:
 	virtual PinTypeBase* Create() = 0;
 };
 
-class Flow;
+class MyAlgEnv;
 
 class AlgthmBase
 {
@@ -34,7 +34,7 @@ public:
 	std::vector<Pin>    m_vInPins;
 	std::vector<Pin>    m_vOutPins;
 	std::string            m_name;
-	virtual short run(Flow *flow) = 0;
+	virtual short run(MyAlgEnv *flow) = 0;
 	virtual AlgthmBase* Create() = 0;
 };
 
@@ -67,17 +67,41 @@ AlgthmBase* CrteateAlgInst(const char *name)
 	return it->second->Create();
 }
 
+struct MyAlgEnv
+{
+	std::vector<PinTypeBase*> vInPin;    // size ==alg->m_vPins.size(), Values of input pin
+	std::vector<PinTypeBase*> vOutPin;    // size ==alg->m_vPins.size(), Values of output pin
+
+	template <class T>
+	T* findInPin(int pinid)
+	{
+		assert(pinid< vInPin.size());
+		return dynamic_cast<T*>(vInPin[pinid]);
+		
+	}
+
+	template <class T>
+	T* findOutPin(int pinid)
+	{
+		
+		assert(pinid< vOutPin.size());
+		return dynamic_cast<T*>(vOutPin[pinid]);
+			
+		return 0;
+	}
+};
+
 class Flow
 {
 public:
-	struct Alg
-	{
-		AlgthmBase* alg;
-		std::vector<PinTypeBase*> vInPin;    // size ==alg->m_vPins.size()
-		std::vector<PinTypeBase*> vOutPin;    // size ==alg->m_vPins.size()
-	};
+	//struct Alg
+	//{
+	//	AlgthmBase* alg;
+	//	std::vector<PinTypeBase*> vInPin;    // size ==alg->m_vPins.size()
+	//	std::vector<PinTypeBase*> vOutPin;    // size ==alg->m_vPins.size()
+	//};
 
-	std::vector< Alg > m_algs;
+	std::vector< AlgthmBase* > m_algs;
 
 	struct COnn
 	{
@@ -86,7 +110,7 @@ public:
 	};
 	std::vector<COnn > m_conns;
 
-	template <class T>
+	/*template <class T>
 	T* findInPin(AlgthmBase *alg, int pinid)
 	{
 		for (size_t i = 0, n = m_algs.size(); i<n; i++)
@@ -112,13 +136,13 @@ public:
 			}
 		}
 		return 0;
-	}
+	}*/
 
 	short AddModule(const char *name, int *pid)
 	{
 		AlgthmBase* alg = CrteateAlgInst(name);
 
-		Alg stAlg;
+		/*Alg stAlg;
 		stAlg.alg = alg;
 
 		size_t n = alg->m_vInPins.size();
@@ -131,7 +155,8 @@ public:
 		for (size_t i = 0; i<n; i++)
 			stAlg.vOutPin[i] = CreatePinInst(alg->m_vOutPins[i].m_type.c_str());
 		
-		m_algs.push_back(stAlg);
+		m_algs.push_back(stAlg);*/
+		m_algs.push_back(alg);
 		*pid = m_algs.size() - 1;
 		return 0;
 	}
@@ -141,10 +166,10 @@ public:
 		assert(m_algs.size()>mod1);
 		assert(m_algs.size()>mod2);
 
-		Alg alg1 = m_algs[mod1];
-		Alg alg2 = m_algs[mod2];
-		assert(alg1.vOutPin.size()>pinid1);
-		assert(alg2.vInPin.size()>pinid2);
+		AlgthmBase* alg1 = m_algs[mod1];
+		AlgthmBase* alg2 = m_algs[mod2];
+		assert(alg1->m_vOutPins.size()>pinid1);
+		assert(alg2->m_vInPins.size()>pinid2);
 
 		COnn conn;
 		conn.src = std::make_pair(mod1, pinid1);
@@ -154,90 +179,131 @@ public:
 	}
 
 	struct RunItem{
-		int aligId;
-		std::vector<std::pair<int, int> > vtrigPin;
+		int aligId;	// curent algorithm idx
+		std::vector<std::pair<int, int> > vtrigPin;	// next alg & pins that be triggerd by this alg
+		std::vector<int> vIsInputValid;	// status of every input pins
+		MyAlgEnv	m_algEnv;
 	};
 	
-	short buildRunItem(int nAlgId, RunItem &item)
+	struct Env
 	{
-		assert(m_algs.size() > nAlgId);
-		Alg &alg = m_algs[nAlgId];
-		size_t n=alg.alg->m_vOutPins.size();
-		item.vtrigPin.resize(n);
-		item.aligId = nAlgId;
-		for (size_t i = 0; i < n; i++)
+		std::vector<int> m_vGraph;	// Run sequence graph
+		std::vector<int> m_preparedJobs;	// size is dynamically changing
+		std::vector<RunItem> m_vRunItem;
+	};
+
+	short buildGraph(Env	&env)
+	{
+		size_t nAlg = m_algs.size();
+		
+		env.m_vGraph.resize(nAlg*nAlg, -1);	// Run sequence graph
+		env.m_vRunItem.resize(nAlg);
+
+		// fill RunItem except vtrigPin[]
+		for (size_t algId = 0; algId<nAlg; algId++)
 		{
-			auto it = std::find_if(m_conns.begin(), m_conns.end(), [nAlgId, i](COnn const&l){return l.src.first == nAlgId && l.src.second == i; });
-			assert(it != m_conns.end());
-			item.vtrigPin[i] = it->dst;
+			RunItem &item = env.m_vRunItem[algId];
+			AlgthmBase *alg = m_algs[algId];
+
+			// algid
+			item.aligId = algId;
+
+			size_t nInput = alg->m_vInPins.size();
+			size_t nOutput = alg->m_vOutPins.size();
+			
+			// vIsInputValid
+			item.vIsInputValid.resize(nInput, 0);
+			
+			// vInPin
+			item.m_algEnv.vInPin.resize(nInput);
+			for (size_t i = 0; i<nInput; i++)
+				item.m_algEnv.vInPin[i] = CreatePinInst(alg->m_vInPins[i].m_type.c_str());
+
+			// vOutPin
+			item.m_algEnv.vOutPin.resize(nOutput);
+			for (size_t i = 0; i<nOutput; i++)
+				item.m_algEnv.vOutPin[i] = CreatePinInst(alg->m_vOutPins[i].m_type.c_str());
 		}
+
+		// fill preparedJobs
+		for (size_t algId = 0; algId < nAlg; algId++)
+		{
+			AlgthmBase *alg = m_algs[algId];
+			if (alg->m_vInPins.size() == 0)
+				env.m_preparedJobs.push_back(algId);
+		}
+
+		// fill RunItem.vtrigPin, vGraph
+		for (size_t i = 0; i < m_conns.size(); i++)
+		{
+			COnn &conn = m_conns[i];
+			assert(conn.src.first <nAlg);
+			assert(conn.dst.first <nAlg);
+			AlgthmBase *algSrc = m_algs[conn.src.first];
+			AlgthmBase *algDst = m_algs[conn.dst.first];
+			assert(conn.src.second<algSrc->m_vOutPins.size());
+			assert(conn.dst.second<algDst->m_vInPins.size());
+
+			// fill vtrigPin
+			RunItem &item = env.m_vRunItem[conn.src.first];
+			item.vtrigPin.push_back(conn.dst);
+
+			// fill vGraph
+#define G(x,y) env.m_vGraph[y*nAlg+x]
+			G(conn.src.first, conn.dst.first) = 1;
+		}
+
+
 		return 0;
 	}
-	short buildRunSeq(std::vector< RunItem> &algSeqs)
-	{
-		algSeqs.resize(4);
-		buildRunItem(0, algSeqs[0]);
-		buildRunItem(1, algSeqs[1]);
-		buildRunItem(2, algSeqs[2]);
-		buildRunItem(3, algSeqs[3]);
-		//while( has_connection)
-		//    find a alg with only output nodes
-		//    add the alg to algSeqs[]
-		//    remove all connections related to the alg
-/*
-		for (int i = 0; i<m_algs.size(); i++)
-		{
-			if (m_algs[i].vInPin.empty())
-			{
-				RunItem item;
-				buildRunItem(i, item);
-				algSeqs.push_back(item);
-			}
-		}
 
-		std::vector<COnn > conns(m_conns);
-
-		while (!conns.empty())
-		{
-			for (int i = 0; i<algSeqs->size(); i++)
-			{
-				for (auto it = conns.begin(); it != conns.end();)
-				{
-					if (algSeqs[i] == conns[j].src.first)
-						it = conns.erase(it);
-					else
-						++it;
-				}
-			}
-
-			? ?
-		}*/
-		return 0;
-	}
+	
 
 	short run()
 	{
-		std::vector< RunItem> algSeqs;
-		buildRunSeq(algSeqs);
+		Env	env;
+		buildGraph(env);
 
-		for (size_t i = 0; i < algSeqs.size(); i++)
+		while (1)
 		{
-			// run each algorithm
-			int nId = algSeqs[i].aligId;
-			m_algs[nId].alg->run(this);
-
-			// trig out pin
-			assert(m_algs[nId].alg->m_vOutPins.size() == algSeqs[i].vtrigPin.size() );
-
-			for (size_t j = 0; j < algSeqs[i].vtrigPin.size();j++)
+			std::vector<int> nextPreparedJobs;
+			for (size_t i = 0; i < env.m_preparedJobs.size(); i++)
 			{
-				int nDesAlgID = algSeqs[i].vtrigPin[j].first;
-				int nDesPinID = algSeqs[i].vtrigPin[j].second;
-				assert(nDesAlgID < m_algs.size());
-				assert(m_algs[nDesAlgID].vInPin.size()>nDesPinID);
-				m_algs[nId].vOutPin[j]->Copy(m_algs[nDesAlgID].vInPin[nDesPinID]);
+				int nAlgId = env.m_preparedJobs[i];
+				
+				// all input should be ready now
+				assert(std::find(env.m_vRunItem[nAlgId].vIsInputValid.begin(), env.m_vRunItem[nAlgId].vIsInputValid.end(),
+					0) == env.m_vRunItem[nAlgId].vIsInputValid.end());
+
+				// run the task
+				m_algs[nAlgId]->run(&env.m_vRunItem[nAlgId].m_algEnv);
+
+				//post-processing
+				//set vIsInputValid of next tasks
+				for (size_t j = 0; j < env.m_vRunItem[nAlgId].vtrigPin.size(); j++)
+				{
+					auto next = env.m_vRunItem[nAlgId].vtrigPin[j];
+
+					// fill vIsInputValid
+					env.m_vRunItem[next.first].vIsInputValid[next.second] = 1;
+
+					// fill data
+					env.m_vRunItem[nAlgId].m_algEnv.vOutPin[j]->Copy(env.m_vRunItem[next.first].m_algEnv.vInPin[next.second]);
+
+					// if input of next task is ready, then add to nextPreparedJobs
+					if (std::find(env.m_vRunItem[next.first].vIsInputValid.begin(),
+						env.m_vRunItem[next.first].vIsInputValid.end(), 0) == env.m_vRunItem[next.first].vIsInputValid.end())
+					{
+						nextPreparedJobs.push_back(next.first);
+					}
+				}
 			}
+
+			env.m_preparedJobs = nextPreparedJobs;
+			if (nextPreparedJobs.empty())
+				break;
 		}
+
 		return 0;
 	}
 };
@@ -288,11 +354,11 @@ public:
 		m_name = "Alg_Add";
 	}
 
-	short run(Flow *flow)
+	short run(MyAlgEnv *flow)
 	{
-		PinDouble* in0 = flow->findInPin<PinDouble>(this, 0);
-		PinDouble* in1 = flow->findInPin<PinDouble>(this, 1);
-		PinDouble* out = flow->findOutPin<PinDouble>(this, 0);
+		PinDouble* in0 = flow->findInPin<PinDouble>( 0);
+		PinDouble* in1 = flow->findInPin<PinDouble>( 1);
+		PinDouble* out = flow->findOutPin<PinDouble>( 0);
 		out->m_d = in0->m_d + in1->m_d;
 		printf("AlgthmAdd run %f %f->%f\n", in0->m_d, in1->m_d, out->m_d);
 		return 0;
@@ -315,9 +381,9 @@ public:
 		m_name = "AlgthmOutDbl";
 	}
 
-	short run(Flow *flow)
+	short run(MyAlgEnv *flow)
 	{
-		PinDouble* out = flow->findOutPin<PinDouble>(this, 0);
+		PinDouble* out = flow->findOutPin<PinDouble>( 0);
 		out->m_d = 123;
 		printf("AlgthmOutDbl run ->%f\n", out->m_d);
 		return 0;
@@ -340,9 +406,9 @@ public:
 		m_name = "AlgthmInDbl";
 	}
 
-	short run(Flow *flow)
+	short run(MyAlgEnv *flow)
 	{
-		PinDouble* in = flow->findInPin<PinDouble>(this, 0);
+		PinDouble* in = flow->findInPin<PinDouble>( 0);
 		printf("AlgthmInDbl run %f->\n", in->m_d);
 		return 0;
 	}
