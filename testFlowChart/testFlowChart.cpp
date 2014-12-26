@@ -11,56 +11,11 @@
 #include <algorithm>
 #include <assert.h>
 #include <memory>
-#include <fstream>
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/map.hpp>
-#include <boost/serialization/string.hpp>
-#include <boost/archive/xml_iarchive.hpp>
-#include <boost/archive/xml_oarchive.hpp>
+#include "AlgthmBase.h"
+#include "BasicAlgthm.h"
+#include "Flow.h"
 
-#define	ALG_NAME_START "AlgthmStart"
-#define	ALG_NAME_END "AlgthmEnd"
 
-class PinTypeBase
-{
-public:
-	std::string m_type;
-	virtual ~PinTypeBase() = 0{};
-	//virtual void Pack(void *data, std::vector<char> *)=0;
-	//virtual void Unpack(std::vector<char> const&, void *data )=0;
-	virtual void Copy(PinTypeBase *des) = 0;
-	virtual PinTypeBase* Create() = 0;
-};
-
-class MyAlgEnv;
-
-class AlgthmBase
-{
-public:
-	virtual ~AlgthmBase() = 0{};
-
-	struct Pin
-	{
-		std::string				m_type;
-
-		template<class Archive>
-		void serialize(Archive & ar, const unsigned int version)
-		{
-			ar & BOOST_SERIALIZATION_NVP(m_type);
-		}
-	};
-
-	std::vector<Pin>    m_vInPins;
-	std::vector<Pin>    m_vOutPins;
-	std::string            m_name;
-	virtual short run(MyAlgEnv *flow) = 0;
-	virtual AlgthmBase* Create() = 0;
-	virtual void config(void *p){}	//allow user config the alg
-	
-};
 
 std::map<std::string, std::vector<std::shared_ptr<PinTypeBase> > > g_PinTypes;
 std::map<std::string, std::vector<std::shared_ptr<AlgthmBase>> > g_algs;
@@ -93,11 +48,11 @@ PinTypeBase* CreatePinInst(const char *name)
 	assert(itv != g_PinTypes.end());
 	/*for (auto it = itv->second.begin(); it != itv->second.end(); ++it)
 	{
-		if (it->unique())
-			return *it;
+	if (it->unique())
+	return *it;
 	}
 	return itv->second[0]->Create();*/
-	std::shared_ptr<PinTypeBase> t (itv->second[0]->Create());
+	std::shared_ptr<PinTypeBase> t(itv->second[0]->Create());
 	itv->second.push_back(t);
 	return t.get();
 }
@@ -108,454 +63,14 @@ AlgthmBase* CrteateAlgInst(const char *name)
 	assert(itv != g_algs.end());
 	/*for (auto it = itv->second.begin(); it != itv->second.end(); ++it)
 	{
-		if (it->unique())
-			return *it;
+	if (it->unique())
+	return *it;
 	}
 	return itv->second[0]->Create();*/
 	std::shared_ptr<AlgthmBase> t(itv->second[0]->Create());
 	itv->second.push_back(t);
 	return t.get();
 }
-
-struct MyAlgEnv
-{
-	std::vector<PinTypeBase*> vInPin;    // size ==alg->m_vPins.size(), Values of input pin
-	std::vector<PinTypeBase*> vOutPin;    // size ==alg->m_vPins.size(), Values of output pin
-
-	template <class T>
-	T* findInPin(int pinid)
-	{
-		assert(pinid< vInPin.size());
-		return dynamic_cast<T*>(vInPin[pinid]);
-	}
-
-	template <class T>
-	T* findOutPin(int pinid)
-	{
-		assert(pinid< vOutPin.size());
-		return dynamic_cast<T*>(vOutPin[pinid]);
-	}
-};
-
-class Flow
-{
-public:
-	std::vector< AlgthmBase* > m_algs;
-
-	struct Conn
-	{
-		std::pair<int, int> src;
-		std::pair<int, int> dst;
-
-		template<class Archive>
-		void serialize(Archive & ar, const unsigned int version)
-		{
-			ar & BOOST_SERIALIZATION_NVP(src);
-			ar & BOOST_SERIALIZATION_NVP(dst);
-		}
-	};
-	std::vector<Conn > m_conns;
-
-	struct AlgSerialInfo
-	{
-		std::vector<AlgthmBase::Pin>    m_vInPins;
-		std::vector<AlgthmBase::Pin>    m_vOutPins;
-		std::string            m_name;
-
-		template<class Archive>
-		void serialize(Archive & ar, const unsigned int version)
-		{
-			ar & BOOST_SERIALIZATION_NVP(m_name);
-			ar & BOOST_SERIALIZATION_NVP(m_vInPins);
-			ar & BOOST_SERIALIZATION_NVP(m_vOutPins);
-		}
-	};
-
-	template <class T1, class T2>
-	void MyCopyAlg(T1 const &t1, T2 &t2)
-	{
-		t2.m_name = t1.m_name;
-		t2.m_vInPins = t1.m_vInPins;
-		t2.m_vOutPins = t1.m_vOutPins;
-	}
-	// save
-	template<class Archive>
-	void serialize_m_algs(Archive & ar, const unsigned int version, boost::mpl::bool_<true>)
-	{
-		std::vector<AlgSerialInfo > vAlg(m_algs.size());
-		for (size_t i = 0; i < m_algs.size(); i++)
-		{
-			MyCopyAlg(*m_algs[i], vAlg[i]);
-		}
-		ar & BOOST_SERIALIZATION_NVP(vAlg);
-	}
-
-	//load
-	template<class Archive>
-	void serialize_m_algs(Archive & ar, const unsigned int version, boost::mpl::bool_<false>)
-	{
-		std::vector<AlgSerialInfo > vAlg;
-		ar & BOOST_SERIALIZATION_NVP(vAlg);
-
-		for (size_t i = 0; i < vAlg.size(); i++)
-		{
-			int pid;
-			AddModule(vAlg[i].m_name.c_str(), &pid, &vAlg[i].m_vInPins);
-		}
-	}
-
-	template<class Archive>
-	void serialize(Archive & ar, const unsigned int version)
-	{
-		serialize_m_algs(ar, version, Archive::is_saving());
-		ar & BOOST_SERIALIZATION_NVP(m_conns);
-	}
-
-	short ConfigModule(int id, void *p)
-	{
-		assert(m_algs.size()>id);
-		m_algs[id]->config(p);
-	}
-
-	short AddModule(const char *name, int *pid, void *p=0)
-	{
-		AlgthmBase* alg = CrteateAlgInst(name);
-
-		m_algs.push_back(alg);
-		*pid = m_algs.size() - 1;
-
-		if (p)
-			alg->config(p);
-
-		return 0;
-	}
-
-	short ConnectModule(int mod1, int pinid1, int mod2, int pinid2)
-	{
-		assert(m_algs.size()>mod1);
-		assert(m_algs.size()>mod2);
-
-		AlgthmBase* alg1 = m_algs[mod1];
-		AlgthmBase* alg2 = m_algs[mod2];
-		assert(alg1->m_vOutPins.size()>pinid1);
-		assert(alg2->m_vInPins.size()>pinid2);
-
-		Conn conn;
-		conn.src = std::make_pair(mod1, pinid1);
-		conn.dst = std::make_pair(mod2, pinid2);
-		m_conns.push_back(conn);
-		return 0;
-	}
-
-	struct RunItem{
-		int aligId;	// curent algorithm idx
-		std::vector<std::vector<std::pair<int, int> > > vtrigPin;	// next alg & pins that be triggerd by this alg
-		std::vector<int> vIsInputValid;	// status of every input pins
-		MyAlgEnv	m_algEnv;
-	};
-	
-	struct Env
-	{
-		std::vector<int> m_vGraph;	// Run sequence graph
-		std::vector<int> m_preparedJobs;	// size is dynamically changing
-		std::vector<RunItem> m_vRunItem;
-		int m_startId;	//start and end item
-		int m_endId;
-	};
-
-	short buildGraph(Env	&env)
-	{
-		size_t nAlg = m_algs.size();
-		
-		env.m_vGraph.resize(nAlg*nAlg, -1);	// Run sequence graph
-		env.m_vRunItem.resize(nAlg);
-		env.m_startId = env.m_startId = -1;
-
-		// fill RunItem except vtrigPin[]
-		for (size_t algId = 0; algId<nAlg; algId++)
-		{
-			RunItem &item = env.m_vRunItem[algId];
-			AlgthmBase *alg = m_algs[algId];
-
-			// fill m_startId & m_endId
-			if (alg->m_name == ALG_NAME_START)
-				env.m_startId = algId;
-			else if (alg->m_name == ALG_NAME_END)
-				env.m_endId= algId;
-
-			// algid
-			item.aligId = algId;
-
-			size_t nInput = alg->m_vInPins.size();
-			size_t nOutput = alg->m_vOutPins.size();
-			
-			// vIsInputValid
-			item.vIsInputValid.resize(nInput, 0);
-			
-			// vInPin
-			item.m_algEnv.vInPin.resize(nInput);
-			for (size_t i = 0; i<nInput; i++)
-				item.m_algEnv.vInPin[i] = CreatePinInst(alg->m_vInPins[i].m_type.c_str());
-
-			// vOutPin
-			item.m_algEnv.vOutPin.resize(nOutput);
-			for (size_t i = 0; i<nOutput; i++)
-				item.m_algEnv.vOutPin[i] = CreatePinInst(alg->m_vOutPins[i].m_type.c_str());
-		}
-
-		// fill m_startId to m_preparedJobs 
-		assert((env.m_startId >= 0 && env.m_endId >= 0) || (env.m_startId < 0 && env.m_endId < 0));
-		if (env.m_startId >= 0 && env.m_endId >= 0)
-		{
-			env.m_preparedJobs.push_back(env.m_startId);
-		}
-
-		// fill preparedJobs
-		for (size_t algId = 0; algId < nAlg; algId++)
-		{
-			AlgthmBase *alg = m_algs[algId];
-			if (alg->m_vInPins.size() == 0)
-				env.m_preparedJobs.push_back(algId);
-		}
-
-		// fill RunItem.vtrigPin, vGraph
-		for (size_t i = 0; i < m_conns.size(); i++)
-		{
-			Conn &conn = m_conns[i];
-			assert(conn.src.first <nAlg);
-			assert(conn.dst.first <nAlg);
-			AlgthmBase *algSrc = m_algs[conn.src.first];
-			AlgthmBase *algDst = m_algs[conn.dst.first];
-			assert(conn.src.second<algSrc->m_vOutPins.size());
-			assert(conn.dst.second<algDst->m_vInPins.size());
-
-			// fill vtrigPin
-			RunItem &item = env.m_vRunItem[conn.src.first];
-			item.vtrigPin.resize(algSrc->m_vOutPins.size());
-			item.vtrigPin[conn.src.second].push_back(conn.dst);
-
-			// fill vGraph
-#define G(x,y) env.m_vGraph[y*nAlg+x]
-			G(conn.src.first, conn.dst.first) = 1;
-		}
-
-
-		return 0;
-	}
-
-	short run(std::vector<PinTypeBase*>    *pvInPins = 0, std::vector<PinTypeBase*>    *pvOutPins = 0)
-	{
-		Env	env;
-		buildGraph(env);
-
-		// fill input pins of start 
-		assert((env.m_startId >= 0 && env.m_endId >= 0) || (env.m_startId < 0 && env.m_endId < 0));
-		if (env.m_startId >= 0 && env.m_endId >= 0)
-		{
-			assert(pvInPins->size() == env.m_vRunItem[env.m_startId].m_algEnv.vInPin.size());
-			for (size_t i = 0; i < env.m_vRunItem[env.m_startId].m_algEnv.vInPin.size(); i++)
-			{
-				(*pvInPins)[i]->Copy(env.m_vRunItem[env.m_startId].m_algEnv.vInPin[i]);
-				env.m_vRunItem[env.m_startId].vIsInputValid[i] = 1;
-			}
-		}
-
-		while (1)
-		{
-			std::vector<int> nextPreparedJobs;
-			for (size_t i = 0; i < env.m_preparedJobs.size(); i++)
-			{
-				int nAlgId = env.m_preparedJobs[i];
-				
-				// all input should be ready now
-				assert(std::find(env.m_vRunItem[nAlgId].vIsInputValid.begin(), env.m_vRunItem[nAlgId].vIsInputValid.end(),
-					0) == env.m_vRunItem[nAlgId].vIsInputValid.end());
-
-				// run the task
-				m_algs[nAlgId]->run(&env.m_vRunItem[nAlgId].m_algEnv);
-
-				//post-processing
-				//set vIsInputValid of next tasks
-				for (size_t j = 0; j < env.m_vRunItem[nAlgId].vtrigPin.size(); j++)
-				{
-					auto vcurrTrigPort = env.m_vRunItem[nAlgId].vtrigPin[j];
-					for (size_t k = 0; k < vcurrTrigPort.size(); k++)
-					{
-						auto next = vcurrTrigPort[k];
-						// fill vIsInputValid
-						env.m_vRunItem[next.first].vIsInputValid[next.second] = 1;
-
-						// fill data
-						env.m_vRunItem[nAlgId].m_algEnv.vOutPin[j]->Copy(env.m_vRunItem[next.first].m_algEnv.vInPin[next.second]);
-
-						// if input of next task is ready, then add to nextPreparedJobs
-						if (std::find(env.m_vRunItem[next.first].vIsInputValid.begin(),
-							env.m_vRunItem[next.first].vIsInputValid.end(), 0) == env.m_vRunItem[next.first].vIsInputValid.end())
-						{
-							nextPreparedJobs.push_back(next.first);
-						}
-					}
-				}
-			}
-
-			env.m_preparedJobs = nextPreparedJobs;
-			if (nextPreparedJobs.empty())
-				break;
-		}
-
-		// check endid's input is filled!!
-		if (env.m_startId >= 0 && env.m_endId >= 0)
-		{
-			assert(pvOutPins->size() == env.m_vRunItem[env.m_endId].m_algEnv.vOutPin.size());
-
-			// all input should be ready now
-			assert(std::find(env.m_vRunItem[env.m_endId].vIsInputValid.begin(), env.m_vRunItem[env.m_endId].vIsInputValid.end(),
-				0) == env.m_vRunItem[env.m_endId].vIsInputValid.end());
-
-			for (size_t i = 0; i < env.m_vRunItem[env.m_endId].m_algEnv.vOutPin.size(); i++)
-			{
-				env.m_vRunItem[env.m_endId].m_algEnv.vOutPin[i]->Copy((*pvOutPins)[i]);
-			}
-		}
-
-		return 0;
-	}
-};
-
-
-// plugin codes
-class PinDouble : public PinTypeBase
-{
-public:
-	PinDouble()
-	{
-		m_type = "double";
-	}
-	//virtual void Pack(void *data,std::vector<char> *vData)
-	//{
-	//    vData.resize(sizeof(double));
-	//    *((double*)&vData[0]) =*((double*)data);
-	//}
-	//virtual void Unpack(std::vector<char> const& vData,void *data){
-	//    *((double*)data) =*((double*)&vData[0]);
-	//}
-
-	virtual void Copy(PinTypeBase *des)
-	{
-		PinDouble *pDes = (PinDouble*)des;
-		pDes->m_d = m_d;
-		printf("PinDouble Copy %f\n", m_d);
-	}
-	virtual PinTypeBase* Create()
-	{
-		return new PinDouble();
-	}
-
-	double m_d;
-};
-
-template <class T>
-class AlgthmCommImpl:public AlgthmBase
-{
-public:
-	virtual AlgthmBase *Create()
-	{
-		AlgthmBase *p=new T;
-		p->m_name =m_name;
-		p->m_vInPins =m_vInPins;
-		p->m_vOutPins =m_vOutPins;
-		return p;
-	}
-};
-
-class AlgthmAdd :public AlgthmCommImpl<AlgthmAdd>
-{
-public:
-	AlgthmAdd()
-	{
-		m_vInPins.resize(2);
-		m_vOutPins.resize(1);
-		m_vInPins[0].m_type = "double";
-		m_vInPins[1].m_type = "double";
-		m_vOutPins[0].m_type = "double";
-
-		//m_name = "Alg_Add";
-	}
-
-	short run(MyAlgEnv *flow)
-	{
-		PinDouble* in0 = flow->findInPin<PinDouble>( 0);
-		PinDouble* in1 = flow->findInPin<PinDouble>( 1);
-		PinDouble* out = flow->findOutPin<PinDouble>( 0);
-		out->m_d = in0->m_d + in1->m_d;
-		printf("AlgthmAdd run %f %f->%f\n", in0->m_d, in1->m_d, out->m_d);
-		return 0;
-	}
-
-};
-
-class AlgthmOutDbl :public AlgthmCommImpl<AlgthmOutDbl>
-{
-public:
-	AlgthmOutDbl()
-	{
-		m_vOutPins.resize(1);
-		m_vOutPins[0].m_type = "double";
-		
-		m_name = "AlgthmOutDbl";
-	}
-
-	short run(MyAlgEnv *flow)
-	{
-		PinDouble* out = flow->findOutPin<PinDouble>( 0);
-		out->m_d = 123;
-		printf("AlgthmOutDbl run ->%f\n", out->m_d);
-		return 0;
-	}
-
-};
-
-class AlgthmInDbl :public AlgthmCommImpl<AlgthmInDbl>
-{
-public:
-	AlgthmInDbl()
-	{
-		m_vInPins.resize(1);
-		m_vInPins[0].m_type = "double";
-
-		//m_name = "AlgthmInDbl";
-	}
-
-	short run(MyAlgEnv *flow)
-	{
-		PinDouble* in = flow->findInPin<PinDouble>( 0);
-		printf("AlgthmInDbl run %f->\n", in->m_d);
-		return 0;
-	}
-
-	
-};
-
-class AlgthmStartEnd:public AlgthmCommImpl<AlgthmStartEnd>
-{
-public:
-	short run(MyAlgEnv *flow)
-	{
-		for (size_t i = 0; i < m_vInPins.size(); i++)
-		{
-			PinTypeBase* in = flow->findInPin<PinTypeBase>(i);
-			PinTypeBase* out = flow->findOutPin<PinTypeBase>(i);
-			in->Copy(out);
-		}
-		
-		return 0;
-	}
-
-	virtual void config(void *p){
-		std::vector<Pin>    *pvPins = (std::vector<Pin>*)p;
-		m_vOutPins = m_vInPins = *pvPins;
-	}
-};
 
 
 class AlgthmMyFlow :public AlgthmCommImpl<AlgthmMyFlow>
@@ -595,6 +110,7 @@ public:
 
 };
 
+
 // User codes
 void test()
 {
@@ -621,7 +137,6 @@ void test()
 		flow.ConnectModule(mid_add, 0, mid_end, 0);
 		flow.run();
 
-		ResetPool();
 	}
 
 	if (0)
@@ -664,10 +179,9 @@ void test()
 
 		printf("Output %f\n", aPinOut[0].m_d);
 
-		ResetPool();
 	}
 
-	if (0)
+	if (1)
 	{
 		Flow flow;
 		int mid_add, mid_start, mid_end;
@@ -680,28 +194,18 @@ void test()
 		flow.ConnectModule(mid_add, 0, mid_end, 0);
 		flow.run();
 
-		{
-			std::ofstream ofs("filename");
-			//boost::archive::text_oarchive oa(ofs);
-			boost::archive::xml_oarchive oa(ofs);
-			// write class instance to archive
-			oa << BOOST_SERIALIZATION_NVP(flow);
-			// archive and stream closed when destructors are called
-		}
+		flow.io("filename", true);
 	}
 
 	{
 		Flow flow;
 
-		std::ifstream ofs("filename");
-		//boost::archive::text_oarchive oa(ofs);
-		boost::archive::xml_iarchive oa(ofs);
-		// write class instance to archive
-		oa >> BOOST_SERIALIZATION_NVP(flow);
-		// archive and stream closed when destructors are called
+		flow.io("filename", false);
 
 		flow.run();
 	}
+
+	ResetPool();
 }
 
 int _tmain(int argc, _TCHAR* argv[])

@@ -83,6 +83,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Flow.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="testFlowChart.cpp" />
   </ItemGroup>
