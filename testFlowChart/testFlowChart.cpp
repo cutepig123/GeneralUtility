@@ -11,7 +11,15 @@
 #include <algorithm>
 #include <assert.h>
 #include <memory>
-
+#include <fstream>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/map.hpp>
+#include <boost/serialization/string.hpp>
+#include <boost/archive/xml_iarchive.hpp>
+#include <boost/archive/xml_oarchive.hpp>
 
 #define	ALG_NAME_START "AlgthmStart"
 #define	ALG_NAME_END "AlgthmEnd"
@@ -37,6 +45,12 @@ public:
 	struct Pin
 	{
 		std::string				m_type;
+
+		template<class Archive>
+		void serialize(Archive & ar, const unsigned int version)
+		{
+			ar & BOOST_SERIALIZATION_NVP(m_type);
+		}
 	};
 
 	std::vector<Pin>    m_vInPins;
@@ -45,6 +59,7 @@ public:
 	virtual short run(MyAlgEnv *flow) = 0;
 	virtual AlgthmBase* Create() = 0;
 	virtual void config(void *p){}	//allow user config the alg
+	
 };
 
 std::map<std::string, std::vector<std::shared_ptr<PinTypeBase> > > g_PinTypes;
@@ -131,8 +146,70 @@ public:
 	{
 		std::pair<int, int> src;
 		std::pair<int, int> dst;
+
+		template<class Archive>
+		void serialize(Archive & ar, const unsigned int version)
+		{
+			ar & BOOST_SERIALIZATION_NVP(src);
+			ar & BOOST_SERIALIZATION_NVP(dst);
+		}
 	};
 	std::vector<Conn > m_conns;
+
+	struct AlgSerialInfo
+	{
+		std::vector<AlgthmBase::Pin>    m_vInPins;
+		std::vector<AlgthmBase::Pin>    m_vOutPins;
+		std::string            m_name;
+
+		template<class Archive>
+		void serialize(Archive & ar, const unsigned int version)
+		{
+			ar & BOOST_SERIALIZATION_NVP(m_name);
+			ar & BOOST_SERIALIZATION_NVP(m_vInPins);
+			ar & BOOST_SERIALIZATION_NVP(m_vOutPins);
+		}
+	};
+
+	template <class T1, class T2>
+	void MyCopyAlg(T1 const &t1, T2 &t2)
+	{
+		t2.m_name = t1.m_name;
+		t2.m_vInPins = t1.m_vInPins;
+		t2.m_vOutPins = t1.m_vOutPins;
+	}
+	// save
+	template<class Archive>
+	void serialize_m_algs(Archive & ar, const unsigned int version, boost::mpl::bool_<true>)
+	{
+		std::vector<AlgSerialInfo > vAlg(m_algs.size());
+		for (size_t i = 0; i < m_algs.size(); i++)
+		{
+			MyCopyAlg(*m_algs[i], vAlg[i]);
+		}
+		ar & BOOST_SERIALIZATION_NVP(vAlg);
+	}
+
+	//load
+	template<class Archive>
+	void serialize_m_algs(Archive & ar, const unsigned int version, boost::mpl::bool_<false>)
+	{
+		std::vector<AlgSerialInfo > vAlg;
+		ar & BOOST_SERIALIZATION_NVP(vAlg);
+
+		for (size_t i = 0; i < vAlg.size(); i++)
+		{
+			int pid;
+			AddModule(vAlg[i].m_name.c_str(), &pid, &vAlg[i].m_vInPins);
+		}
+	}
+
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version)
+	{
+		serialize_m_algs(ar, version, Archive::is_saving());
+		ar & BOOST_SERIALIZATION_NVP(m_conns);
+	}
 
 	short ConfigModule(int id, void *p)
 	{
@@ -527,6 +604,7 @@ void test()
 	RegisterAlgthm("AlgthmOutDbl", std::shared_ptr<AlgthmBase>(new AlgthmOutDbl));
 	RegisterAlgthm(ALG_NAME_START, std::shared_ptr<AlgthmBase>(new AlgthmStartEnd));
 	RegisterAlgthm(ALG_NAME_END, std::shared_ptr<AlgthmBase>(new AlgthmStartEnd));
+	RegisterAlgthm("MyFlowAlg", std::shared_ptr<AlgthmBase>(new AlgthmMyFlow));
 
 	if (0)
 	{
@@ -589,9 +667,8 @@ void test()
 		ResetPool();
 	}
 
+	if (0)
 	{
-		RegisterAlgthm("MyFlowAlg", std::shared_ptr<AlgthmBase>(new AlgthmMyFlow));
-
 		Flow flow;
 		int mid_add, mid_start, mid_end;
 		flow.AddModule("AlgthmOutDbl", &mid_start);
@@ -603,15 +680,36 @@ void test()
 		flow.ConnectModule(mid_add, 0, mid_end, 0);
 		flow.run();
 
+		{
+			std::ofstream ofs("filename");
+			//boost::archive::text_oarchive oa(ofs);
+			boost::archive::xml_oarchive oa(ofs);
+			// write class instance to archive
+			oa << BOOST_SERIALIZATION_NVP(flow);
+			// archive and stream closed when destructors are called
+		}
+	}
+
+	{
+		Flow flow;
+
+		std::ifstream ofs("filename");
+		//boost::archive::text_oarchive oa(ofs);
+		boost::archive::xml_iarchive oa(ofs);
+		// write class instance to archive
+		oa >> BOOST_SERIALIZATION_NVP(flow);
+		// archive and stream closed when destructors are called
+
+		flow.run();
 	}
 }
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	//_CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_DEBUG);
 
-	//new int;
+	new int;
 
 	test();
 	return 0;

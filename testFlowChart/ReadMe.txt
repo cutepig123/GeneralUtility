@@ -17,13 +17,12 @@
 
 2. Support to warp a Flow to an algorithm
 参考7
+-->Done
 
 3. Support serialization
 
-4.考虑如何实现允许动态输入pin的参数
-貌似实现了2，这个就不是问题了
-
 5. 用一个统一的内存分配器，以便容易处理内存泄露
+-->Done
 
 6. 添加logging以便出了问题容易调试
 
@@ -31,8 +30,10 @@
 有个简单的方式就是通过强制设置一个start，和end节点，要求一定要开始于start，而结束于end
 这样貌似都会很容易实现2）warp a Flow to an algorithm
 如果能允许用户设置start，end输入输出的参数个数和类型，那么用户可以任意实现了
+-->Done
 
 8. 允许用户动态设置某些算法的节点类型。在配置阶段，而不是运行阶段
+-->Done
 
 俺可以设置一个规则： 允许同时有start和out两种节点，有start就说明该算法需要输入额外的用户参数，而有end说明需要有输出参数
 
