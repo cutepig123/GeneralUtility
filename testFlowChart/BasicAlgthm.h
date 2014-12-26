@@ -10,9 +10,10 @@
 class PinDouble : public PinTypeBase
 {
 public:
-	PinDouble()
+	explicit PinDouble(double d=0)
 	{
 		m_type = "double";
+		m_d = d;
 	}
 	
 	virtual void Copy(PinTypeBase *des)
@@ -69,6 +70,7 @@ public:
 
 };
 
+#define	OUT_DBL_VAL	123
 class AlgthmOutDbl :public AlgthmCommImpl<AlgthmOutDbl>
 {
 public:
@@ -83,7 +85,7 @@ public:
 	short run(MyAlgEnv *flow)
 	{
 		PinDouble* out = flow->findOutPin<PinDouble>( 0);
-		out->m_d = 123;
+		out->m_d = OUT_DBL_VAL;
 		printf("AlgthmOutDbl run ->%f\n", out->m_d);
 		return 0;
 	}
@@ -116,12 +118,7 @@ class AlgthmStartEnd:public AlgthmCommImpl<AlgthmStartEnd>
 public:
 	short run(MyAlgEnv *flow)
 	{
-		for (size_t i = 0; i < m_vInPins.size(); i++)
-		{
-			PinTypeBase* in = flow->findInPin<PinTypeBase>(i);
-			PinTypeBase* out = flow->findOutPin<PinTypeBase>(i);
-			in->Copy(out);
-		}
+		flow->vOutPin = flow->vInPin;
 		
 		return 0;
 	}

@@ -4,8 +4,7 @@
 
 class Flow::Impl
 {
-
-	std::vector< AlgthmBase* > m_algs;
+	std::vector< std::shared_ptr<AlgthmBase> > m_algs;
 
 	struct Conn
 	{
@@ -112,7 +111,7 @@ private:
 		for (size_t algId = 0; algId<nAlg; algId++)
 		{
 			RunItem &item = env.m_vRunItem[algId];
-			AlgthmBase *alg = m_algs[algId];
+			AlgthmBase *alg = m_algs[algId].get();
 
 			// fill m_startId & m_endId
 			if (alg->m_name == ALG_NAME_START)
@@ -157,7 +156,7 @@ private:
 		// fill preparedJobs
 		for (size_t algId = 0; algId < nAlg; algId++)
 		{
-			AlgthmBase *alg = m_algs[algId];
+			AlgthmBase *alg = m_algs[algId].get();
 			if (alg->m_vInPins.size() == 0)
 			{
 				printf("m_preparedJobs added id %d\n", algId);
@@ -172,8 +171,8 @@ private:
 			Conn &conn = m_conns[i];
 			assert(conn.src.first <nAlg);
 			assert(conn.dst.first <nAlg);
-			AlgthmBase *algSrc = m_algs[conn.src.first];
-			AlgthmBase *algDst = m_algs[conn.dst.first];
+			AlgthmBase *algSrc = m_algs[conn.src.first].get();
+			AlgthmBase *algDst = m_algs[conn.dst.first].get();
 			assert(conn.src.second<algSrc->m_vOutPins.size());
 			assert(conn.dst.second<algDst->m_vInPins.size());
 
@@ -196,14 +195,14 @@ private:
 public:
 	short AddModule(const char *name, int *pid, void *p=0)
 	{
-		AlgthmBase* alg = CrteateAlgInst(name);
+		std::shared_ptr<AlgthmBase> alg = CrteateAlgInst(name);
 
 		m_algs.push_back(alg);
 		*pid = m_algs.size() - 1;
 
 		if (p)
 			alg->config(p);
-
+		
 		return 0;
 	}
 
@@ -212,8 +211,8 @@ public:
 		assert(m_algs.size()>mod1);
 		assert(m_algs.size()>mod2);
 
-		AlgthmBase* alg1 = m_algs[mod1];
-		AlgthmBase* alg2 = m_algs[mod2];
+		AlgthmBase* alg1 = m_algs[mod1].get();
+		AlgthmBase* alg2 = m_algs[mod2].get();
 		assert(alg1->m_vOutPins.size()>pinid1);
 		assert(alg2->m_vInPins.size()>pinid2);
 
@@ -224,7 +223,8 @@ public:
 		return 0;
 	}
 
-	short run(std::vector<PinTypeBase*>    *pvInPins = 0, std::vector<PinTypeBase*>    *pvOutPins = 0)
+	short run(std::vector<std::shared_ptr<PinTypeBase> >    *pvInPins = 0, std::vector<std::shared_ptr<PinTypeBase> >    *pvOutPins = 0,
+		int nAlgId=-1, MyAlgEnv	*palgEnv =0)
 	{
 		Env	env;
 		buildGraph(env);
@@ -240,7 +240,8 @@ public:
 			for (size_t i = 0; i < env.m_vRunItem[env.m_startId].m_algEnv.vInPin.size(); i++)
 			{
 				printf("copy pin idx [%d] type %s\n", i, env.m_vRunItem[env.m_startId].m_algEnv.vInPin[i]->m_type.c_str());
-				(*pvInPins)[i]->Copy(env.m_vRunItem[env.m_startId].m_algEnv.vInPin[i]);
+				env.m_vRunItem[env.m_startId].m_algEnv.vInPin[i] = (*pvInPins)[i];
+				
 				env.m_vRunItem[env.m_startId].vIsInputValid[i] = 1;
 			}
 		}
@@ -274,8 +275,8 @@ public:
 						env.m_vRunItem[next.first].vIsInputValid[next.second] = 1;
 
 						// fill data
-						env.m_vRunItem[nAlgId].m_algEnv.vOutPin[j]->Copy(env.m_vRunItem[next.first].m_algEnv.vInPin[next.second]);
-
+						env.m_vRunItem[next.first].m_algEnv.vInPin[next.second] = env.m_vRunItem[nAlgId].m_algEnv.vOutPin[j];
+						
 						printf("copy pin idx [%d] ->[%d %d] type %s\n", j, next.first, next.second, env.m_vRunItem[next.first].m_algEnv.vInPin[next.second]->m_type.c_str());
 
 						// if input of next task is ready, then add to nextPreparedJobs
@@ -306,11 +307,18 @@ public:
 
 			for (size_t i = 0; i < env.m_vRunItem[env.m_endId].m_algEnv.vOutPin.size(); i++)
 			{
-				env.m_vRunItem[env.m_endId].m_algEnv.vOutPin[i]->Copy((*pvOutPins)[i]);
+				(*pvOutPins)[i] = env.m_vRunItem[env.m_endId].m_algEnv.vOutPin[i];
 				printf("Copy out pin [%d]\n", i);
 			}
 		}
 
+		// Fill output
+		if(nAlgId>=0 &&palgEnv)
+		{
+			assert(nAlgId< env.m_vRunItem.size());
+			*palgEnv =env.m_vRunItem[nAlgId].m_algEnv;
+		}
+		
 		return 0;
 	}
 	
@@ -338,6 +346,8 @@ public:
 		}
 		return 0;
 	}
+	
+	friend class Flow;
 };
 
 Flow::Flow()
@@ -360,9 +370,10 @@ short Flow::ConnectModule(int mod1, int pinid1, int mod2, int pinid2)
  return impl->ConnectModule( mod1, pinid1, mod2, pinid2);
 }
 
-short Flow::run(std::vector<PinTypeBase*>    *pvInPins, std::vector<PinTypeBase*>    *pvOutPins)
+short Flow::run(std::vector<std::shared_ptr<PinTypeBase> >    *pvInPins, std::vector<std::shared_ptr<PinTypeBase> >    *pvOutPins,
+	int nAlgId, MyAlgEnv	*palgEnv)
 {
- return impl->run( pvInPins, pvOutPins);
+ return impl->run( pvInPins, pvOutPins, nAlgId, palgEnv);
 }
 
 short Flow::io(const char *file, bool isSave)

@@ -21,28 +21,28 @@ class PinTypeBase
 public:
 	std::string m_type;
 	virtual ~PinTypeBase() = 0{};
-	virtual void Copy(PinTypeBase *des) = 0;
+	//virtual void Copy(PinTypeBase *des) = 0;
 	virtual PinTypeBase* Create() = 0;
 };
 
 
 struct MyAlgEnv
 {
-	std::vector<PinTypeBase*> vInPin;    // size ==alg->m_vPins.size(), Values of input pin
-	std::vector<PinTypeBase*> vOutPin;    // size ==alg->m_vPins.size(), Values of output pin
+	std::vector<std::shared_ptr<PinTypeBase> > vInPin;    // size ==alg->m_vPins.size(), Values of input pin
+	std::vector<std::shared_ptr<PinTypeBase> > vOutPin;    // size ==alg->m_vPins.size(), Values of output pin
 
 	template <class T>
 	T* findInPin(int pinid)
 	{
 		assert(pinid< vInPin.size());
-		return dynamic_cast<T*>(vInPin[pinid]);
+		return dynamic_cast<T*>(vInPin[pinid].get());
 	}
 
 	template <class T>
 	T* findOutPin(int pinid)
 	{
 		assert(pinid< vOutPin.size());
-		return dynamic_cast<T*>(vOutPin[pinid]);
+		return dynamic_cast<T*>(vOutPin[pinid].get());
 	}
 };
 
@@ -74,6 +74,6 @@ public:
 short RegisterPinType(std::shared_ptr<PinTypeBase> type);
 short RegisterAlgthm(const char *name, std::shared_ptr<AlgthmBase> pAlg);
 void ResetPool();
-PinTypeBase* CreatePinInst(const char *name);
-AlgthmBase* CrteateAlgInst(const char *name);
+std::shared_ptr<PinTypeBase> CreatePinInst(const char *name);
+std::shared_ptr<AlgthmBase> CrteateAlgInst(const char *name);
 

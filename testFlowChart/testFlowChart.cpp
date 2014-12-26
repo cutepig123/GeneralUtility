@@ -33,45 +33,35 @@ short RegisterAlgthm(const char *name, std::shared_ptr<AlgthmBase> pAlg)
 	return 0;
 }
 
-void ResetPool()
-{
-	for (auto it = g_PinTypes.begin(); it != g_PinTypes.end(); ++it)
-		it->second.resize(1);
-
-	for (auto it = g_algs.begin(); it != g_algs.end(); ++it)
-		it->second.resize(1);
-}
-
-PinTypeBase* CreatePinInst(const char *name)
+std::shared_ptr<PinTypeBase> CreatePinInst(const char *name)
 {
 	auto itv = g_PinTypes.find(name);
 	assert(itv != g_PinTypes.end());
-	/*for (auto it = itv->second.begin(); it != itv->second.end(); ++it)
+	for (auto it = itv->second.begin(); it != itv->second.end(); ++it)
 	{
-	if (it->unique())
-	return *it;
+		if (it->unique())
+		return *it;
 	}
-	return itv->second[0]->Create();*/
+	
 	std::shared_ptr<PinTypeBase> t(itv->second[0]->Create());
 	itv->second.push_back(t);
-	return t.get();
+	return t;
 }
 
-AlgthmBase* CrteateAlgInst(const char *name)
+std::shared_ptr<AlgthmBase> CrteateAlgInst(const char *name)
 {
 	auto itv = g_algs.find(name);
 	assert(itv != g_algs.end());
-	/*for (auto it = itv->second.begin(); it != itv->second.end(); ++it)
+	for (auto it = itv->second.begin(); it != itv->second.end(); ++it)
 	{
 	if (it->unique())
 	return *it;
 	}
-	return itv->second[0]->Create();*/
+	
 	std::shared_ptr<AlgthmBase> t(itv->second[0]->Create());
 	itv->second.push_back(t);
-	return t.get();
+	return t;
 }
-
 
 class AlgthmMyFlow :public AlgthmCommImpl<AlgthmMyFlow>
 {
@@ -122,24 +112,28 @@ void test()
 	RegisterAlgthm(ALG_NAME_END, std::shared_ptr<AlgthmBase>(new AlgthmStartEnd));
 	RegisterAlgthm("MyFlowAlg", std::shared_ptr<AlgthmBase>(new AlgthmMyFlow));
 
-	if (0)
+	if (1)
 	{
 		Flow flow;
 
 		int mid_add, mid_start, mid_start2, mid_end;
-
+		
 		flow.AddModule("AlgthmOutDbl", &mid_start);
 		flow.AddModule("Alg_Add", &mid_add);
-		flow.AddModule("AlgthmInDbl", &mid_end);
+		flow.AddModule("AlgthmInDbl", &mid_end, 0);
 
 		flow.ConnectModule(mid_start, 0, mid_add, 0);
 		flow.ConnectModule(mid_start, 0, mid_add, 1);
 		flow.ConnectModule(mid_add, 0, mid_end, 0);
-		flow.run();
+		
+		MyAlgEnv end;
 
+		flow.run(0, 0, mid_end, &end);
+
+		assert(fabs(2 * OUT_DBL_VAL - dynamic_cast<PinDouble&>(*end.vInPin[0]).m_d) < 0.0001);
 	}
 
-	if (0)
+	if (1)
 	{
 		Flow flow;
 
@@ -164,21 +158,17 @@ void test()
 		flow.ConnectModule(mid_start, 1, mid_add, 1);
 		flow.ConnectModule(mid_add, 0, mid_end, 0);
 
-		PinDouble aPinIn[2];
-		aPinIn[0].m_d = 1;
-		aPinIn[1].m_d = 2;
-		std::vector<PinTypeBase*> vPinIn(2);
-		vPinIn[0] = &aPinIn[0];
-		vPinIn[1] = &aPinIn[1];
-
-		PinDouble aPinOut[2];
-		std::vector<PinTypeBase*> vPinOut(1);
-		vPinOut[0] = &aPinOut[0];
+		std::vector<std::shared_ptr<PinTypeBase> > vPinIn(2);
+		vPinIn[0].reset(new PinDouble(1));
+		vPinIn[1].reset(new PinDouble(2));
+		
+		std::vector<std::shared_ptr<PinTypeBase> > vPinOut(1);
+		vPinOut[0].reset(new PinDouble);
 
 		flow.run(&vPinIn, &vPinOut);
 
-		printf("Output %f\n", aPinOut[0].m_d);
-
+		printf("Output %f\n", dynamic_cast<PinDouble&>(*vPinOut[0]).m_d);
+		assert(fabs(dynamic_cast<PinDouble&>(*vPinOut[0]).m_d - 3) < 0.00001);
 	}
 
 	if (1)
@@ -192,7 +182,12 @@ void test()
 		flow.ConnectModule(mid_start, 0, mid_add, 0);
 		flow.ConnectModule(mid_start, 0, mid_add, 1);
 		flow.ConnectModule(mid_add, 0, mid_end, 0);
-		flow.run();
+		
+		MyAlgEnv end;
+
+		flow.run(0, 0, mid_end, &end);
+
+		assert(fabs(2 * OUT_DBL_VAL - dynamic_cast<PinDouble&>(*end.vInPin[0]).m_d) < 0.0001);
 
 		flow.io("filename", true);
 	}
@@ -202,10 +197,13 @@ void test()
 
 		flow.io("filename", false);
 
-		flow.run();
+		//MyAlgEnv end;
+
+		flow.run();	//how to get the output
+
+		//assert(fabs(2 * OUT_DBL_VAL - dynamic_cast<PinDouble&>(*end.vInPin[0]).m_d) < 0.0001);
 	}
 
-	ResetPool();
 }
 
 int _tmain(int argc, _TCHAR* argv[])

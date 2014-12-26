@@ -12,11 +12,7 @@ public:
 		m_type = "RPoint";
 	}
 
-	virtual void Copy(PinTypeBase *des)
-	{
-		PinRPoint *pDes = (PinRPoint*)des;
-		pDes->m_d = m_d;
-	}
+
 	virtual PinTypeBase* Create()
 	{
 		return new PinRPoint();
@@ -28,16 +24,13 @@ public:
 class PinString: public PinTypeBase
 {
 public:
-	PinString()
+	explicit PinString(const char *s=NULL)
 	{
 		m_type = "PinString";
+		if(s) m_d = s;
 	}
 
-	virtual void Copy(PinTypeBase *des)
-	{
-		PinString *pDes = (PinString*)des;
-		pDes->m_d = m_d;
-	}
+
 	virtual PinTypeBase* Create()
 	{
 		return new PinString();
@@ -54,12 +47,6 @@ public:
 		m_type = "PinAlignRec";
 	}
 
-	virtual void Copy(PinTypeBase *des)
-	{
-		PinAlignRec *pDes = (PinAlignRec*)des;
-		pDes->m_d = m_d;
-		assert(0);
-	}
 	virtual PinTypeBase* Create()
 	{
 		return new PinAlignRec();
@@ -186,20 +173,13 @@ void testAlign()
 		flow.ConnectModule(mid_start, 0, mid_learn, 0);
 		flow.ConnectModule(mid_learn, 0, mid_end, 0);
 
-		PinString aPinIn[1];
-		aPinIn[0].m_d = "1.bmp";
+		std::vector<std::shared_ptr<PinTypeBase> > vPinIn(1);
+		vPinIn[0].reset(new PinString("1.bmp"));
 		
-		std::vector<PinTypeBase*> vPinIn(1);
-		vPinIn[0] = &aPinIn[0];
-		
-
-		PinAlignRec aPinOut[1];
-		std::vector<PinTypeBase*> vPinOut(1);
-		vPinOut[0] = &aPinOut[0];
+		std::vector<std::shared_ptr<PinTypeBase> > vPinOut(1);
+		vPinOut[0].reset(new PinAlignRec);
 
 		flow.run(&vPinIn, &vPinOut);
-
-		printf("Output %f\n", aPinOut[0].m_d);
 
 	}
 }
