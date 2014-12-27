@@ -215,6 +215,7 @@ public:
 		AlgthmBase* alg2 = m_algs[mod2].get();
 		assert(alg1->m_vOutPins.size()>pinid1);
 		assert(alg2->m_vInPins.size()>pinid2);
+		assert(alg1->m_vOutPins[pinid1].m_type == alg2->m_vInPins[pinid2].m_type);
 
 		Conn conn;
 		conn.src = std::make_pair(mod1, pinid1);

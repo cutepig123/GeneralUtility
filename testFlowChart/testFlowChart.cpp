@@ -206,6 +206,8 @@ void test()
 
 }
 
+void testAlign();
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -213,7 +215,9 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	new int;
 
-	test();
+	//test();
+	testAlign();
+
 	return 0;
 }
 
