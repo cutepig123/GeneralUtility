@@ -23,7 +23,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 }
 
 
-void Flow_Init()
+void My_Flow_Init()
 {
 	RegisterPinType(std::shared_ptr<PinTypeBase>(new PinAlignRec));
 	RegisterPinType(std::shared_ptr<PinTypeBase>(new PinString));
@@ -46,7 +46,7 @@ void Flow_Init()
 }
 
 
-void Flow_Free()
+void My_Flow_Free()
 {
 	g_sys.reset();
 }
@@ -54,16 +54,16 @@ void Flow_Free()
 void Flow_Test_align();
 void Flow_Test_Basic();
 
-void Flow_Test()
+void My_Flow_Test()
 {
 	Flow_Test_align();
 	Flow_Test_Basic();
 }
 
 struct Flow_Ftns g_Ftns = {
-	Flow_Init,
-	Flow_Free,
-	Flow_Test
+	My_Flow_Init,
+	My_Flow_Free,
+	My_Flow_Test
 };
 
 /*extern "C" __declspec(dllexport)*/  Flow_Ftns* /*__stdcall*/ Flow_Main()
