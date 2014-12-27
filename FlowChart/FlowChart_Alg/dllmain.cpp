@@ -56,8 +56,8 @@ void Flow_Test_Basic();
 
 void My_Flow_Test()
 {
+	Flow_Test_Basic(); 
 	Flow_Test_align();
-	Flow_Test_Basic();
 }
 
 struct Flow_Ftns g_Ftns = {

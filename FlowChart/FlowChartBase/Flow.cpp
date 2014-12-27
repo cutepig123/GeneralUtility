@@ -132,6 +132,11 @@ private:
 		std::vector<std::vector<std::pair<int, int> > > vtrigPin;	// next alg & pins that be triggerd by this alg
 		std::vector<int> vIsInputValid;	// status of every input pins
 		MyAlgEnv	m_algEnv;
+
+		bool isInputValid() const
+		{
+			return (std::find(vIsInputValid.begin(), vIsInputValid.end(),0) == vIsInputValid.end());
+		}
 	};
 
 	struct Env
@@ -296,22 +301,35 @@ public:
 			assert(0);
 			return -1;
 		}
-		setStartEndId(env, startId, endId);
-
+		
+		env.m_startId = startId;
+		env.m_endId = endId;
+		// fill m_startId to m_preparedJobs 
+		assert((env.m_startId >= 0 && env.m_endId >= 0) || (env.m_startId < 0 && env.m_endId < 0));
+		
 		// fill input pins of start 
 		assert((env.m_startId >= 0 && env.m_endId >= 0) || (env.m_startId < 0 && env.m_endId < 0));
-		if (env.m_startId >= 0 && env.m_endId >= 0 && pvInPins)
+		if (env.m_startId >= 0 && env.m_endId >= 0 )
 		{
 			printf("fill input pins of start id %d\n", env.m_startId);
-
-			assert(pvInPins->size() == env.m_vRunItem[env.m_startId].m_algEnv.vInPin.size());
-			for (size_t i = 0; i < env.m_vRunItem[env.m_startId].m_algEnv.vInPin.size(); i++)
+			auto& startItem =env.m_vRunItem[env.m_startId];
+			
+			if(pvInPins)
 			{
-				printf("copy pin idx [%d] type %s\n", i, env.m_vRunItem[env.m_startId].m_algEnv.vInPin[i]->m_type.c_str());
-				env.m_vRunItem[env.m_startId].m_algEnv.vInPin[i] = (*pvInPins)[i];
-				
-				env.m_vRunItem[env.m_startId].vIsInputValid[i] = 1;
+				assert(pvInPins->size() == startItem.m_algEnv.vInPin.size());
+				for (size_t i = 0; i < startItem.m_algEnv.vInPin.size(); i++)
+				{
+					printf("copy pin idx [%d] type %s\n", i, startItem.m_algEnv.vInPin[i]->m_type.c_str());
+					startItem.m_algEnv.vInPin[i] = (*pvInPins)[i];
+					
+					startItem.vIsInputValid[i] = 1;
+				}
 			}
+		
+			assert(startItem.isInputValid());
+		
+			printf("m_preparedJobs added start id %d\n", env.m_startId);
+			env.m_preparedJobs.push_back(env.m_startId);
 		}
 
 		while (1)
@@ -320,36 +338,37 @@ public:
 			for (size_t i = 0; i < env.m_preparedJobs.size(); i++)
 			{
 				int nAlgId = env.m_preparedJobs[i];
+				auto& currItem =env.m_vRunItem[nAlgId];
 				printf("===Run job [%d] algID %d...\n", i, nAlgId);
 				
 				// all input should be ready now
-				assert(std::find(env.m_vRunItem[nAlgId].vIsInputValid.begin(), env.m_vRunItem[nAlgId].vIsInputValid.end(),
-					0) == env.m_vRunItem[nAlgId].vIsInputValid.end());
-
+				assert(currItem.isInputValid());
+				
 				// run the task
-				m_algs[nAlgId]->run(&env.m_vRunItem[nAlgId].m_algEnv);
+				m_algs[nAlgId]->run(&currItem.m_algEnv);
 				printf("Run job [%d] algID %d done\n", i, nAlgId);
 
 				//post-processing
 				//set vIsInputValid of next tasks
 				printf("post-processing\n");
-				for (size_t j = 0; j < env.m_vRunItem[nAlgId].vtrigPin.size(); j++)
+				for (size_t j = 0; j < currItem.vtrigPin.size(); j++)
 				{
-					auto vcurrTrigPort = env.m_vRunItem[nAlgId].vtrigPin[j];
+					auto vcurrTrigPort = currItem.vtrigPin[j];
 					for (size_t k = 0; k < vcurrTrigPort.size(); k++)
 					{
 						auto next = vcurrTrigPort[k];
+						auto& nextItem =env.m_vRunItem[next.first];
+						auto& nextInpin =nextItem.m_algEnv.vInPin[next.second];
 						// fill vIsInputValid
-						env.m_vRunItem[next.first].vIsInputValid[next.second] = 1;
+						nextItem.vIsInputValid[next.second] = 1;
 
 						// fill data
-						env.m_vRunItem[next.first].m_algEnv.vInPin[next.second] = env.m_vRunItem[nAlgId].m_algEnv.vOutPin[j];
+						nextInpin = currItem.m_algEnv.vOutPin[j];
 						
-						printf("copy pin idx [%d] ->[%d %d] type %s\n", j, next.first, next.second, env.m_vRunItem[next.first].m_algEnv.vInPin[next.second]->m_type.c_str());
+						printf("copy pin idx [%d] ->[%d %d] type %s\n", j, next.first, next.second, nextInpin->m_type.c_str());
 
 						// if input of next task is ready, then add to nextPreparedJobs
-						if (std::find(env.m_vRunItem[next.first].vIsInputValid.begin(),
-							env.m_vRunItem[next.first].vIsInputValid.end(), 0) == env.m_vRunItem[next.first].vIsInputValid.end())
+						if (nextItem.isInputValid())
 						{
 							nextPreparedJobs.push_back(next.first);
 							printf("add to nextPreparedJobs algid: %d\n", next.first);
@@ -367,15 +386,17 @@ public:
 		if (env.m_startId >= 0 && env.m_endId >= 0 && pvOutPins)
 		{
 			printf("check endid's input is filled!!\n");
-			assert(pvOutPins->size() == env.m_vRunItem[env.m_endId].m_algEnv.vOutPin.size());
+			auto& endItem=env.m_vRunItem[env.m_endId];
+			auto& endEnv = endItem.m_algEnv;
+			pvOutPins->resize(endEnv.vOutPin.size());
+			assert(pvOutPins->size() == endEnv.vOutPin.size());
 
 			// all input should be ready now
-			assert(std::find(env.m_vRunItem[env.m_endId].vIsInputValid.begin(), env.m_vRunItem[env.m_endId].vIsInputValid.end(),
-				0) == env.m_vRunItem[env.m_endId].vIsInputValid.end());
+			assert(endItem.isInputValid());
 
-			for (size_t i = 0; i < env.m_vRunItem[env.m_endId].m_algEnv.vOutPin.size(); i++)
+			for (size_t i = 0; i < endEnv.vOutPin.size(); i++)
 			{
-				(*pvOutPins)[i] = env.m_vRunItem[env.m_endId].m_algEnv.vOutPin[i];
+				(*pvOutPins)[i] = endEnv.vOutPin[i];
 				printf("Copy out pin [%d]\n", i);
 			}
 		}

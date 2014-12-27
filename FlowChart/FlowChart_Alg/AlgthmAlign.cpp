@@ -144,5 +144,28 @@ void Flow_Test_align()
 
 		printf("Result %f %f\n", res->m_d.x, res->m_d.y);
 	}
+
+	//允许用户指定输入端和输出端，这样可以取消start，和end节点
+	res.reset();
+	{
+		Flow flow;
+
+		int mid_learn, mid_start, mid_end;
+
+		flow.AddModule("AlgthmAlignSrch", &mid_learn);
+		
+		//flow.ConnectModule(mid_start, 1, mid_learn, 1);
+		
+		std::vector<std::shared_ptr<PinTypeBase> > vPinIn(2);
+		vPinIn[0].reset(new PinString(dbuffer));
+		vPinIn[1] = pinRec;
+
+		std::vector<std::shared_ptr<PinTypeBase> > vPinOut;
+
+		flow.run(&vPinIn, &vPinOut, 0, 0);
+		res = std::dynamic_pointer_cast<PinRPoint>(vPinOut[0]);
+
+		printf("Result %f %f\n", res->m_d.x, res->m_d.y);
+	}
 }
 

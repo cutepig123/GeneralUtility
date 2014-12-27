@@ -48,7 +48,7 @@ void Flow_Test_Basic()
 	{
 		Flow flow;
 
-		int mid_add, mid_start, mid_start2, mid_end;
+		int mid_add, mid_start/*, mid_start2, mid_end*/;
 
 		flow.AddModule("AlgthmOutDbl", &mid_start);
 		flow.AddModule("Alg_Add", &mid_add);
@@ -58,11 +58,18 @@ void Flow_Test_Basic()
 		flow.ConnectModule(mid_start, 0, mid_add, 1);
 		//flow.ConnectModule(mid_add, 0, mid_end, 0);
 
-		std::vector<std::shared_ptr<PinTypeBase> >    vOutPins;
+		if (0)
+			flow.run();
+		else
+		{
+			std::vector<std::shared_ptr<PinTypeBase> >    vOutPins;
 
-		flow.run(0, &vOutPins);
+			flow.run(0, &vOutPins);
 
-		assert(fabs(2 * OUT_DBL_VAL - dynamic_cast<PinDouble&>(*vOutPins[0]).m_d) < 0.0001);
+			assert(fabs(2 * OUT_DBL_VAL - dynamic_cast<PinDouble&>(*vOutPins[0]).m_d) < 0.0001);
+		}
+		int dummy = 1;
+
 	}
 
 	if (1)

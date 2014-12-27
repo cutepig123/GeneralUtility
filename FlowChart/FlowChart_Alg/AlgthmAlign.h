@@ -3,7 +3,7 @@
 #include "AlgthmBasic.h"
 #include <cpp_wrapper/align.h>
 
-class PinRPoint : public PinTypeBase
+class PinRPoint : public PinCommImpl<PinRPoint>
 {
 public:
 	PinRPoint()
@@ -11,16 +11,10 @@ public:
 		m_type = "PinRPoint";
 	}
 
-
-	virtual PinTypeBase* Create()
-	{
-		return new PinRPoint();
-	}
-
 	RPoint m_d;
 };
 
-class PinString : public PinTypeBase
+class PinString : public PinCommImpl<PinString>
 {
 public:
 	explicit PinString(const char *s = NULL)
@@ -29,15 +23,10 @@ public:
 		if (s) m_d = s;
 	}
 
-	virtual PinTypeBase* Create()
-	{
-		return new PinString();
-	}
-
 	std::string m_d;
 };
 
-class PinAlignRec : public PinTypeBase
+class PinAlignRec : public PinCommImpl<PinAlignRec>
 {
 public:
 	PinAlignRec()
@@ -45,11 +34,7 @@ public:
 		m_type = "PinAlignRec";
 	}
 
-	virtual PinTypeBase* Create()
-	{
-		return new PinAlignRec();
-	}
-
+	
 	align_rec m_d;
 };
 

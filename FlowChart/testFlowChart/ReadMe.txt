@@ -40,6 +40,9 @@
 9.(-->Done) 加速！输出和下一阶段的输入采用同一变量，避免拷贝代价
 Done
 
-10. 允许用户指定输入端和输出端，这样可以取消start，和end节点
+10. (-->Done) 允许用户指定输入端和输出端，这样可以取消start，和end节点
 
+11. (-->Done) Fix "Debug Assertion Failed! Expression: _pFirstBlock == pHead"
+by c++-->代码生成 -->多线程调试dll运行库
+参考 http://stackoverflow.com/questions/18882760/debug-assertion-failed-expression-pfirstblock-phead
 /////////////////////////////////////////////////////////////////////////////

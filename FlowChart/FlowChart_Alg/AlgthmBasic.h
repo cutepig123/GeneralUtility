@@ -18,7 +18,18 @@ public:
 	}
 };
 
-class PinDouble : public PinTypeBase
+template <class T>
+class PinCommImpl :public PinTypeBase
+{
+public:
+	virtual PinTypeBase *Create()
+	{
+		PinTypeBase *p = new T;
+		return p;
+	}
+};
+
+class PinDouble : public PinCommImpl<PinDouble>
 {
 public:
 	explicit PinDouble(double d=0)
@@ -27,11 +38,6 @@ public:
 		m_d = d;
 	}
 	
-	virtual PinTypeBase* Create()
-	{
-		return new PinDouble();
-	}
-
 	double m_d;
 };
 class AlgthmAdd :public AlgthmCommImpl<AlgthmAdd>
