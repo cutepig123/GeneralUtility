@@ -1,13 +1,8 @@
 // Framework codes
 #include "flow.h"
-//#include "BasicAlgthm.h"
 
-#define	ALG_NAME_START "AlgthmStart"
-#define	ALG_NAME_END "AlgthmEnd"
-
-
-std::map<std::string, std::vector<std::shared_ptr<PinTypeBase> > > g_PinTypes;
-std::map<std::string, std::vector<std::shared_ptr<AlgthmBase>> > g_algs;
+static std::map<std::string, std::vector<std::shared_ptr<PinTypeBase> > > g_PinTypes;
+static std::map<std::string, std::vector<std::shared_ptr<AlgthmBase>> > g_algs;
 
 short RegisterPinType(std::shared_ptr<PinTypeBase> type)
 {
@@ -146,6 +141,10 @@ private:
 		std::vector<RunItem> m_vRunItem;
 		int m_startId;	//start and end item
 		int m_endId;
+
+		Env()
+			:m_startId(-1), m_endId(-1)
+		{}
 	};
 
 	short buildGraph(Env	&env)
@@ -155,19 +154,12 @@ private:
 		printf("\nbuilding graph, Num Alg[%d]\n", nAlg);
 		env.m_vGraph.resize(nAlg*nAlg, -1);	// Run sequence graph
 		env.m_vRunItem.resize(nAlg);
-		env.m_startId = env.m_endId = -1;
-
+		
 		// fill RunItem except vtrigPin[]
 		for (size_t algId = 0; algId<nAlg; algId++)
 		{
 			RunItem &item = env.m_vRunItem[algId];
 			AlgthmBase *alg = m_algs[algId].get();
-
-			// fill m_startId & m_endId
-			if (alg->m_name == ALG_NAME_START)
-				env.m_startId = algId;
-			else if (alg->m_name == ALG_NAME_END)
-				env.m_endId = algId;
 
 			// algid
 			item.aligId = algId;
@@ -193,14 +185,6 @@ private:
 				printf("alg %d OutPin %d Type %s\n", algId, i, alg->m_vOutPins[i].m_type.c_str());
 				item.m_algEnv.vOutPin[i] = CreatePinInst(alg->m_vOutPins[i].m_type.c_str());
 			}
-		}
-
-		// fill m_startId to m_preparedJobs 
-		assert((env.m_startId >= 0 && env.m_endId >= 0) || (env.m_startId < 0 && env.m_endId < 0));
-		if (env.m_startId >= 0 && env.m_endId >= 0)
-		{
-			printf("m_preparedJobs added start id %d\n", env.m_startId);
-			env.m_preparedJobs.push_back(env.m_startId);
 		}
 
 		// fill preparedJobs
@@ -242,6 +226,18 @@ private:
 		return 0;
 	}
 
+	void setStartEndId(Env	&env, int startId, int endId)
+	{
+		env.m_startId = startId;
+		env.m_endId = endId;
+		// fill m_startId to m_preparedJobs 
+		assert((env.m_startId >= 0 && env.m_endId >= 0) || (env.m_startId < 0 && env.m_endId < 0));
+		if (env.m_startId >= 0 && env.m_endId >= 0)
+		{
+			printf("m_preparedJobs added start id %d\n", env.m_startId);
+			env.m_preparedJobs.push_back(env.m_startId);
+		}
+	}
 public:
 	short AddModule(const char *name, int *pid, void *p=0)
 	{
@@ -274,16 +270,37 @@ public:
 		return 0;
 	}
 
-	short run(std::vector<std::shared_ptr<PinTypeBase> >    *pvInPins = 0, std::vector<std::shared_ptr<PinTypeBase> >    *pvOutPins = 0,
-		int nAlgId=-1, MyAlgEnv	*palgEnv =0)
+	short run(
+		std::vector<std::shared_ptr<PinTypeBase> >    *pvInPins = 0,
+		std::vector<std::shared_ptr<PinTypeBase> >    *pvOutPins = 0,
+		int startId = -1, int endId = -1	
+		)
 	{
 		Env	env;
 		buildGraph(env);
 
+		if (env.m_vRunItem.empty())
+		{
+			assert(0);
+			return -1;
+		}
+
+		//by default, the start & end are the 1st and last algorithm
+		if (startId < 0)
+			startId = 0;
+		if (endId < 0)
+			endId = env.m_vRunItem.size() - 1;
+
+		if (startId >= env.m_vRunItem.size() || endId >= env.m_vRunItem.size())
+		{
+			assert(0);
+			return -1;
+		}
+		setStartEndId(env, startId, endId);
+
 		// fill input pins of start 
-		
 		assert((env.m_startId >= 0 && env.m_endId >= 0) || (env.m_startId < 0 && env.m_endId < 0));
-		if (env.m_startId >= 0 && env.m_endId >= 0)
+		if (env.m_startId >= 0 && env.m_endId >= 0 && pvInPins)
 		{
 			printf("fill input pins of start id %d\n", env.m_startId);
 
@@ -347,7 +364,7 @@ public:
 		}
 
 		// check endid's input is filled!!
-		if (env.m_startId >= 0 && env.m_endId >= 0)
+		if (env.m_startId >= 0 && env.m_endId >= 0 && pvOutPins)
 		{
 			printf("check endid's input is filled!!\n");
 			assert(pvOutPins->size() == env.m_vRunItem[env.m_endId].m_algEnv.vOutPin.size());
@@ -363,13 +380,6 @@ public:
 			}
 		}
 
-		// Fill output
-		if(nAlgId>=0 &&palgEnv)
-		{
-			assert(nAlgId< env.m_vRunItem.size());
-			*palgEnv =env.m_vRunItem[nAlgId].m_algEnv;
-		}
-		
 		return 0;
 	}
 	
@@ -421,13 +431,20 @@ short Flow::ConnectModule(int mod1, int pinid1, int mod2, int pinid2)
  return impl->ConnectModule( mod1, pinid1, mod2, pinid2);
 }
 
-short Flow::run(std::vector<std::shared_ptr<PinTypeBase> >    *pvInPins, std::vector<std::shared_ptr<PinTypeBase> >    *pvOutPins,
-	int nAlgId, MyAlgEnv	*palgEnv)
+short Flow::run(std::vector<std::shared_ptr<PinTypeBase> >    *pvInPins,
+	std::vector<std::shared_ptr<PinTypeBase> >    *pvOutPins,
+	int startId , int endId )
 {
- return impl->run( pvInPins, pvOutPins, nAlgId, palgEnv);
+	return impl->run(pvInPins, pvOutPins, startId, endId);
 }
 
 short Flow::io(const char *file, bool isSave)
 {
 	return impl->io(file, isSave);
+}
+
+void FreePool()
+{
+	g_PinTypes.clear();
+	g_algs.clear();
 }

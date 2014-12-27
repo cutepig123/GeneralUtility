@@ -6,5 +6,3 @@
 	#pragma comment(lib, "FlowChart_Alg.lib")
 	
 #endif
-
-

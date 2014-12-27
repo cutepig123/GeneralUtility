@@ -3,9 +3,6 @@
 #pragma once
 #include <FlowChartBase/AlgthmBase.h>
 
-#define	ALG_NAME_START "AlgthmStart"
-#define	ALG_NAME_END "AlgthmEnd"
-
 // plugin codes
 template <class T>
 class AlgthmCommImpl:public AlgthmBase
@@ -30,12 +27,6 @@ public:
 		m_d = d;
 	}
 	
-	virtual void Copy(PinTypeBase *des)
-	{
-		PinDouble *pDes = (PinDouble*)des;
-		pDes->m_d = m_d;
-		printf("PinDouble Copy %f\n", m_d);
-	}
 	virtual PinTypeBase* Create()
 	{
 		return new PinDouble();

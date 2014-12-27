@@ -24,13 +24,13 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="BasicAlgthm.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="export.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="AlgthmFlow_Align.h">
+    <ClInclude Include="AlgthmAlign.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="AlgthmBasic.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -38,14 +38,16 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="FlowChart_Alg.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="dllmain.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="FlowAlign.cpp">
+    <ClCompile Include="AlgthmAlign.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="main.def">
+      <Filter>头文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

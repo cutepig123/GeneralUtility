@@ -13,9 +13,8 @@
 #include <assert.h>
 #include <memory>
 #include <FlowChartBase/AlgthmBase.h>
-#include <FlowChart_Alg/BasicAlgthm.h>
 #include <FlowChartBase/Flow.h>
-#include <FlowChart_Alg/AlgthmFlow_Align.h>
+#include <FlowChart_Alg/AlgthmAlign.h>
 
 class AlgthmMyFlow :public AlgthmCommImpl<AlgthmMyFlow>
 {
@@ -34,8 +33,8 @@ public:
 		m_vOutPins.resize(1);
 		m_vOutPins[0].m_type = "double";
 
-		flow.AddModule(ALG_NAME_START, &mid_start, &m_vInPins);
-		flow.AddModule(ALG_NAME_END, &mid_end, &m_vOutPins);
+		flow.AddModule("ALG_NAME_START", &mid_start, &m_vInPins);
+		flow.AddModule("ALG_NAME_END", &mid_end, &m_vOutPins);
 
 		flow.AddModule("Alg_Add", &mid_add);
 
@@ -62,8 +61,8 @@ void test()
 	RegisterAlgthm("Alg_Add", std::shared_ptr<AlgthmBase>(new AlgthmAdd));
 	RegisterAlgthm("AlgthmInDbl", std::shared_ptr<AlgthmBase>(new AlgthmInDbl));
 	RegisterAlgthm("AlgthmOutDbl", std::shared_ptr<AlgthmBase>(new AlgthmOutDbl));
-	RegisterAlgthm(ALG_NAME_START, std::shared_ptr<AlgthmBase>(new AlgthmStartEnd));
-	RegisterAlgthm(ALG_NAME_END, std::shared_ptr<AlgthmBase>(new AlgthmStartEnd));
+	RegisterAlgthm("ALG_NAME_START", std::shared_ptr<AlgthmBase>(new AlgthmStartEnd));
+	RegisterAlgthm("ALG_NAME_END", std::shared_ptr<AlgthmBase>(new AlgthmStartEnd));
 	RegisterAlgthm("MyFlowAlg", std::shared_ptr<AlgthmBase>(new AlgthmMyFlow));
 
 	if (1)
@@ -74,17 +73,17 @@ void test()
 		
 		flow.AddModule("AlgthmOutDbl", &mid_start);
 		flow.AddModule("Alg_Add", &mid_add);
-		flow.AddModule("AlgthmInDbl", &mid_end, 0);
+		//flow.AddModule("AlgthmInDbl", &mid_end, 0);
 
 		flow.ConnectModule(mid_start, 0, mid_add, 0);
 		flow.ConnectModule(mid_start, 0, mid_add, 1);
-		flow.ConnectModule(mid_add, 0, mid_end, 0);
+		//flow.ConnectModule(mid_add, 0, mid_end, 0);
 		
-		MyAlgEnv end;
+		std::vector<std::shared_ptr<PinTypeBase> >    vOutPins;
 
-		flow.run(0, 0, mid_end, &end);
+		flow.run(0, &vOutPins);
 
-		assert(fabs(2 * OUT_DBL_VAL - dynamic_cast<PinDouble&>(*end.vInPin[0]).m_d) < 0.0001);
+		assert(fabs(2 * OUT_DBL_VAL - dynamic_cast<PinDouble&>(*vOutPins[0]).m_d) < 0.0001);
 	}
 
 	if (1)
@@ -103,8 +102,8 @@ void test()
 		vOutPins.resize(1);
 		vOutPins[0].m_type = "double";
 
-		flow.AddModule(ALG_NAME_START, &mid_start, &vInPins);
-		flow.AddModule(ALG_NAME_END, &mid_end, &vOutPins);
+		flow.AddModule("ALG_NAME_START", &mid_start, &vInPins);
+		flow.AddModule("ALG_NAME_END", &mid_end, &vOutPins);
 
 		flow.AddModule("Alg_Add", &mid_add);
 		
@@ -131,17 +130,17 @@ void test()
 		int mid_add, mid_start, mid_end;
 		flow.AddModule("AlgthmOutDbl", &mid_start);
 		flow.AddModule("MyFlowAlg", &mid_add);
-		flow.AddModule("AlgthmInDbl", &mid_end);
+		//flow.AddModule("AlgthmInDbl", &mid_end);
 
 		flow.ConnectModule(mid_start, 0, mid_add, 0);
 		flow.ConnectModule(mid_start, 0, mid_add, 1);
-		flow.ConnectModule(mid_add, 0, mid_end, 0);
+		//flow.ConnectModule(mid_add, 0, mid_end, 0);
 		
-		MyAlgEnv end;
+		std::vector<std::shared_ptr<PinTypeBase> > vPinOut(1);
 
-		flow.run(0, 0, mid_end, &end);
+		flow.run(0, &vPinOut);
 
-		assert(fabs(2 * OUT_DBL_VAL - dynamic_cast<PinDouble&>(*end.vInPin[0]).m_d) < 0.0001);
+		assert(fabs(2 * OUT_DBL_VAL - dynamic_cast<PinDouble&>(*vPinOut[0]).m_d) < 0.0001);
 
 		flow.io("filename", true);
 	}
@@ -171,10 +170,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	GetCurrentDirectory(300, currDir);
 	printf("Current dir %s\n", currDir);
 
+	Flow_Init();
+	
 	new int;
 
-	//test();
-	testAlign();
+	Flow_Free();
 
 	return 0;
 }

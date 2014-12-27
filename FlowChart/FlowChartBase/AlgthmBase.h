@@ -76,3 +76,9 @@ short FLOWCHARTBASE_XXPORTS RegisterAlgthm(const char *name, std::shared_ptr<Alg
 std::shared_ptr<PinTypeBase> FLOWCHARTBASE_XXPORTS CreatePinInst(const char *name);
 std::shared_ptr<AlgthmBase> FLOWCHARTBASE_XXPORTS CrteateAlgInst(const char *name);
 
+struct Flow_Ftns
+{
+	void(*Flow_Init)();
+	void(*Flow_Free)();
+	void(*Flow_Test)();
+};
