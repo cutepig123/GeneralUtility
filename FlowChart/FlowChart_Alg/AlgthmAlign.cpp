@@ -6,8 +6,6 @@
 #include <string>
 #include <windows.h>
 
-static std::shared_ptr<system_initializer> g_sys;
-
 short AlgthmAlignLearn::run(MyAlgEnv *flow)
 {
 	PinString* in0 = flow->findInPin<PinString>(0);
@@ -74,27 +72,8 @@ short AlgthmAlignSrch::run(MyAlgEnv *flow)
 	return 0;
 }
 
-void Flow_Init()
-{
-	RegisterPinType(std::shared_ptr<PinTypeBase>(new PinAlignRec));
-	RegisterPinType(std::shared_ptr<PinTypeBase>(new PinString));
-	RegisterPinType(std::shared_ptr<PinTypeBase>(new PinRPoint));
 
-	RegisterAlgthm("ALG_NAME_START", std::shared_ptr<AlgthmBase>(new AlgthmStartEnd));
-	RegisterAlgthm("ALG_NAME_END", std::shared_ptr<AlgthmBase>(new AlgthmStartEnd));
-	RegisterAlgthm("AlgthmAlignLearn", std::shared_ptr<AlgthmBase>(new AlgthmAlignLearn));
-	RegisterAlgthm("AlgthmAlignSrch", std::shared_ptr<AlgthmBase>(new AlgthmAlignSrch));
-
-	g_sys.reset(new system_initializer);
-}
-
-
-void Flow_Free()
-{
-	g_sys.reset();
-}
-
-void Flow_Test()
+void Flow_Test_align()
 {
 	std::shared_ptr<PinTypeBase> pinRec;
 	const char *sbuffer = "s.bmp";
@@ -167,13 +146,3 @@ void Flow_Test()
 	}
 }
 
-struct Flow_Ftns g_Ftns = {
-	Flow_Init,
-	Flow_Free,
-	Flow_Test
-};
-
-/*extern "C" __declspec(dllexport)*/  Flow_Ftns* /*__stdcall*/ Flow_Main()
-{
-	return &g_Ftns;
-}

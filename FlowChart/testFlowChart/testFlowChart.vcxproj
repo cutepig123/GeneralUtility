@@ -91,9 +91,6 @@
     <ProjectReference Include="..\FlowChartBase\FlowChartBase.vcxproj">
       <Project>{91b8a736-74ee-462e-a1b0-c6c72401e8ee}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\FlowChart_Alg\FlowChart_Alg.vcxproj">
-      <Project>{b40f35a8-7479-4f77-b845-9d1084581ad6}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -44,6 +44,9 @@
     <ClCompile Include="AlgthmAlign.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="AlgthmBasic.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="main.def">
