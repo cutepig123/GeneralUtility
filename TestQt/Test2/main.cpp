@@ -10,13 +10,43 @@
 //    return a.exec();
 //}
 
+#include <Qtgui/QtGui>
+#include <QtWidgets/QtWidgets>
 #include <QApplication>
 #include <QLabel>
+
+class DrawApp : public QWidget {
+public:
+        DrawApp();
+protected:
+        void paintEvent(QPaintEvent *event);
+};
+
+DrawApp::DrawApp()
+{
+
+}
+
+void DrawApp::paintEvent(QPaintEvent *event)
+{
+        QPainter painter(this);
+        painter.setWindow(0,0,300,300);
+        painter.drawLine(10, 10, 150, 300);
+}
 
 int main(int argc, char *argv[])
 {
         QApplication a(argc, argv);
-        QLabel *label = new QLabel("Hello, world!");
-        label->show();
+        QGraphicsScene *scene = new QGraphicsScene;
+        scene->addLine(10, 10, 150, 300);
+        QGraphicsView *view = new QGraphicsView(scene);
+        view->resize(500, 500);
+        view->setWindowTitle("Graphics View");
+        view->show();
+
+        DrawApp *da = new DrawApp;
+        da->resize(500, 500);
+        da->setWindowTitle("QWidget");
+        da->show();
         return a.exec();
 }
