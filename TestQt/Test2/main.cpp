@@ -36,7 +36,7 @@ void DrawApp::paintEvent(QPaintEvent *event)
 
 int main(int argc, char *argv[])
 {
-        QApplication a(argc, argv);
+        QApplication app(argc, argv);
         QGraphicsScene *scene = new QGraphicsScene;
         scene->addLine(10, 10, 150, 300);
         QGraphicsView *view = new QGraphicsView(scene);
@@ -48,5 +48,5 @@ int main(int argc, char *argv[])
         da->resize(500, 500);
         da->setWindowTitle("QWidget");
         da->show();
-        return a.exec();
+        return app.exec();
 }
