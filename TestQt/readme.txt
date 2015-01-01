@@ -10,3 +10,7 @@ events：
 mousePressEvent -》 new Rect -》shapeList<<shape shape->setStart(
 PaintWidget::mouseMoveEvent --》 shape->setEnd， update（）
 mouseReleaseEvent 
+
+//主意：貌似mainwindow.h/cpp不可以删掉，一旦删掉就编译不到
+
+

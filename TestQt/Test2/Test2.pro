@@ -12,6 +12,8 @@ TARGET = Test2
 TEMPLATE = app
 
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    mainwindow.cpp
 
-HEADERS  +=
+HEADERS  += \
+    mainwindow.h
