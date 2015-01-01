@@ -29,7 +29,8 @@ MainWindow::MainWindow(QWidget *parent)
         statusBar()->addWidget(statusMsg);
 
         PaintWidget *paintWidget = new PaintWidget(this);
-        setCentralWidget(paintWidget);
+        QGraphicsView *view = new QGraphicsView(paintWidget, this);
+        setCentralWidget(view);
 
         connect(drawLineAction, SIGNAL(triggered()),
                         this, SLOT(drawLineActionTriggered()));

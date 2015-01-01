@@ -6,83 +6,104 @@
 //http://devbean.blog.51cto.com/448512/243546
 
 
-class Line : public Shape
+class Line : public Shape, public QGraphicsLineItem
 {
 public:
-    Line(){}
+        Line();
 
-        void paint(QPainter &painter){
-            painter.drawLine(start, end);
-    }
+        void startDraw(QGraphicsSceneMouseEvent * event);
+        void drawing(QGraphicsSceneMouseEvent * event);
 };
 
-class Rect : public Shape
+Line::Line()
+{
+    setFlag(QGraphicsItem::ItemIsMovable, true);
+    setFlag(QGraphicsItem::ItemIsSelectable, true);
+}
+
+void Line::startDraw(QGraphicsSceneMouseEvent * event)
+{
+        setLine(QLineF(event->scenePos(), event->scenePos()));
+}
+
+void Line::drawing(QGraphicsSceneMouseEvent * event)
+{
+        QLineF newLine(line().p1(), event->scenePos());
+        setLine(newLine);
+}
+
+
+class Rect : public Shape, public QGraphicsRectItem
 {
 public:
-    Rect(){;}
+        Rect();
 
-        void paint(QPainter &painter){
-            painter.drawRect(start.x(), start.y(),
-                                             end.x() - start.x(), end.y() - start.y());
-    }
+        void startDraw(QGraphicsSceneMouseEvent * event);
+        void drawing(QGraphicsSceneMouseEvent * event);
 };
 
+Rect::Rect()
+{
+    setFlag(QGraphicsItem::ItemIsMovable, true);
+    setFlag(QGraphicsItem::ItemIsSelectable, true);
+}
 
+void Rect::startDraw(QGraphicsSceneMouseEvent * event)
+{
+        setRect(QRectF(event->scenePos(), QSizeF(0, 0)));
+}
 
+void Rect::drawing(QGraphicsSceneMouseEvent * event)
+{
+        QRectF r(rect().topLeft(),
+                         QSizeF(event->scenePos().x() - rect().topLeft().x(), event->scenePos().y() - rect().topLeft().y()));
+        setRect(r);
+}
 
 PaintWidget::PaintWidget(QWidget *parent)
-        : QWidget(parent), currShapeCode(Shape::Line), shape(NULL), perm(false)
+        : QGraphicsScene(parent), currShapeCode(Shape::Line), currItem(NULL), perm(false)
 {
-        setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
 }
 
-void PaintWidget::paintEvent(QPaintEvent *event)
-{
-        QPainter painter(this);
-        painter.setBrush(Qt::white);
-        painter.drawRect(0, 0, size().width(), size().height());
-        foreach(Shape * shape, shapeList) {
-                shape->paint(painter);
-        }
-        if(shape) {
-                shape->paint(painter);
-        }
-}
-
-void PaintWidget::mousePressEvent(QMouseEvent *event)
+void PaintWidget::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
         switch(currShapeCode)
         {
         case Shape::Line:
                 {
-                        shape = new Line;
+                        Line *line = new Line;
+                        currItem = line;
+                        addItem(line);
                         break;
                 }
         case Shape::Rect:
                 {
-                        shape = new Rect;
+                        Rect *rect = new Rect;
+                        currItem = rect;
+                        addItem(rect);
                         break;
                 }
         }
-        if(shape != NULL) {
+        if(currItem) {
+                currItem->startDraw(event);
                 perm = false;
-                shapeList<<shape;
-                shape->setStart(event->pos());
-                shape->setEnd(event->pos());
         }
+        QGraphicsScene::mousePressEvent(event);
 }
 
-void PaintWidget::mouseMoveEvent(QMouseEvent *event)
+void PaintWidget::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-        if(shape && !perm) {
-                shape->setEnd(event->pos());
-                update();
+        if(currItem && !perm) {
+                currItem->drawing(event);
         }
+        QGraphicsScene::mouseMoveEvent(event);
 }
 
-void PaintWidget::mouseReleaseEvent(QMouseEvent *event)
+void PaintWidget::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
         perm = true;
+        QGraphicsScene::mouseReleaseEvent(event);
 }
 
 int main(int argc, char *argv[])

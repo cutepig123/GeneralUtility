@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <Qtgui/QtGui>
+#include <QtWidgets/QtWidgets>
 
 
 class Shape
@@ -13,37 +15,13 @@ public:
                 Rect
         };
 
-        Shape(){}
+        Shape(){;}
 
-        void setStart(QPoint s)
-        {
-                start = s;
-        }
-
-        void setEnd(QPoint e)
-        {
-                end = e;
-        }
-
-        QPoint startPoint()
-        {
-                return start;
-        }
-
-        QPoint endPoint()
-        {
-                return end;
-        }
-
-        void virtual paint(QPainter & painter) = 0;
-
-protected:
-        QPoint start;
-        QPoint end;
+        virtual void startDraw(QGraphicsSceneMouseEvent * event) = 0;
+        virtual void drawing(QGraphicsSceneMouseEvent * event) = 0;
 };
 
-
-class PaintWidget : public QWidget
+class PaintWidget : public QGraphicsScene
 {
         Q_OBJECT
 
@@ -59,16 +37,14 @@ public slots:
         }
 
 protected:
-        void paintEvent(QPaintEvent *event);
-        void mousePressEvent(QMouseEvent *event);
-        void mouseMoveEvent(QMouseEvent *event);
-        void mouseReleaseEvent(QMouseEvent *event);
+        void mousePressEvent(QGraphicsSceneMouseEvent *event);
+        void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+        void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 private:
         Shape::Code currShapeCode;
-        Shape *shape;
+        Shape *currItem;
         bool perm;
-        QList<Shape*> shapeList;
 };
 
 
