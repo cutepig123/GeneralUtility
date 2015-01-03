@@ -33,6 +33,11 @@ namespace TPL.Test.DataFlows
             transform.LinkTo(join.Target1);
             buffer.LinkTo(join.Target2);
             join.LinkTo(joinWrite);
+
+            writeOut.Post("test");
+            Console.WriteLine("any key to continue...");
+            Console.ReadKey();
+
             //Begin activating everything
             Task.Factory.StartNew(() =>
             {

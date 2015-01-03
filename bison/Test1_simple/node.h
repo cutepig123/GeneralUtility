@@ -10,11 +10,18 @@ typedef std::vector<NStatement*> StatementList;
 typedef std::vector<NExpression*> ExpressionList;
 typedef std::vector<NVariableDeclaration*> VariableList;
 
+struct Context
+{
+	std::map<std::string, double> m_variables;
+	std::map<std::string, NFunctionDeclaration*> m_functions;
+};
+
+#define RetVal double
 
 class Node {
 public:
     virtual ~Node() {}
-    //virtual RetVal exec() =0;
+    virtual RetVal exec(Context& ctx) =0;
 };
 
 class NExpression : public Node {
@@ -27,21 +34,21 @@ class NInteger : public NExpression {
 public:
     long long value;
     NInteger(long long value) : value(value) { }
-   // virtual RetVal exec() {return value;}
+   virtual RetVal exec(Context& ctx) {return value;}
 };
 
 class NDouble : public NExpression {
 public:
     double value;
     NDouble(double value) : value(value) { }
-  //  virtual RetVal exec() {return value;}
+  virtual RetVal exec(Context& ctx) {return value;}
 };
 
 class NIdentifier : public NExpression {
 public:
     std::string name;
     NIdentifier(const std::string& name) : name(name) { }
-   // virtual RetVal exec() {??}
+    virtual RetVal exec(Context& ctx) {return 0;}
 };
 
 class NMethodCall : public NExpression {
@@ -51,7 +58,11 @@ public:
     NMethodCall(const NIdentifier& id, ExpressionList& arguments) :
         id(id), arguments(arguments) { }
     NMethodCall(const NIdentifier& id) : id(id) { }
-  //  virtual llvm::Value* codeGen(CodeGenContext& context);
+    virtual RetVal exec(Context& ctx) {
+		NFunctionDeclaration *pFtn =(ctx.FindFunction(id)); 
+		assert(pFtn && pFtn->nArgs==arguments.size());
+		return pFtn->exec(arguments);
+	}
 };
 
 class NBinaryOperator : public NExpression {
@@ -61,7 +72,12 @@ public:
     NExpression& rhs;
     NBinaryOperator(NExpression& lhs, int op, NExpression& rhs) :
         lhs(lhs), rhs(rhs), op(op) { }
-  //  virtual llvm::Value* codeGen(CodeGenContext& context);
+	virtual RetVal exec(Context& ctx) {
+		switch(op)
+		{
+		 case???
+		}
+	}
 };
 
 class NAssignment : public NExpression {
@@ -70,14 +86,25 @@ public:
     NExpression& rhs;
     NAssignment(NIdentifier& lhs, NExpression& rhs) : 
         lhs(lhs), rhs(rhs) { }
-//    virtual llvm::Value* codeGen(CodeGenContext& context);
+	virtual RetVal exec(Context& ctx) {
+		double *d= ctx.FindIdentifier(lhs);
+		assert(d);
+		return *d = rhs.exec(ctx);
+	}
 };
 
 class NBlock : public NExpression {
 public:
     StatementList statements;
     NBlock() { }
-   // virtual llvm::Value* codeGen(CodeGenContext& context);
+   virtual RetVal exec(Context& ctx) {
+    RetVal d=0;
+	for(int i=0; i<statements.size(); i++)
+	{
+	 d =statements[i].exec(ctx);
+	}
+	return d;
+   }
 };
 
 class NExpressionStatement : public NStatement {

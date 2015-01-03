@@ -11,6 +11,7 @@ class Shape
 public:
 
         enum Code {
+                Null,
                 Line,
                 Rect
         };
@@ -60,6 +61,7 @@ signals:
 
 private slots:
         void drawLineActionTriggered();
+        void drawNullActionTriggered();
         void drawRectActionTriggered();
 
 };

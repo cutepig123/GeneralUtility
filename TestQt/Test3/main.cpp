@@ -61,7 +61,7 @@ void Rect::drawing(QGraphicsSceneMouseEvent * event)
 }
 
 PaintWidget::PaintWidget(QWidget *parent)
-        : QGraphicsScene(parent), currShapeCode(Shape::Line), currItem(NULL), perm(false)
+        : QGraphicsScene(parent), currShapeCode(Shape::Null), currItem(NULL), perm(false)
 {
 
 }
@@ -84,7 +84,11 @@ void PaintWidget::mousePressEvent(QGraphicsSceneMouseEvent *event)
                         addItem(rect);
                         break;
                 }
+         case Shape::Null:
+            perm = true;
+            return;
         }
+
         if(currItem) {
                 currItem->startDraw(event);
                 perm = false;
