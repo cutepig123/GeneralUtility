@@ -14,3 +14,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp
+
+RESOURCES += \
+    test1.qrc
+
+FORMS += \
+    dialog.ui \
+    dialog2.ui
+
+HEADERS += \
+    MyDlg2.h

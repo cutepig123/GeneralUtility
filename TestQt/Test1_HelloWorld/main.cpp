@@ -1,6 +1,33 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QtWidgets>
 //#include <QtWidgets/QPushButton>
+#include "ui_dialog.h"
+#include "ui_dialog2.h"
+#include "MyDlg2.h"
+
+template <class T>
+void addDialog(QVBoxLayout *layout)
+{
+    QPushButton *buttonFind=new QPushButton("Find");
+    T ui;
+    QDialog *dlg=new QDialog;
+    ui.setupUi(dlg);
+    QObject::connect(buttonFind, SIGNAL(clicked()), dlg, SLOT(show()));
+
+    layout->addWidget(buttonFind);
+}
+
+template <class T>
+void addDialog2(QVBoxLayout *layout)
+{
+    QPushButton *buttonFind=new QPushButton("Find");
+
+    T *dlg=new T;
+
+    QObject::connect(buttonFind, SIGNAL(clicked()), dlg, SLOT(show()));
+
+    layout->addWidget(buttonFind);
+}
 
 int main(int argc, char *argv[])
 {
@@ -25,10 +52,22 @@ int main(int argc, char *argv[])
     hlayout->addWidget(spin);
     hlayout->addWidget(slider);
 
+//    QPushButton *buttonFind=new QPushButton("Find");
+//    Ui::Dialog ui;
+//    QDialog *dlg=new QDialog;
+//    ui.setupUi(dlg);
+//    QObject::connect(buttonFind, SIGNAL(clicked()), dlg, SLOT(show()));
+
     QVBoxLayout *layout =new QVBoxLayout();
     layout->addWidget(label);
     layout->addWidget(button);
     layout->addLayout(hlayout);
+//    layout->addWidget(buttonFind);
+
+    addDialog< Ui::Dialog>(layout);
+    addDialog< Ui::Dialog2>(layout);
+    addDialog2< MyDlg2>(layout);
+
 
     QWidget *widget=new QWidget;
     widget->setLayout(layout);
