@@ -1,0 +1,18 @@
+// MyObject.idl : IDL source for MyObject
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (MyObject.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	uuid(C3863999-57FC-401E-B828-F10597742BC5),
+	version(1.0),
+]
+library MyObjectLib
+{
+	importlib("stdole2.tlb");
+};
+
