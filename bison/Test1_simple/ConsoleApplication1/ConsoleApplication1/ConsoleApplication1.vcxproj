@@ -86,7 +86,6 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\codegen.cpp" />
     <ClCompile Include="..\..\main.cpp" />
     <ClCompile Include="..\..\parser.cpp" />
     <ClCompile Include="..\..\tokens.cpp" />

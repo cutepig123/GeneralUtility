@@ -7,10 +7,6 @@
 #define TOKEN(t) (yylval.token = t)
 extern "C" int yywrap() { return 1; }	// stop when End 
 
-#define fileno _fileno
-#define isatty _isatty
-#define vsnprintf _vsnprintf
-
 %}
 
 %%

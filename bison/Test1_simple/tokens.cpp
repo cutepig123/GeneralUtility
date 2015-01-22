@@ -389,11 +389,7 @@ char *yytext;
 #define TOKEN(t) (yylval.token = t)
 extern "C" int yywrap() { return 1; }	// stop when End 
 
-#define fileno _fileno
-#define isatty _isatty
-#define vsnprintf _vsnprintf
-
-#line 397 "tokens.cpp"
+#line 393 "tokens.cpp"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -544,10 +540,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 16 "<stdin>"
+#line 12 "<stdin>"
 
 
-#line 551 "tokens.cpp"
+#line 547 "tokens.cpp"
 
 	if ( yy_init )
 		{
@@ -632,120 +628,120 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 18 "<stdin>"
+#line 14 "<stdin>"
 ;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 19 "<stdin>"
+#line 15 "<stdin>"
 SAVE_TOKEN; return TIDENTIFIER;
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 20 "<stdin>"
+#line 16 "<stdin>"
 SAVE_TOKEN; return TDOUBLE;
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 21 "<stdin>"
+#line 17 "<stdin>"
 SAVE_TOKEN; return TINTEGER;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 22 "<stdin>"
+#line 18 "<stdin>"
 return TOKEN(TEQUAL);
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 23 "<stdin>"
+#line 19 "<stdin>"
 return TOKEN(TCEQ);
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 24 "<stdin>"
+#line 20 "<stdin>"
 return TOKEN(TCNE);
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 25 "<stdin>"
+#line 21 "<stdin>"
 return TOKEN(TCLT);
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 26 "<stdin>"
+#line 22 "<stdin>"
 return TOKEN(TCLE);
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 27 "<stdin>"
+#line 23 "<stdin>"
 return TOKEN(TCGT);
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 28 "<stdin>"
+#line 24 "<stdin>"
 return TOKEN(TCGE);
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 29 "<stdin>"
+#line 25 "<stdin>"
 return TOKEN(TLPAREN);
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 30 "<stdin>"
+#line 26 "<stdin>"
 return TOKEN(TRPAREN);
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 31 "<stdin>"
+#line 27 "<stdin>"
 return TOKEN(TLBRACE);
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 32 "<stdin>"
+#line 28 "<stdin>"
 return TOKEN(TRBRACE);
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 33 "<stdin>"
+#line 29 "<stdin>"
 return TOKEN(TDOT);
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 34 "<stdin>"
+#line 30 "<stdin>"
 return TOKEN(TCOMMA);
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 35 "<stdin>"
+#line 31 "<stdin>"
 return TOKEN(TPLUS);
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 36 "<stdin>"
+#line 32 "<stdin>"
 return TOKEN(TMINUS);
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 37 "<stdin>"
+#line 33 "<stdin>"
 return TOKEN(TMUL);
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 38 "<stdin>"
+#line 34 "<stdin>"
 return TOKEN(TDIV);
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 39 "<stdin>"
+#line 35 "<stdin>"
 printf("Unknown token!\n"); yyterminate();
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 41 "<stdin>"
+#line 37 "<stdin>"
 ECHO;
 	YY_BREAK
-#line 749 "tokens.cpp"
+#line 745 "tokens.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1631,4 +1627,4 @@ int main()
 	return 0;
 	}
 #endif
-#line 41 "<stdin>"
+#line 37 "<stdin>"
