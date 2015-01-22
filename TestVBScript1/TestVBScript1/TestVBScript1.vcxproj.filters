@@ -33,9 +33,4 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <Midl Include="test.idl">
-      <Filter>Source Files</Filter>
-    </Midl>
-  </ItemGroup>
 </Project>
