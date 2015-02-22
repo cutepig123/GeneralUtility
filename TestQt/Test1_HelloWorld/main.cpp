@@ -1,5 +1,6 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QtWidgets>
+#include <QtUiTools/QtUiTools>
 //#include <QtWidgets/QPushButton>
 #include "ui_dialog.h"
 #include "ui_dialog2.h"
@@ -23,6 +24,20 @@ void addDialog2(QVBoxLayout *layout)
     QPushButton *buttonFind=new QPushButton("Find");
 
     T *dlg=new T;
+
+    QObject::connect(buttonFind, SIGNAL(clicked()), dlg, SLOT(show()));
+
+    layout->addWidget(buttonFind);
+}
+
+void addDialog3(QVBoxLayout *layout, QString file_name, QString btn_name)
+{
+    QPushButton *buttonFind=new QPushButton(btn_name);
+
+    QUiLoader uiloader;
+    QFile file(file_name);
+    QWidget *dlg=uiloader.load((&file));
+    //dlg->show();
 
     QObject::connect(buttonFind, SIGNAL(clicked()), dlg, SLOT(show()));
 
@@ -67,7 +82,7 @@ int main(int argc, char *argv[])
     addDialog< Ui::Dialog>(layout);
     addDialog< Ui::Dialog2>(layout);
     addDialog2< MyDlg2>(layout);
-
+    addDialog3(layout,"dialog2.ui","dynamic load");
 
     QWidget *widget=new QWidget;
     widget->setLayout(layout);

@@ -18,9 +18,12 @@ SOURCES += main.cpp
 RESOURCES += \
     test1.qrc
 
+QT += uitools
+
 FORMS += \
     dialog.ui \
-    dialog2.ui
+    dialog2.ui \
+    form.ui
 
 HEADERS += \
     MyDlg2.h
