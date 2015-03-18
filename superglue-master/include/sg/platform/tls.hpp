@@ -36,7 +36,7 @@ public:
 
 #elif defined(_WIN32)
 
-#error Not tested
+//#error Not tested
 
 template<typename T>
 class tls_data {
@@ -51,7 +51,7 @@ public:
         key = TlsAlloc();
     }
     ~tls_data() {
-        pthread_key_delete(key);
+		TlsFree(key);
     }
     T *get() {
         return (T *) TlsGetValue(key);;

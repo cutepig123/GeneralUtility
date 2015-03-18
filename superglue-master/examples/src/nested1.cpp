@@ -46,7 +46,7 @@ struct nested_task : public Task<Options> {
 };
 
 
-int main() {
+int main_nested1() {
     A = new double[DIM*DIM];
     handles = new Handle<Options>[8*8 + 4*4 + 2*2 + 1];
 

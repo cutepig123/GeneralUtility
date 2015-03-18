@@ -38,7 +38,7 @@ struct Options : public DefaultOptions<Options> {
     typedef Enable TaskName;
 };
 
-typedef Handle<Options> handle_t;
+typedef Handle<Options> my_handle_t;
 typedef Access<Options> access_t;
 
 const double dt = 0.01;
@@ -200,8 +200,8 @@ private:
     size_t slice_size_;
 
 public:
-    TimeStepTask(particle_t *p0, handle_t &hp0,
-                 vector_t *f0, handle_t &hf0,
+    TimeStepTask(particle_t *p0, my_handle_t &hp0,
+                 vector_t *f0, my_handle_t &hf0,
                  size_t slice_size) {
         register_access(ReadWriteAdd::read, hf0);
         register_access(ReadWriteAdd::add, hp0);
@@ -225,8 +225,8 @@ private:
     size_t slice_size_;
 
 public:
-    EvalWithinTask(particle_t *p0, handle_t &hp0,
-                   vector_t *f0, handle_t &hf0,
+    EvalWithinTask(particle_t *p0, my_handle_t &hp0,
+                   vector_t *f0, my_handle_t &hf0,
                    size_t slice_size) {
         register_access(ReadWriteAdd::read, hp0);
         register_access(ReadWriteAdd::add, hf0);
@@ -251,10 +251,10 @@ private:
     size_t slice_size_;
 
 public:
-    EvalBetweenTask(particle_t *p0, handle_t &hp0,
-                    particle_t *p1, handle_t &hp1,
-                    vector_t *f0, handle_t &hf0,
-                    vector_t *f1, handle_t &hf1,
+    EvalBetweenTask(particle_t *p0, my_handle_t &hp0,
+                    particle_t *p1, my_handle_t &hp1,
+                    vector_t *f0, my_handle_t &hf0,
+                    vector_t *f1, my_handle_t &hf1,
                     size_t slice_size) {
         register_access(ReadWriteAdd::read, hp0);
         register_access(ReadWriteAdd::read, hp1);
@@ -297,8 +297,8 @@ void init(particle_t *particles, vector_t *forces, const size_t num_particles) {
 // evaluate all forces
 //======================================================
 void eval_force(SuperGlue<Options> &sg,
-        particle_t *particles, handle_t *part,
-        vector_t *forces, handle_t *forc,
+        particle_t *particles, my_handle_t *part,
+        vector_t *forces, my_handle_t *forc,
         const size_t block_size, const size_t num_blocks) {
 
     for (size_t i = 0; i < num_blocks; ++i) {
@@ -320,8 +320,8 @@ void eval_force(SuperGlue<Options> &sg,
 // take a time step
 //======================================================
 void step(SuperGlue<Options> &sg,
-        particle_t *particles, handle_t *part,
-        vector_t *forces, handle_t *forc,
+        particle_t *particles, my_handle_t *part,
+        vector_t *forces, my_handle_t *forc,
         const size_t block_size, const size_t num_blocks) {
     size_t i;
 
@@ -336,8 +336,8 @@ void step(SuperGlue<Options> &sg,
 // run simulation for num_steps time steps
 //======================================================
 void run(SuperGlue<Options> &sg,
-        particle_t *particles, handle_t *part,
-        vector_t *forces, handle_t *forc,
+        particle_t *particles, my_handle_t *part,
+        vector_t *forces, my_handle_t *forc,
         const size_t block_size, const size_t num_blocks,
         const size_t num_steps) {
     size_t i;
@@ -432,8 +432,8 @@ void run(particle_t *particles, vector_t *forces,
 
     const size_t num_blocks = num_particles/block_size;
 
-    handle_t *part = new handle_t[num_blocks];
-    handle_t *forc = new handle_t[num_blocks];
+    my_handle_t *part = new my_handle_t[num_blocks];
+    my_handle_t *forc = new my_handle_t[num_blocks];
     Time::TimeUnit time_start;
     Time::TimeUnit time_stop;
 
@@ -453,7 +453,7 @@ void run(particle_t *particles, vector_t *forces,
     delete [] forc;
 }
 
-int main(int argc, char *argv[]) {
+int main_nbody(int argc, char *argv[]) {
 
     size_t num_particles, block_size, num_steps;
     if (argc >= 4) {

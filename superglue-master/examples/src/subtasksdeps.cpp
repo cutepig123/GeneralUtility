@@ -208,7 +208,7 @@ struct bigtask : public Task<Options> {
     }
 };
 
-int main() {
+int main_subtasksdeps() {
 
     const size_t numBlocks = 3;
 

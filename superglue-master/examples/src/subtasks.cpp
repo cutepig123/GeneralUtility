@@ -30,7 +30,7 @@ struct TaskCreator : public Task<Options> {
     }
 };
 
-int main() {
+int main_subtasks() {
     SuperGlue<Options> sg;
     for (int i = 0; i < n1; ++i)
         sg.submit(new TaskCreator(sg, i*n2, (i+1)*n2));
