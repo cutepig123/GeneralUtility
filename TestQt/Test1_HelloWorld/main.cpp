@@ -5,6 +5,7 @@
 #include "ui_dialog.h"
 #include "ui_dialog2.h"
 #include "MyDlg2.h"
+#include "hexspinbox.h"
 
 template <class T>
 void addDialog(QVBoxLayout *layout)
@@ -73,10 +74,13 @@ int main(int argc, char *argv[])
 //    ui.setupUi(dlg);
 //    QObject::connect(buttonFind, SIGNAL(clicked()), dlg, SLOT(show()));
 
+    HexSpinBox *hspinbox =new HexSpinBox();
+
     QVBoxLayout *layout =new QVBoxLayout();
     layout->addWidget(label);
     layout->addWidget(button);
     layout->addLayout(hlayout);
+    layout->addWidget(hspinbox);
 //    layout->addWidget(buttonFind);
 
     addDialog< Ui::Dialog>(layout);

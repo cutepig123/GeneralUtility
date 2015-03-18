@@ -13,7 +13,8 @@ TARGET = Test1_HelloWorld
 TEMPLATE = app
 
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    hexspinbox.cpp
 
 RESOURCES += \
     test1.qrc
@@ -26,4 +27,5 @@ FORMS += \
     form.ui
 
 HEADERS += \
-    MyDlg2.h
+    MyDlg2.h \
+    hexspinbox.h

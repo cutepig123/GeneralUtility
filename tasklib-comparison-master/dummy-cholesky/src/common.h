@@ -80,7 +80,7 @@ void LOG_dump(const char *filename) {
       fprintf(out, "%lu: %llu %llu %s\n",
               LOG_data[i].thread,
               LOG_data[i].start-minimum,
-              LOG_data[i].length,
+			  LOG_data[i].start - minimum +LOG_data[i].length,
               LOG_data[i].text);
   }
   fclose(out);
@@ -112,12 +112,14 @@ LOG_TimeUnit delay = 1000;
 	Sleep(delay); \
 	LOG_add(LOG_NAME, start, curr)
 
-#define LOG_TIMER(LOG_NAME) \
-    LOG_TimeUnit start = LOG_getTimeStart(); \
-    LOG_TimeUnit stop = start + delay; \
-    LOG_TimeUnit curr; \
-    while ( (curr = LOG_rdtsc()) < stop); \
-    LOG_add(LOG_NAME, start, curr)
+inline void LOG_TIMER(const char *LOG_NAME)
+{
+	LOG_TimeUnit start = LOG_getTimeStart(); 
+		LOG_TimeUnit stop = start + delay; 
+		LOG_TimeUnit curr; 
+	while ((curr = LOG_rdtsc()) < stop); 
+		LOG_add(LOG_NAME, start, curr);
+}
 
 void TIMING_init() {
     TIMING_submit = (char *) malloc(20*100);

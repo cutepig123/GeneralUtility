@@ -4,13 +4,16 @@
 #include "sg/superglue.hpp"
 #include "common.h"
 
+#define MyLOG_TIMER(t)	\
+	char s[100]; static int i = 0;  sprintf(s, "%s %d", t, i++); LOG_TIMER(s);
+
 struct Options : public DefaultOptions<Options> {};
 
 struct potrf : public Task<Options, 1> {
     potrf(double *A, Handle<Options> &h) {
         register_access(ReadWriteAdd::write, h);
     }
-    void run() { LOG_TIMER("potrf"); }
+	void run() {  MyLOG_TIMER("potrf"); }
 };
 
 struct gemm : public Task<Options, 3> {
@@ -20,7 +23,7 @@ struct gemm : public Task<Options, 3> {
         register_access(ReadWriteAdd::read, hB);
         register_access(ReadWriteAdd::write, hC);
     }
-    void run() { LOG_TIMER("gemm"); }
+    void run() { MyLOG_TIMER("gemm"); }
 };
 
 struct trsm : public Task<Options, 2> {
@@ -29,7 +32,7 @@ struct trsm : public Task<Options, 2> {
         register_access(ReadWriteAdd::read, hT);
         register_access(ReadWriteAdd::write, hB);
     }
-    void run() { LOG_TIMER("trsm"); }
+    void run() { MyLOG_TIMER("trsm"); }
 };
 
 struct syrk : public Task<Options, 2> {
@@ -38,12 +41,12 @@ struct syrk : public Task<Options, 2> {
         register_access(ReadWriteAdd::read, hA);
         register_access(ReadWriteAdd::write, hC);
     }
-    void run() { LOG_TIMER("syrk"); }
+    void run() { MyLOG_TIMER("syrk"); }
 };
 
-SuperGlue<Options> tm;
-double *A;
-Handle<Options> *h;
+static SuperGlue<Options> tm;
+static double *A;
+static Handle<Options> *h;
 
 void compute(LOG_TimeUnit *LOG_start,
              LOG_TimeUnit *LOG_mid,
