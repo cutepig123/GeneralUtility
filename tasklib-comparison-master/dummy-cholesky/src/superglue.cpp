@@ -1,4 +1,4 @@
-#include <sys/time.h>
+//#include <sys/time.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "sg/superglue.hpp"
@@ -77,7 +77,7 @@ void compute(LOG_TimeUnit *LOG_start,
     *LOG_stop = LOG_getTimeStop();
 }
 
-int main(int argc, char *argv[]) {
+int main_superglue(int argc, char *argv[]) {
 
     int n = 5;
 

@@ -1,17 +1,17 @@
 #ifndef _GNU_SOURCE
 #define _GNU_SOURCE         /* See feature_test_macros(7) */
 #endif
-#include <unistd.h>
-#include <sys/syscall.h>   /* For SYS_xxx definitions */
+//#include <unistd.h>
+//#include <sys/syscall.h>   /* For SYS_xxx definitions */
 #include <sys/types.h>
 
 //int syscall(int number, ...);
 
-#include <pthread.h>
+//#include <pthread.h>
 #include <string.h>
-#include <sys/ioctl.h>
+//#include <sys/ioctl.h>
 //extern "C" {
-#include <sys/syscall.h>
+//#include <sys/syscall.h>
 //}
 
 #include <stdio.h>
@@ -20,39 +20,24 @@
 
 typedef unsigned long long LOG_TimeUnit;
 static inline LOG_TimeUnit LOG_getTimeStart() {
-  unsigned int a, d;
-
-  __asm__ __volatile__ ("cpuid\n"
-                        "rdtsc\n"
-         : "=a" (a), "=d" (d)
-         :: "%rbx", "%rcx");
-  return ( (unsigned long long) a) | ( ((unsigned long long) d) << 32 );
+	return GetTickCount();
 }
 
 static inline LOG_TimeUnit LOG_rdtsc() {
-  unsigned int a, d;
-  __asm__ __volatile__ ("rdtsc" : "=a" (a), "=d" (d));
-  return ( (unsigned long long) a) | ( ((unsigned long long) d) << 32 );
+	return GetTickCount();
 }
 
 static inline LOG_TimeUnit LOG_getTimeStop() {
-  unsigned d, a;
-
-  __asm__ __volatile__ ("rdtscp\n"
-                        "mov %%edx, %0\n\t"
-                        "mov %%eax, %1\n\t"
-                        "cpuid\n"
-          : "=r" (d), "=r" (a)
-          :: "%rax", "%rbx", "%rcx", "%rdx");
-  return ( (unsigned long long) a) | ( ((unsigned long long) d) << 32 );
+	return GetTickCount();
 }
 
+#define LOGGING
 #ifdef LOGGING
 
 #define LOG_MAX_ENTRIES 2000000
 
 static inline unsigned long LOG_getThread() {
-  return pthread_self();
+  return GetCurrentThreadId();
 }
 
 typedef struct {
@@ -62,12 +47,12 @@ typedef struct {
 } LOG_entry;
 
 LOG_entry LOG_data[LOG_MAX_ENTRIES];
-size_t LOG_ptr;
+LONG LOG_ptr;
 
 static inline void LOG_add1(const char *text) {
   LOG_TimeUnit start = LOG_getTimeStart();
   LOG_TimeUnit stop = start;
-  size_t i = __sync_fetch_and_add(&LOG_ptr, 1);
+  size_t i = InterlockedAdd(&LOG_ptr, 1);
   strcpy(LOG_data[i].text, text);
   LOG_data[i].start = start;
   LOG_data[i].length = stop-start;
@@ -75,7 +60,7 @@ static inline void LOG_add1(const char *text) {
 }
 
 static inline void LOG_add(const char *text, LOG_TimeUnit start, LOG_TimeUnit stop) {
-  size_t i = __sync_fetch_and_add(&LOG_ptr, 1);
+	size_t i = InterlockedAdd(&LOG_ptr, 1);
   strcpy(LOG_data[i].text, text);
   LOG_data[i].start = start;
   LOG_data[i].length = stop-start;
@@ -119,6 +104,13 @@ int TIMING_submit_i;
 int TIMING_execute_i;
 int TIMING_total_i;
 LOG_TimeUnit delay = 1000;
+
+#define LOG_TIMERx(LOG_NAME) \
+	LOG_TimeUnit start = LOG_getTimeStart(); \
+	LOG_TimeUnit stop = start + delay; \
+	LOG_TimeUnit curr =stop; \
+	Sleep(delay); \
+	LOG_add(LOG_NAME, start, curr)
 
 #define LOG_TIMER(LOG_NAME) \
     LOG_TimeUnit start = LOG_getTimeStart(); \
