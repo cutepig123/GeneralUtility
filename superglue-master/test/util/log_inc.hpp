@@ -49,7 +49,7 @@ void LOG_init() {
 }
 
 static inline void LOG_add(const char *text, LOG_TimeUnit start, LOG_TimeUnit stop) {
-  size_t i = __sync_fetch_and_add(&LOG_ptr, 1);
+	size_t i = InterlockedAdd(&LOG_ptr, 1);
   strcpy(LOG_data[i].text, text);
   LOG_data[i].start = start;
   LOG_data[i].length = stop-start;

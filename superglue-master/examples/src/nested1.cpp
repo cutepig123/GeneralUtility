@@ -6,8 +6,8 @@ struct Options : public DefaultOptions<Options> {
     typedef Enable PassTaskExecutor;
 };
 
-double *A;
-Handle<Options> *handles;
+static double *A;
+static Handle<Options> *handles;
 const int DIM = 8;
 
 Handle<Options> &get_handle(int i, int j, int block_size) {

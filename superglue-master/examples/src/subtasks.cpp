@@ -5,7 +5,7 @@ struct Options : public DefaultOptions<Options> {};
 
 const int num = 10, n1 = 1000, n2 = 1000;
 int data[num] = {0};
-Handle<Options> h[num];
+static Handle<Options> h[num];
 
 struct MyTask : public Task<Options> {
     int i;

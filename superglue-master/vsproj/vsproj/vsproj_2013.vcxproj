@@ -80,12 +80,16 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\tasklib-comparison-master\dummy-cholesky\src\superglue.cpp" />
     <ClCompile Include="..\..\examples\src\dependencies.cpp" />
     <ClCompile Include="..\..\examples\src\logging.cpp" />
     <ClCompile Include="..\..\examples\src\nested1.cpp" />
     <ClCompile Include="..\..\examples\src\subtasks.cpp" />
     <ClCompile Include="..\..\examples\src\subtasksdeps.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\tasklib-comparison-master\dummy-cholesky\src\common.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
