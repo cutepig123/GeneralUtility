@@ -222,14 +222,14 @@ intptr_t QUARK_Task_Flag_Get( Quark *quark, int flag );
 void QUARK_DOT_DAG_Enable( Quark *quark, int boolean_value );
 
 /* Get the number_th bit in a bitset (unsigned char *); useful for QUARK_LOCK_TO_THREAD_MASK flag */
-static inline int QUARK_Bit_Get(unsigned char *set, int number)
+static /*inline*/ int QUARK_Bit_Get(unsigned char *set, int number)
 {
     set += number / 8;
     return (*set & (1 << (7-(number % 8)))) != 0; /* 0 or 1       */
 }
 
 /* Set the number_th bit in a bitset (unsigned char *) to value (0 or 1); useful for QUARK_LOCK_TO_THREAD_MASK flag */
-static inline void QUARK_Bit_Set(unsigned char *set, int number, int value)
+static /*inline*/ void QUARK_Bit_Set(unsigned char *set, int number, int value)
 {
     set += number / 8;
     if (value)

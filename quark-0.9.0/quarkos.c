@@ -112,6 +112,8 @@ void quark_topology_init(){
     pthread_mutex_unlock(&mutextopo);
 }
 
+int quark_unsetaffinity();
+
 void quark_topology_finalize()
 {
     quark_unsetaffinity();
@@ -193,7 +195,7 @@ int quark_setaffinity(int rank) {
 
  Also, affinity is not resotred when QUARK_Finalize() is called.
  */
-int quark_unsetaffinity(int rank) {
+int quark_unsetaffinity() {
 #ifndef QUARK_AFFINITY_DISABLE
 #if (defined QUARK_OS_LINUX)
     {
