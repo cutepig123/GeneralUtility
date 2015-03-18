@@ -1,4 +1,5 @@
 #include "sg/superglue.hpp"
+//#include "sg/option/instr_trace.hpp"
 #include <iostream>
 
 const size_t numSlices = 5;
@@ -39,7 +40,7 @@ struct SumTask : public Task<Options> {
     }
 };
 
-int main() {
+int main_dep() {
     // Shared array divided into slices
     double data[numSlices][sliceSize];
 
@@ -62,5 +63,8 @@ int main() {
     std::cout << "result=[" << data[0][0] << " "  << data[1][0] << " "
               << data[2][0] << " " << data[3][0] << " " << data[4][0]
               << "]" << std::endl;
+
+	//Trace<Options>::dump("execution.log");
+
     return 0;
 }

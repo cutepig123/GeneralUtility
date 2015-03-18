@@ -69,7 +69,8 @@ template<int N> struct AtomicImplAux {
 	{
 		return InterlockedAdd((volatile LONG *)prt, val);
 	}
-    template<typename T> static T cas(volatile T *ptr, T oldval, T newval) { NOT_YET_IMPLEMENTED; }
+	static PVOID cas(PVOID *ptr, PVOID oldval, PVOID newval) { InterlockedCompareExchangePointer(ptr, newval, oldval); }
+	//template<typename T> static T cas(volatile T *ptr, T oldval, T newval) { InterlockedCompareExchange(ptr,newval, oldval); }
 };
 #endif // _MSC_VER
 

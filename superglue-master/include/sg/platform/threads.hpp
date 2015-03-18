@@ -101,6 +101,7 @@ public:
 namespace detail {
 
 #ifdef _WIN32
+inline 
 DWORD WINAPI spawn_thread(LPVOID arg) {
     Thread *t = static_cast<Thread *>(arg);
     t->run();
