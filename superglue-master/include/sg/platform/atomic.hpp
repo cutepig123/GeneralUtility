@@ -55,9 +55,20 @@ template<int N> struct AtomicImplAux {
 #if defined(_MSC_VER)
 template<int N> struct AtomicImplAux {
     template<typename T> static void increase(T *ptr) { InterlockedIncrement(ptr); }
+	template<> static void increase(int *ptr) { InterlockedIncrement((volatile unsigned int *)ptr); }
     template<typename T> static void decrease(T *ptr) { InterlockedDecrement(ptr); }
     template<typename T> static T increase_nv(T *ptr) { return InterlockedIncrement(ptr); }
     template<typename T> static T decrease_nv(T *ptr) { return InterlockedDecrement(ptr); }
+	template<typename T> static T add_nv(T *ptr, T val) { return atomic_add_32_nv(ptr, val); }
+
+	static int atomic_add_32_nv(int *prt, int val)
+	{
+		return InterlockedAdd((volatile unsigned int *)prt, val);
+	}
+	static unsigned int atomic_add_32_nv(volatile unsigned int *prt, int val)
+	{
+		return InterlockedAdd((volatile LONG *)prt, val);
+	}
     template<typename T> static T cas(volatile T *ptr, T oldval, T newval) { NOT_YET_IMPLEMENTED; }
 };
 #endif // _MSC_VER

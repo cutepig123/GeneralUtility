@@ -40,7 +40,8 @@ public:
     }
 
     bool steal(typename Options::ThreadingManagerType &tman, size_t id, TaskBase<Options> *&dest) {
-        TaskQueue **taskQueues(tman.get_task_queues());
+		//TaskQueue **taskQueues(tman.get_task_queues());
+		typename Options::ThreadingManagerType::TaskQueue **taskQueues =(tman.get_task_queues());
         const size_t num_queues(tman.get_num_cpus());
         seed = seed * 1664525 + 1013904223;
         const size_t random(seed % num_queues);

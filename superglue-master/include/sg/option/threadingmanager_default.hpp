@@ -17,6 +17,7 @@ template <typename Options> class TaskExecutor;
 
 template <typename Options>
 class ThreadingManagerDefault {
+public:
     typedef typename Options::ReadyListType TaskQueue;
     typedef typename Options::ThreadingManagerType ThreadingManager;
 
