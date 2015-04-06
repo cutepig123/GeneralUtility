@@ -1,0 +1,18 @@
+ 驱动器 F 中的卷是 ll6_za
+ 卷的序列号是 C0F5-30DE
+
+ F:\wamp\www\git_repos\GitHub\GeneralUtility\MyCmdDebugger\MyCmdDebugger 的目录
+
+2014/09/16 周二  09:46    <DIR>          .
+2014/09/16 周二  09:46    <DIR>          ..
+2014/09/16 周二  09:46                 0 1.txt
+2014/09/16 周二  09:46    <DIR>          Debug
+2014/09/16 周二  09:46               187 MyCmdDebugger.cpp
+2014/09/16 周二  09:45             4,249 MyCmdDebugger.vcxproj
+2014/09/16 周二  09:45             1,320 MyCmdDebugger.vcxproj.filters
+2014/09/16 周二  09:45             1,552 ReadMe.txt
+2014/09/16 周二  09:45               219 stdafx.cpp
+2014/09/16 周二  09:45               234 stdafx.h
+2014/09/16 周二  09:45               236 targetver.h
+               8 个文件          7,997 字节
+               3 个目录 20,158,107,648 可用字节
