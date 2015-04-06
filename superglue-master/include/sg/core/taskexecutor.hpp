@@ -310,7 +310,7 @@ public:
     // Called from this thread only
     bool execute_tasks(TaskQueueUnsafe &woken) {
         for (;;) {
-            TaskBase<Options> *task;
+            TaskBase<Options> *task =0;
 
             if (!woken.pop_front(task)) {
                 task = get_task_internal();

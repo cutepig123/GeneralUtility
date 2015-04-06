@@ -58,3 +58,17 @@ Running "make" will compile and run a few unit tests.
 Running "make examples" will compile all examples in the "examples/" directory.
 The "examples_dep/" directory contains examples with external dependencies.
 
+PAPERS
+---------------
+Tillenius, Martin 
+	SuperGlue : A shared memory framework using data versioning for dependency-aware task-based parallelization
+	Scientific Computing on Multicore Architectures
+
+npm also contains a superslue package
+	https://www.npmjs.com/package/superglue
+	
+Cholesky_decomposition
+	http://en.wikipedia.org/wiki/Cholesky_decomposition
+	https://ccjou.wordpress.com/2010/09/16/cholesky-%E5%88%86%E8%A7%A3/
+	
+	

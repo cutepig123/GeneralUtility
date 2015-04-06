@@ -23,19 +23,19 @@ using namespace std;
 //
 
 //===========================================================================
-// Task Library Options
+// Task Library MyOptions
 //===========================================================================
-struct Options : public DefaultOptions<Options> {
+struct MyOptions : public DefaultOptions<MyOptions> {
     typedef Enable TaskName;
-    typedef Trace<Options> Instrumentation;
+    typedef Trace<MyOptions> Instrumentation;
 };
 
 //===========================================================================
 // Tasks
 //===========================================================================
-class TaskA : public Task<Options, 1> {
+class TaskA : public Task<MyOptions, 1> {
 public:
-    TaskA(Handle<Options> &h) {
+    TaskA(Handle<MyOptions> &h) {
         register_access(ReadWriteAdd::write, h);
     }
 
@@ -47,12 +47,12 @@ public:
     std::string get_name() { return "A"; }
 };
 
-class TaskB : public Task<Options, 2> {
+class TaskB : public Task<MyOptions, 2> {
 private:
     size_t delay;
 
 public:
-    TaskB(Handle<Options> &h, Handle<Options> &h1, size_t delay_)
+    TaskB(Handle<MyOptions> &h, Handle<MyOptions> &h1, size_t delay_)
       : delay(delay_) {
         register_access(ReadWriteAdd::read, h);
         register_access(ReadWriteAdd::write, h1);
@@ -65,9 +65,9 @@ public:
     std::string get_name() { return "B"; }
 };
 
-class TaskD : public Task<Options, 1> {
+class TaskD : public Task<MyOptions, 1> {
 public:
-    TaskD(Handle<Options> &h) {
+    TaskD(Handle<MyOptions> &h) {
         register_access(ReadWriteAdd::read, h);
     }
 
@@ -78,9 +78,9 @@ public:
     std::string get_name() { return "D"; }
 };
 
-class TaskE : public Task<Options, 2> {
+class TaskE : public Task<MyOptions, 2> {
 public:
-    TaskE(Handle<Options> &h1, Handle<Options> &h2) {
+    TaskE(Handle<MyOptions> &h1, Handle<MyOptions> &h2) {
         register_access(ReadWriteAdd::read, h1);
         register_access(ReadWriteAdd::read, h2);
     }
@@ -106,8 +106,8 @@ int main_logging(int argc, char *argv[]) {
         exit(0);
     }
 
-    SuperGlue<Options> sg(num_threads);
-    Handle<Options> a, b, c;
+    SuperGlue<MyOptions> sg(num_threads);
+    Handle<MyOptions> a, b, c;
     sg.submit(new TaskA(a));
     sg.submit(new TaskB(a, b, 1000000));
     sg.submit(new TaskB(a, c, 2000000));
@@ -115,6 +115,6 @@ int main_logging(int argc, char *argv[]) {
     sg.submit(new TaskE(b, c));
     sg.barrier();
 
-    Trace<Options>::dump("execution.log");
+    Trace<MyOptions>::dump("execution.log");
     return 0;
 }
