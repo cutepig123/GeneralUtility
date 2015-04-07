@@ -44,15 +44,14 @@ struct syrk : public Task<Options, 2> {
     void run() { MyLOG_TIMER("syrk"); }
 };
 
-
+static SuperGlue<Options> tm;
 static double *A;
 static Handle<Options> *h;
 
+static
 void compute(LOG_TimeUnit *LOG_start,
              LOG_TimeUnit *LOG_mid,
              LOG_TimeUnit *LOG_stop, int DIM) {
-
-	static SuperGlue<Options> tm;
 
     *LOG_start = LOG_getTimeStart();
 

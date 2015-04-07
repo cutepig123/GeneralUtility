@@ -72,3 +72,19 @@ Cholesky_decomposition
 	https://ccjou.wordpress.com/2010/09/16/cholesky-%E5%88%86%E8%A7%A3/
 	
 	
+
+GETTING STARTED For windows
+---------------
+
+Open superx\1\vsproj\vsproj.sln & build & Run
+There is a file superglue.log generated at vsproj\vsproj folder
+Run parse_superglue.m to display a running graph
+
+
+OTHER LINKS
+---------------
+
+Intel’s Concurrent Collections (CnC) programming model 
+	Paper "Mapping a Dataflow Programming Model onto Heterogeneous Architectures"
+	http://hgpu.org/?p=8190
+	
