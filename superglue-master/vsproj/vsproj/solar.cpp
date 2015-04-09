@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "sg/superglue.hpp"
 #include "common.h"
+#include "sg/option/instr_trace.hpp"
 
 #define	N_TRIG		200
 #define	FACTOR		10*1000
@@ -18,11 +19,19 @@ void MySleep(DWORD n)
 	for(DWORD a =SYS_GetTimeInUS()+n; SYS_GetTimeInUS()<a;);
 }
 
-struct Options : public DefaultOptions<Options> {};
+//struct MyOptions : public DefaultOptions<MyOptions> {};
+struct MyOptions : public DefaultOptions<MyOptions> {
+	typedef Enable TaskName;
+	typedef Trace<MyOptions> Instrumentation;
+	typedef Disable Stealing;
+};
 
-struct grab : public Task<Options> {
+#define	MY_DEFINE_TASK(x)	struct x : public Task<MyOptions> { \
+	std::string get_name() { return #x; }
+
+MY_DEFINE_TASK( grab )
 	int i_;
-    grab(int i, Handle<Options> *hr, Handle<Options> &h) {
+    grab(int i, Handle<MyOptions> *hr, Handle<MyOptions> &h) {
 		if(hr)
 			register_access(ReadWriteAdd::read, *hr);
         register_access(ReadWriteAdd::write, h);
@@ -40,9 +49,9 @@ struct grab : public Task<Options> {
 	}
 };
 
-struct shear : public Task<Options> {
+MY_DEFINE_TASK(shear)
 	int i_;
-    shear(int i, Handle<Options> &hr, Handle<Options> &h) {
+    shear(int i, Handle<MyOptions> &hr, Handle<MyOptions> &h) {
 		register_access(ReadWriteAdd::read, hr);
         register_access(ReadWriteAdd::write, h);
 		i_ =i;
@@ -59,9 +68,9 @@ struct shear : public Task<Options> {
 	}
 };
 
-struct grab2 : public Task<Options> {
+MY_DEFINE_TASK(grab2)
 	int i_;
-    grab2(int i, Handle<Options> *hr, Handle<Options> &h) {
+    grab2(int i, Handle<MyOptions> *hr, Handle<MyOptions> &h) {
 		if(hr)
 			register_access(ReadWriteAdd::read, *hr);
         register_access(ReadWriteAdd::write, h);
@@ -79,9 +88,9 @@ struct grab2 : public Task<Options> {
 	}
 };
 
-struct recon : public Task<Options> {
+MY_DEFINE_TASK(recon)
 	int i_, j_;
-    recon(int i, int j, Handle<Options> ahr[3], Handle<Options> *hr_pre, Handle<Options> &h) {
+    recon(int i, int j, Handle<MyOptions> ahr[3], Handle<MyOptions> *hr_pre, Handle<MyOptions> &h) {
 		for(int j=0; j<3; j++)
 			register_access(ReadWriteAdd::read, ahr[j]);
 		if(hr_pre)
@@ -102,9 +111,9 @@ struct recon : public Task<Options> {
 	}
 };
 
-struct merge : public Task<Options> {
+MY_DEFINE_TASK(merge)
 	int i_, j_;
-    merge(int i, int j, Handle<Options> &hr1,Handle<Options> *hr2, Handle<Options> &h) {
+    merge(int i, int j, Handle<MyOptions> &hr1,Handle<MyOptions> *hr2, Handle<MyOptions> &h) {
 		register_access(ReadWriteAdd::read, hr1);
 		if(hr2)
 			register_access(ReadWriteAdd::read, *hr2);
@@ -124,11 +133,11 @@ struct merge : public Task<Options> {
 	}
 };
 
-static SuperGlue<Options> tm;
-static Handle<Options> *hGrab;
-static Handle<Options> *hShear;
-static Handle<Options> *hRecon[N_CAM];
-static Handle<Options> *hMerge[N_CAM];
+static SuperGlue<MyOptions> tm;
+static Handle<MyOptions> *hGrab;
+static Handle<MyOptions> *hShear;
+static Handle<MyOptions> *hRecon[N_CAM];
+static Handle<MyOptions> *hMerge[N_CAM];
 
 //#define	Get_Idx(p, cam, trig)	p[cma*N_TRIG + trig]
 
@@ -183,13 +192,13 @@ int main_solar(int argc, char *argv[]) {
     if (argc > 2)
         delay = atoi(argv[2]);
 
-    hGrab = new Handle<Options>[N_TRIG];
-	hShear = new Handle<Options>[N_TRIG];
+    hGrab = new Handle<MyOptions>[N_TRIG];
+	hShear = new Handle<MyOptions>[N_TRIG];
 
 	for(int i=0; i<N_CAM; i++)
 	{
-		hRecon[i] = new Handle<Options>[N_TRIG-2];
-		hMerge[i] = new Handle<Options>[N_TRIG-2];
+		hRecon[i] = new Handle<MyOptions>[N_TRIG-2];
+		hMerge[i] = new Handle<MyOptions>[N_TRIG-2];
 	}
 
     TIMING_init();
@@ -204,6 +213,7 @@ int main_solar(int argc, char *argv[]) {
     TIMING_end(n);
 
     LOG_dump("superglue.log");
+	Trace<MyOptions>::dump("solar.log");
    
     return 0;
 }

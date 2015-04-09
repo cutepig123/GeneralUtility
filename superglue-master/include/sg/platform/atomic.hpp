@@ -8,7 +8,7 @@
 //#include <intrin.h>
 //
 //#pragma intrinsic(_InterlockedAdd)
-
+#if  _MSC_VER < 1800	// <Visual Studio 2013
 inline LONG __cdecl InterlockedAdd(
   _Inout_  LONG volatile *Addend,
   _In_     LONG Value
@@ -16,7 +16,7 @@ inline LONG __cdecl InterlockedAdd(
 LONG x = InterlockedExchangeAdd(Addend,Value);
 return x+Value;
 }
-
+#endif
 
 #endif
 #if defined(__SUNPRO_CC)
