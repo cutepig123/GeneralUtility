@@ -4,6 +4,20 @@
 #if defined(_MSC_VER)
 #define NOMINMAX
 #include <windows.h>
+//#define InterlockedAdd _InterlockedAdd
+//#include <intrin.h>
+//
+//#pragma intrinsic(_InterlockedAdd)
+
+inline LONG __cdecl InterlockedAdd(
+  _Inout_  LONG volatile *Addend,
+  _In_     LONG Value
+){
+LONG x = InterlockedExchangeAdd(Addend,Value);
+return x+Value;
+}
+
+
 #endif
 #if defined(__SUNPRO_CC)
 #include <atomic.h>
