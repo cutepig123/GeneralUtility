@@ -3,13 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestVBScript1", "TestVBScript1\TestVBScript1.vcxproj", "{F77B94EE-7E01-4E41-BE99-49C79A16B892}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyObject", "MyObject\MyObject.vcxproj", "{393C21A4-9E0F-4845-878E-E25B701C8E9D}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyObjectPS", "MyObject\MyObjectPS.vcxproj", "{642315C7-FA31-4680-BB7A-6AB00EC674E7}"
-	ProjectSection(ProjectDependencies) = postProject
-		{393C21A4-9E0F-4845-878E-E25B701C8E9D} = {393C21A4-9E0F-4845-878E-E25B701C8E9D}
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -20,12 +13,6 @@ Global
 		{F77B94EE-7E01-4E41-BE99-49C79A16B892}.Debug|Win32.Build.0 = Debug|Win32
 		{F77B94EE-7E01-4E41-BE99-49C79A16B892}.Release|Win32.ActiveCfg = Release|Win32
 		{F77B94EE-7E01-4E41-BE99-49C79A16B892}.Release|Win32.Build.0 = Release|Win32
-		{393C21A4-9E0F-4845-878E-E25B701C8E9D}.Debug|Win32.ActiveCfg = Debug|Win32
-		{393C21A4-9E0F-4845-878E-E25B701C8E9D}.Debug|Win32.Build.0 = Debug|Win32
-		{393C21A4-9E0F-4845-878E-E25B701C8E9D}.Release|Win32.ActiveCfg = Release|Win32
-		{393C21A4-9E0F-4845-878E-E25B701C8E9D}.Release|Win32.Build.0 = Release|Win32
-		{642315C7-FA31-4680-BB7A-6AB00EC674E7}.Debug|Win32.ActiveCfg = Debug|Win32
-		{642315C7-FA31-4680-BB7A-6AB00EC674E7}.Release|Win32.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
