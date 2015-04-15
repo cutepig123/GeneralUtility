@@ -279,7 +279,7 @@ int MyEdgeDetect(Mat const &src_gray, Mat &abs_grad_x_thin, Mat &grad_x, Mat &gr
 
 //sign: 1: down, -1:up
 int MyTraceEdge(Mat const& abs_grad_x_thin, Mat const& dir, int y_start, int x_start, int label, int sign, 
-	Mat &edge_label, std::vector<Point2d> &xy)
+	Mat &edge_label, std::vector<Point2d> &xy, short &sdir)
 {
 	int max_dx =3;
 	int max_dy =8;
@@ -292,6 +292,7 @@ int MyTraceEdge(Mat const& abs_grad_x_thin, Mat const& dir, int y_start, int x_s
 	xy.reserve(abs_grad_x_thin.rows);
 
 	bool bFound =true;
+	double ddir =0;
 	for( ; y >0 && y<abs_grad_x_thin.rows-1 && bFound; )
 	{
 		TRACE("y %d x %d\n", y,x);
@@ -301,6 +302,7 @@ int MyTraceEdge(Mat const& abs_grad_x_thin, Mat const& dir, int y_start, int x_s
 		short t_grad =*abs_grad_x_thin.ptr<short>(y,x);
 		assert(t_grad);
 		int cur_dir =*dir.ptr<short>(y,x);
+		ddir += cur_dir;
 		
 		for(int dy= 1; dy <=max_dy; dy++)
 		{
@@ -350,6 +352,8 @@ int MyTraceEdge(Mat const& abs_grad_x_thin, Mat const& dir, int y_start, int x_s
 		}
 	}
 
+	sdir = ddir>0?1:-1;
+	
 	return 0;
 }
 
@@ -397,7 +401,13 @@ int MyFitVertLine(std::vector<Point2d> const &xy, VertLine &line)
 	return 0;
 }
 
-int MySortEdgeByDir(Mat const& abs_grad_x_thin,Mat const& dir, Mat &edge_label,bool log )
+struct VertLineData{
+	VertLine 				line;
+	std::vector<Point2d> 	xy;
+	short dir;
+};
+
+int MySortEdgeByDir(Mat const& abs_grad_x_thin,Mat const& dir, Mat &edge_label,bool log, std::vector<VertLineData> &vline)
 {
 	int y_start =abs_grad_x_thin.rows/2;
 	
@@ -419,12 +429,22 @@ int MySortEdgeByDir(Mat const& abs_grad_x_thin,Mat const& dir, Mat &edge_label,b
 			nlabel++;
 
 			std::vector<Point2d> xy;
-			MyTraceEdge(abs_grad_x_thin, dir, y_start, x, nlabel, 1, edge_label, xy);
-			MyTraceEdge(abs_grad_x_thin, dir, y_start, x, nlabel, -1, edge_label, xy);
+			short sdir;
+			MyTraceEdge(abs_grad_x_thin, dir, y_start, x, nlabel, 1, edge_label, xy, sdir);
+			MyTraceEdge(abs_grad_x_thin, dir, y_start, x, nlabel, -1, edge_label, xy, sdir);
 
+			std::sort(xy.begin(),xy.end(),[](Point2d const&a,Point2d const&b){return a.y<b.y;});
+			
 			VertLine line;
 			MyFitVertLine( xy, line);
 			printf("line %d, ab %f %f\n", nlabel, line.a, line.b);
+			
+			VertLineData data;
+			data.line =line;
+			data.xy =xy;
+			data.dir = sdir;
+			
+			vline.push_back(data);
 		}
 	}
 	
@@ -435,6 +455,56 @@ int MySortEdgeByDir(Mat const& abs_grad_x_thin,Mat const& dir, Mat &edge_label,b
 		imwrite("edge_label_save.bmp", edge_label_save);
 	}
 	
+	return 0;
+}
+
+int checklines(std::vector<VertLineData> const &vline)
+{
+	double maxDir=-10000, minDir=10000;	//line dir
+	std::vector<double> vMaxDist(vline.size(),0);	// Max distance btw the pts and lines
+	std::vector<int>	vDirChkOk(vline.size(),1);	// check adjacent lines' dir
+	std::vector<Point2d> vMaxDistDiffBtwLines(vline.size());	// Max distance btw the lines[i] & line[i+1]
+	
+	for(int i=0, n=vline.size(); i<n;i++)
+	{
+		double a= vline[i].line.a;
+		maxDir =std::max(maxDir, a);
+		minDir =std::min(minDir, a);
+		
+		if( i+1<n)
+		{
+			double y=0;
+			double dist1 =vline[i+1].line.a *y +vline[i+1].line.b
+				- (vline[i].line.a *y +vline[i].line.b);
+			y =480;
+			double dist2 =vline[i+1].line.a *y +vline[i+1].line.b
+				- (vline[i].line.a *y +vline[i].line.b);
+			vMaxDistDiffBtwLines[i].x =dist1;
+			vMaxDistDiffBtwLines[i].y =dist2;
+		}
+			
+		for(int j=0, m=vline[i].xy.size(); j<m;j++)
+		{
+			vMaxDist[i] =std::max(vMaxDist[i],
+				fabs(vline[i].line.a *vline[i].xy[j].y +vline[i].line.b -vline[i].xy[j].x) );
+		}
+		
+		if( i-1>=0)
+			if(vline[i].dir *vline[i-1].dir<0)
+				vDirChkOk[i] = 0;
+		if( i+1<n)
+			if(vline[i].dir *vline[i+1].dir<0)
+				vDirChkOk[i] = 0;
+	}
+	
+	printf("maxDir-minDir =%fdeg\n",(maxDir-minDir)*180/3.14159);
+	
+	for(int i=0, n=vline.size(); i<n;i++)
+		printf("N Pts %d vMaxDist[%d] %f Chk dir ok %d cr pts %f %f rel line dts %f %f\n", 
+			vline[i].xy.size(),
+			i, vMaxDist[i], vDirChkOk[i]
+			,vline[i].xy[10].x,vline[i].xy[10].y, vMaxDistDiffBtwLines[i].x, vMaxDistDiffBtwLines[i].y);
+		
 	return 0;
 }
 
@@ -468,7 +538,10 @@ int main_sobel(int argc, char** argv)
 
 	MyEdgeDetect(src_gray, abs_grad_x_thin, grad_x, grad_y, dir, log);
 	
-	MySortEdgeByDir(abs_grad_x_thin,dir, edge_label, log );
+	std::vector<VertLineData> vline;
+	MySortEdgeByDir(abs_grad_x_thin,dir, edge_label, log, vline );
+	
+	checklines(vline);
 	///// Generate grad_x and grad_y
 	//Mat grad_x, grad_y;
 	//Mat abs_grad_x, abs_grad_y;
