@@ -5,8 +5,30 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "common.h"
+#include <functional>
 
 using namespace cv;
+
+// note:
+// channel is diff with dims!
+
+int MyMapShortImgToColor(Mat const &src, 
+	std::function<int(short val, int x, int y, uchar *c1, uchar *c2, uchar *c3)> &ftn, Mat &dst)
+{
+	dst = Mat::zeros(src.rows, src.cols, CV_8UC3);	
+	//int sz[] = { src.cols, src.rows };
+	//dst = Mat::zeros(3, sz, CV_8UC3);
+	for (int i = 0; i < src.rows; i++)
+	{
+		for (int j = 0; j < src.cols; j++)
+		{
+			const short* t = src.ptr<short>(i, j);
+			uchar *d = dst.ptr<uchar>(i, j);
+			ftn(*t, j, i, d, d+1, d+2);
+		}
+	}
+	return 0;
+}
 
 struct TRAITS_X_16S
 {
@@ -233,7 +255,16 @@ int MyEdgeDetect(Mat const &src_gray, Mat &abs_grad_x_thin, Mat &grad_x, Mat &gr
 	if(log)
 	{
 		Mat abs_grad_x;
-		convertScaleAbs(grad_x, abs_grad_x);
+		//convertScaleAbs(grad_x, abs_grad_x);
+		std::function<int(short val, int x, int y, uchar *c1, uchar *c2, uchar *c3)> f = 
+			[&src_gray](short val, int x, int y, uchar *c1, uchar *c2, uchar *c3){
+			if (val>0) *c1 = std::max((short)255, val);
+			else if (val < 0) *c2 = std::max((short)255, (short)(-val));
+			*c3 = *src_gray.ptr<uchar>(y, x);
+			return 0; };
+
+		MyMapShortImgToColor(grad_x, f, abs_grad_x);
+
 		imwrite("abs_grad_x.bmp", abs_grad_x);
 	}
 	
@@ -267,7 +298,17 @@ int MyEdgeDetect(Mat const &src_gray, Mat &abs_grad_x_thin, Mat &grad_x, Mat &gr
 	if(log)
 	{
 		Mat abs_grad_x_thin_save;
-		MyCvtTo8bit(abs_grad_x_thin,abs_grad_x_thin_save);
+		//MyCvtTo8bit(abs_grad_x_thin,abs_grad_x_thin_save);
+
+		std::function<int(short val, int x, int y, uchar *c1, uchar *c2, uchar *c3)> f =
+			[&src_gray](short val, int x, int y, uchar *c1, uchar *c2, uchar *c3){
+			if (val>0) *c1 = std::max((short)255, val);
+			else if (val < 0) *c2 = std::max((short)255, (short)(-val));
+			*c3 = *src_gray.ptr<uchar>(y, x);
+			return 0; };
+
+		MyMapShortImgToColor(abs_grad_x_thin, f, abs_grad_x_thin_save);
+
 		imwrite("Mi_thin.bmp", abs_grad_x_thin_save);
 		
 		Mat dir_save;
@@ -448,17 +489,23 @@ int MySortEdgeByDir(Mat const& abs_grad_x_thin,Mat const& dir, Mat &edge_label,b
 		}
 	}
 	
-	if(log)
-	{
-		Mat edge_label_save;
-		MyCvtTo8bit(edge_label,edge_label_save);
-		imwrite("edge_label_save.bmp", edge_label_save);
-	}
-	
 	return 0;
 }
 
-int checklines(std::vector<VertLineData> const &vline)
+struct MyFailLine
+{
+	int i;	//index
+	bool isFailByLineDistDiff;
+	double lineDistRange;	//adjacent line distance difference
+};
+
+struct MyFailCrit
+{
+	bool isChkByLineDistDiff;
+	double lineDistRange;	//adjacent line distance difference
+};
+
+int checklines(std::vector<VertLineData> const &vline, MyFailCrit const &crit, std::vector<MyFailLine> &vFails)
 {
 	double maxDir=-10000, minDir=10000;	//line dir
 	std::vector<double> vMaxDist(vline.size(),0);	// Max distance btw the pts and lines
@@ -499,11 +546,26 @@ int checklines(std::vector<VertLineData> const &vline)
 	
 	printf("maxDir-minDir =%fdeg\n",(maxDir-minDir)*180/3.14159);
 	
-	for(int i=0, n=vline.size(); i<n;i++)
-		printf("N Pts %d vMaxDist[%d] %f Chk dir ok %d cr pts %f %f rel line dts %f %f\n", 
+	for (int i = 0, n = vline.size(); i < n; i++)
+	{
+		printf("N Pts %d vMaxDist[%d] %f Chk dir ok %d cr pts %f %f rel line dts %f %f\n",
 			vline[i].xy.size(),
 			i, vMaxDist[i], vDirChkOk[i]
-			,vline[i].xy[10].x,vline[i].xy[10].y, vMaxDistDiffBtwLines[i].x, vMaxDistDiffBtwLines[i].y);
+			, vline[i].xy[10].x, vline[i].xy[10].y, vMaxDistDiffBtwLines[i].x, vMaxDistDiffBtwLines[i].y);
+
+		if (crit.isChkByLineDistDiff)
+		{
+			double diff = fabs(vMaxDistDiffBtwLines[i].x - vMaxDistDiffBtwLines[i].y);
+			if (diff >crit.lineDistRange)
+			{
+				MyFailLine fail;
+				fail.i = i;
+				fail.isFailByLineDistDiff = true;
+				fail.lineDistRange = diff;
+				vFails.push_back(fail);
+			}
+		}
+	}
 		
 	return 0;
 }
@@ -541,29 +603,59 @@ int main_sobel(int argc, char** argv)
 	std::vector<VertLineData> vline;
 	MySortEdgeByDir(abs_grad_x_thin,dir, edge_label, log, vline );
 	
-	checklines(vline);
-	///// Generate grad_x and grad_y
-	//Mat grad_x, grad_y;
-	//Mat abs_grad_x, abs_grad_y;
+	if (log)
+	{
+		Mat edge_label_save;
+		//MyCvtTo8bit(edge_label,edge_label_save);
 
-	///// Gradient X
-	////Scharr( src_gray, grad_x, ddepth, 1, 0, scale, delta, BORDER_DEFAULT );
-	//Sobel(src_gray, grad_x, ddepth, 1, 0, 3, scale, delta, BORDER_DEFAULT);
-	//convertScaleAbs(grad_x, abs_grad_x);
+		std::function<int(short val, int x, int y, uchar *c1, uchar *c2, uchar *c3)> f =
+			[&src_gray](short val, int x, int y, uchar *c1, uchar *c2, uchar *c3){
+			if (val > 0)
+			{
+				if (val % 2 == 0) *c1 = 255;
+				else if (val % 2 == 1) *c2 = 255;
+			}
+			*c3 = *src_gray.ptr<uchar>(y, x);
+			return 0; };
 
-	///// Gradient Y
-	////Scharr( src_gray, grad_y, ddepth, 0, 1, scale, delta, BORDER_DEFAULT );
-	//Sobel(src_gray, grad_y, ddepth, 0, 1, 3, scale, delta, BORDER_DEFAULT);
-	//convertScaleAbs(grad_y, abs_grad_y);
+		MyMapShortImgToColor(edge_label, f, edge_label_save);
 
-	///// Total Gradient (approximate)
-	//addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad);
+		imwrite("edge_label_save.bmp", edge_label_save);
+	}
 
-	//imshow(window_name, grad);
+	MyFailCrit crit;
+	std::vector<MyFailLine> vFails;
 
-	//imwrite("out.bmp", grad);
+	crit.isChkByLineDistDiff = true;
+	crit.lineDistRange = 15;
+	checklines(vline, crit, vFails);
+	
+	if (log)
+	{
+		Mat finalImg;
+		
+		std::function<int(short val, int x, int y, uchar *c1, uchar *c2, uchar *c3)> f =
+			[](short val, int x, int y, uchar *c1, uchar *c2, uchar *c3){
+			*c1 = *c2 = *c3 = val;
+			return 0; };
 
-	//waitKey(0);
+		MyMapShortImgToColor(src_gray, f, finalImg);
 
+		for (size_t j = 0; j < vFails.size(); j++)
+		{
+			int failid = vFails[j].i;
+			for (size_t i = 0; i < vline[failid].xy.size(); i++)
+			{
+				auto t = vline[failid].xy[i];
+				assert(t.x < finalImg.cols);
+				assert(t.y < finalImg.rows);
+				uchar *c = finalImg.ptr<uchar>(t.y, t.x);
+				c[0] = c[1] = 0;
+				c[2] = 255;
+			}
+		}
+
+		imwrite("finalImg.bmp", finalImg);
+	}
 	return 0;
 }
