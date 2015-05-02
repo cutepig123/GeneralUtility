@@ -1,15 +1,5 @@
-#include "opencv2/core.hpp"
+
 #include <vis/opencv.h>
-
-
-template <class T>
-struct	OPENCV_TRAITS;
-
-template <>
-struct	OPENCV_TRAITS<VIS_UINT8>
-{
-	static const int nType =CV_8UC1;
-};	
 
 /*
 template <class T>
@@ -54,6 +44,30 @@ VIS_INT16	OPCV_ConvBufRef(const cv::Mat* mat, VIS_BUF_T<T> *p)
 Exit:
 	return wSts;
 }
+
+template 
+VIS_XXPORT VIS_INT16	OPCV_ConvBufRef(const cv::Mat* mat, VIS_BUF_T<VIS_UINT8> *p);
+
+template
+VIS_XXPORT VIS_INT16	OPCV_ConvBufRef(const cv::Mat* mat, VIS_BUF_T<VIS_FLOAT32> *p);
+
+
+template <class T>
+VIS_INT16	OPCV_ConvBufRef(const VIS_BUF_T<T> *p, cv::Mat* mat)
+{
+	VIS_INT16 wSts = VIS_OK;
+	
+	*mat = cv::Mat(p->sz.y, p->sz.x, OPENCV_TRAITS<T>::nType, p->p, p->step);
+	
+Exit:
+	return wSts;
+}
+
+template
+VIS_XXPORT VIS_INT16	OPCV_ConvBufRef(const VIS_BUF_T<VIS_UINT8> *p, cv::Mat* mat);
+
+template
+VIS_XXPORT VIS_INT16	OPCV_ConvBufRef(const VIS_BUF_T<VIS_FLOAT32> *p, cv::Mat* mat);
 
 //template <class T>
 //VIS_INT16	OPCV_ConvBufRef(const IplImage* mat, VIS_BUF<T> *p);

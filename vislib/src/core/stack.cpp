@@ -56,12 +56,18 @@ VIS_INT16	STK_Malloc(VIS_SIZE const &sz, VIS_BUF_T<T> *p)
 	
 	p->sz =sz;
 	p->step =sz.x;
-	p->p = STK_Malloc(p->step *p->sz.y*sizeof(T::type));
-	if(!p->p)
-	{
-		wSts =STK_ERR_MALLOC;
-		VIS_CHK_STS;
-	}
+	wSts = STK_Malloc(p->step *p->sz.y*sizeof(VIS_BUF_T<T>::type), (VIS_VOID**)&p->p);
+	VIS_CHK_STS;
+	
 Exit:	
 	return wSts;
 }
+
+template 
+VIS_XXPORT VIS_INT16	STK_Malloc(VIS_SIZE const &sz, VIS_BUF_T<VIS_UINT8> *p);
+
+template 
+VIS_XXPORT VIS_INT16	STK_Malloc(VIS_SIZE const &sz, VIS_BUF_T<VIS_UINT16> *p);
+
+template 
+VIS_XXPORT VIS_INT16	STK_Malloc(VIS_SIZE const &sz, VIS_BUF_T<VIS_FLOAT32> *p);
