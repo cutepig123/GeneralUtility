@@ -49,6 +49,9 @@ template
 VIS_XXPORT VIS_INT16	OPCV_ConvBufRef(const cv::Mat* mat, VIS_BUF_T<VIS_UINT8> *p);
 
 template
+VIS_XXPORT VIS_INT16	OPCV_ConvBufRef(const cv::Mat* mat, VIS_BUF_T<VIS_INT16> *p);
+
+template
 VIS_XXPORT VIS_INT16	OPCV_ConvBufRef(const cv::Mat* mat, VIS_BUF_T<VIS_FLOAT32> *p);
 
 
@@ -59,7 +62,7 @@ VIS_INT16	OPCV_ConvBufRef(const VIS_BUF_T<T> *p, cv::Mat* mat)
 	
 	*mat = cv::Mat(p->sz.y, p->sz.x, OPENCV_TRAITS<T>::nType, p->p, p->step);
 	
-Exit:
+//Exit:
 	return wSts;
 }
 

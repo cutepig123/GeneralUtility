@@ -8,7 +8,7 @@ struct VIS_MAT_BUF_T_MyStruct
 };
 
 template <class T>
-VIS_INT16 VIS_LoadImage(const VIS_INT8 *pcPath, VIS_MAT_BUF_T<T> *pBuf)
+VIS_INT16 VIS_LoadImage(const char *pcPath, VIS_MAT_BUF_T<T> *pBuf)
 {
 	VIS_INT16 wSts = VIS_OK;
 	
@@ -25,13 +25,13 @@ Exit:
 }
 
 template
-VIS_XXPORT VIS_INT16 VIS_LoadImage(VIS_INT8 const *pcPath, VIS_MAT_BUF_T<VIS_UINT8> *pBuf);
+VIS_XXPORT VIS_INT16 VIS_LoadImage(char const *pcPath, VIS_MAT_BUF_T<VIS_UINT8> *pBuf);
 
 template
-VIS_XXPORT VIS_INT16 VIS_LoadImage(VIS_INT8 const *pcPath, VIS_MAT_BUF_T<VIS_FLOAT32> *pBuf);
+VIS_XXPORT VIS_INT16 VIS_LoadImage(char const *pcPath, VIS_MAT_BUF_T<VIS_FLOAT32> *pBuf);
 
 template <class T>
-VIS_INT16 VIS_SaveImage(const VIS_INT8 *pcPath, const VIS_BUF_T<T> *pBuf)
+VIS_INT16 VIS_SaveImage(const char *pcPath, const VIS_BUF_T<T> *pBuf)
 {
 	VIS_INT16 wSts = VIS_OK;
 
@@ -39,15 +39,15 @@ VIS_INT16 VIS_SaveImage(const VIS_INT8 *pcPath, const VIS_BUF_T<T> *pBuf)
 	wSts = OPCV_ConvBufRef(pBuf, &m);
 	VIS_CHK_STS;
 
-	//cv::imwrite((char*)pcPath, m);
+	cv::imwrite((char*)pcPath, m);
 Exit:
 	return wSts;
 
 }
 
 template
-VIS_XXPORT VIS_INT16 VIS_SaveImage(const VIS_INT8 *pcPath, const VIS_BUF_T<VIS_UINT8> *pBuf);
+VIS_XXPORT VIS_INT16 VIS_SaveImage(const char *pcPath, const VIS_BUF_T<VIS_UINT8> *pBuf);
 
 template
-VIS_XXPORT VIS_INT16 VIS_SaveImage(const VIS_INT8 *pcPath, const VIS_BUF_T<VIS_FLOAT32> *pBuf);
+VIS_XXPORT VIS_INT16 VIS_SaveImage(const char *pcPath, const VIS_BUF_T<VIS_FLOAT32> *pBuf);
 

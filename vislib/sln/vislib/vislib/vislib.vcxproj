@@ -82,7 +82,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\vis\core.h" />
+    <ClInclude Include="..\..\..\include\vis\debug.h" />
     <ClInclude Include="..\..\..\include\vis\export.h" />
+    <ClInclude Include="..\..\..\include\vis\GUI.h" />
     <ClInclude Include="..\..\..\include\vis\IO.h" />
     <ClInclude Include="..\..\..\include\vis\malloc.h" />
     <ClInclude Include="..\..\..\include\vis\opencv.h" />
@@ -92,6 +94,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\core\debug.cpp" />
+    <ClCompile Include="..\..\..\src\core\edgedetect.cpp" />
     <ClCompile Include="..\..\..\src\core\IO.cpp" />
     <ClCompile Include="..\..\..\src\core\malloc.cpp" />
     <ClCompile Include="..\..\..\src\core\opencv.cpp">

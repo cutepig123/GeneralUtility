@@ -14,4 +14,7 @@ struct VIS_MAT_BUF_T
 };
 
 template <class T>
-VIS_XXPORT VIS_INT16 VIS_LoadImage(const VIS_INT8 *pcPath, VIS_MAT_BUF_T<T> *pBuf);
+VIS_XXPORT VIS_INT16 VIS_LoadImage(const char *pcPath, VIS_MAT_BUF_T<T> *pBuf);
+
+template <class T>
+VIS_XXPORT VIS_INT16 VIS_SaveImage(const char *pcPath, const VIS_BUF_T<T> *pBuf);

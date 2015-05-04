@@ -13,6 +13,12 @@ struct	OPENCV_TRAITS<VIS_UINT8>
 };
 
 template <>
+struct	OPENCV_TRAITS<VIS_INT16>
+{
+	static const int nType = CV_16SC1;
+};
+
+template <>
 struct	OPENCV_TRAITS<VIS_FLOAT32>
 {
 	static const int nType = CV_32FC1;
