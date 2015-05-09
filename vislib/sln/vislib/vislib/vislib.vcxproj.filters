@@ -36,9 +36,6 @@
     <ClInclude Include="..\..\..\include\vis\export.h">
       <Filter>Header Files\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\vis\malloc.h">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\vis\opencv.h">
       <Filter>Header Files\core</Filter>
     </ClInclude>
@@ -55,6 +52,12 @@
       <Filter>Header Files\core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\vis\debug.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\vis\asm.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\vis\moduleid.h">
       <Filter>Header Files\core</Filter>
     </ClInclude>
   </ItemGroup>
@@ -84,6 +87,12 @@
       <Filter>Source Files\core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\core\debug.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\core\asm.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\core\SineInfo.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
   </ItemGroup>

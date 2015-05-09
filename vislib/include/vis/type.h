@@ -21,7 +21,7 @@ struct VIS_SIZE_T
 };
 
 typedef VIS_SIZE_T<VIS_UINT32>	VIS_SIZE;
-typedef VIS_SIZE_T<VIS_FLOAT64>	VIS_RSIZE;
+typedef VIS_SIZE_T<VIS_FLOAT32>	VIS_RSIZE;
 
 template <class T>
 struct VIS_POINT_T
@@ -32,22 +32,22 @@ struct VIS_POINT_T
     T     y;
 };
 
-typedef VIS_POINT_T<VIS_UINT32>	VIS_POINT;
-typedef VIS_POINT_T<VIS_FLOAT64>	VIS_RPOINT;
+typedef VIS_POINT_T<VIS_UINT32>		VIS_POINT;
+typedef VIS_POINT_T<VIS_FLOAT32>	VIS_RPOINT;
 
 template <class T>
 struct VIS_BUF_T
 {
 	typedef	T	type;
 	
-	T 			*p;
-	VIS_SIZE 	sz;
-	VIS_UINT32 	step;
+	T 			*ptr;
+	VIS_SIZE 	size;
+	VIS_UINT32 	linestep;
 };
 
 typedef VIS_BUF_T<VIS_UINT8>		VIS_BUF;
 typedef VIS_BUF_T<VIS_UINT16>		VIS_BUF_UINT16;
-typedef VIS_BUF_T<VIS_FLOAT64>		VIS_RBUF;
+typedef VIS_BUF_T<VIS_FLOAT32>		VIS_RBUF;
 
 #define VIS_ERR_INV_ARG			-1
 

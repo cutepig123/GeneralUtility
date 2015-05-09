@@ -1,4 +1,14 @@
 #include	<vis/asm.h>
+#include	<math.h>
+#include	<memory.h>
+
+IMG_WORD	DSP_INS_AverageVertical(
+	IMG_RBUF	const	*prbSrc,		// input buffer
+	IMG_UWORD	const	uwOffx,			// Offset x
+	IMG_UWORD	const	uwStep,			// x linestep
+	IMG_UWORD	const	uwHSz,			// window size (i.e. full kernel size), must be odd kernel
+	IMG_RBUF			*prbDes			// filtered buffer
+	);
 
 //
 //
@@ -236,7 +246,7 @@ EXIT_DSP_GEN_SinFilterKernelSet:
 IMG_WORD	DSP_INS_AverageVertical(
 									IMG_RBUF	const	*prbSrc,		// input buffer
 									IMG_UWORD	const	uwOffx,			// Offset x
-									IMG_UWORD	const	uwStep,			// x step
+									IMG_UWORD	const	uwStep,			// x linestep
 									IMG_UWORD	const	uwHSz,			// window size (i.e. full kernel size), must be odd kernel
 									IMG_RBUF			*prbDes			// filtered buffer
 									)
@@ -2082,7 +2092,7 @@ IMG_WORD	DSP_CAL_PPSinInfo(
 	stHPPara.TimeML = 100;
 
 	stHPResult.M= 3;
-	stHPResult.p=&arWx[0];
+	stHPResult.ptr=&arWx[0];
 
 	// omega A, B for x directions
 	rbA.linestep	= rbA.size.x= 3;
@@ -2283,9 +2293,9 @@ IMG_WORD	DSP_CAL_PPSinInfo(
 		if (OK== wStsAXB)
 		{
 			pstInfo->pubValid[j]	= 1;
-			if (NULL!= pstInfo->prPhi)	pstInfo->prPhi[j]= stHPResult.p[0];
-			if (NULL!= pstInfo->prWx )	pstInfo->prWx[j] = stHPResult.p[1];
-			if (NULL!= pstInfo->prWxx)	pstInfo->prWxx[j]= stHPResult.p[2];
+			if (NULL!= pstInfo->prPhi)	pstInfo->prPhi[j]= stHPResult.ptr[0];
+			if (NULL!= pstInfo->prWx )	pstInfo->prWx[j] = stHPResult.ptr[1];
+			if (NULL!= pstInfo->prWxx)	pstInfo->prWxx[j]= stHPResult.ptr[2];
 		}
 		else
 			pstInfo->pubValid[j]	= 0;
@@ -2591,794 +2601,794 @@ EXIT_DSP_CAL_PPSinInfo:
 }
 
 //==================  Confocal specific function ==================
-
-IMG_VVOID	DSP_INS_Confocal_Inti(
-								  DSP_CONFOCAL_INSPARA	*pstPara
-								  )
-{
-	if (NULL== pstPara)	return;
-	memset(pstPara, 0, sizeof(DSP_CONFOCAL_INSPARA));
-	pstPara->rThre= -1.0f;
-	return;
-}
-
-IMG_WORD	DSP_Ins_ConfocalPos(
-								IMG_UBBUF			const	*pubbS,				// Number of images
-								IMG_COORD			const	coOp,				// offset
-								IMG_SIZE			const	szOp,				// opsize
-								DSP_SIN_INFO		const	*pstInfo,			// SIN info
-								IMG_RCOORD					*prcoP,				// extract position
-								IMG_REAL					*prM,				// confocal magnitude (can be NULL)
-								IMG_REAL					*prCf				// confidence (can be NULL)
-								)
-{
-	IMG_WORD
-		wMEMSts	= OK,
-		wSts	= OK;
-
-	IMG_ULWORD
-		ulMEM	= 0;
-
-	IMG_COORD
-		coZ	= {0, 0};
-
-	IMG_REAL
-		rScore= 0.0f;
-
-	IMG_RBUF
-		rbS,
-		rbM;
-
-	DSP_SIN_PARA
-		stPara;
-
-	if (NULL== prcoP)	return OK;
-
-	if (NULL== pubbS|| NULL== pubbS->ptr||
-		NULL== pstInfo)
-		return DSP_ERR_INVALID_ARG;
-
-	wMEMSts= MEM_PushAllHeapStatus();
-	if (OK!= wMEMSts)	return wMEMSts;
-
-	rbS.size= rbM.size= szOp;
-	rbS.linestep= rbM.linestep= szOp.x;
-
-	ulMEM= ((szOp.x*szOp.y)<< 1);
-	if (NULL== (rbS.ptr= (IMG_REAL *) MEM_Malloc(ulMEM*sizeof(IMG_REAL), SYS_BANK1_8)))
-	{
-		wSts= MEM_ERR_MALLOC;
-		goto EXIT_DSP_Ins_ConfocalPos;
-	}
-	memset(rbS.ptr, 0, ulMEM*sizeof(IMG_REAL));
-	rbM.ptr= rbS.ptr+ (szOp.x*szOp.y);
-
-	memset(&stPara, 0, sizeof(DSP_SIN_PARA));
-	if (pstInfo->rfx> 0.0f && pstInfo->rfx> pstInfo->rfy)
-	{
-		stPara.rPeriod		= 1.0f/pstInfo->rfx;
-		stPara.uwSKernel	= (IMG_UWORD) (0.1f/((pstInfo->rfy> 0.0f)? pstInfo->rfy:0.02f));
-		stPara.uwSKernel	= IMG_MIN(stPara.uwSKernel, 5);
-		stPara.rOrientation = 0.0f;
-	}
-	else if (pstInfo->rfy> 0.0f)
-	{
-		stPara.rPeriod		= 1.0f/pstInfo->rfy;
-		stPara.uwSKernel	= (IMG_UWORD) (0.1f/((pstInfo->rfx> 0.0f)? pstInfo->rfx:0.02f));
-		stPara.uwSKernel	= IMG_MIN(stPara.uwSKernel, 5);
-		stPara.rOrientation =90.0f;
-	}
-	else
-	{
-		wSts= DSP_ERR_INVALID_ARG;
-		goto EXIT_DSP_Ins_ConfocalPos;
-	}
-	stPara.rAmplitude	= pstInfo->rB- 2.0f*pstInfo->rB_SD;
-	if (stPara.rAmplitude< pstInfo->rB_SD) stPara.rAmplitude= IMG_MAX(pstInfo->rB_SD, 1.0f);
-
-	wSts = 	DSP_INS_IsSinusoidalExist(
-		pubbS,	coOp, szOp, stPara,	&rbS, NULL,	&rbM);
-	if ( wSts < OK )	goto EXIT_DSP_Ins_ConfocalPos;
-
-	wSts= DSP_INS_FindConvexMaximum(
-		&rbS, coZ, rbS.size, prcoP, &rScore);
-	if ( wSts < OK )	goto EXIT_DSP_Ins_ConfocalPos;
-
-	if (NULL!= prCf)	*prCf= rScore;
-
-	if (NULL!= prM)
-	{
-		IMG_COORD
-			coP		= {0, 0};
-
-		IMG_RCOORD
-			rcodP	= {0.0f, 0.0f};
-
-		coP.x= (IMG_WORD) prcoP->x;
-		coP.y= (IMG_WORD) prcoP->y;
-
-		rcodP.x= prcoP->x- (IMG_REAL) coP.x;
-		rcodP.y= prcoP->y- (IMG_REAL) coP.y;
-
-		*prM=
-			(1.0f-	rcodP.x)*(1.0f-	rcodP.y)*rbM.ptr[(coP.y   )*rbM.linestep+ (coP.x   )]+ 
-			(		rcodP.x)*(1.0f-	rcodP.y)*rbM.ptr[(coP.y   )*rbM.linestep+ (coP.x+ 1)]+
-			(		rcodP.x)*(		rcodP.y)*rbM.ptr[(coP.y+ 1)*rbM.linestep+ (coP.x+ 1)]+
-			(1.0f-  rcodP.x)*(		rcodP.y)*rbM.ptr[(coP.y+ 1)*rbM.linestep+ (coP.x   )];
-
-		*prM= (IMG_REAL) sqrt(*prM);
-	}
-
-	prcoP->x+= (IMG_REAL) coOp.x;
-	prcoP->y+= (IMG_REAL) coOp.y;
-
-EXIT_DSP_Ins_ConfocalPos:
-	wMEMSts= MEM_PopAllHeapStatus();
-	if (OK!= wMEMSts)	return wMEMSts;
-	return wSts;
-}
-
-IMG_WORD	DSP_INS_Confocal(
-							 IMG_UBBUF				const	*pubbS,			// Number of images
-							 IMG_COORD				const	coOp,			// offset
-							 IMG_SIZE				const	szOp,			// opsize
-							 DSP_CONFOCAL_INFO		const	stCInfo,		// calibration record
-							 DSP_CONFOCAL_INSPARA	const	stCPara,		// inspectiion parameter
-							 DSP_CONFOCAL_RES				*pstCRes		// packeed result
-							 )
-{
-	IMG_WORD
-		wSts = OK;
-
-	IMG_RCOORD
-		rcoP = {0.0f, 0.0f};
-
-	DSP_SIN_INFO
-		stSInfo;
-
-	if (NULL== pstCRes)	goto EXIT_DSP_INS_Confocal;
-	memset(pstCRes, 0, sizeof(DSP_CONFOCAL_RES));
-
-	stSInfo= stCInfo.stSInfo;
-	if (stCPara.rThre> 0.0f)
-	{
-		stSInfo.rB		= stCPara.rThre;
-		stSInfo.rB_SD	= 0.0f;
-	}
-
-	wSts= DSP_Ins_ConfocalPos(pubbS, coOp, szOp, &stSInfo, &rcoP, &pstCRes->rAmp, &pstCRes->rConf);
-	if (wSts< OK)	goto EXIT_DSP_INS_Confocal;
-
-	pstCRes->rHeight= rcoP.x*stCInfo.arFxy[0]+ rcoP.y*stCInfo.arFxy[1]+ stCInfo.arFxy[2];
-	pstCRes->rcoP= rcoP;
-
-EXIT_DSP_INS_Confocal:
-	return wSts;
-}
-
-IMG_VVOID	DSP_CAL_Confocal_Inti(
-								  DSP_CONFOCAL_CALPARA	*pstPara
-								  )
-{
-	if (NULL== pstPara)	return;
-	memset(pstPara, 0, sizeof(DSP_CONFOCAL_CALPARA));
-	pstPara->rTol= 2.0f;
-	return;
-}
-
-IMG_WORD	DSP_CAL_Confocal(
-							 IMG_UWORD				const	uwN,			// Number of images
-							 IMG_UBBUF				const	*pubbS,			// Number of images
-							 IMG_COORD				const	coOp,			// offset
-							 IMG_SIZE				const	szOp,			// opsize
-							 IMG_REAL				const	*prHeight,		// Height index
-							 DSP_CONFOCAL_CALPARA	const	stCPara,
-							 DSP_CONFOCAL_INFO				*pstCInfo,
-							 DSP_CONFOCAL_RES				*pstCRes
-							 )
-{
-	IMG_WORD
-		wMEMSts= OK,
-		wPOSSts= OK,
-		wSts= OK;
-
-	IMG_UWORD
-		n	= 0,
-		N	= 0,
-		i	= 0,
-		j	= 0;
-
-	IMG_ULWORD
-		ulMEM= 0;
-
-	IMG_REAL
-		rM		= 0.0f,
-		rCf		= 0.0f,
-		rMSum	= 0.0f,					// sum
-		rM2Sum	= 0.0f;					// sum square
-
-	IMG_COORD
-		coP		= {0, 0},
-		coZ		= {0, 0};
-
-	IMG_RCOORD
-		rcoP = {0.0f, 0.0f};
-
-	IMG_UBBUF
-		ubbS;
-
-	IMG_RBUF
-		rbS,
-		rbA,
-		rbB;
-
-	MAT_FITPARA
-		stHPPara;
-
-	MAT_HPLANE
-		stHPResult;
-
-	DSP_SININFO_PARA
-		stPara;
-
-	IppStatus
-		ippSts	= ippStsNoErr;
-
-	IppiSize
-		ippRoiSize;
-
-	IMG_UBYTE
-		*pubS= NULL;
-
-	IMG_REAL
-		*prS= NULL,
-		*prA= NULL,
-		*prB= NULL;
-
-	// Take image average to get learn image
-	if (NULL== pstCInfo)	return OK;
-	if (0== uwN|| NULL== pubbS)	return DSP_ERR_INVALID_ARG;
-
-	wMEMSts= MEM_PushAllHeapStatus();
-	if (wMEMSts< OK)	return wMEMSts;
-
-	rbS.size= ubbS.size= szOp;
-	rbS.linestep= ubbS.linestep= szOp.x;
-
-	rbA.linestep= rbA.size.x= 3;
-	rbB.linestep= rbB.size.x= 1;
-	rbA.size.y= rbB.size.y= uwN+ 2;				// add 2 coefficient equal to 0 constraints
-
-	ulMEM= rbS.size.x*rbS.size.y+ rbA.size.x*rbA.size.y+ rbB.size.x*rbB.size.y;
-
-	if (NULL== (rbS.ptr	= (IMG_REAL		*) MEM_Malloc(ulMEM*sizeof(IMG_REAL ), SYS_BANK1_8))||
-		NULL== (ubbS.ptr= (IMG_UBYTE	*) MEM_Malloc(ulMEM*sizeof(IMG_UBYTE), SYS_BANK1_8)))
-	{
-		wMEMSts= MEM_ERR_MALLOC;
-		goto EXIT_DSP_CAL_Confocal;
-	}
-	memset(rbS.ptr , 0, rbS.size.x* rbS.size.y*sizeof(IMG_REAL ));
-	rbA.ptr	= rbS.ptr+ rbS.size.x*rbS.size.y;
-	rbB.ptr	= rbA.ptr+ rbA.size.x*rbA.size.y;
-
-	memset(ubbS.ptr, 0,ubbS.size.x*ubbS.size.y*sizeof(IMG_UBYTE));
-
-	// ======== Compute the average intensity of input image series ======== 
-	ippRoiSize.width	= szOp.x;
-	ippRoiSize.height	= szOp.y;
-	for (n= 0; n< uwN; n++)
-	{
-		ippSts= ippiAdd_8u32f_C1IR(
-			pubbS[n].ptr+ coOp.y*pubbS[n].linestep+ coOp.x, pubbS[n].linestep*sizeof(IMG_UBYTE),
-			rbS.ptr, rbS.linestep*sizeof(IMG_REAL), ippRoiSize);
-
-		if (ippStsNoErr!= ippSts)
-		{
-			wSts= DSP_ERR_FAIL_IN_IPPI;
-			goto EXIT_DSP_CAL_Confocal;
-		}
-	}
-
-	prS	= rbS.ptr;
-	pubS= ubbS.ptr;
-	for (j= 0; j< szOp.y; j++, pubS+= (ubbS.linestep- szOp.x), prS+= (rbS.linestep- szOp.x))
-		for (i= 0; i< szOp.x; i++)
-			*(pubS++)= (IMG_UBYTE) (*(prS++)/(IMG_REAL)uwN+ 0.5f);
-
-
-	memset(&stPara, 0, sizeof(DSP_SININFO_PARA));
-	DSP_CAL_SinInfoIniti(&stPara);
-	wSts=	DSP_CAL_SinInfo(
-		&ubbS, coZ, ubbS.size, stPara, &pstCInfo->stSInfo);
-	if (wSts< OK)	goto EXIT_DSP_CAL_Confocal;
-
-	if (pstCInfo->stSInfo.rfx< 0.0f && pstCInfo->stSInfo.rfy< 0.0f)
-	{
-		wSts= DSP_ERR_DIVIDED_BY_ZERO;
-		goto EXIT_DSP_CAL_Confocal;
-	}
-
-	N  = 0;
-
-	// Compute the mean B and B_SD
-	rMSum = 0.0f;
-	rM2Sum= 0.0f;
-	for (n= 0; n< uwN; n++)
-	{
-		wPOSSts= DSP_Ins_ConfocalPos(
-			pubbS+ n, coOp, szOp, &pstCInfo->stSInfo, &rcoP, &rM, &rCf);
-		if (OK> wPOSSts) continue;
-
-		N++;
-
-		rMSum += (rM);
-		rM2Sum+= (rM*rM);
-	}
-
-	if (N< 2)
-	{
-		wSts= DSP_ERR_DIVIDED_BY_ZERO;
-		goto EXIT_DSP_CAL_Confocal;
-	}
-
-	rMSum /= (IMG_REAL)N;
-	rM2Sum/= (IMG_REAL)N;
-
-	pstCInfo->stSInfo.rB	= rMSum;
-	pstCInfo->stSInfo.rB_SD	=(IMG_REAL)sqrt(rM2Sum- (rMSum)*(rMSum));
-	pstCInfo->stSInfo.rB_SD*=((IMG_REAL)N/((IMG_REAL)N- 1));
-
-	N  = 0;
-	prA= rbA.ptr;
-	prB= rbB.ptr;
-
-	pstCInfo->acoBoundRegion[0].x= (IMG_WORD) (coOp.x+ szOp.x);
-	pstCInfo->acoBoundRegion[0].y= (IMG_WORD) (coOp.y+ szOp.y);
-	pstCInfo->acoBoundRegion[1].x= coOp.x;
-	pstCInfo->acoBoundRegion[1].y= coOp.y;
-
-	for (n= 0; n< uwN; n++)
-	{
-		// Store Result position
-		if (NULL!= pstCRes)
-			memset(pstCRes+ n, 0, sizeof(DSP_CONFOCAL_RES));
-
-		wPOSSts= DSP_Ins_ConfocalPos(
-			pubbS+ n, coOp, szOp, &pstCInfo->stSInfo, &rcoP, &rM, &rCf);
-		if (OK> wPOSSts) continue;
-
-		// added by Tony
-		coP.x	= (IMG_WORD) (rcoP.x+ 0.5f);
-		coP.y	= (IMG_WORD) (rcoP.y+ 0.5f);
-		pstCInfo->acoBoundRegion[0].x = IMG_MIN(pstCInfo->acoBoundRegion[0].x, coP.x);
-		pstCInfo->acoBoundRegion[0].y = IMG_MIN(pstCInfo->acoBoundRegion[0].y, coP.y);
-		pstCInfo->acoBoundRegion[1].x = IMG_MAX(pstCInfo->acoBoundRegion[1].x, coP.x);
-		pstCInfo->acoBoundRegion[1].y = IMG_MAX(pstCInfo->acoBoundRegion[1].y, coP.y);
-
-		*(prA++)= rM*rcoP.x;
-		*(prA++)= rM*rcoP.y;
-		*(prA++)= rM*1.0f;
-
-		*(prB++)= rM*prHeight[n];
-		N++;
-
-		// Store Result position
-		if (NULL!= pstCRes)
-		{
-			pstCRes[n].rcoP		= rcoP;
-			pstCRes[n].rHeight	= prHeight[n];
-			pstCRes[n].rConf	= rCf;
-			pstCRes[n].rAmp		= rM;
-		}
-	}
-	if (N< 1 || N< rbA.size.x)
-	{
-		wSts= DSP_ERR_DIVIDED_BY_ZERO;
-		goto EXIT_DSP_CAL_Confocal;
-	}
-
-	*(prA++)= pstCInfo->stSInfo.rB;
-	*(prA++)= 0.0f;
-	*(prA++)= 0.0f;
-	*(prB++)= 0.0f;
-
-	*(prA++)= 0.0f;
-	*(prA++)= pstCInfo->stSInfo.rB;
-	*(prA++)= 0.0f;
-	*(prB++)= 0.0f;
-
-	rbA.size.y= rbB.size.y= N+ 2;
-
-	MAT_FitAXBInit(NULL,&stHPPara);
-	stHPPara.NoiseML= stCPara.rTol*rMSum/(IMG_REAL)N;		// 2 um error
-	stHPPara.TimeML = 100;									// ml iteration
-
-	stHPPara.NoiseRS= 2.0f*stHPPara.NoiseML;
-	stHPPara.TimeRS = 500;									// ml iteration
-
-	stHPResult.M	= rbA.size.x;
-	stHPResult.p	= &pstCInfo->arFxy[0];
-	memset(stHPResult.p, 0, stHPResult.M*sizeof(IMG_REAL));
-
-	wSts= MAT_FitAXB1_T(NULL, NULL, &rbA, NULL, &rbB, NULL, NULL, NULL, NULL, NULL,
-		NULL, NULL, &stHPPara, NULL, &stHPResult, NULL, 0 );
-	if (wSts< OK)	goto EXIT_DSP_CAL_Confocal;
-
-EXIT_DSP_CAL_Confocal:
-	wMEMSts= MEM_PopAllHeapStatus();
-	if (wMEMSts< OK)	return wMEMSts;
-	return wSts;
-}
-
-#define		DSP_PPRACT_ZERO	(1e-5)
-#define		DSP_PHASE_STEP	0.02f
-IMG_WORD	DSP_PhaseOffset(
-							IMG_UBBUF	const	*pubbS0,		// Image 1
-							IMG_UBBUF	const	*pubbS1,		// Image 2
-							IMG_COORD	const	coOff,			// Offset
-							IMG_SIZE	const	szOpsz,			// Op size
-							IMG_REAL			*prOff			// Output in radian
-							)
-{
-	IMG_WORD
-		wSts	= OK,
-		wMEMSts	= OK;
-
-	IMG_UWORD
-		i	= 0,
-		j	= 0,
-		uwStep0= 0,
-		uwStep1= 0;
-
-	IMG_LREAL
-		alrMean[3]	= {0.0, 0.0, 0.0},
-		alrStd[3]	= {0.0, 0.0, 0.0};
-		//lrRatio		= 0.0;
-
-	IMG_SIZE
-		szOp= szOpsz,
-		szHF= {0, 0};					// Half filter size for smoothing purpose
-
-	IMG_RBUF
-		rbDiff;
-
-	IMG_REAL
-		*prS0= NULL,
-		*prS1= NULL;
-
-	IMG_REAL
-		*prDiff	= NULL;
-
-	DSP_SININFO_PARA
-		stPara;
-
-	DSP_SIN_INFO
-		stInfo;
-
-	IMG_RBUF
-		rbS0,
-		rbS1;
-
-	IppStatus
-		ippSts;
-
-	IppiSize
-		ipproiSize;
-
-	if (NULL== prOff)	return OK;
-	if (NULL== pubbS0		|| NULL== pubbS1		||
-		NULL== pubbS0->ptr	|| NULL== pubbS1->ptr)
-		return DSP_ERR_INVALID_ARG;
-
-	if (OK> (wMEMSts= MEM_PushAllHeapStatus()))	return wMEMSts;
-
-	DSP_CAL_SinInfoIniti(&stPara);
-	wSts=	DSP_CAL_SinInfo(
-		pubbS0,	coOff,	szOpsz,
-		stPara, &stInfo);
-	if (wSts< OK)	goto EXIT_DSP_PhaseOffset;
-
-	if (stInfo.rfx< 0.00001f && stInfo.rfy< 0.00001f)
-		return DSP_ERR_DIVIDED_BY_ZERO;
-
-	// Do smoothing according to computed frequency
-	{
-		rbS0.size= szOpsz;
-		rbS1.size= szOpsz;
-
-		rbS0.linestep= rbS0.size.x;
-		rbS1.linestep= rbS1.size.x;
-
-		if (NULL== (rbS0.ptr= (IMG_REAL *) MEM_Malloc((szOpsz.x<< 1)*szOpsz.y*sizeof(IMG_REAL), SYS_BANK1_8)))
-		{
-			wSts= MEM_ERR_MALLOC;
-			goto EXIT_DSP_PhaseOffset;
-		}
-		memset(rbS0.ptr, 0, 2*szOpsz.x*szOpsz.y*sizeof(IMG_UBYTE));
-		rbS1.ptr= rbS0.ptr+ szOpsz.x*szOpsz.y;
-
-		if (0> stInfo.rfx && 0> stInfo.rfy)
-		{
-			wSts= DSP_ERR_DIVIDED_BY_ZERO;
-			goto EXIT_DSP_PhaseOffset;
-		}
-
-		if (stInfo.rfx> stInfo.rfy)
-		{
-			szHF.x= 0;
-			szHF.y= szOpsz.y/10;
-			szHF.y= IMG_MIN(szHF.y, 100);
-
-			if (stInfo.rfy> 0)
-				szHF.y= IMG_MIN(szHF.y, IMG_UWORD(0.1f/stInfo.rfy+ 0.5f));
-
-			ipproiSize.width	= szOpsz.x- (szHF.x<< 1);
-			ipproiSize.height	= szOpsz.y- (szHF.y<< 1);
-
-			ippSts= ippiSumWindowColumn_8u32f_C1R(
-				pubbS0->ptr	+ (coOff.y+ szHF.y)*pubbS0->linestep+ (coOff.x+ szHF.x), pubbS0->linestep*sizeof(IMG_UBYTE)	,
-				rbS0.ptr	+ (         szHF.y)*   rbS0.linestep+ (         szHF.x),    rbS0.linestep*sizeof(IMG_REAL)	,
-				ipproiSize, 1+ (szHF.y<< 1), szHF.y);
-
-			if (ippStsNoErr!= ippSts)
-			{
-				wSts= DSP_ERR_FAIL_IN_IPPI;
-				goto EXIT_DSP_PhaseOffset;
-			}
-
-			ippSts= ippiSumWindowColumn_8u32f_C1R(
-				pubbS1->ptr	+ (coOff.y+ szHF.y)*pubbS1->linestep+ (coOff.x+ szHF.x), pubbS1->linestep*sizeof(IMG_UBYTE)	,
-				rbS1.ptr	+ (         szHF.y)*   rbS1.linestep+ (         szHF.x),    rbS1.linestep*sizeof(IMG_REAL)	,
-				ipproiSize, 1+ (szHF.y<< 1), szHF.y);
-
-			if (ippStsNoErr!= ippSts)
-			{
-				wSts= DSP_ERR_FAIL_IN_IPPI;
-				goto EXIT_DSP_PhaseOffset;
-			}
-		}
-		else
-		{
-            szHF.y= 0;
-			szHF.x= szOpsz.x/10;
-			szHF.x= IMG_MIN(szHF.x, 100);
-
-			if (stInfo.rfx> 0)
-				szHF.x= IMG_MIN(szHF.x, IMG_UWORD(0.1f/stInfo.rfx+ 0.5f));
-
-			ipproiSize.width	= szOpsz.x- (szHF.x<< 1);
-			ipproiSize.height	= szOpsz.y- (szHF.y<< 1);
-
-			ippSts= ippiSumWindowRow_8u32f_C1R(
-				pubbS0->ptr	+ (coOff.y+ szHF.y)*pubbS0->linestep+ (coOff.x+ szHF.x), pubbS0->linestep*sizeof(IMG_UBYTE)	,
-				rbS0.ptr	+ (         szHF.y)*   rbS0.linestep+ (         szHF.x),    rbS0.linestep*sizeof(IMG_REAL)	,
-				ipproiSize, 1+ (szHF.x<< 1), szHF.x);
-
-			if (ippStsNoErr!= ippSts)
-			{
-				wSts= DSP_ERR_FAIL_IN_IPPI;
-				goto EXIT_DSP_PhaseOffset;
-			}
-
-			ippSts= ippiSumWindowRow_8u32f_C1R(
-				pubbS1->ptr	+ (coOff.y+ szHF.y)*pubbS1->linestep+ (coOff.x+ szHF.x), pubbS1->linestep*sizeof(IMG_UBYTE)	,
-				rbS1.ptr	+ (         szHF.y)*   rbS1.linestep+ (         szHF.x), rbS1.linestep*sizeof(IMG_REAL)		,
-				ipproiSize, 1+ (szHF.x<< 1), szHF.x);
-
-			if (ippStsNoErr!= ippSts)
-			{
-				wSts= DSP_ERR_FAIL_IN_IPPI;
-				goto EXIT_DSP_PhaseOffset;
-			}
-		}
-	}
-
-	if (stInfo.rfx> 0.0f)	szOp.x= (IMG_UWORD) (floor((szOpsz.x- 2*szHF.x)*stInfo.rfx)/stInfo.rfx);		// trunciate to integer period along x
-	if (0== szOp.x)	szOp.x= szOpsz.x;		// period x too large
-
-	if (stInfo.rfy> 0.0f)	szOp.y= (IMG_UWORD)	(floor((szOpsz.y- 2*szHF.y)*stInfo.rfy)/stInfo.rfy);		// trunciate to integer period along y
-	if (0== szOp.y)	szOp.y= szOpsz.y;		// period y too large
-
-	ipproiSize.width	= szOp.x- (szHF.x<< 1);
-	ipproiSize.height	= szOp.y- (szHF.y<< 1);
-			
-	ippSts= ippiMean_StdDev_32f_C1R(rbS0.ptr+ szHF.y*rbS0.linestep+ szHF.x,
-		rbS0.linestep*sizeof(IMG_REAL), ipproiSize, &alrMean[0], &alrStd[0]);
-
-	if (ippStsNoErr!= ippSts)
-	{
-		wSts= DSP_ERR_FAIL_IN_IPPI;
-		goto EXIT_DSP_PhaseOffset;
-	}
-
-	ippSts= ippiMean_StdDev_32f_C1R(rbS1.ptr+ szHF.y*rbS1.linestep+ szHF.x,
-		rbS1.linestep*sizeof(IMG_REAL), ipproiSize, &alrMean[1], &alrStd[1]);
-
-	if (ippStsNoErr!= ippSts)
-	{
-		wSts= DSP_ERR_FAIL_IN_IPPI;
-		goto EXIT_DSP_PhaseOffset;
-	}
-
-	if (fabs(alrStd[0])	< DSP_PPRACT_ZERO||
-		fabs(alrStd[1])	< DSP_PPRACT_ZERO||
-		fabs(alrMean[0])< DSP_PPRACT_ZERO||
-		fabs(alrMean[1])< DSP_PPRACT_ZERO)
-		return DSP_ERR_DIVIDED_BY_ZERO;
-
-	//lrRatio= (alrStd[0]*alrMean[1])/(alrStd[1]*alrMean[0]);
-	//lrRatio= 1.0f;
-	//if (fabs(1.0- lrRatio)> 0.05)      // check 5 percentage change
-	//{
-	//	wSts= DSP_ERR_DIVIDED_BY_ZERO;
-	//	goto EXIT_DSP_PhaseOffset;
-	//}
-
-	rbDiff.size= szOp;
-	rbDiff.linestep= rbDiff.size.x;
-	if (NULL== (rbDiff.ptr= (IMG_REAL *) MEM_Malloc(szOp.x*szOp.y*sizeof(IMG_REAL), SYS_BANK1_8)))
-	{
-		wSts= MEM_ERR_MALLOC;
-		goto EXIT_DSP_PhaseOffset;
-	}
-	memset(rbDiff.ptr, 0, szOp.x*szOp.y*sizeof(IMG_REAL));
-
-	prS0= rbS0.ptr;
-	prS1= rbS1.ptr;
-	prDiff= rbDiff.ptr;
-
-	uwStep0= rbS0.linestep- szOp.x;
-	uwStep1= rbS1.linestep- szOp.x;
-
-	for (j= 0; j< rbDiff.size.y; j++, prS0+= uwStep0, prS1+= uwStep1)
-		for (i= 0; i< rbDiff.size.x; i++, prDiff++, prS0++, prS1++)
-			*prDiff= (IMG_REAL) ((*prS0- alrMean[0])- (*prS1- alrMean[1])*alrStd[0]/alrStd[1]);
-
-	ippSts= ippiMean_StdDev_32f_C1R(rbDiff.ptr+ szHF.y*rbDiff.linestep+ szHF.x,
-		rbDiff.linestep*sizeof(IMG_REAL), ipproiSize, &alrMean[2], &alrStd[2]);
-
-	if (ippStsNoErr!= ippSts)
-	{
-		wSts= DSP_ERR_FAIL_IN_IPPI;
-		goto EXIT_DSP_PhaseOffset;
-	}
-
-	*prOff= (IMG_REAL) (2.0*asin(alrStd[2]/(2*alrStd[0])));
-	if (fabs(*prOff)< 0.00001f)	goto EXIT_DSP_PhaseOffset;		// Same images, no intensity difference
-
-	// Check offset sign 
-	{
-		IMG_UWORD
-			n		= 0,
-			n_f		= 0,						// best forward n
-			n_b		= 0,						// best backward n
-			N		= 0,						// number of shift
-			uwTh	= 0,						// half period
-			uwOff	= 0;						// unsigned offset in pixels
-
-		IMG_REAL
-			rT		= 0.0f,								// Period
-			rSign	= 1.0f,								// Sign of sift
-			rOff_l	= (IMG_REAL) fabs(*prOff)- 0.6f,	// lower bound
-			rOff_u	= (IMG_REAL) fabs(*prOff)+ 0.6f,	// upper bound	
-			rOff	= 0.0f;								// subpixel offset
-
-		IMG_LREAL
-			lr2b		= 0.0f,					// fitting value b
-			lr2a		= 0.0f,					// fitting value a
-			lrDiff_f = LREAL_MAX,				// forward difference
-			lrDiff_b = LREAL_MAX;				// backward differenc
-
-		IMG_COORD
-			coCtr	={0, 0};					// Image center
-
-		IMG_LREAL
-			*plrDiff	= NULL,					// phase diff
-			*plrDiff_f	= NULL,					// Discrepency forward
-			*plrDiff_b	= NULL;					// Discrepency backward
-
-		coCtr.x= szOp.x>> 1;
-		coCtr.y= szOp.y>> 1;
-
-		rOff_l= IMG_MAX(rOff_l, 0);
-		N= (IMG_UWORD) ((rOff_u- rOff_l)/DSP_PHASE_STEP+ 1.0f);
-
-		if (NULL== (plrDiff_f= (IMG_LREAL *) MEM_Malloc((N<< 1)*sizeof(IMG_LREAL), SYS_BANK1_8)))
-		{
-			wSts= MEM_ERR_MALLOC;
-			goto EXIT_DSP_PhaseOffset;
-		}
-		memset(plrDiff_f, 0, (N<< 1)*sizeof(IMG_LREAL));
-		plrDiff_b= plrDiff_f+ N;
-
-		if (stInfo.rfx> stInfo.rfy)
-		{
-			rT		= 1.0f/stInfo.rfx;
-			uwStep0 = 1;	uwStep1 = 1;
-			uwTh	= (IMG_UWORD)	(0.8f*(szOp.x>> 1)+ 0.5f);			// Half width to compare intensity series
-		}
-		else
-		{
-			rT		= 1.0f/stInfo.rfy;
-			uwStep0 = rbS0.linestep;		uwStep1 = rbS1.linestep;
-			uwTh	= (IMG_UWORD)	(0.8f*(szOp.y>> 1)+ 0.5f);			// Half width to compare intensity series
-		}
-		
-		for (n= 0; n< N; n++)
-		{
-
-			rOff	= (IMG_REAL) (rT*(rOff_l+ n*DSP_PHASE_STEP)/MAT_2PI);			// equivalent offset
-			uwOff	= (IMG_UWORD) rOff;
-			rOff	-= uwOff;
-
-			prS0= rbS0.ptr+ coCtr.y*rbS0.linestep+ coCtr.x- uwTh*uwStep0;
-			prS1= rbS1.ptr+ coCtr.y*rbS1.linestep+ coCtr.x- uwTh*uwStep1;
-
-			for (i= 0; i< (uwTh<< 1)+ 1; i++)
-			{
-				plrDiff_f[n]+= fabs(
-					(((1- rOff)*(*(prS0+ (i+0)*uwStep0+ uwOff))+(rOff- 0)*(*(prS0+ (i+1)*uwStep0+ uwOff)))- alrMean[0])/alrStd[0]-
-					(*(prS1+ i*uwStep1       )- alrMean[1])/alrStd[1]);
-
-				plrDiff_b[n]+= fabs(
-					(((1- rOff)*(*(prS0+ (i+0)*uwStep0- uwOff))+(rOff- 0)*(*(prS0+ (i-1)*uwStep0- uwOff)))- alrMean[0])/alrStd[0]-
-					(*(prS1+ i*uwStep1       )- alrMean[1])/alrStd[1]);
-
-			}
-
-			if (plrDiff_f[n]< lrDiff_f)
-			{
-				lrDiff_f= plrDiff_f[n];
-				n_f		= n;
-			}
-
-			if (plrDiff_b[n]< lrDiff_b)
-			{
-				lrDiff_b= plrDiff_b[n];
-				n_b		= n;
-			}
-		}
-
-		if (lrDiff_b< lrDiff_f)
-		{
-			plrDiff= plrDiff_b;
-			n= n_b;
-			rSign= -1.0f;
-		}
-		else
-		{
-			plrDiff= plrDiff_f;
-			n= n_f;
-			rSign=  1.0f;
-		}
-
-		*prOff= rSign*(rOff_l+ n*DSP_PHASE_STEP);			// coarse fitting
-
-		if (0== n && fabs(rOff_l)< (0.1f*DSP_PHASE_STEP))					// 
-		{
-			lr2b= plrDiff_f[1]- plrDiff_b[1];
-			lr2a= plrDiff_f[1]+ plrDiff_b[1]- 2.0*plrDiff_f[0];				// note b is -f
-
-			if (fabs(lr2a)> 0.0001)
-				*prOff-= (IMG_REAL) (0.5f*rSign*DSP_PHASE_STEP*lr2b/lr2a);
-		}
-		else if (0< n && n< N)		// do interpolation
-		{
-			lr2b= plrDiff[n+ 1]- plrDiff[n- 1];
-			lr2a= plrDiff[n+ 1]+ plrDiff[n- 1]- 2.0*plrDiff[n];
-
-			if (fabs(lr2a)> 0.0001)
-				*prOff-= (IMG_REAL) (0.5f*rSign*DSP_PHASE_STEP*lr2b/lr2a);
-		}
-		else
-		{
-			wSts= DSP_ERR_ALL_UNIMODAL;
-		}
-		*prOff= -(*prOff);
-	}
-
-EXIT_DSP_PhaseOffset:
-	if (OK!= (wMEMSts= MEM_PopAllHeapStatus()))	return wMEMSts;
-	return wSts;
-}
-
+//
+//IMG_VVOID	DSP_INS_Confocal_Inti(
+//								  DSP_CONFOCAL_INSPARA	*pstPara
+//								  )
+//{
+//	if (NULL== pstPara)	return;
+//	memset(pstPara, 0, sizeof(DSP_CONFOCAL_INSPARA));
+//	pstPara->rThre= -1.0f;
+//	return;
+//}
+//
+//IMG_WORD	DSP_Ins_ConfocalPos(
+//								IMG_UBBUF			const	*pubbS,				// Number of images
+//								IMG_COORD			const	coOp,				// offset
+//								IMG_SIZE			const	szOp,				// opsize
+//								DSP_SIN_INFO		const	*pstInfo,			// SIN info
+//								IMG_RCOORD					*prcoP,				// extract position
+//								IMG_REAL					*prM,				// confocal magnitude (can be NULL)
+//								IMG_REAL					*prCf				// confidence (can be NULL)
+//								)
+//{
+//	IMG_WORD
+//		wMEMSts	= OK,
+//		wSts	= OK;
+//
+//	IMG_ULWORD
+//		ulMEM	= 0;
+//
+//	IMG_COORD
+//		coZ	= {0, 0};
+//
+//	IMG_REAL
+//		rScore= 0.0f;
+//
+//	IMG_RBUF
+//		rbS,
+//		rbM;
+//
+//	DSP_SIN_PARA
+//		stPara;
+//
+//	if (NULL== prcoP)	return OK;
+//
+//	if (NULL== pubbS|| NULL== pubbS->ptr||
+//		NULL== pstInfo)
+//		return DSP_ERR_INVALID_ARG;
+//
+//	wMEMSts= MEM_PushAllHeapStatus();
+//	if (OK!= wMEMSts)	return wMEMSts;
+//
+//	rbS.size= rbM.size= szOp;
+//	rbS.linestep= rbM.linestep= szOp.x;
+//
+//	ulMEM= ((szOp.x*szOp.y)<< 1);
+//	if (NULL== (rbS.ptr= (IMG_REAL *) MEM_Malloc(ulMEM*sizeof(IMG_REAL), SYS_BANK1_8)))
+//	{
+//		wSts= MEM_ERR_MALLOC;
+//		goto EXIT_DSP_Ins_ConfocalPos;
+//	}
+//	memset(rbS.ptr, 0, ulMEM*sizeof(IMG_REAL));
+//	rbM.ptr= rbS.ptr+ (szOp.x*szOp.y);
+//
+//	memset(&stPara, 0, sizeof(DSP_SIN_PARA));
+//	if (pstInfo->rfx> 0.0f && pstInfo->rfx> pstInfo->rfy)
+//	{
+//		stPara.rPeriod		= 1.0f/pstInfo->rfx;
+//		stPara.uwSKernel	= (IMG_UWORD) (0.1f/((pstInfo->rfy> 0.0f)? pstInfo->rfy:0.02f));
+//		stPara.uwSKernel	= IMG_MIN(stPara.uwSKernel, 5);
+//		stPara.rOrientation = 0.0f;
+//	}
+//	else if (pstInfo->rfy> 0.0f)
+//	{
+//		stPara.rPeriod		= 1.0f/pstInfo->rfy;
+//		stPara.uwSKernel	= (IMG_UWORD) (0.1f/((pstInfo->rfx> 0.0f)? pstInfo->rfx:0.02f));
+//		stPara.uwSKernel	= IMG_MIN(stPara.uwSKernel, 5);
+//		stPara.rOrientation =90.0f;
+//	}
+//	else
+//	{
+//		wSts= DSP_ERR_INVALID_ARG;
+//		goto EXIT_DSP_Ins_ConfocalPos;
+//	}
+//	stPara.rAmplitude	= pstInfo->rB- 2.0f*pstInfo->rB_SD;
+//	if (stPara.rAmplitude< pstInfo->rB_SD) stPara.rAmplitude= IMG_MAX(pstInfo->rB_SD, 1.0f);
+//
+//	wSts = 	DSP_INS_IsSinusoidalExist(
+//		pubbS,	coOp, szOp, stPara,	&rbS, NULL,	&rbM);
+//	if ( wSts < OK )	goto EXIT_DSP_Ins_ConfocalPos;
+//
+//	wSts= DSP_INS_FindConvexMaximum(
+//		&rbS, coZ, rbS.size, prcoP, &rScore);
+//	if ( wSts < OK )	goto EXIT_DSP_Ins_ConfocalPos;
+//
+//	if (NULL!= prCf)	*prCf= rScore;
+//
+//	if (NULL!= prM)
+//	{
+//		IMG_COORD
+//			coP		= {0, 0};
+//
+//		IMG_RCOORD
+//			rcodP	= {0.0f, 0.0f};
+//
+//		coP.x= (IMG_WORD) prcoP->x;
+//		coP.y= (IMG_WORD) prcoP->y;
+//
+//		rcodP.x= prcoP->x- (IMG_REAL) coP.x;
+//		rcodP.y= prcoP->y- (IMG_REAL) coP.y;
+//
+//		*prM=
+//			(1.0f-	rcodP.x)*(1.0f-	rcodP.y)*rbM.ptr[(coP.y   )*rbM.linestep+ (coP.x   )]+ 
+//			(		rcodP.x)*(1.0f-	rcodP.y)*rbM.ptr[(coP.y   )*rbM.linestep+ (coP.x+ 1)]+
+//			(		rcodP.x)*(		rcodP.y)*rbM.ptr[(coP.y+ 1)*rbM.linestep+ (coP.x+ 1)]+
+//			(1.0f-  rcodP.x)*(		rcodP.y)*rbM.ptr[(coP.y+ 1)*rbM.linestep+ (coP.x   )];
+//
+//		*prM= (IMG_REAL) sqrt(*prM);
+//	}
+//
+//	prcoP->x+= (IMG_REAL) coOp.x;
+//	prcoP->y+= (IMG_REAL) coOp.y;
+//
+//EXIT_DSP_Ins_ConfocalPos:
+//	wMEMSts= MEM_PopAllHeapStatus();
+//	if (OK!= wMEMSts)	return wMEMSts;
+//	return wSts;
+//}
+//
+//IMG_WORD	DSP_INS_Confocal(
+//							 IMG_UBBUF				const	*pubbS,			// Number of images
+//							 IMG_COORD				const	coOp,			// offset
+//							 IMG_SIZE				const	szOp,			// opsize
+//							 DSP_CONFOCAL_INFO		const	stCInfo,		// calibration record
+//							 DSP_CONFOCAL_INSPARA	const	stCPara,		// inspectiion parameter
+//							 DSP_CONFOCAL_RES				*pstCRes		// packeed result
+//							 )
+//{
+//	IMG_WORD
+//		wSts = OK;
+//
+//	IMG_RCOORD
+//		rcoP = {0.0f, 0.0f};
+//
+//	DSP_SIN_INFO
+//		stSInfo;
+//
+//	if (NULL== pstCRes)	goto EXIT_DSP_INS_Confocal;
+//	memset(pstCRes, 0, sizeof(DSP_CONFOCAL_RES));
+//
+//	stSInfo= stCInfo.stSInfo;
+//	if (stCPara.rThre> 0.0f)
+//	{
+//		stSInfo.rB		= stCPara.rThre;
+//		stSInfo.rB_SD	= 0.0f;
+//	}
+//
+//	wSts= DSP_Ins_ConfocalPos(pubbS, coOp, szOp, &stSInfo, &rcoP, &pstCRes->rAmp, &pstCRes->rConf);
+//	if (wSts< OK)	goto EXIT_DSP_INS_Confocal;
+//
+//	pstCRes->rHeight= rcoP.x*stCInfo.arFxy[0]+ rcoP.y*stCInfo.arFxy[1]+ stCInfo.arFxy[2];
+//	pstCRes->rcoP= rcoP;
+//
+//EXIT_DSP_INS_Confocal:
+//	return wSts;
+//}
+//
+//IMG_VVOID	DSP_CAL_Confocal_Inti(
+//								  DSP_CONFOCAL_CALPARA	*pstPara
+//								  )
+//{
+//	if (NULL== pstPara)	return;
+//	memset(pstPara, 0, sizeof(DSP_CONFOCAL_CALPARA));
+//	pstPara->rTol= 2.0f;
+//	return;
+//}
+//
+//IMG_WORD	DSP_CAL_Confocal(
+//							 IMG_UWORD				const	uwN,			// Number of images
+//							 IMG_UBBUF				const	*pubbS,			// Number of images
+//							 IMG_COORD				const	coOp,			// offset
+//							 IMG_SIZE				const	szOp,			// opsize
+//							 IMG_REAL				const	*prHeight,		// Height index
+//							 DSP_CONFOCAL_CALPARA	const	stCPara,
+//							 DSP_CONFOCAL_INFO				*pstCInfo,
+//							 DSP_CONFOCAL_RES				*pstCRes
+//							 )
+//{
+//	IMG_WORD
+//		wMEMSts= OK,
+//		wPOSSts= OK,
+//		wSts= OK;
+//
+//	IMG_UWORD
+//		n	= 0,
+//		N	= 0,
+//		i	= 0,
+//		j	= 0;
+//
+//	IMG_ULWORD
+//		ulMEM= 0;
+//
+//	IMG_REAL
+//		rM		= 0.0f,
+//		rCf		= 0.0f,
+//		rMSum	= 0.0f,					// sum
+//		rM2Sum	= 0.0f;					// sum square
+//
+//	IMG_COORD
+//		coP		= {0, 0},
+//		coZ		= {0, 0};
+//
+//	IMG_RCOORD
+//		rcoP = {0.0f, 0.0f};
+//
+//	IMG_UBBUF
+//		ubbS;
+//
+//	IMG_RBUF
+//		rbS,
+//		rbA,
+//		rbB;
+//
+//	MAT_FITPARA
+//		stHPPara;
+//
+//	MAT_HPLANE
+//		stHPResult;
+//
+//	DSP_SININFO_PARA
+//		stPara;
+//
+//	IppStatus
+//		ippSts	= ippStsNoErr;
+//
+//	IppiSize
+//		ippRoiSize;
+//
+//	IMG_UBYTE
+//		*pubS= NULL;
+//
+//	IMG_REAL
+//		*prS= NULL,
+//		*prA= NULL,
+//		*prB= NULL;
+//
+//	// Take image average to get learn image
+//	if (NULL== pstCInfo)	return OK;
+//	if (0== uwN|| NULL== pubbS)	return DSP_ERR_INVALID_ARG;
+//
+//	wMEMSts= MEM_PushAllHeapStatus();
+//	if (wMEMSts< OK)	return wMEMSts;
+//
+//	rbS.size= ubbS.size= szOp;
+//	rbS.linestep= ubbS.linestep= szOp.x;
+//
+//	rbA.linestep= rbA.size.x= 3;
+//	rbB.linestep= rbB.size.x= 1;
+//	rbA.size.y= rbB.size.y= uwN+ 2;				// add 2 coefficient equal to 0 constraints
+//
+//	ulMEM= rbS.size.x*rbS.size.y+ rbA.size.x*rbA.size.y+ rbB.size.x*rbB.size.y;
+//
+//	if (NULL== (rbS.ptr	= (IMG_REAL		*) MEM_Malloc(ulMEM*sizeof(IMG_REAL ), SYS_BANK1_8))||
+//		NULL== (ubbS.ptr= (IMG_UBYTE	*) MEM_Malloc(ulMEM*sizeof(IMG_UBYTE), SYS_BANK1_8)))
+//	{
+//		wMEMSts= MEM_ERR_MALLOC;
+//		goto EXIT_DSP_CAL_Confocal;
+//	}
+//	memset(rbS.ptr , 0, rbS.size.x* rbS.size.y*sizeof(IMG_REAL ));
+//	rbA.ptr	= rbS.ptr+ rbS.size.x*rbS.size.y;
+//	rbB.ptr	= rbA.ptr+ rbA.size.x*rbA.size.y;
+//
+//	memset(ubbS.ptr, 0,ubbS.size.x*ubbS.size.y*sizeof(IMG_UBYTE));
+//
+//	// ======== Compute the average intensity of input image series ======== 
+//	ippRoiSize.width	= szOp.x;
+//	ippRoiSize.height	= szOp.y;
+//	for (n= 0; n< uwN; n++)
+//	{
+//		ippSts= ippiAdd_8u32f_C1IR(
+//			pubbS[n].ptr+ coOp.y*pubbS[n].linestep+ coOp.x, pubbS[n].linestep*sizeof(IMG_UBYTE),
+//			rbS.ptr, rbS.linestep*sizeof(IMG_REAL), ippRoiSize);
+//
+//		if (ippStsNoErr!= ippSts)
+//		{
+//			wSts= DSP_ERR_FAIL_IN_IPPI;
+//			goto EXIT_DSP_CAL_Confocal;
+//		}
+//	}
+//
+//	prS	= rbS.ptr;
+//	pubS= ubbS.ptr;
+//	for (j= 0; j< szOp.y; j++, pubS+= (ubbS.linestep- szOp.x), prS+= (rbS.linestep- szOp.x))
+//		for (i= 0; i< szOp.x; i++)
+//			*(pubS++)= (IMG_UBYTE) (*(prS++)/(IMG_REAL)uwN+ 0.5f);
+//
+//
+//	memset(&stPara, 0, sizeof(DSP_SININFO_PARA));
+//	DSP_CAL_SinInfoIniti(&stPara);
+//	wSts=	DSP_CAL_SinInfo(
+//		&ubbS, coZ, ubbS.size, stPara, &pstCInfo->stSInfo);
+//	if (wSts< OK)	goto EXIT_DSP_CAL_Confocal;
+//
+//	if (pstCInfo->stSInfo.rfx< 0.0f && pstCInfo->stSInfo.rfy< 0.0f)
+//	{
+//		wSts= DSP_ERR_DIVIDED_BY_ZERO;
+//		goto EXIT_DSP_CAL_Confocal;
+//	}
+//
+//	N  = 0;
+//
+//	// Compute the mean B and B_SD
+//	rMSum = 0.0f;
+//	rM2Sum= 0.0f;
+//	for (n= 0; n< uwN; n++)
+//	{
+//		wPOSSts= DSP_Ins_ConfocalPos(
+//			pubbS+ n, coOp, szOp, &pstCInfo->stSInfo, &rcoP, &rM, &rCf);
+//		if (OK> wPOSSts) continue;
+//
+//		N++;
+//
+//		rMSum += (rM);
+//		rM2Sum+= (rM*rM);
+//	}
+//
+//	if (N< 2)
+//	{
+//		wSts= DSP_ERR_DIVIDED_BY_ZERO;
+//		goto EXIT_DSP_CAL_Confocal;
+//	}
+//
+//	rMSum /= (IMG_REAL)N;
+//	rM2Sum/= (IMG_REAL)N;
+//
+//	pstCInfo->stSInfo.rB	= rMSum;
+//	pstCInfo->stSInfo.rB_SD	=(IMG_REAL)sqrt(rM2Sum- (rMSum)*(rMSum));
+//	pstCInfo->stSInfo.rB_SD*=((IMG_REAL)N/((IMG_REAL)N- 1));
+//
+//	N  = 0;
+//	prA= rbA.ptr;
+//	prB= rbB.ptr;
+//
+//	pstCInfo->acoBoundRegion[0].x= (IMG_WORD) (coOp.x+ szOp.x);
+//	pstCInfo->acoBoundRegion[0].y= (IMG_WORD) (coOp.y+ szOp.y);
+//	pstCInfo->acoBoundRegion[1].x= coOp.x;
+//	pstCInfo->acoBoundRegion[1].y= coOp.y;
+//
+//	for (n= 0; n< uwN; n++)
+//	{
+//		// Store Result position
+//		if (NULL!= pstCRes)
+//			memset(pstCRes+ n, 0, sizeof(DSP_CONFOCAL_RES));
+//
+//		wPOSSts= DSP_Ins_ConfocalPos(
+//			pubbS+ n, coOp, szOp, &pstCInfo->stSInfo, &rcoP, &rM, &rCf);
+//		if (OK> wPOSSts) continue;
+//
+//		// added by Tony
+//		coP.x	= (IMG_WORD) (rcoP.x+ 0.5f);
+//		coP.y	= (IMG_WORD) (rcoP.y+ 0.5f);
+//		pstCInfo->acoBoundRegion[0].x = IMG_MIN(pstCInfo->acoBoundRegion[0].x, coP.x);
+//		pstCInfo->acoBoundRegion[0].y = IMG_MIN(pstCInfo->acoBoundRegion[0].y, coP.y);
+//		pstCInfo->acoBoundRegion[1].x = IMG_MAX(pstCInfo->acoBoundRegion[1].x, coP.x);
+//		pstCInfo->acoBoundRegion[1].y = IMG_MAX(pstCInfo->acoBoundRegion[1].y, coP.y);
+//
+//		*(prA++)= rM*rcoP.x;
+//		*(prA++)= rM*rcoP.y;
+//		*(prA++)= rM*1.0f;
+//
+//		*(prB++)= rM*prHeight[n];
+//		N++;
+//
+//		// Store Result position
+//		if (NULL!= pstCRes)
+//		{
+//			pstCRes[n].rcoP		= rcoP;
+//			pstCRes[n].rHeight	= prHeight[n];
+//			pstCRes[n].rConf	= rCf;
+//			pstCRes[n].rAmp		= rM;
+//		}
+//	}
+//	if (N< 1 || N< rbA.size.x)
+//	{
+//		wSts= DSP_ERR_DIVIDED_BY_ZERO;
+//		goto EXIT_DSP_CAL_Confocal;
+//	}
+//
+//	*(prA++)= pstCInfo->stSInfo.rB;
+//	*(prA++)= 0.0f;
+//	*(prA++)= 0.0f;
+//	*(prB++)= 0.0f;
+//
+//	*(prA++)= 0.0f;
+//	*(prA++)= pstCInfo->stSInfo.rB;
+//	*(prA++)= 0.0f;
+//	*(prB++)= 0.0f;
+//
+//	rbA.size.y= rbB.size.y= N+ 2;
+//
+//	MAT_FitAXBInit(NULL,&stHPPara);
+//	stHPPara.NoiseML= stCPara.rTol*rMSum/(IMG_REAL)N;		// 2 um error
+//	stHPPara.TimeML = 100;									// ml iteration
+//
+//	stHPPara.NoiseRS= 2.0f*stHPPara.NoiseML;
+//	stHPPara.TimeRS = 500;									// ml iteration
+//
+//	stHPResult.M	= rbA.size.x;
+//	stHPResult.ptr	= &pstCInfo->arFxy[0];
+//	memset(stHPResult.ptr, 0, stHPResult.M*sizeof(IMG_REAL));
+//
+//	wSts= MAT_FitAXB1_T(NULL, NULL, &rbA, NULL, &rbB, NULL, NULL, NULL, NULL, NULL,
+//		NULL, NULL, &stHPPara, NULL, &stHPResult, NULL, 0 );
+//	if (wSts< OK)	goto EXIT_DSP_CAL_Confocal;
+//
+//EXIT_DSP_CAL_Confocal:
+//	wMEMSts= MEM_PopAllHeapStatus();
+//	if (wMEMSts< OK)	return wMEMSts;
+//	return wSts;
+//}
+//
+//#define		DSP_PPRACT_ZERO	(1e-5)
+//#define		DSP_PHASE_STEP	0.02f
+//IMG_WORD	DSP_PhaseOffset(
+//							IMG_UBBUF	const	*pubbS0,		// Image 1
+//							IMG_UBBUF	const	*pubbS1,		// Image 2
+//							IMG_COORD	const	coOff,			// Offset
+//							IMG_SIZE	const	szOpsz,			// Op size
+//							IMG_REAL			*prOff			// Output in radian
+//							)
+//{
+//	IMG_WORD
+//		wSts	= OK,
+//		wMEMSts	= OK;
+//
+//	IMG_UWORD
+//		i	= 0,
+//		j	= 0,
+//		uwStep0= 0,
+//		uwStep1= 0;
+//
+//	IMG_LREAL
+//		alrMean[3]	= {0.0, 0.0, 0.0},
+//		alrStd[3]	= {0.0, 0.0, 0.0};
+//		//lrRatio		= 0.0;
+//
+//	IMG_SIZE
+//		szOp= szOpsz,
+//		szHF= {0, 0};					// Half filter size for smoothing purpose
+//
+//	IMG_RBUF
+//		rbDiff;
+//
+//	IMG_REAL
+//		*prS0= NULL,
+//		*prS1= NULL;
+//
+//	IMG_REAL
+//		*prDiff	= NULL;
+//
+//	DSP_SININFO_PARA
+//		stPara;
+//
+//	DSP_SIN_INFO
+//		stInfo;
+//
+//	IMG_RBUF
+//		rbS0,
+//		rbS1;
+//
+//	IppStatus
+//		ippSts;
+//
+//	IppiSize
+//		ipproiSize;
+//
+//	if (NULL== prOff)	return OK;
+//	if (NULL== pubbS0		|| NULL== pubbS1		||
+//		NULL== pubbS0->ptr	|| NULL== pubbS1->ptr)
+//		return DSP_ERR_INVALID_ARG;
+//
+//	if (OK> (wMEMSts= MEM_PushAllHeapStatus()))	return wMEMSts;
+//
+//	DSP_CAL_SinInfoIniti(&stPara);
+//	wSts=	DSP_CAL_SinInfo(
+//		pubbS0,	coOff,	szOpsz,
+//		stPara, &stInfo);
+//	if (wSts< OK)	goto EXIT_DSP_PhaseOffset;
+//
+//	if (stInfo.rfx< 0.00001f && stInfo.rfy< 0.00001f)
+//		return DSP_ERR_DIVIDED_BY_ZERO;
+//
+//	// Do smoothing according to computed frequency
+//	{
+//		rbS0.size= szOpsz;
+//		rbS1.size= szOpsz;
+//
+//		rbS0.linestep= rbS0.size.x;
+//		rbS1.linestep= rbS1.size.x;
+//
+//		if (NULL== (rbS0.ptr= (IMG_REAL *) MEM_Malloc((szOpsz.x<< 1)*szOpsz.y*sizeof(IMG_REAL), SYS_BANK1_8)))
+//		{
+//			wSts= MEM_ERR_MALLOC;
+//			goto EXIT_DSP_PhaseOffset;
+//		}
+//		memset(rbS0.ptr, 0, 2*szOpsz.x*szOpsz.y*sizeof(IMG_UBYTE));
+//		rbS1.ptr= rbS0.ptr+ szOpsz.x*szOpsz.y;
+//
+//		if (0> stInfo.rfx && 0> stInfo.rfy)
+//		{
+//			wSts= DSP_ERR_DIVIDED_BY_ZERO;
+//			goto EXIT_DSP_PhaseOffset;
+//		}
+//
+//		if (stInfo.rfx> stInfo.rfy)
+//		{
+//			szHF.x= 0;
+//			szHF.y= szOpsz.y/10;
+//			szHF.y= IMG_MIN(szHF.y, 100);
+//
+//			if (stInfo.rfy> 0)
+//				szHF.y= IMG_MIN(szHF.y, IMG_UWORD(0.1f/stInfo.rfy+ 0.5f));
+//
+//			ipproiSize.width	= szOpsz.x- (szHF.x<< 1);
+//			ipproiSize.height	= szOpsz.y- (szHF.y<< 1);
+//
+//			ippSts= ippiSumWindowColumn_8u32f_C1R(
+//				pubbS0->ptr	+ (coOff.y+ szHF.y)*pubbS0->linestep+ (coOff.x+ szHF.x), pubbS0->linestep*sizeof(IMG_UBYTE)	,
+//				rbS0.ptr	+ (         szHF.y)*   rbS0.linestep+ (         szHF.x),    rbS0.linestep*sizeof(IMG_REAL)	,
+//				ipproiSize, 1+ (szHF.y<< 1), szHF.y);
+//
+//			if (ippStsNoErr!= ippSts)
+//			{
+//				wSts= DSP_ERR_FAIL_IN_IPPI;
+//				goto EXIT_DSP_PhaseOffset;
+//			}
+//
+//			ippSts= ippiSumWindowColumn_8u32f_C1R(
+//				pubbS1->ptr	+ (coOff.y+ szHF.y)*pubbS1->linestep+ (coOff.x+ szHF.x), pubbS1->linestep*sizeof(IMG_UBYTE)	,
+//				rbS1.ptr	+ (         szHF.y)*   rbS1.linestep+ (         szHF.x),    rbS1.linestep*sizeof(IMG_REAL)	,
+//				ipproiSize, 1+ (szHF.y<< 1), szHF.y);
+//
+//			if (ippStsNoErr!= ippSts)
+//			{
+//				wSts= DSP_ERR_FAIL_IN_IPPI;
+//				goto EXIT_DSP_PhaseOffset;
+//			}
+//		}
+//		else
+//		{
+//            szHF.y= 0;
+//			szHF.x= szOpsz.x/10;
+//			szHF.x= IMG_MIN(szHF.x, 100);
+//
+//			if (stInfo.rfx> 0)
+//				szHF.x= IMG_MIN(szHF.x, IMG_UWORD(0.1f/stInfo.rfx+ 0.5f));
+//
+//			ipproiSize.width	= szOpsz.x- (szHF.x<< 1);
+//			ipproiSize.height	= szOpsz.y- (szHF.y<< 1);
+//
+//			ippSts= ippiSumWindowRow_8u32f_C1R(
+//				pubbS0->ptr	+ (coOff.y+ szHF.y)*pubbS0->linestep+ (coOff.x+ szHF.x), pubbS0->linestep*sizeof(IMG_UBYTE)	,
+//				rbS0.ptr	+ (         szHF.y)*   rbS0.linestep+ (         szHF.x),    rbS0.linestep*sizeof(IMG_REAL)	,
+//				ipproiSize, 1+ (szHF.x<< 1), szHF.x);
+//
+//			if (ippStsNoErr!= ippSts)
+//			{
+//				wSts= DSP_ERR_FAIL_IN_IPPI;
+//				goto EXIT_DSP_PhaseOffset;
+//			}
+//
+//			ippSts= ippiSumWindowRow_8u32f_C1R(
+//				pubbS1->ptr	+ (coOff.y+ szHF.y)*pubbS1->linestep+ (coOff.x+ szHF.x), pubbS1->linestep*sizeof(IMG_UBYTE)	,
+//				rbS1.ptr	+ (         szHF.y)*   rbS1.linestep+ (         szHF.x), rbS1.linestep*sizeof(IMG_REAL)		,
+//				ipproiSize, 1+ (szHF.x<< 1), szHF.x);
+//
+//			if (ippStsNoErr!= ippSts)
+//			{
+//				wSts= DSP_ERR_FAIL_IN_IPPI;
+//				goto EXIT_DSP_PhaseOffset;
+//			}
+//		}
+//	}
+//
+//	if (stInfo.rfx> 0.0f)	szOp.x= (IMG_UWORD) (floor((szOpsz.x- 2*szHF.x)*stInfo.rfx)/stInfo.rfx);		// trunciate to integer period along x
+//	if (0== szOp.x)	szOp.x= szOpsz.x;		// period x too large
+//
+//	if (stInfo.rfy> 0.0f)	szOp.y= (IMG_UWORD)	(floor((szOpsz.y- 2*szHF.y)*stInfo.rfy)/stInfo.rfy);		// trunciate to integer period along y
+//	if (0== szOp.y)	szOp.y= szOpsz.y;		// period y too large
+//
+//	ipproiSize.width	= szOp.x- (szHF.x<< 1);
+//	ipproiSize.height	= szOp.y- (szHF.y<< 1);
+//			
+//	ippSts= ippiMean_StdDev_32f_C1R(rbS0.ptr+ szHF.y*rbS0.linestep+ szHF.x,
+//		rbS0.linestep*sizeof(IMG_REAL), ipproiSize, &alrMean[0], &alrStd[0]);
+//
+//	if (ippStsNoErr!= ippSts)
+//	{
+//		wSts= DSP_ERR_FAIL_IN_IPPI;
+//		goto EXIT_DSP_PhaseOffset;
+//	}
+//
+//	ippSts= ippiMean_StdDev_32f_C1R(rbS1.ptr+ szHF.y*rbS1.linestep+ szHF.x,
+//		rbS1.linestep*sizeof(IMG_REAL), ipproiSize, &alrMean[1], &alrStd[1]);
+//
+//	if (ippStsNoErr!= ippSts)
+//	{
+//		wSts= DSP_ERR_FAIL_IN_IPPI;
+//		goto EXIT_DSP_PhaseOffset;
+//	}
+//
+//	if (fabs(alrStd[0])	< DSP_PPRACT_ZERO||
+//		fabs(alrStd[1])	< DSP_PPRACT_ZERO||
+//		fabs(alrMean[0])< DSP_PPRACT_ZERO||
+//		fabs(alrMean[1])< DSP_PPRACT_ZERO)
+//		return DSP_ERR_DIVIDED_BY_ZERO;
+//
+//	//lrRatio= (alrStd[0]*alrMean[1])/(alrStd[1]*alrMean[0]);
+//	//lrRatio= 1.0f;
+//	//if (fabs(1.0- lrRatio)> 0.05)      // check 5 percentage change
+//	//{
+//	//	wSts= DSP_ERR_DIVIDED_BY_ZERO;
+//	//	goto EXIT_DSP_PhaseOffset;
+//	//}
+//
+//	rbDiff.size= szOp;
+//	rbDiff.linestep= rbDiff.size.x;
+//	if (NULL== (rbDiff.ptr= (IMG_REAL *) MEM_Malloc(szOp.x*szOp.y*sizeof(IMG_REAL), SYS_BANK1_8)))
+//	{
+//		wSts= MEM_ERR_MALLOC;
+//		goto EXIT_DSP_PhaseOffset;
+//	}
+//	memset(rbDiff.ptr, 0, szOp.x*szOp.y*sizeof(IMG_REAL));
+//
+//	prS0= rbS0.ptr;
+//	prS1= rbS1.ptr;
+//	prDiff= rbDiff.ptr;
+//
+//	uwStep0= rbS0.linestep- szOp.x;
+//	uwStep1= rbS1.linestep- szOp.x;
+//
+//	for (j= 0; j< rbDiff.size.y; j++, prS0+= uwStep0, prS1+= uwStep1)
+//		for (i= 0; i< rbDiff.size.x; i++, prDiff++, prS0++, prS1++)
+//			*prDiff= (IMG_REAL) ((*prS0- alrMean[0])- (*prS1- alrMean[1])*alrStd[0]/alrStd[1]);
+//
+//	ippSts= ippiMean_StdDev_32f_C1R(rbDiff.ptr+ szHF.y*rbDiff.linestep+ szHF.x,
+//		rbDiff.linestep*sizeof(IMG_REAL), ipproiSize, &alrMean[2], &alrStd[2]);
+//
+//	if (ippStsNoErr!= ippSts)
+//	{
+//		wSts= DSP_ERR_FAIL_IN_IPPI;
+//		goto EXIT_DSP_PhaseOffset;
+//	}
+//
+//	*prOff= (IMG_REAL) (2.0*asin(alrStd[2]/(2*alrStd[0])));
+//	if (fabs(*prOff)< 0.00001f)	goto EXIT_DSP_PhaseOffset;		// Same images, no intensity difference
+//
+//	// Check offset sign 
+//	{
+//		IMG_UWORD
+//			n		= 0,
+//			n_f		= 0,						// best forward n
+//			n_b		= 0,						// best backward n
+//			N		= 0,						// number of shift
+//			uwTh	= 0,						// half period
+//			uwOff	= 0;						// unsigned offset in pixels
+//
+//		IMG_REAL
+//			rT		= 0.0f,								// Period
+//			rSign	= 1.0f,								// Sign of sift
+//			rOff_l	= (IMG_REAL) fabs(*prOff)- 0.6f,	// lower bound
+//			rOff_u	= (IMG_REAL) fabs(*prOff)+ 0.6f,	// upper bound	
+//			rOff	= 0.0f;								// subpixel offset
+//
+//		IMG_LREAL
+//			lr2b		= 0.0f,					// fitting value b
+//			lr2a		= 0.0f,					// fitting value a
+//			lrDiff_f = LREAL_MAX,				// forward difference
+//			lrDiff_b = LREAL_MAX;				// backward differenc
+//
+//		IMG_COORD
+//			coCtr	={0, 0};					// Image center
+//
+//		IMG_LREAL
+//			*plrDiff	= NULL,					// phase diff
+//			*plrDiff_f	= NULL,					// Discrepency forward
+//			*plrDiff_b	= NULL;					// Discrepency backward
+//
+//		coCtr.x= szOp.x>> 1;
+//		coCtr.y= szOp.y>> 1;
+//
+//		rOff_l= IMG_MAX(rOff_l, 0);
+//		N= (IMG_UWORD) ((rOff_u- rOff_l)/DSP_PHASE_STEP+ 1.0f);
+//
+//		if (NULL== (plrDiff_f= (IMG_LREAL *) MEM_Malloc((N<< 1)*sizeof(IMG_LREAL), SYS_BANK1_8)))
+//		{
+//			wSts= MEM_ERR_MALLOC;
+//			goto EXIT_DSP_PhaseOffset;
+//		}
+//		memset(plrDiff_f, 0, (N<< 1)*sizeof(IMG_LREAL));
+//		plrDiff_b= plrDiff_f+ N;
+//
+//		if (stInfo.rfx> stInfo.rfy)
+//		{
+//			rT		= 1.0f/stInfo.rfx;
+//			uwStep0 = 1;	uwStep1 = 1;
+//			uwTh	= (IMG_UWORD)	(0.8f*(szOp.x>> 1)+ 0.5f);			// Half width to compare intensity series
+//		}
+//		else
+//		{
+//			rT		= 1.0f/stInfo.rfy;
+//			uwStep0 = rbS0.linestep;		uwStep1 = rbS1.linestep;
+//			uwTh	= (IMG_UWORD)	(0.8f*(szOp.y>> 1)+ 0.5f);			// Half width to compare intensity series
+//		}
+//		
+//		for (n= 0; n< N; n++)
+//		{
+//
+//			rOff	= (IMG_REAL) (rT*(rOff_l+ n*DSP_PHASE_STEP)/MAT_2PI);			// equivalent offset
+//			uwOff	= (IMG_UWORD) rOff;
+//			rOff	-= uwOff;
+//
+//			prS0= rbS0.ptr+ coCtr.y*rbS0.linestep+ coCtr.x- uwTh*uwStep0;
+//			prS1= rbS1.ptr+ coCtr.y*rbS1.linestep+ coCtr.x- uwTh*uwStep1;
+//
+//			for (i= 0; i< (uwTh<< 1)+ 1; i++)
+//			{
+//				plrDiff_f[n]+= fabs(
+//					(((1- rOff)*(*(prS0+ (i+0)*uwStep0+ uwOff))+(rOff- 0)*(*(prS0+ (i+1)*uwStep0+ uwOff)))- alrMean[0])/alrStd[0]-
+//					(*(prS1+ i*uwStep1       )- alrMean[1])/alrStd[1]);
+//
+//				plrDiff_b[n]+= fabs(
+//					(((1- rOff)*(*(prS0+ (i+0)*uwStep0- uwOff))+(rOff- 0)*(*(prS0+ (i-1)*uwStep0- uwOff)))- alrMean[0])/alrStd[0]-
+//					(*(prS1+ i*uwStep1       )- alrMean[1])/alrStd[1]);
+//
+//			}
+//
+//			if (plrDiff_f[n]< lrDiff_f)
+//			{
+//				lrDiff_f= plrDiff_f[n];
+//				n_f		= n;
+//			}
+//
+//			if (plrDiff_b[n]< lrDiff_b)
+//			{
+//				lrDiff_b= plrDiff_b[n];
+//				n_b		= n;
+//			}
+//		}
+//
+//		if (lrDiff_b< lrDiff_f)
+//		{
+//			plrDiff= plrDiff_b;
+//			n= n_b;
+//			rSign= -1.0f;
+//		}
+//		else
+//		{
+//			plrDiff= plrDiff_f;
+//			n= n_f;
+//			rSign=  1.0f;
+//		}
+//
+//		*prOff= rSign*(rOff_l+ n*DSP_PHASE_STEP);			// coarse fitting
+//
+//		if (0== n && fabs(rOff_l)< (0.1f*DSP_PHASE_STEP))					// 
+//		{
+//			lr2b= plrDiff_f[1]- plrDiff_b[1];
+//			lr2a= plrDiff_f[1]+ plrDiff_b[1]- 2.0*plrDiff_f[0];				// note b is -f
+//
+//			if (fabs(lr2a)> 0.0001)
+//				*prOff-= (IMG_REAL) (0.5f*rSign*DSP_PHASE_STEP*lr2b/lr2a);
+//		}
+//		else if (0< n && n< N)		// do interpolation
+//		{
+//			lr2b= plrDiff[n+ 1]- plrDiff[n- 1];
+//			lr2a= plrDiff[n+ 1]+ plrDiff[n- 1]- 2.0*plrDiff[n];
+//
+//			if (fabs(lr2a)> 0.0001)
+//				*prOff-= (IMG_REAL) (0.5f*rSign*DSP_PHASE_STEP*lr2b/lr2a);
+//		}
+//		else
+//		{
+//			wSts= DSP_ERR_ALL_UNIMODAL;
+//		}
+//		*prOff= -(*prOff);
+//	}
+//
+//EXIT_DSP_PhaseOffset:
+//	if (OK!= (wMEMSts= MEM_PopAllHeapStatus()))	return wMEMSts;
+//	return wSts;
+//}
+//

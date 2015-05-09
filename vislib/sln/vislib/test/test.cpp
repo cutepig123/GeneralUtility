@@ -9,11 +9,11 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	VIS_INT16 wSts = 0;
 	STK_Push();
-	VIS_SIZE sz = { 10, 20 };
+	VIS_SIZE size = { 10, 20 };
 	//VIS_BUF	ubb;
-	//STK_Malloc(sz, &ubb);
+	//STK_Malloc(size, &ubb);
 	VIS_MAT_BUF_T<VIS_UINT8>	ubbS;
-	wSts =VIS_LoadImage((VIS_INT8*)"1.bmp", &ubbS);
+	wSts =VIS_LoadImage("1.bmp", &ubbS);
 	VIS_CHK_STS;
 Exit:
 

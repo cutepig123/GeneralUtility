@@ -15,8 +15,8 @@ int MyMapShortImgToColor(cv::Mat const &src,
 	std::function<int(short val, int x, int y, uchar *c1, uchar *c2, uchar *c3)> &ftn, cv::Mat &dst)
 {
 	dst = cv::Mat::zeros(src.rows, src.cols, CV_8UC3);
-	//int sz[] = { src.cols, src.rows };
-	//dst = Mat::zeros(3, sz, CV_8UC3);
+	//int size[] = { src.cols, src.rows };
+	//dst = Mat::zeros(3, size, CV_8UC3);
 	for (int i = 0; i < src.rows; i++)
 	{
 		for (int j = 0; j < src.cols; j++)
@@ -37,22 +37,22 @@ struct TRAITS_X_16S_T
 {
 	static int N1(VIS_BUF_T<VIS_INT16> const &abs_grad_x)
 	{
-		return abs_grad_x.sz.y;
+		return abs_grad_x.size.y;
 	}
 
 	static int N2(VIS_BUF_T<VIS_INT16> const &abs_grad_x)
 	{
-		return abs_grad_x.sz.x;
+		return abs_grad_x.size.x;
 	}
 
 	static short* ptr(VIS_BUF_T<VIS_INT16> &abs_grad_x, int y, int x)
 	{
-		return abs_grad_x.p + y*abs_grad_x.step + x;
+		return abs_grad_x.ptr + y*abs_grad_x.linestep + x;
 	}
 
 	static const short* ptr(VIS_BUF_T<VIS_INT16> const &abs_grad_x, int y, int x)
 	{
-		return abs_grad_x.p + y*abs_grad_x.step + x;
+		return abs_grad_x.ptr + y*abs_grad_x.linestep + x;
 	}
 
 	// return index
@@ -151,8 +151,8 @@ bool MyOp_Less(int a, int b)
 template <class TRAITS>
 int MyScanEdge(VIS_BUF_T<VIS_INT16> const &abs_grad_x, VIS_BUF_T<VIS_INT16> &abs_grad_x_thin, int thres_low, int thres_high, bool(*OP)(int, int))
 {
-	assert(abs_grad_x.sz.x == abs_grad_x_thin.sz.x);
-	assert(abs_grad_x.sz.y == abs_grad_x_thin.sz.y);
+	assert(abs_grad_x.size.x == abs_grad_x_thin.size.x);
+	assert(abs_grad_x.size.y == abs_grad_x_thin.size.y);
 
 	for (int y = 0; y < TRAITS::N1(abs_grad_x); y++)
 	{
@@ -161,20 +161,20 @@ int MyScanEdge(VIS_BUF_T<VIS_INT16> const &abs_grad_x, VIS_BUF_T<VIS_INT16> &abs
 #define	STEP_FIND_ZERO	1
 #define	STEP_SUMMARY	2
 
-		int step = STEP_FIND_NON_ZERO;
+		int linestep = STEP_FIND_NON_ZERO;
 		int p0 = -1, p1 = -1;
 
 		for (int j = 0; j < TRAITS::N2(abs_grad_x); j++)
 		{
 			short t = *TRAITS::ptr(abs_grad_x, y, j);
-			switch (step)
+			switch (linestep)
 			{
 			case STEP_FIND_NON_ZERO:
 				if (OP(t, thres_low))
 				{
 					p0 = j;
 					p1 = -1;
-					step = STEP_FIND_ZERO;
+					linestep = STEP_FIND_ZERO;
 
 					//TRACE("STEP_FIND_NON_ZERO ok y %d x %d\n", y, j);
 				}
@@ -183,19 +183,19 @@ int MyScanEdge(VIS_BUF_T<VIS_INT16> const &abs_grad_x, VIS_BUF_T<VIS_INT16> &abs
 				if (!OP(t, thres_low))
 				{
 					p1 = j;
-					step = STEP_SUMMARY;
+					linestep = STEP_SUMMARY;
 					//TRACE("STEP_FIND_ZERO ok y %d x %d\n", y, j);
 				}
 				break;
 			}
 
-			if (j + 1 == TRAITS::N2(abs_grad_x) && STEP_FIND_ZERO == step)
+			if (j + 1 == TRAITS::N2(abs_grad_x) && STEP_FIND_ZERO == linestep)
 			{
 				p1 = TRAITS::N2(abs_grad_x);
-				step = STEP_SUMMARY;
+				linestep = STEP_SUMMARY;
 			}
 
-			if (step == STEP_SUMMARY)
+			if (linestep == STEP_SUMMARY)
 			{
 				assert(p0 >= 0 && p1 > p0);
 
@@ -207,7 +207,7 @@ int MyScanEdge(VIS_BUF_T<VIS_INT16> const &abs_grad_x, VIS_BUF_T<VIS_INT16> &abs
 					*TRAITS::ptr(abs_grad_x_thin, y, maxIdx) = t;
 
 				TRACE("STEP_SUMMARY ok y %d p0 %d p1 %d\n", y, p0, p1);
-				step = STEP_FIND_NON_ZERO;
+				linestep = STEP_FIND_NON_ZERO;
 			}
 		}
 	}
@@ -224,9 +224,9 @@ int MyCvtTo8bit(cv::Mat const &src, cv::Mat &des)
 	{
 		for (int x = 0; x<src.cols; x++)
 		{
-			const short *p = src.ptr<short>(y, x);
+			const short *ptr = src.ptr<short>(y, x);
 			unsigned char *pd = des.ptr<unsigned char>(y, x);
-			*pd = std::min(abs(*p), 255);
+			*pd = std::min(abs(*ptr), 255);
 		}
 	}
 	return 0;
@@ -239,8 +239,8 @@ VIS_INT16 VIS_EdgeDetect(
 	bool log
 	)
 {
-	assert(src_gray.sz.x == abs_grad_x_thin.sz.x && src_gray.sz.y == abs_grad_x_thin.sz.y);
-	assert(src_gray.sz.x == dir.sz.x && src_gray.sz.y == dir.sz.y);
+	assert(src_gray.size.x == abs_grad_x_thin.size.x && src_gray.size.y == abs_grad_x_thin.size.y);
+	assert(src_gray.size.x == dir.size.x && src_gray.size.y == dir.size.y);
 
 	VIS_INT16 wSts = 0;
 	STK_Push();
@@ -284,11 +284,11 @@ VIS_INT16 VIS_EdgeDetect(
 	MyScanEdge<TRAITS_X_16S>(grad_x, abs_grad_x_thin, 50, 50, MyOp_Greate);
 	MyScanEdge<TRAITS_X_16S_Min>(grad_x, abs_grad_x_thin, -50, -50, MyOp_Less);
 
-	for (VIS_UINT16 y = 0; y<src_gray.sz.y; y++)
+	for (VIS_UINT16 y = 0; y<src_gray.size.y; y++)
 	{
-		for (VIS_UINT16 x = 0; x<src_gray.sz.x; x++)
+		for (VIS_UINT16 x = 0; x<src_gray.size.x; x++)
 		{
-#define	PTR(dir,y,x)	(dir.p +y*dir.step + x)
+#define	PTR(dir,y,x)	(dir.ptr +y*dir.linestep + x)
 			*PTR(dir, y, x) = (VIS_INT16)(atan2(*PTR(grad_y, y, x), *PTR(grad_x, y, x)) * 180 / 3.14159);
 		}
 	}

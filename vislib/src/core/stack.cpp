@@ -38,25 +38,25 @@ VIS_INT16	STK_Malloc(VIS_UINT32 n, VIS_VOID** pp)
 	VIS_CHK_ASSERT(!g_stk.vFrame.empty());
 	STK_FRAME &frame =g_stk.vFrame.back();
 	
-	VIS_VOID* p =malloc(n);
-	VIS_CHK_ASSERT(p!=NULL);
-	frame.vPtr.push_back(p);
+	VIS_VOID* ptr =malloc(n);
+	VIS_CHK_ASSERT(ptr!=NULL);
+	frame.vPtr.push_back(ptr);
 
-	*pp =p;
+	*pp =ptr;
 Exit:	
 	return wSts;
 }
 
 template <class T>
-VIS_INT16	STK_Malloc(VIS_SIZE const &sz, VIS_BUF_T<T> *p)
+VIS_INT16	STK_Malloc(VIS_SIZE const &size, VIS_BUF_T<T> *ptr)
 {
 	VIS_INT16 wSts=VIS_OK;
 	
-	VIS_CHK_ASSERT(sz.x && sz.y);
+	VIS_CHK_ASSERT(size.x && size.y);
 	
-	p->sz =sz;
-	p->step =sz.x;
-	wSts = STK_Malloc(p->step *p->sz.y*sizeof(VIS_BUF_T<T>::type), (VIS_VOID**)&p->p);
+	ptr->size =size;
+	ptr->linestep =size.x;
+	wSts = STK_Malloc(ptr->linestep *ptr->size.y*sizeof(VIS_BUF_T<T>::type), (VIS_VOID**)&ptr->ptr);
 	VIS_CHK_STS;
 	
 Exit:	
@@ -64,10 +64,10 @@ Exit:
 }
 
 template 
-VIS_XXPORT VIS_INT16	STK_Malloc(VIS_SIZE const &sz, VIS_BUF_T<VIS_UINT8> *p);
+VIS_XXPORT VIS_INT16	STK_Malloc(VIS_SIZE const &size, VIS_BUF_T<VIS_UINT8> *ptr);
 
 template 
-VIS_XXPORT VIS_INT16	STK_Malloc(VIS_SIZE const &sz, VIS_BUF_T<VIS_UINT16> *p);
+VIS_XXPORT VIS_INT16	STK_Malloc(VIS_SIZE const &size, VIS_BUF_T<VIS_UINT16> *ptr);
 
 template 
-VIS_XXPORT VIS_INT16	STK_Malloc(VIS_SIZE const &sz, VIS_BUF_T<VIS_FLOAT32> *p);
+VIS_XXPORT VIS_INT16	STK_Malloc(VIS_SIZE const &size, VIS_BUF_T<VIS_FLOAT32> *ptr);

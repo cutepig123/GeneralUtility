@@ -28,15 +28,15 @@ struct	OPENCV_TRAITS<VIS_FLOAT32>
 //#include <opencv2\core\mat.hpp>
 
 //template <class T>
-//VIS_INT16	OPCV_ConvBufRef(const CvMat* mat, VIS_BUF_T<T> *p);
+//VIS_INT16	OPCV_ConvBufRef(const CvMat* mat, VIS_BUF_T<T> *ptr);
 //template <class T>
-//VIS_INT16	OPCV_ConvBufRef(const Mat* mat, VIS_BUF_T<T> *p);
+//VIS_INT16	OPCV_ConvBufRef(const Mat* mat, VIS_BUF_T<T> *ptr);
 //template <class T>
-//VIS_INT16	OPCV_ConvBufRef(const IplImage* mat, VIS_BUF_T<T> *p);
+//VIS_INT16	OPCV_ConvBufRef(const IplImage* mat, VIS_BUF_T<T> *ptr);
 
 template <class T>
-VIS_XXPORT VIS_INT16	OPCV_ConvBufRef(const cv::Mat* mat, VIS_BUF_T<T> *p);
+VIS_XXPORT VIS_INT16	OPCV_ConvBufRef(const cv::Mat* mat, VIS_BUF_T<T> *ptr);
 
 
 template <class T>
-VIS_XXPORT VIS_INT16	OPCV_ConvBufRef(const VIS_BUF_T<T> *p, cv::Mat* mat);
+VIS_XXPORT VIS_INT16	OPCV_ConvBufRef(const VIS_BUF_T<T> *ptr, cv::Mat* mat);
