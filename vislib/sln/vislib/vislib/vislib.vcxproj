@@ -94,6 +94,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+	<ClCompile Include="..\..\..\src\core\asm.cpp" />
     <ClCompile Include="..\..\..\src\core\debug.cpp" />
     <ClCompile Include="..\..\..\src\core\edgedetect.cpp" />
     <ClCompile Include="..\..\..\src\core\IO.cpp" />
@@ -101,6 +102,7 @@
     <ClCompile Include="..\..\..\src\core\opencv.cpp">
       <UseFullPaths Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</UseFullPaths>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\core\SineInfo.c" />
     <ClCompile Include="..\..\..\src\core\stack.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
