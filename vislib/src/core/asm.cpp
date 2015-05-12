@@ -159,13 +159,11 @@ IMG_WORD	MAT_FitAXBInit(MAT_FITPARA		const	*pstPara0,
 	
 #define   IPPAPI_IMPL( type,name,arg )        type __STDCALL name arg
  
-template <class T>	
-IPPAPI_IMPL(IppStatus, ippiAddC_C1IR_impl,  (T value, T* pSrcDst, int srcDstStep,
-                                       IppiSize roiSize))
+template <class T>
+inline VIS_INT16 ConvertIppBufToMat(T* pSrcDst, int srcDstStep,IppiSize roiSize, cv::Mat &mat)
 {
 	VIS_INT16 wSts = VIS_OK;
-	cv::Mat mat;
-
+	
 	VIS_BUF_T<T>	rbRef;
 	rbRef.ptr =pSrcDst;
 	rbRef.size.x =roiSize.width;
@@ -176,12 +174,209 @@ IPPAPI_IMPL(IppStatus, ippiAddC_C1IR_impl,  (T value, T* pSrcDst, int srcDstStep
 	
 	OPCV_ConvBufRef(&rbRef, &mat);
 
-	mat += value;
+Exit:
+	return wSts;
+}
+ 
+template <class T, class Op>	
+IPPAPI_IMPL(IppStatus, ippiOpC_C1IR_impl,  (T value, T* pSrcDst, int srcDstStep,
+                                       IppiSize roiSize, Op op))
+{
+	VIS_INT16 wSts = VIS_OK;
+	cv::Mat mat;
+
+	wSts =ConvertIppBufToMat(pSrcDst, srcDstStep,roiSize, mat);
+	VIS_CHK_STS;
+	
+	op(mat, value);
 Exit:
 	return (IppStatus)wSts;
 }
 
+template <class T>	
+IPPAPI_IMPL(IppStatus, ippiAddC_C1IR_impl,  (T value, T* pSrcDst, int srcDstStep,
+                                       IppiSize roiSize))
+{
+	return ippiOpC_C1IR_impl(value, pSrcDst, srcDstStep, roiSize,  [](cv::Mat& mat, Ipp32f value){mat +=value;}
+		);
+}	
+
+template <class T>	
+IPPAPI_IMPL(IppStatus, ippiSubC_C1IR_impl,  (T value, T* pSrcDst, int srcDstStep,
+                                       IppiSize roiSize))
+{
+	return ippiOpC_C1IR_impl(value, pSrcDst, srcDstStep, roiSize,  [](cv::Mat& mat, Ipp32f value){mat -=value;}
+		);
+}	
+
+template <class T>	
+IPPAPI_IMPL(IppStatus, ippiMulC_C1IR_impl,  (T value, T* pSrcDst, int srcDstStep,
+                                       IppiSize roiSize))
+{
+	return ippiOpC_C1IR_impl(value, pSrcDst, srcDstStep, roiSize,  [](cv::Mat& mat, Ipp32f value){mat *=value;}
+		);
+}	
+
+template <class T>	
+IPPAPI_IMPL(IppStatus, ippiDivC_C1IR_impl,  (T value, T* pSrcDst, int srcDstStep,
+                                       IppiSize roiSize))
+{
+	return ippiOpC_C1IR_impl(value, pSrcDst, srcDstStep, roiSize,  [](cv::Mat& mat, Ipp32f value){mat /=value;}
+		);
+}	
+								   
 template
 VIS_XXPORT IPPAPI_IMPL(IppStatus, ippiAddC_C1IR_impl,  (Ipp32f value, Ipp32f* pSrcDst, int srcDstStep,
                                        IppiSize roiSize));
+template
+VIS_XXPORT IPPAPI_IMPL(IppStatus, ippiSubC_C1IR_impl,  (Ipp32f value, Ipp32f* pSrcDst, int srcDstStep,
+                                       IppiSize roiSize));									   
+template
+VIS_XXPORT IPPAPI_IMPL(IppStatus, ippiMulC_C1IR_impl,  (Ipp32f value, Ipp32f* pSrcDst, int srcDstStep,
+                                       IppiSize roiSize));
+template
+VIS_XXPORT IPPAPI_IMPL(IppStatus, ippiDivC_C1IR_impl,  (Ipp32f value, Ipp32f* pSrcDst, int srcDstStep,
+                                       IppiSize roiSize));									   
+		
+
+template <class T, class Op>	
+IPPAPI_IMPL(IppStatus, ippiOp_C1IR_impl, (const T* pSrc, int srcStep, T* pSrcDst,
+                                      int srcDstStep, IppiSize roiSize, Op op))
+{
+	VIS_INT16 wSts = VIS_OK;
+	cv::Mat matS, matD;
+
+	wSts =ConvertIppBufToMat(pSrc, srcStep,roiSize, matS);
+	VIS_CHK_STS;
+	wSts =ConvertIppBufToMat(pSrcDst, srcDstStep,roiSize, matD);
+	VIS_CHK_STS;
+	
+	op(matS, matD);
+Exit:
+	return (IppStatus)wSts;
+}
+	
+template <class T>	
+IPPAPI_IMPL(IppStatus, ippiAdd_C1IR_impl,  (const T* pSrc, int srcStep, T* pSrcDst,
+                                      int srcDstStep, IppiSize roiSize))
+{
+	return ippiOp_C1IR_impl(pSrc, srcStep, pSrcDst, srcDstStep,roiSize,  [](cv::Mat& matS, cv::Mat& matD){matD += matS;}
+		);
+}
+
+template <class T>	
+IPPAPI_IMPL(IppStatus, ippiSub_C1IR_impl,  (const T* pSrc, int srcStep, T* pSrcDst,
+                                      int srcDstStep, IppiSize roiSize))
+{
+	return ippiOp_C1IR_impl(pSrc, srcStep, pSrcDst, srcDstStep,roiSize,  [](cv::Mat& matS, cv::Mat& matD){matD -= matS;}
+		);
+}
+
+template <class T>	
+IPPAPI_IMPL(IppStatus, ippiMul_C1IR_impl,  (const T* pSrc, int srcStep, T* pSrcDst,
+                                      int srcDstStep, IppiSize roiSize))
+{
+	return ippiOp_C1IR_impl(pSrc, srcStep, pSrcDst, srcDstStep,roiSize,  [](cv::Mat& matS, cv::Mat& matD){matD.mul(matS);}
+		);
+}
+
+template <class T>	
+IPPAPI_IMPL(IppStatus, ippiDiv_C1IR_impl,  (const T* pSrc, int srcStep, T* pSrcDst,
+                                      int srcDstStep, IppiSize roiSize))
+{
+	return ippiOp_C1IR_impl(pSrc, srcStep, pSrcDst, srcDstStep,roiSize,  [](cv::Mat& matS, cv::Mat& matD){matD /= matS;}
+		);
+}
+
+template
+VIS_XXPORT IPPAPI_IMPL(IppStatus, ippiAdd_C1IR_impl,  (const Ipp32f* pSrc, int srcStep, Ipp32f* pSrcDst,
+                                      int srcDstStep, IppiSize roiSize));
+template
+VIS_XXPORT IPPAPI_IMPL(IppStatus, ippiSub_C1IR_impl,  (const Ipp32f* pSrc, int srcStep, Ipp32f* pSrcDst,
+                                      int srcDstStep, IppiSize roiSize));
+template
+VIS_XXPORT IPPAPI_IMPL(IppStatus, ippiMul_C1IR_impl,  (const Ipp32f* pSrc, int srcStep, Ipp32f* pSrcDst,
+                                      int srcDstStep, IppiSize roiSize));
+template
+VIS_XXPORT IPPAPI_IMPL(IppStatus, ippiDiv_C1IR_impl,  (const Ipp32f* pSrc, int srcStep, Ipp32f* pSrcDst,
+                                      int srcDstStep, IppiSize roiSize));									  
+
+template <class T, class Op>	
+IPPAPI_IMPL(IppStatus, ippiOpC_C1R_impl,  (const T* pSrc, int srcStep, T value,
+                                        T* pDst, int dstStep, IppiSize roiSize, Op op))
+{
+	VIS_INT16 wSts = VIS_OK;
+	cv::Mat matS, matD;
+
+	wSts =ConvertIppBufToMat(pSrc, srcStep,roiSize, matS);
+	VIS_CHK_STS;
+	wSts =ConvertIppBufToMat(pDst, dstStep,roiSize, matD);
+	VIS_CHK_STS;
+	
+	op(matS, value, matD);
+Exit:
+	return (IppStatus)wSts;
+}
+
+template <class T>	
+IPPAPI_IMPL(IppStatus, ippiAddC_C1R_impl,  (const T* pSrc, int srcStep, T value,
+                                        T* pDst, int dstStep, IppiSize roiSize))
+{
+	return ippiOpC_C1R_impl(pSrc, srcStep, value, pDst,dstStep,roiSize,  [](cv::Mat& matS, Ipp32f value, cv::Mat& matD){matD =matS +value;}
+		);
+}
+
+template
+VIS_XXPORT IPPAPI_IMPL(IppStatus, ippiAddC_C1R_impl,  (const Ipp32f* pSrc, int srcStep,Ipp32f value,
+                                        Ipp32f* pDst, int dstStep, IppiSize roiSize));
 									   
+template <class T>	
+IPPAPI_IMPL(IppStatus, ippiDivC_C1R_impl,  (const T* pSrc, int srcStep, T value,
+                                        T* pDst, int dstStep, IppiSize roiSize))
+{
+	return ippiOpC_C1R_impl(pSrc, srcStep, value, pDst,dstStep,roiSize,  [](cv::Mat& matS, Ipp32f value, cv::Mat& matD){matD =matS /value;}
+		);
+}
+
+template
+VIS_XXPORT IPPAPI_IMPL(IppStatus, ippiDivC_C1R_impl,  (const Ipp32f* pSrc, int srcStep,Ipp32f value,
+                                        Ipp32f* pDst, int dstStep, IppiSize roiSize));									   
+			
+template <class T, class Op>
+IPPAPI_IMPL(IppStatus,ippiOp_C1IR, (T* pSrcDst, int srcDstStep,
+       IppiSize roiSize, Op op))		
+{
+	VIS_INT16 wSts = VIS_OK;
+	cv::Mat mat;
+
+	wSts =ConvertIppBufToMat(pSrcDst, srcDstStep,roiSize, mat);
+	VIS_CHK_STS;
+	
+	op(mat);
+Exit:
+	return (IppStatus)wSts;
+}	  
+
+template <class T>	
+IPPAPI_IMPL(IppStatus,ippiSqr_C1IR, (T* pSrcDst, int srcDstStep,
+       IppiSize roiSize ))
+{
+	return ippiOp_C1IR(pSrcDst, srcDstStep,  roiSize,  [](cv::Mat& mat ){mat =mat.mul(mat);}
+		);
+}
+
+template <class T>	
+IPPAPI_IMPL(IppStatus,ippiSqrt_C1IR, (T* pSrcDst, int srcDstStep,
+       IppiSize roiSize ))
+{
+	return ippiOp_C1IR(pSrcDst, srcDstStep, roiSize, [](cv::Mat& mat){sqrt(mat, mat); }
+		);
+}
+
+template
+VIS_XXPORT IPPAPI_IMPL(IppStatus,ippiSqr_C1IR, (Ipp32f* pSrcDst, int srcDstStep,
+       IppiSize roiSize ));
+ 
+template
+VIS_XXPORT IPPAPI_IMPL(IppStatus,ippiSqrt_C1IR, (Ipp32f* pSrcDst, int srcDstStep,
+       IppiSize roiSize )); 

@@ -706,8 +706,13 @@ IPPAPI(IppStatus, ippiSubC_32f_C4IR,  (const Ipp32f value[4], Ipp32f* pSrcDst, i
                                        IppiSize roiSize))
 IPPAPI(IppStatus, ippiSubC_32f_AC4IR, (const Ipp32f value[3], Ipp32f* pSrcDst, int srcDstStep,
                                        IppiSize roiSize))
-IPPAPI(IppStatus, ippiMulC_32f_C1IR,  (Ipp32f value, Ipp32f* pSrcDst, int srcDstStep,
-                                       IppiSize roiSize))
+
+template <class T>
+IPPAPI(IppStatus, ippiMulC_C1IR_impl, (T value, T* pSrcDst, int srcDstStep,
+	IppiSize roiSize))
+
+#define ippiMulC_32f_C1IR ippiMulC_C1IR_impl
+
 IPPAPI(IppStatus, ippiMulC_32f_C3IR,  (const Ipp32f value[3], Ipp32f* pSrcDst, int srcDstStep,
                                        IppiSize roiSize))
 IPPAPI(IppStatus, ippiMulC_32f_C4IR,  (const Ipp32f value[4], Ipp32f* pSrcDst, int srcDstStep,
@@ -744,8 +749,15 @@ IPPAPI(IppStatus, ippiAdd_32f_C4IR,  (const Ipp32f* pSrc, int srcStep, Ipp32f* p
                                       int srcDstStep, IppiSize roiSize))
 IPPAPI(IppStatus, ippiAdd_32f_AC4IR, (const Ipp32f* pSrc, int srcStep, Ipp32f* pSrcDst,
                                       int srcDstStep, IppiSize roiSize))
-IPPAPI(IppStatus, ippiSub_32f_C1IR,  (const Ipp32f* pSrc, int srcStep, Ipp32f* pSrcDst,
-                                      int srcDstStep, IppiSize roiSize))
+
+template <class T>
+IPPAPI(IppStatus, ippiSub_C1IR_impl, (const T* pSrc, int srcStep, T* pSrcDst,
+	int srcDstStep, IppiSize roiSize))
+
+#define ippiSub_32f_C1IR ippiSub_C1IR_impl
+
+//IPPAPI(IppStatus, ippiSub_32f_C1IR,  (const Ipp32f* pSrc, int srcStep, Ipp32f* pSrcDst,
+//                                      int srcDstStep, IppiSize roiSize))
 IPPAPI(IppStatus, ippiSub_32f_C3IR,  (const Ipp32f* pSrc, int srcStep, Ipp32f* pSrcDst,
                                       int srcDstStep, IppiSize roiSize))
 IPPAPI(IppStatus, ippiSub_32f_C4IR,  (const Ipp32f* pSrc, int srcStep, Ipp32f* pSrcDst,
@@ -959,8 +971,12 @@ IPPAPI(IppStatus, ippiDiv_16u_AC4RSfs, (const Ipp16u* pSrc1, int src1Step,
 //    roiSize                  Size of the ROI
 */
 
-IPPAPI(IppStatus, ippiDivC_32f_C1R,    (const Ipp32f* pSrc, int srcStep, Ipp32f value,
-                                        Ipp32f* pDst, int dstStep, IppiSize roiSize))
+template <class T>
+IPPAPI(IppStatus, ippiDivC_C1R_impl, (const T* pSrc, int srcStep, T value,
+	T* pDst, int dstStep, IppiSize roiSize))
+
+#define ippiDivC_32f_C1R ippiDivC_C1R_impl
+
 IPPAPI(IppStatus, ippiDivC_32f_C3R,    (const Ipp32f* pSrc, int srcStep, const Ipp32f value[3],
                                         Ipp32f* pDst, int dstStep, IppiSize roiSize))
 IPPAPI(IppStatus, ippiDivC_32f_C4R, (const Ipp32f* pSrc, int srcStep, const Ipp32f val[4],
@@ -1042,6 +1058,8 @@ IPPAPI(IppStatus, ippiDivC_16u_AC4RSfs,  (const Ipp16u* pSrc, int srcStep, const
 //    srcDstStep               Step through the dividend source/destination image
 //    roiSize                  Size of the ROI
 */
+
+
 
 IPPAPI(IppStatus, ippiDiv_32f_C1IR,    (const Ipp32f* pSrc, int srcStep,
                                               Ipp32f* pSrcDst, int srcDstStep, IppiSize roiSize))
@@ -1140,7 +1158,12 @@ IPPAPI(IppStatus, ippiDiv_16u_AC4IRSfs, (const Ipp16u* pSrc, int srcStep,
 //    roiSize                  Size of the ROI
 */
 
-IPPAPI(IppStatus, ippiDivC_32f_C1IR,    (Ipp32f value, Ipp32f* pSrcDst, int srcDstStep, IppiSize roiSize))
+template <class T>
+IPPAPI(IppStatus, ippiDivC_C1IR_impl, (T value, T* pSrcDst, int srcDstStep,
+	IppiSize roiSize))
+
+#define ippiDivC_32f_C1IR ippiDivC_C1IR_impl
+
 IPPAPI(IppStatus, ippiDivC_32f_C3IR,    (const Ipp32f value[3], Ipp32f* pSrcDst, int srcDstStep, IppiSize roiSize))
 IPPAPI(IppStatus, ippiDivC_32f_C4IR, (const Ipp32f val[4], Ipp32f* pSrcDst, int srcDstStep, IppiSize roiSize))
 IPPAPI(IppStatus, ippiDivC_32f_AC4IR, (const Ipp32f val[3], Ipp32f* pSrcDst, int srcDstStep, IppiSize roiSize))
@@ -1368,8 +1391,14 @@ IPPAPI(IppStatus,ippiSqr_16s_AC4IRSfs,(Ipp16s* pSrcDst, int srcDstStep,
        IppiSize roiSize, int scaleFactor))
 IPPAPI(IppStatus,ippiSqr_16s_C4IRSfs,(Ipp16s* pSrcDst, int srcDstStep,
        IppiSize roiSize, int scaleFactor))
-IPPAPI(IppStatus,ippiSqr_32f_C1IR, (Ipp32f* pSrcDst, int srcDstStep,
-       IppiSize roiSize))
+
+template <class T>
+IPPAPI(IppStatus, ippiSqr_C1IR, (T* pSrcDst, int srcDstStep,
+	IppiSize roiSize))
+
+#define ippiSqr_32f_C1IR ippiSqr_C1IR
+//IPPAPI(IppStatus,ippiSqr_32f_C1IR, (Ipp32f* pSrcDst, int srcDstStep,
+//       IppiSize roiSize))
 IPPAPI(IppStatus,ippiSqr_32f_C3IR, (Ipp32f* pSrcDst, int srcDstStep,
        IppiSize roiSize))
 IPPAPI(IppStatus,ippiSqr_32f_AC4IR,(Ipp32f* pSrcDst, int srcDstStep,
@@ -1466,8 +1495,15 @@ IPPAPI(IppStatus,ippiSqrt_16s_C3IRSfs, (Ipp16s* pSrcDst, int srcDstStep,
        IppiSize roiSize, int scaleFactor))
 IPPAPI(IppStatus,ippiSqrt_16s_AC4IRSfs,(Ipp16s* pSrcDst, int srcDstStep,
        IppiSize roiSize, int scaleFactor))
-IPPAPI(IppStatus,ippiSqrt_32f_C1IR, (Ipp32f* pSrcDst, int srcDstStep,
-       IppiSize roiSize))
+
+template <class T>
+IPPAPI(IppStatus, ippiSqrt_C1IR, (T* pSrcDst, int srcDstStep,
+	IppiSize roiSize))
+
+#define ippiSqrt_32f_C1IR ippiSqrt_C1IR
+//
+//IPPAPI(IppStatus,ippiSqrt_32f_C1IR, (Ipp32f* pSrcDst, int srcDstStep,
+//       IppiSize roiSize))
 IPPAPI(IppStatus,ippiSqrt_32f_C3IR, (Ipp32f* pSrcDst, int srcDstStep,
        IppiSize roiSize))
 IPPAPI(IppStatus,ippiSqrt_32f_AC4IR,(Ipp32f* pSrcDst, int srcDstStep,
