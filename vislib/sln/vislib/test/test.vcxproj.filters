@@ -29,7 +29,10 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="test.cpp">
+    <ClCompile Include="..\..\..\src\test\gtest_mem-master\gtest_mem_main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\test\gtest_mem-master\test\fixture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

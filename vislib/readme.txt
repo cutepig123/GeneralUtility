@@ -9,6 +9,9 @@ run test project in ms vc IDE
 TODO
 
 - test load image, write image, convert image
+- for convert codes from ASM code convention to VIS code convention 
+	lazy to modify source codes, so define a asm.h to fulfill ASM convension
+	so there is some political issues
 - impl these link eror functions
 
 1>------ 已启动生成:  项目: vislib, 配置: Debug Win32 ------
