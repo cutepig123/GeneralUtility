@@ -23,7 +23,7 @@
   #include "ippdefs.h"
 #endif
 
-#ifdef __cplusplus
+#if 0
 extern "C" {
 #endif
 
@@ -6459,7 +6459,7 @@ IPPAPI(IppStatus, ippsNthMaxElement_64f,(const Ipp64f* pSrc, int len, int N, Ipp
 
 /*======== End of declaration of functions ===================================*/
 
-#ifdef __cplusplus
+#if 0
 }
 #endif
 

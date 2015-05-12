@@ -24,7 +24,7 @@
   #include "ippdefs.h"
 #endif
 
-#ifdef __cplusplus
+#if 0
 extern "C" {
 #endif
 
@@ -2658,7 +2658,7 @@ IPPAPI(IppStatus, ippiCFAToRGB_8u_C1C3R,(const Ipp8u* pSrc, IppiRect srcRoi, Ipp
 IPPAPI(IppStatus, ippiCFAToRGB_16u_C1C3R,(const Ipp16u* pSrc, IppiRect srcRoi, IppiSize srcSize, int srcStep,
    Ipp16u* pDst, int dstStep, IppiBayerGrid grid, int interpolation))
 
-#ifdef __cplusplus
+#if 0
 }
 #endif
 

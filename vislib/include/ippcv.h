@@ -23,7 +23,7 @@
   #include "ippdefs.h"
 #endif
 
-#ifdef __cplusplus
+#if 0
 extern "C" {
 #endif
 
@@ -4843,7 +4843,7 @@ IPPAPI(IppStatus, ippiHoughLine_8u32f_C1R, (const Ipp8u* pSrc, int srcStep, Ippi
        IppPointPolar* pLine, int maxLineCount, int* pLineCount, Ipp8u* pBuffer))
 
 
-#if defined __cplusplus
+#if 0
 }
 #endif
 

@@ -18,7 +18,7 @@
 #include "ippdefs.h"
 #endif
 
-#ifdef __cplusplus
+#if 0
 extern "C" {
 #endif
 
@@ -8854,7 +8854,7 @@ IPPAPI(IppStatus, ippsVectorSlope_64f, ( Ipp64f* pDst, int len, Ipp64f offset, I
 #endif
 
 
-#ifdef __cplusplus
+#if 0
 }
 #endif
 

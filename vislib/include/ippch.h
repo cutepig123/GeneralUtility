@@ -18,7 +18,7 @@
   #include "ippdefs.h"
 #endif
 
-#ifdef __cplusplus
+#if 0
 extern "C" {
 #endif
 
@@ -779,7 +779,7 @@ IPPAPI(IppStatus, ippsRegExpFind_8u, ( const Ipp8u* pSrc, int srcLen, IppRegExpS
   #define __stdcall __cdecl
 #endif
 
-#ifdef __cplusplus
+#if 0
 }
 #endif
 

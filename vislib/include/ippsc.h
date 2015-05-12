@@ -23,7 +23,7 @@
   #include "ippdefs.h"
 #endif
 
-#ifdef __cplusplus
+#if 0
 extern "C" {
 #endif
 
@@ -4420,7 +4420,7 @@ IPPAPI(IppStatus, ippsToneDetect_EC_16s, (const Ipp16s *pSignal,
 ///////////////////////////////////////////////////////////////////////////// */
 
 
-#ifdef __cplusplus
+#if 0
 }
 #endif
 

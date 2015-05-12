@@ -1,11 +1,8 @@
-// test.cpp : Defines the entry point for the console application.
-//
-
-#include "stdafx.h"
 #include <vis/stack.h>
 #include <vis/IO.h>
+#include <gtest/gtest.h>
 
-int _tmain(int argc, _TCHAR* argv[])
+TEST (LoadImage, OK)
 {
 	VIS_INT16 wSts = 0;
 	STK_Push();
@@ -18,6 +15,4 @@ int _tmain(int argc, _TCHAR* argv[])
 Exit:
 
 	STK_Pop();
-	return 0;
 }
-

@@ -70,6 +70,9 @@ template
 VIS_XXPORT VIS_INT16	OPCV_ConvBufRef(const VIS_BUF_T<VIS_UINT8> *ptr, cv::Mat* mat);
 
 template
+VIS_XXPORT VIS_INT16	OPCV_ConvBufRef(const VIS_BUF_T<VIS_INT16> *ptr, cv::Mat* mat);
+
+template
 VIS_XXPORT VIS_INT16	OPCV_ConvBufRef(const VIS_BUF_T<VIS_FLOAT32> *ptr, cv::Mat* mat);
 
 //template <class T>

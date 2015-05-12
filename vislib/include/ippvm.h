@@ -23,7 +23,7 @@
   #include "ippdefs.h"
 #endif
 
-#ifdef __cplusplus
+#if 0
 extern "C" {
 #endif
 
@@ -359,7 +359,7 @@ IPPAPI( IppStatus, ippsNearbyInt_64f, (const Ipp64f a[],Ipp64f r[],Ipp32s n))
 IPPAPI( IppStatus, ippsModf_32f, (const Ipp32f a[],Ipp32f r1[],Ipp32f r2[],Ipp32s n))
 IPPAPI( IppStatus, ippsModf_64f, (const Ipp64f a[],Ipp64f r1[],Ipp64f r2[],Ipp32s n))
 
-#ifdef __cplusplus
+#if 0
 }
 #endif
 

@@ -111,36 +111,35 @@ inline	IMG_VVOID*	MEM_Malloc(IMG_ULWORD ulSize, IMG_UWORD uwBank)
 	return ptr;
 }
 
-IMG_WORD DSP_AddC_rrr(IMG_RBUF	const	*prbSbuf,
-	IMG_COORD const	*pcoSoff,
-	IMG_REAL	const	rConst,
-	IMG_RBUF			*prbDbuf,
-	IMG_COORD const	*pcoDoff,
-	IMG_SIZE	const	*pszOpsize);
+template <class T>
+VIS_XXPORT IMG_WORD DSP_AddC_impl(
+	VIS_BUF_T<T>			const	*prbSbuf,
+	IMG_COORD				const	*pcoSoff,
+	T						const	rConst,
+	VIS_BUF_T<T>			*prbDbuf,
+	IMG_COORD		const	*pcoDoff,
+	IMG_SIZE		const	*pszOpsize);
 
-IMG_WORD DSP_FillBuffer_r(IMG_REAL	const rValue,
-	IMG_RBUF		  *prbBuf,
+#define DSP_AddC_rrr DSP_AddC_impl
+
+template <class T>
+VIS_XXPORT IMG_WORD DSP_FillBuffer_impl(T	const rValue,
+	VIS_BUF_T<T>		  *prbBuf,
 	IMG_COORD const *pcoOff,
 	IMG_SIZE	const *pszSize);
 
-IMG_WORD  DSP_Copy_rr(IMG_RBUF	const *prbSbuf,
+#define DSP_FillBuffer_r DSP_FillBuffer_impl
+
+template <class T, class T2>
+VIS_XXPORT IMG_WORD  DSP_Copy_impl(VIS_BUF_T<T>	const *prbSbuf,
 	IMG_COORD const *pcoSoff,
-	IMG_RBUF		  *prbDbuf,
+	VIS_BUF_T<T2>		  *prbDbuf,
 	IMG_COORD const *pcoDoff,
 	IMG_SIZE	const *pszOpsize);
 
-IMG_WORD  DSP_Copy_ubr(IMG_UBBUF const *pubbSbuf,
-	IMG_COORD const *pcoSoff,
-	IMG_RBUF 	   *prbDbuf,
-	IMG_COORD const *pcoDoff,
-	IMG_SIZE  const *pszOpsize);
-
-IMG_WORD  DSP_Copy_rub(IMG_RBUF  const *prbSbuf,
-	IMG_COORD const *pcoSoff,
-	IMG_UBBUF 	   *pubbDbuf,
-	IMG_COORD const *pcoDoff,
-	IMG_SIZE  const *pszOpsize);
-
+#define  DSP_Copy_rr DSP_Copy_impl
+#define  DSP_Copy_ubr DSP_Copy_impl
+#define  DSP_Copy_rub DSP_Copy_impl
 
 #include <ippi.h>
 #include <ippm.h>

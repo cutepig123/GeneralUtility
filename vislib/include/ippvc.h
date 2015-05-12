@@ -23,7 +23,7 @@
 #include "ippdefs.h"
 #endif
 
-#ifdef __cplusplus
+#if 0
 extern "C" {
 #endif
 
@@ -8735,7 +8735,7 @@ IPPAPI(IppStatus, ippiDeinterlaceEdgeDetect_8u_C1R, (const Ipp8u *pSrc,
                                                      int fieldNum,
                                                      int bCopyBorder))
 
-#if defined __cplusplus
+#if 0
 }
 #endif
 

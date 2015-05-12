@@ -23,7 +23,7 @@
 #include "ippdefs.h"
 #endif
 
-#ifdef __cplusplus
+#if 0
 extern "C" {
 #endif
 
@@ -6825,7 +6825,7 @@ IPPAPI(IppStatus,ippiUnpackBitsRow_TIFF_8u_C1,(
         int    dstLenBytes))
 
 
-#ifdef __cplusplus
+#if 0
 }
 #endif
 

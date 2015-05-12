@@ -18,7 +18,7 @@
   #include "ippdefs.h"
 #endif
 
-#ifdef __cplusplus
+#if 0
 extern "C" {
 #endif
 
@@ -271,7 +271,7 @@ IPPAPI( int, ippGetNumCoresOnDie,( void ))
   #define __stdcall __cdecl
 #endif
 
-#ifdef __cplusplus
+#if 0
 }
 #endif
 

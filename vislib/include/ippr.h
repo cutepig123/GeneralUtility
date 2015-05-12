@@ -24,7 +24,7 @@
   #include "ippdefs.h"
 #endif
 
-#ifdef __cplusplus
+#if 0
 extern "C" {
 #endif
 
@@ -552,7 +552,7 @@ IPPAPI(IppStatus, ipprTriangleNormal_32f,(
        int             lenTrngl
     ))
 
-#ifdef __cplusplus
+#if 0
 }
 #endif
 

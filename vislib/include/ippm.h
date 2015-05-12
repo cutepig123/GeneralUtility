@@ -23,7 +23,7 @@
 #include "ippdefs.h"
 #endif
 
-#ifdef __cplusplus
+#if 0
 extern "C" {
 #endif
 
@@ -4542,7 +4542,7 @@ IPPAPI(IppStatus, ippmAffineTransform3DH_mva_32f,(const Ipp32f* pSrc1, int src1S
                                                   const Ipp32f* pSrc2, int src2Stride0, int src2Stride2,
                                                     Ipp32f* pDst,  int dstStride0,  int dstStride2,
                                                     int count))
-#if defined __cplusplus
+#if 0
 }
 #endif
 

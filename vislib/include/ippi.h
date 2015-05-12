@@ -23,9 +23,6 @@
   #include "ippdefs.h"
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #if !defined( _OWN_BLDPCS )
 
@@ -689,8 +686,12 @@ IPPAPI(IppStatus, ippiMulC_32f_AC4R, (const Ipp32f* pSrc, int srcStep, const Ipp
 //    roiSize                  Size of the ROI
 */
 
-IPPAPI(IppStatus, ippiAddC_32f_C1IR,  (Ipp32f value, Ipp32f* pSrcDst, int srcDstStep,
-                                       IppiSize roiSize))
+template <class T>
+IPPAPI(IppStatus, ippiAddC_C1IR_impl, (T value, T* pSrcDst, int srcDstStep,
+IppiSize roiSize))
+
+#define ippiAddC_32f_C1IR ippiAddC_C1IR_impl
+
 IPPAPI(IppStatus, ippiAddC_32f_C3IR,  (const Ipp32f value[3], Ipp32f* pSrcDst, int srcDstStep,
                                        IppiSize roiSize))
 IPPAPI(IppStatus, ippiAddC_32f_C4IR,  (const Ipp32f value[4], Ipp32f* pSrcDst, int srcDstStep,
@@ -14530,9 +14531,6 @@ IPPAPI(IppStatus, ippiMedian_8u_P3C1R, (const Ipp8u *pSrc[3],
                                         IppiSize size))
 
 
-#ifdef __cplusplus
-}
-#endif
 
 #if defined (_IPP_STDCALL_CDECL)
   #undef  _IPP_STDCALL_CDECL

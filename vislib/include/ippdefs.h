@@ -14,7 +14,7 @@
 #ifndef __IPPDEFS_H__
 #define __IPPDEFS_H__
 
-#ifdef __cplusplus
+#if 0
 extern "C" {
 #endif
 
@@ -603,7 +603,7 @@ typedef enum {
 #endif /* _OWN_BLDPCS */
 
 
-#ifdef __cplusplus
+#if 0
 }
 #endif
 

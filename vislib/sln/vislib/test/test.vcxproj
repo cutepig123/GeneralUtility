@@ -89,7 +89,13 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\src\test\gtest_mem-master\gtest_mem_main.cpp" />
     <ClCompile Include="..\..\..\src\test\gtest_mem-master\test\fixture.cpp" />
+    <ClCompile Include="..\..\..\src\test\test_loadimag.cpp" />
     <ClCompile Include="stdafx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\vislib\vislib.vcxproj">
+      <Project>{987c2d87-6352-496b-898c-5466de7c4e6d}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

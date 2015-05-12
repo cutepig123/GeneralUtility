@@ -22,7 +22,7 @@
 #include "ippdefs.h"
 
 
-#ifdef __cplusplus
+#if 0
 extern "C" {
 #endif
 
@@ -5897,7 +5897,7 @@ IPPAPI(IppStatus, ippsAnalysisFilterInitAlloc_PQMF_MP3_32f, (IppsFilterSpec_PQMF
 IPPAPI(IppStatus, ippsAnalysisFilterFree_PQMF_MP3_32f, (IppsFilterSpec_PQMF_MP3 *pFilterSpec))
 
 
-#ifdef __cplusplus
+#if 0
 }
 #endif
 

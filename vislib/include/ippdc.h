@@ -23,7 +23,7 @@
   #include "ippdefs.h"
 #endif
 
-#ifdef __cplusplus
+#if 0
 extern "C" {
 #endif
 
@@ -2677,7 +2677,7 @@ IPPAPI(IppStatus, ippsVLCDecodeUTupleOne_1u16s,(Ipp8u                        **p
                                            const IppsVLCDecodeUTupleSpec_32s  *pVLCSpec))
 
 
-#ifdef __cplusplus
+#if 0
 }
 #endif
 
