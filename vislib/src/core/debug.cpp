@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include <stdio.h>
+#include <vis/debug.h>
 
 void TRACE(const char *fmt, ...)
 {
@@ -11,4 +12,11 @@ void TRACE(const char *fmt, ...)
 	va_end(l);
 
 	OutputDebugString(s);
+}
+
+void DBG_CrtMemCheckpoint(
+	_CrtMemState * _State
+	)
+{
+	_CrtMemCheckpoint(_State);
 }

@@ -10,6 +10,7 @@
 #include <iostream>
 #include <crtdbg.h>
 #include <gtest/gtest.h>
+#include <vis/debug.h>
 
 using namespace std;
 using namespace testing;
@@ -23,6 +24,7 @@ namespace testing
     virtual void OnTestStart(const TestInfo&)
     {
       _CrtMemCheckpoint(&memState_);
+	  DBG_CrtMemCheckpoint(&memState_vis);
     }
 
     virtual void OnTestEnd(const TestInfo& test_info){
@@ -36,10 +38,22 @@ namespace testing
           FAIL() << "Memory leak of " << stateDiff.lSizes[1] << " byte(s) detected.";
         }
       }
+
+	  if (test_info.result()->Passed())
+	  {
+		  _CrtMemState stateNow, stateDiff;
+		  DBG_CrtMemCheckpoint(&stateNow);
+		  int diffResult = _CrtMemDifference(&stateDiff, &memState_, &stateNow);
+		  if (diffResult)
+		  {
+			  FAIL() << "DBG Memory leak of " << stateDiff.lSizes[1] << " byte(s) detected.";
+		  }
+	  }
     }
 
   private:
     _CrtMemState memState_;
+	_CrtMemState memState_vis;
 #endif // _DEBUG
   };
 }

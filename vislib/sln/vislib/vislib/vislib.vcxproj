@@ -83,10 +83,12 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\include\vis\asm.h" />
     <ClInclude Include="..\..\..\include\vis\core.h" />
+    <ClInclude Include="..\..\..\include\vis\edgedetect.h" />
     <ClInclude Include="..\..\..\include\vis\debug.h" />
     <ClInclude Include="..\..\..\include\vis\export.h" />
     <ClInclude Include="..\..\..\include\vis\GUI.h" />
     <ClInclude Include="..\..\..\include\vis\IO.h" />
+    <ClInclude Include="..\..\..\include\vis\malloc.h" />
     <ClInclude Include="..\..\..\include\vis\moduleid.h" />
     <ClInclude Include="..\..\..\include\vis\opencv.h" />
     <ClInclude Include="..\..\..\include\vis\stack.h" />
