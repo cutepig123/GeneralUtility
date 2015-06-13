@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>Selection algorithm - Wikipedia, the free encyclopedia</title>
+<meta name="generator" content="MediaWiki 1.22wmf12" />
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="/w/index.php?title=Selection_algorithm&amp;action=edit" />
+<link rel="edit" title="Edit this page" href="/w/index.php?title=Selection_algorithm&amp;action=edit" />
+<link rel="shortcut icon" href="//bits.wikimedia.org/favicon/wikipedia.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/w/opensearch_desc.php" title="Wikipedia (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="//en.wikipedia.org/w/api.php?action=rsd" />
+<link rel="copyright" href="//creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="Wikipedia Atom feed" href="/w/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="canonical" href="http://en.wikipedia.org/wiki/Selection_algorithm" />
+<link rel="stylesheet" href="//bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&amp;lang=en&amp;modules=ext.gadget.DRN-wizard%2CReferenceTooltips%2Ccharinsert%2Cteahouse%7Cext.rtlcite%2Cwikihiero%7Cext.uls.nojs%7Cmediawiki.legacy.commonPrint%2Cshared%7Cmw.PopUpMediaTransform%7Cskins.vector&amp;only=styles&amp;skin=vector&amp;*" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="//bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=vector&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:d11e4771671c2d6cdedf7c90d8131cd5 */</style>
+
+<script src="//bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Selection_algorithm","wgTitle":"Selection algorithm","wgCurRevisionId":566643611,"wgArticleId":552786,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["All articles with unsourced statements","Articles with unsourced statements from December 2009","Selection algorithms"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Selection_algorithm","wgIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgVectorEnabledModules":{"collapsiblenav":true,"expandablesearch":false,"footercleanup":true,"sectioneditlinks":false,"experiments":true},"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":false,"previewDialog":false,"publish":false,"toc":false},"wgArticleFeedbackv5Permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgVisualEditor":{"isPageWatched":false,"pageLanguageCode":"en","pageLanguageDir":"ltr","magnifyClipIconURL":"//bits.wikimedia.org/static-1.22wmf12/skins/common/images/magnify-clip.png"},"wikilove-recipient":"","wikilove-anon":0,"wgGuidedTourHelpGuiderUrl":"Help:Guided tours/guider","wgULSAcceptLanguageList":[],"wgFlaggedRevsParams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgStableRevisionId":null,"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","Geo":{"city":"","country":""},"wgNoticeProject":"wikipedia","aftv5Article":{"id":552786,"title":"Selection algorithm","namespace":0,"categories":["All articles with unsourced statements","Articles with unsourced statements from December 2009","Selection algorithms"],"permissionLevel":false},"wgWikibaseItemId":"q3252726"});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":false,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"vector-simplesearch":1,"vector-collapsiblenav":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":1,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true,"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":true,"echo-subscriptions-email-reverted":
+false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"searchNs100":false,"searchNs101":false,"searchNs108":false,"searchNs109":false,"searchNs446":false,"searchNs447":false,"searchNs710":false,"searchNs711":false,"searchNs828":false,"searchNs829":false,"gadget-teahouse":1,"gadget-ReferenceTooltips":1,"gadget-DRN-wizard":1,"gadget-charinsert":1,
+"gadget-mySandbox":1});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: enwiki:resourceloader:filter:minify-js:7:f3b3aab0a5ce3a6f53c872b2a5937b9d */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.vector.footerCleanup","ext.visualEditor.viewPageTarget.init","ext.wikimediaShopLink.core","ext.uls.init","ext.uls.interface","wikibase.client.init","ext.centralNotice.bannerController","skins.vector.js"]);
+}</script>
+<script src="//bits.wikimedia.org/geoiplookup"></script><link rel="dns-prefetch" href="//meta.wikimedia.org" /><!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/static-1.22wmf12/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Selection_algorithm skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<div id="siteNotice"><!-- CentralNotice --><script>document.write("\u003Cdiv id=\"localNotice\" lang=\"en\" dir=\"ltr\"\u003E\u003Cp\u003E\u003C/p\u003E\n\u003C/div\u003E");</script></div>
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Selection algorithm</span></h1>
+			<div id="bodyContent">
+								<div id="siteSub">From Wikipedia, the free encyclopedia</div>
+								<div id="contentSub"></div>
+																<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-navigation">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+								<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="dablink">For simulated natural selection in genetic algorithms, see <a href="/wiki/Selection_(genetic_algorithm)" title="Selection (genetic algorithm)">Selection (genetic algorithm)</a>.</div>
+<p>In <a href="/wiki/Computer_science" title="Computer science">computer science</a>, a <b>selection algorithm</b> is an <a href="/wiki/Algorithm" title="Algorithm">algorithm</a> for finding the <i>k</i>th smallest number in a list (such a number is called the <i>k</i>th <i><a href="/wiki/Order_statistic" title="Order statistic">order statistic</a></i>). This includes the cases of finding the <a href="/wiki/Minimum" title="Minimum" class="mw-redirect">minimum</a>, <a href="/wiki/Maximum" title="Maximum" class="mw-redirect">maximum</a>, and <a href="/wiki/Median" title="Median">median</a> elements. There are O(<i>n</i>), worst-case linear time, selection algorithms. Selection is a subproblem of more complex problems like the <a href="/wiki/Nearest_neighbor_problem" title="Nearest neighbor problem" class="mw-redirect">nearest neighbor problem</a> and <a href="/wiki/Shortest_path" title="Shortest path" class="mw-redirect">shortest path</a> problems.</p>
+<div id="toc" class="toc">
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Selection_by_sorting"><span class="tocnumber">1</span> <span class="toctext">Selection by sorting</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Linear_minimum.2Fmaximum_algorithms"><span class="tocnumber">2</span> <span class="toctext">Linear minimum/maximum algorithms</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Nonlinear_general_selection_algorithm"><span class="tocnumber">3</span> <span class="toctext">Nonlinear general selection algorithm</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Partition-based_general_selection_algorithm"><span class="tocnumber">4</span> <span class="toctext">Partition-based general selection algorithm</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Linear_general_selection_algorithm_-_Median_of_Medians_algorithm"><span class="tocnumber">5</span> <span class="toctext">Linear general selection algorithm - Median of Medians algorithm</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Properties_of_pivot"><span class="tocnumber">5.1</span> <span class="toctext">Properties of pivot</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Proof_of_O.28n.29_running_time"><span class="tocnumber">5.2</span> <span class="toctext">Proof of O(n) running time</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Important_notes"><span class="tocnumber">5.3</span> <span class="toctext">Important notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Introselect"><span class="tocnumber">6</span> <span class="toctext">Introselect</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Selection_as_incremental_sorting"><span class="tocnumber">7</span> <span class="toctext">Selection as incremental sorting</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Using_data_structures_to_select_in_sublinear_time"><span class="tocnumber">8</span> <span class="toctext">Using data structures to select in sublinear time</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Selecting_k_smallest_or_largest_elements"><span class="tocnumber">9</span> <span class="toctext">Selecting k smallest or largest elements</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Lower_bounds"><span class="tocnumber">10</span> <span class="toctext">Lower bounds</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#Language_support"><span class="tocnumber">11</span> <span class="toctext">Language support</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#Online_selection_algorithm"><span class="tocnumber">12</span> <span class="toctext">Online selection algorithm</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#Notes"><span class="tocnumber">13</span> <span class="toctext">Notes</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="#References"><span class="tocnumber">14</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-18"><a href="#External_links"><span class="tocnumber">15</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Selection_by_sorting">Selection by sorting</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Selection_algorithm&amp;action=edit&amp;section=1" title="Edit section: Selection by sorting">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Selection can be <a href="/wiki/Reduction_(complexity)" title="Reduction (complexity)">reduced</a> to <a href="/wiki/Sorting_algorithm" title="Sorting algorithm">sorting</a> by sorting the list and then extracting the desired element. This method is efficient when many selections need to be made from a list, in which case only one initial, expensive sort is needed, followed by many cheap extraction operations. In general, this method requires O(<i>n</i> log <i>n</i>) time, where <i>n</i> is the length of the list (although a lower bound is possible with non-comparative sorting algorithms like <a href="/wiki/Radix_sort" title="Radix sort">radix sort</a> and <a href="/wiki/Counting_sort" title="Counting sort">counting sort</a>).</p>
+<h2><span class="mw-headline" id="Linear_minimum.2Fmaximum_algorithms">Linear minimum/maximum algorithms</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Selection_algorithm&amp;action=edit&amp;section=2" title="Edit section: Linear minimum/maximum algorithms">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Linear time algorithms to find minima or maxima work by iterating over the list and keeping track of the minimum or maximum element so far.</p>
+<h2><span class="mw-headline" id="Nonlinear_general_selection_algorithm">Nonlinear general selection algorithm</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Selection_algorithm&amp;action=edit&amp;section=3" title="Edit section: Nonlinear general selection algorithm">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Using the same ideas used in minimum/maximum algorithms, we can construct a simple, but inefficient general algorithm for finding the <i>k</i>th smallest or <i>k</i>th largest item in a list, requiring O(<i>kn</i>) time, which is effective when <i>k</i> is small. To accomplish this, we simply find the most extreme value and move it to the beginning until we reach our desired index. This can be seen as an incomplete <a href="/wiki/Selection_sort" title="Selection sort">selection sort</a>. Here is the minimum-based algorithm:</p>
+<pre>
+ <b>function</b> select(list[1..n], k)
+     <b>for</b> i <b>from</b> 1 <b>to</b> k
+         minIndex = i
+         minValue = list[i]
+         <b>for</b> j <b>from</b> i+1 <b>to</b> n
+             <b>if</b> list[j] &lt; minValue
+                 minIndex = j
+                 minValue = list[j]
+         swap list[i] and list[minIndex]
+     <b>return</b> list[k]
+</pre>
+<p>Other advantages of this method are:</p>
+<ul>
+<li>After locating the <i>j</i>th smallest element, it requires only O(<i>j</i> + (<i>k</i>-<i>j</i>)<sup>2</sup>) time to find the <i>k</i>th smallest element, or only O(1) for <i>k</i> ≤ <i>j</i>.</li>
+<li>It can be done with <a href="/wiki/Linked_list" title="Linked list">linked list</a> data structures, whereas the one based on partition requires <a href="/wiki/Random_access" title="Random access">random access</a>.</li>
+</ul>
+<h2><span class="mw-headline" id="Partition-based_general_selection_algorithm">Partition-based general selection algorithm</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Selection_algorithm&amp;action=edit&amp;section=4" title="Edit section: Partition-based general selection algorithm">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>A general selection algorithm that is efficient in practice, but has poor worst-case performance, was conceived by the inventor of <a href="/wiki/Quicksort" title="Quicksort">quicksort</a>, <a href="/wiki/C.A.R._Hoare" title="C.A.R. Hoare" class="mw-redirect">C.A.R. Hoare</a>, and is known as <b>Hoare's selection algorithm</b> or <b>quickselect</b>.</p>
+<p>In quicksort, there is a subprocedure called partition that can, in linear time, group a list (ranging from indices <code>left</code> to <code>right</code>) into two parts, those less than a certain element, and those greater than or equal to the element. Here is pseudocode that performs a partition about the element <code>list[pivotIndex]</code>:</p>
+<pre>
+ <b>function</b> partition(list, left, right, pivotIndex)
+     pivotValue := list[pivotIndex]
+     swap list[pivotIndex] and list[right]  <i>// Move pivot to end</i>
+     storeIndex := left
+     <b>for</b> i <b>from</b> left <b>to</b> right-1
+         <b>if</b> list[i] &lt; pivotValue
+             swap list[storeIndex] and list[i]
+             increment storeIndex
+     swap list[right] and list[storeIndex]  <i>// Move pivot to its final place</i>
+     <b>return</b> storeIndex
+</pre>
+<p>In quicksort, we recursively sort both branches, leading to best-case <a href="/wiki/Big-O_notation" title="Big-O notation" class="mw-redirect">Ω</a>(<i>n</i> log <i>n</i>) time. However, when doing selection, we already know which partition our desired element lies in, since the pivot is in its final sorted position, with all those preceding it in sorted order and all those following it in sorted order. Thus a single recursive call locates the desired element in the correct partition:</p>
+<pre>
+ <i>// Returns the k-th smallest element of list within left..right inclusive.</i>
+ <b>function</b> select(list, left, right, k)
+     <b>if</b> left = right        <i>// If the list contains only one element</i>
+         <b>return</b> list[left]  <i>// Return that element</i>
+     pivotIndex := ...     <i>// select a pivotIndex between left and right</i>
+     pivotNewIndex := partition(list, left, right, pivotIndex)
+     pivotDist := pivotNewIndex + 1
+     <i>// The pivot is in its final sorted position,</i>
+     <i>// so pivotDist reflects its 1-based position if list were sorted</i>
+     <b>if</b> pivotDist = k
+         <b>return</b> list[pivotNewIndex]
+     <b>else if</b> k &lt; pivotDist
+         <b>return</b> select(list, left, pivotNewIndex - 1, k)
+     <b>else</b>
+         <b>return</b> select(list, pivotNewIndex + 1, right, k - pivotDist)
+</pre>
+<p>Note the resemblance to quicksort: just as the minimum-based selection algorithm is a partial selection sort, this is a partial quicksort, generating and partitioning only O(log <i>n</i>) of its O(<i>n</i>) partitions. This simple procedure has expected linear performance, and, like quicksort, has quite good performance in practice. It is also an <a href="/wiki/In-place_algorithm" title="In-place algorithm">in-place algorithm</a>, requiring only constant memory overhead, since the <a href="/wiki/Tail_recursion" title="Tail recursion" class="mw-redirect">tail recursion</a> can be eliminated with a loop like this:</p>
+<pre>
+ <b>function</b> select(list, left, right, k)
+     <b>loop</b>
+         pivotIndex := ...     <i>// select pivotIndex between left and right</i>
+         pivotNewIndex := partition(list, left, right, pivotIndex)
+         pivotDist := pivotNewIndex + 1
+         <b>if</b> pivotDist = k
+             <b>return</b> list[pivotNewIndex]
+         <b>else if</b> k &lt; pivotDist
+             right := pivotNewIndex - 1
+         <b>else</b>
+             k := k - pivotDist
+             left := pivotNewIndex + 1
+</pre>
+<p>Like quicksort, the performance of the algorithm is sensitive to the pivot that is chosen. If bad pivots are consistently chosen, this degrades to the minimum-based selection described previously, and so can require as much as O(<i>n</i><sup>2</sup>) time. David Musser describes a "median-of-3 killer" sequence that can force the well-known median-of-three pivot selection algorithm to fail with worst-case behavior (see <i><a href="#Introselect">Introselect</a></i> section below).</p>
+<h2><span class="mw-headline" id="Linear_general_selection_algorithm_-_Median_of_Medians_algorithm">Linear general selection algorithm - Median of Medians algorithm</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Selection_algorithm&amp;action=edit&amp;section=5" title="Edit section: Linear general selection algorithm - Median of Medians algorithm">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<table class="infobox" cellspacing="3" style="border-spacing:3px;width:22em;">
+<caption>Median of Medians</caption>
+<tr>
+<th scope="row" style="text-align:left;">Class</th>
+<td><b>Selection algorithm</b></td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">Data structure</th>
+<td><a href="/wiki/Array_data_structure" title="Array data structure">Array</a></td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;"><a href="/wiki/Best,_worst_and_average_case" title="Best, worst and average case">Worst case performance</a></th>
+<td><img class="tex" alt="O(n)" src="//upload.wikimedia.org/math/7/b/a/7ba55e7c64a9405a0b39a1107e90ca94.png" /></td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;"><a href="/wiki/Best,_worst_and_average_case" title="Best, worst and average case">Best case performance</a></th>
+<td><img class="tex" alt="O(n)" src="//upload.wikimedia.org/math/7/b/a/7ba55e7c64a9405a0b39a1107e90ca94.png" /></td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;"><a href="/wiki/Best,_worst_and_average_case" title="Best, worst and average case">Worst case space complexity</a></th>
+<td><img class="tex" alt="O(1)" src="//upload.wikimedia.org/math/5/e/0/5e079a28737d5dd019a3b8f6133ee55e.png" /> auxiliary</td>
+</tr>
+</table>
+<p>A worst-case linear algorithm for the general case of selecting the <i>k</i>th largest element was published by <a href="/wiki/Manuel_Blum" title="Manuel Blum">Blum</a>, <a href="/wiki/Robert_Floyd" title="Robert Floyd" class="mw-redirect">Floyd</a>, <a href="/wiki/Vaughan_Ronald_Pratt" title="Vaughan Ronald Pratt" class="mw-redirect">Pratt</a>, <a href="/wiki/Ron_Rivest" title="Ron Rivest">Rivest</a> and <a href="/wiki/Robert_Tarjan" title="Robert Tarjan">Tarjan</a> in their 1973 paper "Time bounds for selection", sometimes called <b>BFPRT</b> after the last names of the authors. It is based on the quickselect algorithm and is also known as the <b>median-of-medians algorithm</b>.</p>
+<p>Although quickselect is linear-time on average, it can require quadratic time with poor pivot choices (consider the case of pivoting around the largest element at each step). The solution to make it O(n) in the <i>worst</i> case is to consistently find "good" pivots. A good pivot is one for which we can establish that a constant proportion of elements fall both below and above it.</p>
+<p>The <i>Select</i> algorithm divides the list into groups of five elements. (Left over elements are ignored for now.) Then, for each group of five, the median is calculated (an operation that can potentially be made very fast if the five values can be loaded into <a href="/wiki/Processor_register" title="Processor register">registers</a> and compared). (If sorting in-place, then these medians are moved into one contiguous block in the list.) <i>Select</i> is then called recursively on this sublist of <i>n</i>/5 elements to find their true median. Finally, the "median of medians" is chosen to be the pivot.</p>
+<pre>
+ <i>//returns the index of the median of medians.</i>
+ <i>//requires a variant of select, "selectIdx"</i>
+ <i>//which returns the index of the selected item rather than the value</i>
+ <b>function</b> medianOfMedians(list, left, right)
+     numMedians = (right - left) / 5
+     <b>for</b> i <b>from</b> 0 <b>to</b> numMedians
+         <i>//get the median of the five-element subgroup</i>
+         subLeft := left + i*5
+         subRight := subLeft + 4
+         if (subRight &gt; right) subRight := right
+         <i>//alternatively, use a faster method that works on lists of size 5</i>
+         medianIdx := selectIdx(list, subLeft, subRight, (subRight - subLeft) / 2)
+         <i>//move the median to a contiguous block at the beginning of the list</i>
+         swap list[left+i] and list[medianIdx]
+     <i>//select the median from the contiguous block</i>
+     <b>return</b> selectIdx(list, left, left + numMedians, numMedians / 2)
+</pre>
+<h3><span class="mw-headline" id="Properties_of_pivot">Properties of pivot</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Selection_algorithm&amp;action=edit&amp;section=6" title="Edit section: Properties of pivot">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>The chosen pivot is both less than and greater than half of the elements in the list of medians, which is around <i>n</i>/10 elements (½×<i>n</i>/5) for each half. Each of these elements is a median of 5, making it less than 2 other elements and greater than 2 other elements outside the block. Hence, the pivot is less than 3(<i>n</i>/10) elements outside the block, and greater than another 3(<i>n</i>/10) elements inside the block. Thus the chosen median splits the elements somewhere between 30%/70% and 70%/30%, which assures worst-case linear behavior of the algorithm. To visualize:</p>
+<table class="wikitable" border="1">
+<caption>One iteration on the list {0,1,2,3,...99}</caption>
+<tr>
+<th></th>
+<td bgcolor="gray">12</td>
+<td></td>
+<td bgcolor="gray">15</td>
+<td></td>
+<td bgcolor="gray">11</td>
+<td></td>
+<td bgcolor="gray">2</td>
+<td></td>
+<td bgcolor="gray">9</td>
+<td></td>
+<td bgcolor="gray">5</td>
+<td></td>
+<td bgcolor="gray">0</td>
+<td></td>
+<td bgcolor="gray">7</td>
+<td></td>
+<td bgcolor="gray">3</td>
+<td></td>
+<td bgcolor="gray">21</td>
+<td></td>
+<td bgcolor="gray">44</td>
+<td></td>
+<td bgcolor="gray">40</td>
+<td></td>
+<td bgcolor="gray">1</td>
+<td></td>
+<td bgcolor="gray">18</td>
+<td></td>
+<td bgcolor="gray">20</td>
+<td></td>
+<td bgcolor="gray">32</td>
+<td></td>
+<td bgcolor="gray">19</td>
+<td></td>
+<td bgcolor="gray">35</td>
+<td></td>
+<td bgcolor="gray">37</td>
+<td></td>
+<td bgcolor="gray">39</td>
+</tr>
+<tr>
+<th></th>
+<td bgcolor="gray">13</td>
+<td></td>
+<td bgcolor="gray">16</td>
+<td></td>
+<td bgcolor="gray">14</td>
+<td></td>
+<td bgcolor="gray">8</td>
+<td></td>
+<td bgcolor="gray">10</td>
+<td></td>
+<td bgcolor="gray">26</td>
+<td></td>
+<td bgcolor="gray">6</td>
+<td></td>
+<td bgcolor="gray">33</td>
+<td></td>
+<td bgcolor="gray">4</td>
+<td></td>
+<td bgcolor="gray">27</td>
+<td></td>
+<td bgcolor="white">49</td>
+<td></td>
+<td bgcolor="gray">46</td>
+<td></td>
+<td bgcolor="white">52</td>
+<td></td>
+<td bgcolor="gray">25</td>
+<td></td>
+<td bgcolor="white">51</td>
+<td></td>
+<td bgcolor="gray">34</td>
+<td></td>
+<td bgcolor="gray">43</td>
+<td></td>
+<td bgcolor="white">56</td>
+<td></td>
+<td bgcolor="white">72</td>
+<td></td>
+<td bgcolor="white">79</td>
+</tr>
+<tr>
+<th>Medians</th>
+<td bgcolor="gray">17</td>
+<td></td>
+<td bgcolor="gray">23</td>
+<td></td>
+<td bgcolor="gray">24</td>
+<td></td>
+<td bgcolor="gray">28</td>
+<td></td>
+<td bgcolor="gray">29</td>
+<td></td>
+<td bgcolor="gray">30</td>
+<td></td>
+<td bgcolor="gray">31</td>
+<td></td>
+<td bgcolor="gray">36</td>
+<td></td>
+<td bgcolor="gray">42</td>
+<td></td>
+<td bgcolor="red">47</td>
+<td></td>
+<td bgcolor="white">50</td>
+<td></td>
+<td bgcolor="white">55</td>
+<td></td>
+<td bgcolor="white">58</td>
+<td></td>
+<td bgcolor="white">60</td>
+<td></td>
+<td bgcolor="white">63</td>
+<td></td>
+<td bgcolor="white">65</td>
+<td></td>
+<td bgcolor="white">66</td>
+<td></td>
+<td bgcolor="white">67</td>
+<td></td>
+<td bgcolor="white">81</td>
+<td></td>
+<td bgcolor="white">83</td>
+</tr>
+<tr>
+<th></th>
+<td bgcolor="gray">22</td>
+<td></td>
+<td bgcolor="gray">45</td>
+<td></td>
+<td bgcolor="gray">38</td>
+<td></td>
+<td bgcolor="white">53</td>
+<td></td>
+<td bgcolor="white">61</td>
+<td></td>
+<td bgcolor="gray">41</td>
+<td></td>
+<td bgcolor="white">62</td>
+<td></td>
+<td bgcolor="white">82</td>
+<td></td>
+<td bgcolor="white">54</td>
+<td></td>
+<td bgcolor="white">48</td>
+<td></td>
+<td bgcolor="white">59</td>
+<td></td>
+<td bgcolor="white">57</td>
+<td></td>
+<td bgcolor="white">71</td>
+<td></td>
+<td bgcolor="white">78</td>
+<td></td>
+<td bgcolor="white">64</td>
+<td></td>
+<td bgcolor="white">80</td>
+<td></td>
+<td bgcolor="white">70</td>
+<td></td>
+<td bgcolor="white">76</td>
+<td></td>
+<td bgcolor="white">85</td>
+<td></td>
+<td bgcolor="white">87</td>
+</tr>
+<tr>
+<th></th>
+<td bgcolor="white">96</td>
+<td></td>
+<td bgcolor="white">95</td>
+<td></td>
+<td bgcolor="white">94</td>
+<td></td>
+<td bgcolor="white">86</td>
+<td></td>
+<td bgcolor="white">89</td>
+<td></td>
+<td bgcolor="white">69</td>
+<td></td>
+<td bgcolor="white">68</td>
+<td></td>
+<td bgcolor="white">97</td>
+<td></td>
+<td bgcolor="white">73</td>
+<td></td>
+<td bgcolor="white">92</td>
+<td></td>
+<td bgcolor="white">74</td>
+<td></td>
+<td bgcolor="white">88</td>
+<td></td>
+<td bgcolor="white">99</td>
+<td></td>
+<td bgcolor="white">84</td>
+<td></td>
+<td bgcolor="white">75</td>
+<td></td>
+<td bgcolor="white">90</td>
+<td></td>
+<td bgcolor="white">77</td>
+<td></td>
+<td bgcolor="white">93</td>
+<td></td>
+<td bgcolor="white">98</td>
+<td></td>
+<td bgcolor="white">91</td>
+</tr>
+</table>
+<p>(red = "(one of the two possible) median of medians", gray = "number &lt; red", white = "number &gt; red")</p>
+<p>5-tuples are shown here sorted by median, for clarity. Sorting the tuples is not necessary because we only need the median for use as pivot element.</p>
+<p>Note that all elements above/left of the red (30% of the 100 elements) are less, and all elements below/right of the red (another 30% of the 100 elements) are greater.</p>
+<h3><span class="mw-headline" id="Proof_of_O.28n.29_running_time">Proof of O(n) running time</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Selection_algorithm&amp;action=edit&amp;section=7" title="Edit section: Proof of O(n) running time">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>The median-calculating recursive call does not exceed worst-case linear behavior because the list of medians is 20% of the size of the list, while the other recursive call recurses on at most 70% of the list, making the running time</p>
+<dl>
+<dd><img class="tex" alt="T(n) \leq T(n \cdot 2/10) + T(n \cdot 7/10) + c \cdot n." src="//upload.wikimedia.org/math/d/6/6/d669b03804f9ee11139a5dfaa5020dd0.png" /></dd>
+</dl>
+<p>The O(<i>n</i>) term <i>c n</i> is for the partitioning work (we visited each element a constant number of times, in order to form them into n/5 groups and take each median in O(1) time).</p>
+<p>From this, using induction, one can easily show that</p>
+<dl>
+<dd><img class="tex" alt="T(n) \leq 10 \cdot c \cdot n \in O(n)." src="//upload.wikimedia.org/math/2/7/5/2750783c5460079fba0732f6df6bab8e.png" /></dd>
+</dl>
+<p><br /></p>
+<h3><span class="mw-headline" id="Important_notes">Important notes</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Selection_algorithm&amp;action=edit&amp;section=8" title="Edit section: Important notes">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Although this approach optimizes quite well, it is typically outperformed in practice by the expected linear algorithm with random pivot choices<sup class="Template-Fact" style="white-space:nowrap;">[<i><a href="/wiki/Wikipedia:Citation_needed" title="Wikipedia:Citation needed"><span title="This claim needs references to reliable sources. (December 2009)">citation needed</span></a></i>]</sup>.</p>
+<p>The median-of-medians algorithm can be used to construct a worst-case O(<i>n</i>&#160;log&#160;<i>n</i>) <a href="/wiki/Quicksort" title="Quicksort">quicksort</a> algorithm, by using it to find the median at every step.</p>
+<h2><span class="mw-headline" id="Introselect">Introselect</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Selection_algorithm&amp;action=edit&amp;section=9" title="Edit section: Introselect">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p><a href="/wiki/David_Musser" title="David Musser">David Musser</a>'s well-known <a href="/wiki/Introsort" title="Introsort">introsort</a> achieves practical performance comparable to quicksort while preserving <i>O</i>(<i>n</i> log <i>n</i>) worst-case behavior by creating a hybrid of quicksort and <a href="/wiki/Heapsort" title="Heapsort">heapsort</a>. In the same paper, Musser introduced an "introspective selection" algorithm, popularly called <b>introselect</b>, which combines Hoare's algorithm with the worst-case linear algorithm described above to achieve worst-case linear selection with performance similar to Hoare's algorithm.<sup id="cite_ref-1" class="reference"><a href="#cite_note-1"><span>[</span>1<span>]</span></a></sup> It works by optimistically starting out with Hoare's algorithm and only switching to the worst-time linear algorithm if it recurses too many times without making sufficient progress. Simply limiting the recursion to constant depth is not good enough, since this would make the algorithm switch on all sufficiently large lists. Musser discusses a couple of simple approaches:</p>
+<ul>
+<li>Keep track of the list of sizes of the subpartitions processed so far. If at any point <i>k</i> recursive calls have been made without halving the list size, for some small positive <i>k</i>, switch to the worst-case linear algorithm.</li>
+<li>Sum the size of all partitions generated so far. If this exceeds the list size times some small positive constant <i>k</i>, switch to the worst-case linear algorithm. This sum is easy to track in a single scalar variable.</li>
+</ul>
+<p>Both approaches limit the recursion depth to <i>k</i> ⌈log <i>n</i>⌉ = <i>O</i>(log <i>n</i>) and the total running time to <i>O</i>(<i>n)</i>. The paper suggested that more research on introselect was forthcoming, but the author retired in 2007 without having published any such further research.</p>
+<h2><span class="mw-headline" id="Selection_as_incremental_sorting">Selection as incremental sorting</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Selection_algorithm&amp;action=edit&amp;section=10" title="Edit section: Selection as incremental sorting">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>One of the advantages of the sort-and-index approach, as mentioned, is its ability to <a href="/wiki/Amortized_analysis" title="Amortized analysis">amortize</a> the sorting cost over many subsequent selections. However, sometimes the number of selections that will be done is not known in advance, and may be either small or large. In these cases, we can adapt the algorithms given above to simultaneously select an element while <a href="/wiki/Partial_sorting" title="Partial sorting">partially sorting</a> the list, thus accelerating future selections.</p>
+<p>Both the selection procedure based on minimum-finding and the one based on partitioning can be seen as a form of partial sort. The minimum-based algorithm sorts the list up to the given index, and so clearly speeds up future selections, especially of smaller indexes. The partition-based algorithm does not achieve the same behaviour automatically, but can be adapted to remember its previous pivot choices and reuse them wherever possible, avoiding costly partition operations, particularly the top-level one. The list becomes gradually more sorted as more partition operations are done incrementally; no pivots are ever "lost". If desired, this same pivot list could be passed on to quicksort to reuse, again avoiding many costly partition operations.</p>
+<h2><span class="mw-headline" id="Using_data_structures_to_select_in_sublinear_time">Using data structures to select in sublinear time</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Selection_algorithm&amp;action=edit&amp;section=11" title="Edit section: Using data structures to select in sublinear time">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Given an unorganized list of data, linear time (Ω(<i>n</i>)) is required to find the minimum element, because we have to examine every element (otherwise, we might miss it). If we organize the list, for example by keeping it sorted at all times, then selecting the <i>k</i>th largest element is trivial, but then insertion requires linear time, as do other operations such as combining two lists.</p>
+<p>The strategy to find an order statistic in <a href="/wiki/Sublinear_time" title="Sublinear time" class="mw-redirect">sublinear time</a> is to store the data in an organized fashion using suitable data structures that facilitate the selection. Two such data structures are tree-based structures and frequency tables.</p>
+<p>When only the minimum (or maximum) is needed, a good approach is to use a <a href="/wiki/Heap_(data_structure)" title="Heap (data structure)">heap</a>, which is able to find the minimum (or maximum) element in constant time, while all other operations, including insertion, are O(log <i>n</i>) or better. More generally, a <a href="/wiki/Self-balancing_binary_search_tree" title="Self-balancing binary search tree">self-balancing binary search tree</a> can easily be <a href="/wiki/Order_statistic_tree" title="Order statistic tree">augmented</a> to make it possible to both insert an element and find the <i>k</i>th largest element in O(log <i>n</i>) time. We simply store in each node a count of how many descendants it has, and use this to determine which path to follow. The information can be updated efficiently since adding a node only affects the counts of its O(log <i>n</i>) ancestors, and tree rotations only affect the counts of the nodes involved in the rotation.</p>
+<p>Another simple strategy is based on some of the same concepts as the <a href="/wiki/Hash_table" title="Hash table">hash table</a>. When we know the range of values beforehand, we can divide that range into <i>h</i> subintervals and assign these to <i>h</i> buckets. When we insert an element, we add it to the bucket corresponding to the interval it falls in. To find the minimum or maximum element, we scan from the beginning or end for the first nonempty bucket and find the minimum or maximum element in that bucket. In general, to find the <i>k</i>th element, we maintain a count of the number of elements in each bucket, then scan the buckets from left to right adding up counts until we find the bucket containing the desired element, then use the expected linear-time algorithm to find the correct element in that bucket.</p>
+<p>If we choose <i>h</i> of size roughly sqrt(<i>n</i>), and the input is close to uniformly distributed, this scheme can perform selections in expected O(sqrt(<i>n</i>)) time. Unfortunately, this strategy is also sensitive to clustering of elements in a narrow interval, which may result in buckets with large numbers of elements (clustering can be eliminated through a good hash function, but finding the element with the <i>k</i>th largest hash value isn't very useful). Additionally, like hash tables this structure requires table resizings to maintain efficiency as elements are added and <i>n</i> becomes much larger than <i>h</i><sup>2</sup>. A useful case of this is finding an order statistic or extremum in a finite range of data. Using above table with bucket interval 1 and maintaining counts in each bucket is much superior to other methods. Such hash tables are like <a href="/wiki/Frequency_tables" title="Frequency tables" class="mw-redirect">frequency tables</a> used to classify the data in <a href="/wiki/Descriptive_statistics" title="Descriptive statistics">descriptive statistics</a>.</p>
+<h2><span class="mw-headline" id="Selecting_k_smallest_or_largest_elements">Selecting k smallest or largest elements</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Selection_algorithm&amp;action=edit&amp;section=12" title="Edit section: Selecting k smallest or largest elements">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="rellink relarticle mainarticle">Main article: <a href="/wiki/Partial_sorting" title="Partial sorting">Partial sorting</a></div>
+<p>Another fundamental selection problem is that of selecting the <i>k</i> smallest or <i>k</i> largest elements, which is particularly useful where we want to present just the "top <i>k</i>" of an unsorted list, such as the top 100 corporations by gross sales. This is also commonly called <a href="/wiki/Partial_sorting" title="Partial sorting">partial sorting</a>.</p>
+<h2><span class="mw-headline" id="Lower_bounds">Lower bounds</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Selection_algorithm&amp;action=edit&amp;section=13" title="Edit section: Lower bounds">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>In <i><a href="/wiki/The_Art_of_Computer_Programming" title="The Art of Computer Programming">The Art of Computer Programming</a></i>, Donald E. Knuth discussed a number of lower bounds for the number of comparisons required to locate the <i>t</i> smallest entries of an unorganized list of <i>n</i> items (using only comparisons). There is a trivial lower bound of <i>n</i> − 1 for the minimum or maximum entry. To see this, consider a tournament where each game represents one comparison. Since every player except the winner of the tournament must lose a game before we know the winner, we have a lower bound of <i>n</i> − 1 comparisons.</p>
+<p>The story becomes more complex for other indexes. We define <img class="tex" alt="W_{t}(n)" src="//upload.wikimedia.org/math/d/7/3/d738b2aeaba785e8a2869570263076a0.png" /> as the minimum number of comparisons required to find the <i>t</i> smallest values. Knuth references a paper published by S. S. Kislitsyn, which shows an upper bound on this value:</p>
+<dl>
+<dd><img class="tex" alt="W_{t}(n) \leq n - t + \sum_{n+1-t &lt; j \leq n} \lceil{\log_2\, j}\rceil \quad \text{for}\, n \geq t" src="//upload.wikimedia.org/math/7/2/8/728e5eec958e7eed9398a772dbe7a1ff.png" /></dd>
+</dl>
+<p>This bound is achievable for <i>t</i>=2 but better, more complex bounds are known for larger <i>t</i>.</p>
+<h2><span class="mw-headline" id="Language_support">Language support</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Selection_algorithm&amp;action=edit&amp;section=14" title="Edit section: Language support">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Very few languages have built-in support for general selection, although many provide facilities for finding the smallest or largest element of a list. A notable exception is <a href="/wiki/C%2B%2B" title="C++">C++</a>, which provides a templated <code>nth_element</code> method with a guarantee of expected linear time. It is implied but not required that it is based on Hoare's algorithm by its requirement of expected linear time. (Ref section 25.3.2 of ISO/IEC 14882:2003(E) and 14882:1998(E), see also <a rel="nofollow" class="external text" href="http://www.sgi.com/tech/stl/nth_element.html">SGI STL description of nth_element</a>)</p>
+<p>C++ also provides the <a rel="nofollow" class="external text" href="http://www.sgi.com/tech/stl/partial_sort.html">partial_sort</a> algorithm, which solves the problem of selecting the smallest <i>k</i> elements (sorted), with a time complexity of O(<i>n</i> log <i>k</i>). No algorithm is provided for selecting the greatest <i>k</i> elements since this should be done by inverting the ordering <a href="/wiki/Predicate_(computer_programming)" title="Predicate (computer programming)" class="mw-redirect">predicate</a>.</p>
+<p>For <a href="/wiki/Perl" title="Perl">Perl</a>, the module <a rel="nofollow" class="external text" href="http://search.cpan.org/dist/Sort-Key-Top">Sort::Key::Top</a>, available from <a href="/wiki/CPAN" title="CPAN">CPAN</a>, provides a set of functions to select the top n elements from a list using several orderings and custom key extraction procedures. Furthermore, the <a rel="nofollow" class="external text" href="http://search.cpan.org/dist/Statistics-CaseResampling">Statistics::CaseResampling</a> module provides a function to calculate quantiles using quickselect.</p>
+<p><a href="/wiki/Python_(programming_language)" title="Python (programming language)">Python</a>'s standard library (since 2.4) includes <code><a rel="nofollow" class="external text" href="http://docs.python.org/library/heapq.html">heapq</a>.nsmallest()</code> and <code>nlargest()</code>, returning sorted lists, the former in O(<i>n</i> + <i>k</i> log <i>n</i>) time, the latter in O(<i>n</i> log <i>k</i>) time.</p>
+<p>Because <a href="/wiki/Sorting_algorithm#Language_support" title="Sorting algorithm">language support for sorting</a> is more ubiquitous, the simplistic approach of sorting followed by indexing is preferred in many environments despite its disadvantage in speed. Indeed for <a href="/wiki/Lazy_evaluation" title="Lazy evaluation">lazy languages</a>, this simplistic approach can even achieve the best complexity possible for the <i>k</i> smallest/greatest sorted (with maximum/minimum as a special case) if the sort is lazy enough.</p>
+<h2><span class="mw-headline" id="Online_selection_algorithm">Online selection algorithm</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Selection_algorithm&amp;action=edit&amp;section=15" title="Edit section: Online selection algorithm">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>In certain selection problems, selection must be online, that is, an element can only be selected from a sequential input at the instance of observation and each selection, respectively refusal, is irrevocable. The problem is to select, under these constraints, a specific element of the input sequence (as for example the largest or the smallest value) with largest probability. This problem can be tackled by the <a href="/wiki/Odds_algorithm" title="Odds algorithm">Odds algorithm</a> designed by <a href="/wiki/F._Thomas_Bruss" title="F. Thomas Bruss" class="mw-redirect">F. Thomas Bruss</a> who coined the name Odds algorithm. It is also known as Bruss-algorithm or Bruss-strategy. This algorithm yields the optimal under an independence condition; it is also optimal itself as an algorithm with the number of computations being linear in the length of input.</p>
+<h2><span class="mw-headline" id="Notes">Notes</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Selection_algorithm&amp;action=edit&amp;section=16" title="Edit section: Notes">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="#cite_ref-1">^</a></b></span> <span class="reference-text">David R. Musser. Introspective Sorting and Selection Algorithms. <i>Software: Practice and Experience</i>, vol. 27, no. 8, pp.983–993. 1997. Section: Introspective Selection Algorithms.</span></li>
+</ol>
+<h2><span class="mw-headline" id="References">References</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Selection_algorithm&amp;action=edit&amp;section=17" title="Edit section: References">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a href="/wiki/Manuel_Blum" title="Manuel Blum">M. Blum</a>, <a href="/wiki/Robert_Floyd" title="Robert Floyd" class="mw-redirect">R.W. Floyd</a>, <a href="/wiki/Vaughan_Ronald_Pratt" title="Vaughan Ronald Pratt" class="mw-redirect">V. Pratt</a>, <a href="/wiki/Ron_Rivest" title="Ron Rivest">R. Rivest</a> and <a href="/wiki/Robert_Tarjan" title="Robert Tarjan">R. Tarjan</a>, "Time bounds for selection," <i>J. Comput. System Sci</i>. 7 (1973) 448-461.</li>
+<li>K. C. Kiwiel. On Floyd and Rivest’s SELECT Algorithm, <i>Theoretical Computer Sci.</i> 347 (2005) 214-238.</li>
+<li><a href="/wiki/Donald_Knuth" title="Donald Knuth">Donald Knuth</a>. <i><a href="/wiki/The_Art_of_Computer_Programming" title="The Art of Computer Programming">The Art of Computer Programming</a></i>, Volume 3: <i>Sorting and Searching</i>, Third Edition. Addison-Wesley, 1997. <a href="/wiki/Special:BookSources/0201896850" class="internal mw-magiclink-isbn">ISBN 0-201-89685-0</a>. Section 5.3.3: Minimum-Comparison Selection, pp.207–219.</li>
+<li><a href="/wiki/Thomas_H._Cormen" title="Thomas H. Cormen">Thomas H. Cormen</a>, <a href="/wiki/Charles_E._Leiserson" title="Charles E. Leiserson">Charles E. Leiserson</a>, <a href="/wiki/Ronald_L._Rivest" title="Ronald L. Rivest" class="mw-redirect">Ronald L. Rivest</a>, and <a href="/wiki/Clifford_Stein" title="Clifford Stein">Clifford Stein</a>. <i><a href="/wiki/Introduction_to_Algorithms" title="Introduction to Algorithms">Introduction to Algorithms</a></i>, Second Edition. MIT Press and McGraw-Hill, 2001. <a href="/wiki/Special:BookSources/0262032937" class="internal mw-magiclink-isbn">ISBN 0-262-03293-7</a>. Chapter 9: Medians and Order Statistics, pp.183–196. Section 14.1: Dynamic order statistics, pp.302–308.</li>
+<li>Paul E. Black, <a rel="nofollow" class="external text" href="http://www.nist.gov/dads/HTML/select.html">Select</a> at the <a href="/wiki/National_Institute_of_Standards_and_Technology" title="National Institute of Standards and Technology">NIST</a> <a href="/wiki/Dictionary_of_Algorithms_and_Data_Structures" title="Dictionary of Algorithms and Data Structures">Dictionary of Algorithms and Data Structures</a>.</li>
+</ul>
+<h2><span class="mw-headline" id="External_links">External links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Selection_algorithm&amp;action=edit&amp;section=18" title="Edit section: External links">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="http://www.ics.uci.edu/~eppstein/161/960130.html">Design and Analysis of Algorithms</a>, for a detailed explanation of the recurrence relation for the median-of-medians</li>
+</ul>
+
+
+<!-- 
+NewPP limit report
+Preprocessor visited node count: 804/1000000
+Preprocessor generated node count: 4790/1500000
+Post‐expand include size: 6827/2048000 bytes
+Template argument size: 2064/2048000 bytes
+Highest expansion depth: 20/40
+Expensive parser function count: 1/500
+Lua time usage: 0.021s
+Lua memory usage: 547 KB
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:552786-0!0!0!!en!*!* and timestamp 20130731232022 -->
+<noscript><img src="//en.wikipedia.org/w/index.php?title=Special:CentralAutoLogin/start&amp;type=1x1&amp;from=enwiki" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /></noscript></div>								<div class="printfooter">
+				Retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=Selection_algorithm&amp;oldid=566643611">http://en.wikipedia.org/w/index.php?title=Selection_algorithm&amp;oldid=566643611</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/wiki/Help:Categories" title="Help:Categories">Categories</a>: <ul><li><a href="/wiki/Category:Selection_algorithms" title="Category:Selection algorithms">Selection algorithms</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul><li><a href="/wiki/Category:All_articles_with_unsourced_statements" title="Category:All articles with unsourced statements">All articles with unsourced statements</a></li><li><a href="/wiki/Category:Articles_with_unsourced_statements_from_December_2009" title="Category:Articles with unsourced statements from December 2009">Articles with unsourced statements from December 2009</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="p-personal" role="navigation" class="">
+	<h3>Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/w/index.php?title=Special:UserLogin&amp;returnto=Selection+algorithm&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/w/index.php?title=Special:UserLogin&amp;returnto=Selection+algorithm" title="You're encouraged to log in; however, it's not mandatory. [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs">
+	<h3>Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/wiki/Selection_algorithm"  title="View the content page [c]" accesskey="c">Article</a></span></li>
+					<li  id="ca-talk"><span><a href="/wiki/Talk:Selection_algorithm"  title="Discussion about the content page [t]" accesskey="t">Talk</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs">
+	<h3>Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/wiki/Selection_algorithm" >Read</a></span></li>
+					<li id="ca-edit"><span><a href="/w/index.php?title=Selection_algorithm&amp;action=edit"  title="You can edit this page. &#10;Please review your changes before saving. [e]" accesskey="e">Edit</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/w/index.php?title=Selection_algorithm&amp;action=history"  title="Past versions of this page [h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet">
+	<h3><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-search" role="search">
+	<h3><label for="searchInput">Search</label></h3>
+	<form action="/w/index.php" id="searchform">
+				<div id="simpleSearch">
+						<input name="search" placeholder="Search" title="Search Wikipedia [f]" accesskey="f" id="searchInput" />						<button type="submit" name="button" title="Search Wikipedia for this text" id="searchButton"><img src="//bits.wikimedia.org/static-1.22wmf12/skins/vector/images/search-ltr.png?303-4" alt="Search" width="12" height="13" /></button>								<input type='hidden' name="title" value="Special:Search"/>
+		</div>
+	</form>
+</div>
+				</div>
+			</div>
+			<div id="mw-panel">
+					<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png);" href="/wiki/Main_Page"  title="Visit the main page"></a></div>
+				<div class="portal" role="navigation" id='p-navigation'>
+	<h3>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/wiki/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+			<li id="n-contents"><a href="/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li>
+			<li id="n-featuredcontent"><a href="/wiki/Portal:Featured_content" title="Featured content – the best of Wikipedia">Featured content</a></li>
+			<li id="n-currentevents"><a href="/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li>
+			<li id="n-randompage"><a href="/wiki/Special:Random" title="Load a random article [x]" accesskey="x">Random article</a></li>
+			<li id="n-sitesupport"><a href="//donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_en.wikipedia.org&amp;uselang=en" title="Support us">Donate to Wikipedia</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-interaction'>
+	<h3>Interaction</h3>
+	<div class="body">
+		<ul>
+			<li id="n-help"><a href="/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li>
+			<li id="n-aboutsite"><a href="/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li>
+			<li id="n-portal"><a href="/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+			<li id="n-recentchanges"><a href="/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-contactpage"><a href="//en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb'>
+	<h3>Toolbox</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/wiki/Special:WhatLinksHere/Selection_algorithm" title="List of all English Wikipedia pages containing links to this page [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/wiki/Special:RecentChangesLinked/Selection_algorithm" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-upload"><a href="/wiki/Wikipedia:File_Upload_Wizard" title="Upload files [u]" accesskey="u">Upload file</a></li>
+			<li id="t-specialpages"><a href="/wiki/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-permalink"><a href="/w/index.php?title=Selection_algorithm&amp;oldid=566643611" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/w/index.php?title=Selection_algorithm&amp;action=info">Page information</a></li>
+			<li id="t-wikibase"><a href="//www.wikidata.org/wiki/Q3252726" title="Link to connected data repository item">Data item</a></li>
+<li id="t-cite"><a href="/w/index.php?title=Special:Cite&amp;page=Selection_algorithm&amp;id=566643611" title="Information on how to cite this page">Cite this page</a></li>		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-coll-print_export'>
+	<h3>Print/export</h3>
+	<div class="body">
+		<ul>
+			<li id="coll-create_a_book"><a href="/w/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=Selection+algorithm">Create a book</a></li>
+			<li id="coll-download-as-rl"><a href="/w/index.php?title=Special:Book&amp;bookcmd=render_article&amp;arttitle=Selection+algorithm&amp;oldid=566643611&amp;writer=rl">Download as PDF</a></li>
+			<li id="t-print"><a href="/w/index.php?title=Selection_algorithm&amp;printable=yes" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-lang'>
+	<h3>Languages</h3>
+	<div class="body">
+		<ul>
+			<li class="interwiki-ar"><a href="//ar.wikipedia.org/wiki/%D8%AE%D9%88%D8%A7%D8%B1%D8%B2%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%A7%D8%AE%D8%AA%D9%8A%D8%A7%D8%B1" title="خوارزمية الاختيار" lang="ar" hreflang="ar">العربية</a></li>
+			<li class="interwiki-fa"><a href="//fa.wikipedia.org/wiki/%D8%A7%D9%84%DA%AF%D9%88%D8%B1%DB%8C%D8%AA%D9%85_%D8%A7%D9%86%D8%AA%D8%AE%D8%A7%D8%A8" title="الگوریتم انتخاب" lang="fa" hreflang="fa">فارسی</a></li>
+			<li class="interwiki-id"><a href="//id.wikipedia.org/wiki/Algoritma_seleksi" title="Algoritma seleksi" lang="id" hreflang="id">Bahasa Indonesia</a></li>
+			<li class="interwiki-hu"><a href="//hu.wikipedia.org/wiki/Kiv%C3%A1laszt%C3%A1s_(algoritmus)" title="Kiválasztás (algoritmus)" lang="hu" hreflang="hu">Magyar</a></li>
+			<li class="interwiki-ja"><a href="//ja.wikipedia.org/wiki/%E9%81%B8%E6%8A%9E%E3%82%A2%E3%83%AB%E3%82%B4%E3%83%AA%E3%82%BA%E3%83%A0" title="選択アルゴリズム" lang="ja" hreflang="ja">日本語</a></li>
+			<li class="interwiki-pl"><a href="//pl.wikipedia.org/wiki/Selekcja_(informatyka)" title="Selekcja (informatyka)" lang="pl" hreflang="pl">Polski</a></li>
+			<li class="interwiki-ru"><a href="//ru.wikipedia.org/wiki/BFPRT-%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC" title="BFPRT-Алгоритм" lang="ru" hreflang="ru">Русский</a></li>
+			<li class="interwiki-uk"><a href="//uk.wikipedia.org/wiki/%D0%9F%D0%BE%D1%88%D1%83%D0%BA_%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BA%D0%BE%D0%B2%D0%BE%D1%97_%D1%81%D1%82%D0%B0%D1%82%D0%B8%D1%81%D1%82%D0%B8%D0%BA%D0%B8" title="Пошук порядкової статистики" lang="uk" hreflang="uk">Українська</a></li>
+			<li class="uls-p-lang-dummy"><a href="#"></a></li>
+			<li class="wbc-editpage"><a href="//www.wikidata.org/wiki/Q3252726#sitelinks-wikipedia" title="Edit interlanguage links">Edit links</a></li>
+		</ul>
+	</div>
+</div>
+			</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 31 July 2013 at 23:20.<br /></li>
+											<li id="footer-info-copyright">Text is available under the <a rel="license" href="//en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>;
+additional terms may apply.  By using this site, you agree to the <a href="//wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="//wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy.</a> <br/>
+Wikipedia® is a registered trademark of the <a href="//www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="//wikimediafoundation.org/wiki/Privacy_policy" title="wikimedia:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+											<li id="footer-places-disclaimer"><a href="/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-contact"><a href="//en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact Wikipedia</a></li>
+											<li id="footer-places-mobileview"><a href="//en.m.wikipedia.org/wiki/Selection_algorithm" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="//wikimediafoundation.org/"><img src="//bits.wikimedia.org/images/wikimedia-button.png" width="88" height="31" alt="Wikimedia Foundation"/></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="//www.mediawiki.org/"><img src="//bits.wikimedia.org/static-1.22wmf12/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mobile.desktop","mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","ext.gadget.teahouse","ext.gadget.ReferenceTooltips","ext.gadget.DRN-wizard","ext.gadget.charinsert","mw.MwEmbedSupport.style","ext.vector.collapsibleNav","ext.articleFeedbackv5.startup","schema.Edit","ext.gettingstarted.logging","ext.gettingstarted.openTask","ext.navigationTiming","mw.PopUpMediaTransform"],null,true);
+}</script>
+<script src="//bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<!-- Served by mw1104 in 0.161 secs. -->
+	</body>
+</html>

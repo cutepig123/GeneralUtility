@@ -1,0 +1,1052 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head id="Head"><title>
+	nth_element ---- 比较优美的代码 - feng - C++博客
+</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta id="metaKeywords" name="keywords" content="nth_element ---- 比较优美的代码" /><link type="text/css" rel="stylesheet" href="/css/common.css" /><link id="MainCss" type="text/css" rel="stylesheet" href="http://www.cppblog.com/Skins/clover/style.css" /><link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cppblog.com/feng/rss.aspx" /></head>
+<body>
+    <form name="Form1" method="post" action="66141.html" onsubmit="javascript:return WebForm_OnSubmit();" id="Form1">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="
+__VIEWSTATE" value="" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=hCqqcDq62xC48aLO1-oizzph91mftTcpBQYAMmX9y1_MEKckib0uai68YudFFqahbIRj8ZaZB19FpMr30&amp;t=634604713351482412" type="text/javascript"></script>
+
+<script language=JavaScript>
+									function ctlent(evt,id)
+											{
+												if(evt.ctrlKey && evt.keyCode == 13)
+												{	
+													try
+													{
+														TempSave(id);
+													}
+													catch(ex)
+													{
+													}
+													finally
+													{
+													    __doPostBack('AjaxHolder$PostComment$btnSubmit','')
+													}
+												}
+		
+												}</script>
+												<script language=JavaScript>function SetReplyAuhor(author){document.getElementById('AjaxHolder_PostComment_tbComment').value+="@"+author+"\n";document.getElementById('AjaxHolder_PostComment_tbComment').focus();return false}</script>
+<script src="/ScriptResource.axd?d=TB76SHHPXs0c-M9_tGhAxuTARlsiSpe5Dn70CMDyMu0Be8A_MPH2Z7oqJoDwyxmBxB28VcgK9C-XqFdMNI_DuigegyGH79krj7asDjvAKLqzs7DlCIm2xb4oSA4lM05RrYsRw4Ulp-jfriIG0&amp;t=634604713351482412" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=-BecoVNwDVCZ4TW3gB_ZzPWfgjCQ_C64O4hNc3pweA4UGq0B-lWFnUMMAtqURN0AZF_f7fxk9s5U1gsq0foUhwHdXezBbn_OgCN5EL300MOu7Jb-c7WU_a2OCK01&amp;t=634979452452373750" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=4npu1eCN6HUVuTPPO5YDuuBNC2hrBvTsGEVYQhhAo9CX_hfoT2Mz1UGnoo5C32pPXZvBizBLMnY0_szRgrGRkyv7-BsG0CvEejE8Vl3Xt8nd-D_58kXSDmaBFOFFj7w3EMKivQ2&amp;t=634979452452373750" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</script>
+
+        <head>
+<script language="JavaScript" src="http://thewe.net/tex/textheworld6.user.js"></script> 
+</head>
+<!--done-->
+<TABLE cellpadding="0" cellspacing="0" border="0" align="center" width="100%">
+<TR>
+	<TD width=299 background="/skins/clover/images/banner1.jpg"></TD>
+	<TD background="/skins/clover/images/banner.jpg">
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cppblog.com/feng/">feng</a><br>
+		
+	</div>
+</div>
+</TD>
+	<TD width=296 background="/skins/clover/images/banner2.jpg"></TD>
+</TR>
+</TABLE>
+<div id="mylinks">
+<!--done-->
+<a id="MyLinks1_HomeLink" class="menu" href="http://www.cppblog.com/">C++博客</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cppblog.com/feng/">首页</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_NewArticleLink" class="menu" href="/EnterMyBlog.aspx?NewArticle=1">新文章</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_NewPostLink" class="menu" href="http://www.cppblog.com/feng/admin/EditPosts.aspx?opt=1">新随笔</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_Syndication" class="menu" href="http://www.cppblog.com/feng/Rss.aspx">聚合</a><a id="MyLinks1_XMLLink" href="http://www.cppblog.com/feng/Rss.aspx"><img src="http://www.cppblog.com/images/xml.gif" style="border-width:0px;" /></a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_Admin" class="menu" href="http://www.cppblog.com/feng/admin/EditPosts.aspx">管理</a>
+<!-- <a id="MyLinks1_ContactLink" accesskey="9" class="menu" href="http://www.cppblog.com/feng/contact.aspx?id=1">联系</a>&nbsp;&nbsp;&nbsp; -->
+</div>
+<div id="mytopmenu">
+	
+		<DIV id="mystats">
+			
+<!--done-->
+<div class="blogStats">
+posts - 12,&nbsp;
+comments - 54,&nbsp;
+trackbacks - 0
+
+</div></DIV>
+	
+</div>
+<div id="centercontent">
+	
+					
+<!--done-->
+<div class = "post">
+	<div class = "postTitle">
+		<a id="viewpost1_TitleUrl" class="postTitle2" href="http://www.cppblog.com/feng/archive/2008/11/06/66141.html">nth_element ---- 比较优美的代码</a>
+	</div>
+	写了个nth_element的函数，觉得比较pp，就贴上来了 －－ 注意，跟库函数那个有点差别<br><br>
+<div style="border: 1px solid #cccccc; padding: 4px 5px 4px 4px; background-color: #eeeeee; font-size: 13px; width: 98%;"><!--<br><br>Code highlighting produced by Actipro CodeHighlighter (freeware)<br>http://www.CodeHighlighter.com/<br><br>--><span style="color: #008080;">&nbsp;1</span>&nbsp;<span style="color: #0000ff;">void</span><span style="color: #000000;">&nbsp;swap(&nbsp;</span><span style="color: #0000ff;">int</span><span style="color: #000000;">&amp;</span><span style="color: #000000;">&nbsp;a,&nbsp;</span><span style="color: #0000ff;">int</span><span style="color: #000000;">&amp;</span><span style="color: #000000;">&nbsp;b&nbsp;)<br></span><span style="color: #008080;">&nbsp;2</span>&nbsp;<span style="color: #000000;">{<br></span><span style="color: #008080;">&nbsp;3</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp; </span><span style="color: #000000;"><br></span><span style="color: #008080;">&nbsp;4</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;</span><span style="color: #000000;">^=</span><span style="color: #000000;">&nbsp;b;<br></span><span style="color: #008080;">&nbsp;5</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;b&nbsp;</span><span style="color: #000000;">^=</span><span style="color: #000000;">&nbsp;a;<br></span><span style="color: #008080;">&nbsp;6</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;</span><span style="color: #000000;">^=</span><span style="color: #000000;">&nbsp;b;<br></span><span style="color: #008080;">&nbsp;7</span>&nbsp;<span style="color: #000000;">}<br></span><span style="color: #008080;">&nbsp;8</span>&nbsp;<span style="color: #000000;"><br></span><span style="color: #008080;">&nbsp;9</span>&nbsp;<span style="color: #000000;"></span><span style="color: #0000ff;">int</span><span style="color: #000000;">&nbsp;partation(&nbsp;</span><span style="color: #0000ff;">int</span><span style="color: #000000;">*</span><span style="color: #000000;">&nbsp;arr,&nbsp;</span><span style="color: #0000ff;">int</span><span style="color: #000000;">&nbsp;low,&nbsp;</span><span style="color: #0000ff;">int</span><span style="color: #000000;">&nbsp;high&nbsp;)<br></span><span style="color: #008080;">10</span>&nbsp;<span style="color: #000000;">{<br></span><span style="color: #008080;">11</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff;">int</span><span style="color: #000000;">&nbsp;ans&nbsp;</span><span style="color: #000000;">=</span><span style="color: #000000;">&nbsp;low&nbsp;</span><span style="color: #000000;">-</span><span style="color: #000000;">&nbsp;</span><span style="color: #000000;">1</span><span style="color: #000000;">;<br></span><span style="color: #008080;">12</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff;">for</span><span style="color: #000000;">&nbsp;(&nbsp;</span><span style="color: #0000ff;">int</span><span style="color: #000000;">&nbsp;i&nbsp;</span><span style="color: #000000;">=</span><span style="color: #000000;">&nbsp;low;&nbsp;i&nbsp;</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">&nbsp;high;&nbsp;</span><span style="color: #000000;">++</span><span style="color: #000000;">i&nbsp;)<br></span><span style="color: #008080;">13</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;{<br></span><span style="color: #008080;">14</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff;">if</span><span style="color: #000000;">&nbsp;(&nbsp;arr[i]&nbsp;</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">&nbsp;arr[high]&nbsp;)<br></span><span style="color: #008080;">15</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br></span><span style="color: #008080;">16</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;swap(&nbsp;arr[i],&nbsp;arr[</span><span style="color: #000000;">++</span><span style="color: #000000;">ans]&nbsp;);<br></span><span style="color: #008080;">17</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br></span><span style="color: #008080;">18</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;}<br></span><span style="color: #008080;">19</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;swap(&nbsp;arr[</span><span style="color: #000000;">++</span><span style="color: #000000;">ans],&nbsp;arr[high]&nbsp;);<br></span><span style="color: #008080;">20</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff;">return</span><span style="color: #000000;">&nbsp;ans;<br></span><span style="color: #008080;">21</span>&nbsp;<span style="color: #000000;">}<br></span><span style="color: #008080;">22</span>&nbsp;<span style="color: #000000;"><br></span><span style="color: #008080;">23</span>&nbsp;<span style="color: #000000;"></span><span style="color: #0000ff;">int</span><span style="color: #000000;">&nbsp;nth(&nbsp;</span><span style="color: #0000ff;">int</span><span style="color: #000000;">*</span><span style="color: #000000;">&nbsp;arr,&nbsp;</span><span style="color: #0000ff;">int</span><span style="color: #000000;">&nbsp;low,&nbsp;</span><span style="color: #0000ff;">int</span><span style="color: #000000;">&nbsp;high,&nbsp;</span><span style="color: #0000ff;">int</span><span style="color: #000000;">&nbsp;index&nbsp;)<br></span><span style="color: #008080;">24</span>&nbsp;<span style="color: #000000;">{<br></span><span style="color: #008080;">25</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff;">int</span><span style="color: #000000;">&nbsp;mid&nbsp;</span><span style="color: #000000;">=</span><span style="color: #000000;">&nbsp;partation(arr,&nbsp;low,&nbsp;high);<br></span><span style="color: #008080;">26</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff;">if</span><span style="color: #000000;">&nbsp;(&nbsp;mid&nbsp;</span><span style="color: #000000;">==</span><span style="color: #000000;">&nbsp;index&nbsp;)&nbsp;</span><span style="color: #0000ff;">return</span><span style="color: #000000;">&nbsp;arr[mid];<br></span><span style="color: #008080;">27</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff;">return</span><span style="color: #000000;">&nbsp;<br></span><span style="color: #008080;">28</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;mid&nbsp;</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">&nbsp;index&nbsp;)&nbsp;&nbsp;</span><span style="color: #000000;">?</span><span style="color: #000000;">&nbsp;<br></span><span style="color: #008080;">29</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nth(arr,&nbsp;mid</span><span style="color: #000000;">+</span><span style="color: #000000;">1</span><span style="color: #000000;">,&nbsp;high,&nbsp;index)&nbsp;:<br></span><span style="color: #008080;">30</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nth(arr,&nbsp;low,&nbsp;mid</span><span style="color: #000000;">-</span><span style="color: #000000;">1</span><span style="color: #000000;">,&nbsp;index);<br></span><span style="color: #008080;">31</span>&nbsp;<span style="color: #000000;">}</span></div>
+<br><br>然后呢，在某人的新贴下发现这样的评论：<br><span style="font-size: 10pt; color: #5138ff;">真要命，就怕碰见上来就贴一大堆代码的。<br>有比这还可怕的吗？——有！贴一大堆代码还没注释！</span><br><br>不管了，反正只是觉得代码漂亮，没有想到要解释什么<br>一段测试代码如下：<br><br>
+<div style="border: 1px solid #cccccc; padding: 4px 5px 4px 4px; background-color: #eeeeee; font-size: 13px; width: 98%;"><!--<br><br>Code highlighting produced by Actipro CodeHighlighter (freeware)<br>http://www.CodeHighlighter.com/<br><br>--><span style="color: #008080;">&nbsp;1</span>&nbsp;<span style="color: #000000;">#include&nbsp;</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">iostream</span><span style="color: #000000;">&gt;</span><span style="color: #000000;"><br></span><span style="color: #008080;">&nbsp;2</span>&nbsp;<span style="color: #000000;">#include&nbsp;</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">iterator</span><span style="color: #000000;">&gt;</span><span style="color: #000000;"><br></span><span style="color: #008080;">&nbsp;3</span>&nbsp;<span style="color: #000000;">#include&nbsp;</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">algorithm</span><span style="color: #000000;">&gt;</span><span style="color: #000000;"><br></span><span style="color: #008080;">&nbsp;4</span>&nbsp;<span style="color: #000000;">#include&nbsp;</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">ctime</span><span style="color: #000000;">&gt;</span><span style="color: #000000;"><br></span><span style="color: #008080;">&nbsp;5</span>&nbsp;<span style="color: #000000;"></span><span style="color: #0000ff;">using</span><span style="color: #000000;">&nbsp;</span><span style="color: #0000ff;">namespace</span><span style="color: #000000;">&nbsp;std;<br></span><span style="color: #008080;">&nbsp;6</span>&nbsp;<span style="color: #000000;"><br></span><span style="color: #008080;">&nbsp;7</span>&nbsp;<span style="color: #000000;"></span><span style="color: #0000ff;">int</span><span style="color: #000000;">&nbsp;main()<br></span><span style="color: #008080;">&nbsp;8</span>&nbsp;<span style="color: #000000;">{<br></span><span style="color: #008080;">&nbsp;9</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff;">const</span><span style="color: #000000;">&nbsp;</span><span style="color: #0000ff;">int</span><span style="color: #000000;">&nbsp;size&nbsp;</span><span style="color: #000000;">=</span><span style="color: #000000;">&nbsp;</span><span style="color: #000000;">99</span><span style="color: #000000;">;<br></span><span style="color: #008080;">10</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff;">int</span><span style="color: #000000;">&nbsp;arr[size];<br></span><span style="color: #008080;">11</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff;">for</span><span style="color: #000000;">&nbsp;(&nbsp;</span><span style="color: #0000ff;">int</span><span style="color: #000000;">&nbsp;index&nbsp;</span><span style="color: #000000;">=</span><span style="color: #000000;">&nbsp;</span><span style="color: #000000;">0</span><span style="color: #000000;">;&nbsp;index&nbsp;</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">&nbsp;size;&nbsp;</span><span style="color: #000000;">++</span><span style="color: #000000;">index&nbsp;)<br></span><span style="color: #008080;">12</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;arr[index]&nbsp;</span><span style="color: #000000;">=</span><span style="color: #000000;">&nbsp;index;<br></span><span style="color: #008080;">13</span>&nbsp;<span style="color: #000000;"><br></span><span style="color: #008080;">14</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;srand(&nbsp;time(</span><span style="color: #000000;">0</span><span style="color: #000000;">)&nbsp;);<br></span><span style="color: #008080;">15</span>&nbsp;<span style="color: #000000;"><br></span><span style="color: #008080;">16</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;random_shuffle(&nbsp;arr,&nbsp;arr</span><span style="color: #000000;">+</span><span style="color: #000000;">size&nbsp;);<br></span><span style="color: #008080;">17</span>&nbsp;<span style="color: #000000;"><br></span><span style="color: #008080;">18</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;copy(&nbsp;arr,&nbsp;arr</span><span style="color: #000000;">+</span><span style="color: #000000;">size,&nbsp;ostream_iterator</span><span style="color: #000000;">&lt;</span><span style="color: #0000ff;">int</span><span style="color: #000000;">&gt;</span><span style="color: #000000;">(&nbsp;cout,&nbsp;</span><span style="color: #000000;">"</span><span style="color: #000000;">&nbsp;</span><span style="color: #000000;">"</span><span style="color: #000000;">&nbsp;)&nbsp;);<br></span><span style="color: #008080;">19</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;cout&nbsp;</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">&nbsp;endl;<br></span><span style="color: #008080;">20</span>&nbsp;<span style="color: #000000;"><br></span><span style="color: #008080;">21</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;cout&nbsp;</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">&nbsp;</span><span style="color: #000000;">"</span><span style="color: #000000;">the&nbsp;73th&nbsp;element&nbsp;is&nbsp;</span><span style="color: #000000;">"</span><span style="color: #000000;">&nbsp;</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">&nbsp;nth(&nbsp;arr,&nbsp;</span><span style="color: #000000;">0</span><span style="color: #000000;">,&nbsp;size</span><span style="color: #000000;">-</span><span style="color: #000000;">1</span><span style="color: #000000;">,&nbsp;</span><span style="color: #000000;">73</span><span style="color: #000000;">&nbsp;)&nbsp;</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">&nbsp;endl;<br></span><span style="color: #008080;">22</span>&nbsp;<span style="color: #000000;"><br></span><span style="color: #008080;">23</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;copy(&nbsp;arr,&nbsp;arr</span><span style="color: #000000;">+</span><span style="color: #000000;">size,&nbsp;ostream_iterator</span><span style="color: #000000;">&lt;</span><span style="color: #0000ff;">int</span><span style="color: #000000;">&gt;</span><span style="color: #000000;">(&nbsp;cout,&nbsp;</span><span style="color: #000000;">"</span><span style="color: #000000;">&nbsp;</span><span style="color: #000000;">"</span><span style="color: #000000;">&nbsp;)&nbsp;);<br></span><span style="color: #008080;">24</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;cout&nbsp;</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">&nbsp;endl;<br></span><span style="color: #008080;">25</span>&nbsp;<span style="color: #000000;"><br></span><span style="color: #008080;">26</span>&nbsp;<span style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff;">return</span><span style="color: #000000;">&nbsp;</span><span style="color: #000000;">0</span><span style="color: #000000;">;<br></span><span style="color: #008080;">27</span>&nbsp;<span style="color: #000000;">}<br></span><span style="color: #008080;">28</span>&nbsp;<span style="color: #000000;"></span></div>
+<br>由于当序列有序程度很高时候， 这种算法效率比较差，最好在调用之前把目标序列随机打乱一下，也就是上式random_shuffle( arr, arr+size );的由来。<br><br>P.S: 感谢<a href="http://hi.csdn.net/xxgamexx" target="_blank">xxgamexx</a><br>  
+	<div class = "postDesc">posted on 2008-11-06 16:47 <a href='http://www.cppblog.com/feng/'>Wang Feng</a> 阅读(3353) <a href='#Post'>评论(32)</a> &nbsp;<a href="http://www.cppblog.com/feng/admin/EditPosts.aspx?postid=66141">编辑</a>&nbsp;<a href="http://www.cppblog.com/feng/AddToFavorite.aspx?id=66141">收藏</a> <a href='http://www.cppblog.com/feng/services/trackbacks/66141.aspx'>引用</a>  所属分类: <a href='http://www.cppblog.com/feng/category/6764.html'>Numerical C++</a> </div>
+</div>
+<img src ="http://www.cppblog.com/feng/aggbug/66141.html?webview=1" width = "1" height = "1" />
+
+<!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+rdf:about="http://www.cppblog.com/feng/archive/2008/11/06/66141.html"
+dc:identifier="http://www.cppblog.com/feng/archive/2008/11/06/66141.html"
+dc:title="nth_element ---- 比较优美的代码"
+trackback:ping="http://www.cppblog.com/feng/services/trackbacks/66141.aspx" />
+</rdf:RDF>
+-->
+
+<script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('AjaxHolder$scriptmanager1', document.getElementById('Form1'));
+Sys.WebForms.PageRequestManager.getInstance()._updateControls(['tAjaxHolder$UpdatePanel1'], [], [], 90);
+//]]>
+</script>
+
+<div id="AjaxHolder_UpdatePanel1">
+	    
+    <a name="pagedcomment"></a>
+<!--done-->
+<br>
+<b>FeedBack:</b>
+<div class="feedbackNoItems"></div>
+	
+
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码[未登录]" href="/feng/archive/2008/11/06/66141.html#66146">#</a>&nbsp;<a name="66146"></a>re: nth_element ---- 比较优美的代码[未登录]</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-06 17:38 | <a id="AjaxHolder_Comments_CommentList_ctl00_NameLink" target="_blank">Kevin</a><br>
+				<div align=left>有点小意见<br>个人不太喜欢得地方就加空格，例如：if ( a ==  b ) return;<br>不过LZ在运算符前后又省掉了空格，例如：arr+size<br><br>比较喜欢这样写：<br>if (a ==  b) a = a + b;<br><br>每个人写代码的习惯不同，所以LZ别介意啊&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;Kevin&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=Kevin" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl00_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl00$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl00_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66148">#</a>&nbsp;<a name="66148"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-06 17:50 | <a id="AjaxHolder_Comments_CommentList_ctl01_NameLink" href="http://www.cppblog.com/feng/" target="_blank">Wang Feng</a><br>
+				<div align=left>copy( arr, arr+size, ostream_iterator&lt;int&gt;( cout, &quot; &quot; ) );<br>我觉得这样写，看起来容易一点<br>因为逗号运算符优先级最低，于是arr+size中的加号在逗号之前；<br>我的习惯是先运行的更紧密一些；<br>如你比较喜欢的这个<br> if (a == b) a = a + b;<br>我会写成<br>if (a == b) a = a+b;<br>或者<br>if (a == b) <br>{<br>    a = a+b;<br>}<br>或者<br>if (a == b) <br>    ++a; <br>或者<br>if (a == b) <br>{<br>    ++a; <br>}<br>&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;Wang Feng&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=Wang+Feng" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl01_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl01$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl01_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66149">#</a>&nbsp;<a name="66149"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-06 18:10 | <a id="AjaxHolder_Comments_CommentList_ctl02_NameLink" href="http://www.cppblog.com/lingjingqiu/" target="_blank">空明流转</a><br>
+				<div align=left>如果不需要处理异常，不需要用户提示，不需要安全机制，不需要照顾性能，<br>那么，<br>所有的代码都可以很优美。&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;空明流转&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=%e7%a9%ba%e6%98%8e%e6%b5%81%e8%bd%ac" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl02_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl02$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl02_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66150">#</a>&nbsp;<a name="66150"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-06 18:11 | <a id="AjaxHolder_Comments_CommentList_ctl03_NameLink" target="_blank">fish_autumn</a><br>
+				<div align=left>效率有待提高&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;fish_autumn&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=fish_autumn" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl03_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl03$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl03_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66151">#</a>&nbsp;<a name="66151"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-06 18:12 | <a id="AjaxHolder_Comments_CommentList_ctl04_NameLink" href="http://www.cppblog.com/feng/" target="_blank">Wang Feng</a><br>
+				<div align=left>@空明流转<br>@fish_autumn<br>请求指点&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;Wang Feng&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=Wang+Feng" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl04_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl04$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl04_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66160">#</a>&nbsp;<a name="66160"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-06 20:05 | <a id="AjaxHolder_Comments_CommentList_ctl05_NameLink" href="http://www.cppblog.com/cdy20/" target="_blank">cdy20</a><br>
+				<div align=left>换位 很漂亮<br><br>这样就行了<br>a^=b^=a^=b;&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;cdy20&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=cdy20" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl05_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl05$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl05_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66168">#</a>&nbsp;<a name="66168"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-06 20:55 | <a id="AjaxHolder_Comments_CommentList_ctl06_NameLink" href="http://www.cppblog.com/feng/" target="_blank">Wang Feng</a><br>
+				<div align=left>@cdy20<br>这样写的话，用g++编译后交换失败；<br>用icpc编译后交换成功，非常奇怪<br>可有人给出更多测试？<br>我的编译器：<br>$ g++ -v<br>Using built-in specs.<br>Target: x86_64-unknown-linux-gnu<br>Configured with: ../configure --prefix=/usr --enable-shared --enable-languages=c,c++,fortran,objc,obj-c++,treelang --enable-threads=posix --mandir=/usr/share/man --infodir=/usr/share/info --enable-__cxa_atexit --disable-multilib --libdir=/usr/lib --libexecdir=/usr/lib --enable-clocale=gnu --disable-libstdcxx-pch --with-tune=generic<br>Thread model: posix<br>gcc version 4.3.2 (GCC) <br>$ icpc -v<br>Version 10.1 <br>&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;Wang Feng&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=Wang+Feng" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl06_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl06$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl06_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66195">#</a>&nbsp;<a name="66195"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-07 10:50 | <a id="AjaxHolder_Comments_CommentList_ctl07_NameLink" target="_blank">zuhd</a><br>
+				<div align=left>能说说这个函数的作用吗？<br>int partation( int* arr, int low, int high )<br>没看明白&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;zuhd&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=zuhd" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl07_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl07$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl07_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66209">#</a>&nbsp;<a name="66209"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-07 13:50 | <a id="AjaxHolder_Comments_CommentList_ctl08_NameLink" href="http://www.cppblog.com/feng/" target="_blank">Wang Feng</a><br>
+				<div align=left>@zuhd<br>你可以这样理解：<br>1） 找到一个arbitrary value A（这个数值应该是任意的，我图写起来利落，直接指定为数组的最后一个元素－－－－比较好的做法是，执行之前，在数组中任意寻找一个元素与数组最后一个元素交换）<br>2）一个指针指向数组的第一个元素，往向后扫描，找到第一个大于A的元素，标记为arr[a]；<br>3）另外一个指针指向数组的最后一个元素，向前扫面，找到第一个小于A的元素arr[b];<br>4)交换arr[a] arr[b]<br>5)若两个指针没有重合，转到2）<br>6)将A与两个指针重合地点的元素交换<br>这样以来，以A为界，把数组分为两个部分，前边部分数值都是不大于A的，后边的部分的数值都是不小于A的&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;Wang Feng&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=Wang+Feng" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl08_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl08$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl08_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66349">#</a>&nbsp;<a name="66349"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-08 18:17 | <a id="AjaxHolder_Comments_CommentList_ctl09_NameLink" target="_blank">雷长炎</a><br>
+				<div align=left>这就是堆排序的实现了，一趟排序而已。要完整实现堆排序，需要反复调用该函数了。&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;雷长炎&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=%e9%9b%b7%e9%95%bf%e7%82%8e" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl09_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl09$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl09_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码[未登录]" href="/feng/archive/2008/11/06/66141.html#66449">#</a>&nbsp;<a name="66449"></a>re: nth_element ---- 比较优美的代码[未登录]</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-09 20:58 | <a id="AjaxHolder_Comments_CommentList_ctl10_NameLink" target="_blank">cepvoggg</a><br>
+				<div align=left>void swap( int&amp; a, int&amp; b )<br> 2 {<br> 3     if ( a ==  b ) return;<br> 4     a ^= b;<br> 5     b ^= a;<br> 6     a ^= b;<br> 7 }<br>这个代码是你自己写的吗，这个好像是错的噢<br>&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;cepvoggg&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=cepvoggg" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl10_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl10$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl10_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码[未登录]" href="/feng/archive/2008/11/06/66141.html#66450">#</a>&nbsp;<a name="66450"></a>re: nth_element ---- 比较优美的代码[未登录]</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-09 21:02 | <a id="AjaxHolder_Comments_CommentList_ctl11_NameLink" target="_blank">cepvoggg</a><br>
+				<div align=left>在C语言编程专家里面有说过这个代码是错的&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;cepvoggg&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=cepvoggg" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl11_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl11$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl11_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码[未登录]" href="/feng/archive/2008/11/06/66141.html#66453">#</a>&nbsp;<a name="66453"></a>re: nth_element ---- 比较优美的代码[未登录]</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-09 21:31 | <a id="AjaxHolder_Comments_CommentList_ctl12_NameLink" target="_blank">feng</a><br>
+				<div align=left>@cepvoggg<br>是我自己写的；<br>敢问错在哪里?<br>我手里没有C语言编程专家这本书，你说的是不是C expert programming?&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;feng&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=feng" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl12_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl12$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl12_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66481">#</a>&nbsp;<a name="66481"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-10 09:41 | <a id="AjaxHolder_Comments_CommentList_ctl13_NameLink" target="_blank">zuhd</a><br>
+				<div align=left>9 int partation( int* arr, int low, int high )<br>10 {<br>11     int ans = low - 1;<br>12     for ( int i = low; i &lt; high; ++i )<br>13     {<br>14         if ( arr[i] &lt; arr[high] )<br>15         {<br>16             swap( arr[i], arr[++ans] );<br>17         }<br>18     }<br>19     swap( arr[++ans], arr[high] );<br>20     return ans;<br>21 }<br>==========================================<br>觉得你上面这段代码好奇怪啊，这个函数的目的是“找到第一个比最后一个数大的数&quot;吗？如果是这样，我觉得没有必要这么写，我想功能可能不只是这些&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;zuhd&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=zuhd" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl13_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl13$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl13_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66509">#</a>&nbsp;<a name="66509"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-10 13:11 | <a id="AjaxHolder_Comments_CommentList_ctl14_NameLink" href="http://www.cppblog.com/feng/" target="_blank">Wang Feng</a><br>
+				<div align=left>@zuhd<br>不是，这段代码目的是：以A为界，把数组分为两个部分，前边部分数值都是不大于A的，后边的部分的数值都是不小于A的&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;Wang Feng&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=Wang+Feng" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl14_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl14$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl14_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66577">#</a>&nbsp;<a name="66577"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-11 09:55 | <a id="AjaxHolder_Comments_CommentList_ctl15_NameLink" target="_blank">zuhd</a><br>
+				<div align=left>@Wang Feng<br>我有个疑问，就是如果仅满足“以ans为界，把数组分为两个部分，前边部分数值都是不大于arr[ans]的，后边的部分的数值都是不小于arr[ans]的”,程序的运行结果可以有很多种啊，你的给出的结果的依据是什么呢？&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;zuhd&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=zuhd" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl15_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl15$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl15_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66605">#</a>&nbsp;<a name="66605"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-11 15:34 | <a id="AjaxHolder_Comments_CommentList_ctl16_NameLink" href="http://www.cppblog.com/tiance/" target="_blank">天策魂之音</a><br>
+				<div align=left>@cepvoggg<br>请问这个错在哪里？<br><br>有没考虑到的状况还是？&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;天策魂之音&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=%e5%a4%a9%e7%ad%96%e9%ad%82%e4%b9%8b%e9%9f%b3" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl16_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl16$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl16_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66607">#</a>&nbsp;<a name="66607"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-11 15:38 | <a id="AjaxHolder_Comments_CommentList_ctl17_NameLink" href="http://www.cppblog.com/feng/" target="_blank">Wang Feng</a><br>
+				<div align=left>@zuhd<br>&quot;程序的运行结果可以有很多种啊&quot;里边的程序是指 partation还是nth?&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;Wang Feng&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=Wang+Feng" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl17_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl17$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl17_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66608">#</a>&nbsp;<a name="66608"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-11 15:39 | <a id="AjaxHolder_Comments_CommentList_ctl18_NameLink" href="http://www.cppblog.com/feng/" target="_blank">Wang Feng</a><br>
+				<div align=left>@天策魂之音<br>我用随机数测试过42忆次，没有出错过；<br>不知道错误是什么&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;Wang Feng&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=Wang+Feng" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl18_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl18$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl18_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66681">#</a>&nbsp;<a name="66681"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-12 09:35 | <a id="AjaxHolder_Comments_CommentList_ctl19_NameLink" target="_blank">zuhd</a><br>
+				<div align=left>@Wang Feng<br>我说的是partation这个函数，如果要求程序输出“以ans为界，把数组分为两个部分，前边部分数值都是不大于arr[ans]的，后边的部分的数值都是不小于arr[ans]的”，那么结果不是唯一的&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;zuhd&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=zuhd" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl19_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl19$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl19_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66757">#</a>&nbsp;<a name="66757"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-12 21:22 | <a id="AjaxHolder_Comments_CommentList_ctl20_NameLink" href="http://www.cppblog.com/feng/" target="_blank">Wang Feng</a><br>
+				<div align=left>@zuhd<br>如果arr已经给定不可更改，那么这个结果就是唯一的&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;Wang Feng&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=Wang+Feng" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl20_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl20$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl20_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66794">#</a>&nbsp;<a name="66794"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-13 09:47 | <a id="AjaxHolder_Comments_CommentList_ctl21_NameLink" target="_blank">zuhd</a><br>
+				<div align=left>比如：<br>输入：3，5，7，4，0，1<br>我可以得到这样的数组3，4，0，1，5，7返回4，即在第4个位子的‘5’把数组分为两部分。同时我也可以返回3，0，1，4，5，7返回3，即在第3个位子的‘4’把数组分为这样的两部分。等等<br>这样的返回值都能满足你的需求啊&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;zuhd&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=zuhd" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl21_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl21$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl21_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66826">#</a>&nbsp;<a name="66826"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-13 14:56 | <a id="AjaxHolder_Comments_CommentList_ctl22_NameLink" href="http://www.cppblog.com/feng/" target="_blank">Wang Feng</a><br>
+				<div align=left>@zuhd<br>3，5，7，4，0，1 <br>第一次调用partation(arr, 0, 5)是以1为界分的；<br>结果数组被排成<br>0 1 7 4 3 5<br>返回1&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;Wang Feng&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=Wang+Feng" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl22_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl22$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl22_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66905">#</a>&nbsp;<a name="66905"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-14 13:05 | <a id="AjaxHolder_Comments_CommentList_ctl23_NameLink" href="http://www.cppblog.com/zwp" target="_blank">zwp</a><br>
+				<div align=left>人各有好，不打击楼主对代码形式的追求。<br>但就从实际角度来说，好的设计就会带来赏心悦目的代码。&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;zwp&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=zwp" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl23_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl23$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl23_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#66927">#</a>&nbsp;<a name="66927"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2008-11-14 16:13 | <a id="AjaxHolder_Comments_CommentList_ctl24_NameLink" target="_blank">阿尔法</a><br>
+				<div align=left>楼主的最后一行代码明显错了：<br>  return <br>28         ( mid &lt; index )  ? <br>29         nth(arr, mid+1, high, index) : 应该index改为index-mid吧<br>30         nth(arr, low, mid-1, index);<br>&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;阿尔法&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=%e9%98%bf%e5%b0%94%e6%b3%95" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl24_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl24$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl24_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#71392">#</a>&nbsp;<a name="71392"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2009-01-07 01:23 | <a id="AjaxHolder_Comments_CommentList_ctl25_NameLink" target="_blank">guest</a><br>
+				<div align=left>这样递归的话，如果原数组有正序，不用很长，比如1万，是会溢出的！&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;guest&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=guest" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl25_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl25$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl25_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#71477">#</a>&nbsp;<a name="71477"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2009-01-08 10:42 | <a id="AjaxHolder_Comments_CommentList_ctl26_NameLink" href="http://www.cppblog.com/feng/" target="_blank">Wang Feng</a><br>
+				<div align=left>@guest<br>确实是这样的，要解决的话也不是很困难，只要partation时候把数组random shuffle一下就可以了：）&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;Wang Feng&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=Wang+Feng" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl26_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl26$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl26_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#93415">#</a>&nbsp;<a name="93415"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2009-08-15 12:58 | <a id="AjaxHolder_Comments_CommentList_ctl27_NameLink" href="http://hi.baidu.com/i_miss_you_all" target="_blank">guest</a><br>
+				<div align=left>个人认为partition跟快排中的partition实现同样的功能，不过LZ这样写不容易让人看明白。<br>lZ的应该是从最前面开始找，找到一个比最后一个小的数，则和从0位置开始的数想交换，执行一次后，ans前面是比它小的数后面是比它大的数。<br><br>另外效率是在不敢恭维。寻找最大或最小比较次数太多。&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;guest&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=guest" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl27_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl27$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl27_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码[未登录]" href="/feng/archive/2008/11/06/66141.html#93430">#</a>&nbsp;<a name="93430"></a>re: nth_element ---- 比较优美的代码[未登录]</div>
+			<div class = "feedbackListSubtitle">
+				2009-08-15 16:06 | <a id="AjaxHolder_Comments_CommentList_ctl28_NameLink" target="_blank">feng</a><br>
+				<div align=left>@guest<br>其实无论从前边还是后边开始寻找，都是可以的<br>不过重要的是寻找之前把数列打乱一下，以避免在碰到有序数列的时候时间复杂度飙升的尴尬。<br><br>我觉得效率上没有什么问题了，绝对是 O(n)。 &nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;feng&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=feng" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl28_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl28$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl28_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码" href="/feng/archive/2008/11/06/66141.html#137794">#</a>&nbsp;<a name="137794"></a>re: nth_element ---- 比较优美的代码</div>
+			<div class = "feedbackListSubtitle">
+				2010-12-31 11:21 | <a id="AjaxHolder_Comments_CommentList_ctl29_NameLink" href="http://blog.redfox66.com" target="_blank">pkuoliver</a><br>
+				<div align=left>@feng<br>很明显，时间复杂度不是O(N)，最坏情况下时间复杂度是O(N^2)，最好时间复杂度是O(N)，平均时间复杂度是O(N*logN)。这是个典型的分治算法。&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;pkuoliver&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=pkuoliver" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl29_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl29$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl29_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码[未登录]" href="/feng/archive/2008/11/06/66141.html#144757">#</a>&nbsp;<a name="144757"></a>re: nth_element ---- 比较优美的代码[未登录]</div>
+			<div class = "feedbackListSubtitle">
+				2011-04-21 22:58 | <a id="AjaxHolder_Comments_CommentList_ctl30_NameLink" target="_blank">feng</a><br>
+				<div align=left>是的&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;feng&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=feng" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl30_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl30$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl30_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class = "feedbackListTitle"><a title="permalink: re: nth_element ---- 比较优美的代码[未登录]" href="/feng/archive/2008/11/06/66141.html#153270">#</a>&nbsp;<a name="153270"></a>re: nth_element ---- 比较优美的代码[未登录]<a name="Post"></a></div>
+			<div class = "feedbackListSubtitle">
+				2011-08-13 15:04 | <a id="AjaxHolder_Comments_CommentList_ctl31_NameLink" target="_blank">xxx</a><br>
+				<div align=left>@雷长炎<br>是quicksort的一遍实现，不是heapsort。&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;xxx&quot;)" href="/feng/archive/2008/11/06/66141.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.cppblog.com/comment?author=xxx" target="_blank">更多评论</a><br><a id="AjaxHolder_Comments_CommentList_ctl31_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl31$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl31_EditLink"></a></div>
+			</div>
+			
+			
+		</div>
+	
+
+
+
+<div id="AjaxHolder_Comments_divRefreshComments" style="text-align:right;margin-right:10px;margin-bottom:5px;font-size:12px;"><a id="AjaxHolder_Comments_refreshList" href="javascript:__doPostBack('AjaxHolder$Comments$refreshList','')">刷新评论列表</a></div>
+<style>
+td { font-size: 12px }
+.commentTextBox 
+{ 
+    font-family : Verdana; 
+    font-size: 13px;
+ }
+</style>
+<!--Beging Temp Save-->
+<STYLE>.userData { BEHAVIOR: url(#default#userdata) }
+	</STYLE>
+<DIV class="userData" id="CommentsPersistDiv"></DIV>
+<script type="text/javascript">
+function pageLoad()
+{
+    Sys.WebForms.PageRequestManager.getInstance().add_initializeRequest(handleInitializeRequest);
+    //Sys.WebForms.PageRequestManager.getInstance().add_endRequest(handleEndRequest);
+}
+
+function handleInitializeRequest(sender, args)
+{
+    var prm = Sys.WebForms.PageRequestManager.getInstance();
+    var eid = args.get_postBackElement().id;
+    if (eid.indexOf("DeleteLink")>0) 
+    {
+       args.get_postBackElement().innerHTML = "<font color='red'>正在删除...</font>";         
+    }    
+    if (eid.indexOf("btnSubmit")>0) 
+    {
+       document.getElementById("AjaxHolder_PostComment_ltSubmitMsg").innerHTML="正在提交...";
+       document.getElementById("AjaxHolder_PostComment_btnSubmit").disabled = true;
+       
+    }    
+   
+}	
+
+function TempSave(ElementID)
+{
+	try
+	{
+	CommentsPersistDiv.setAttribute("CommentContent",document.getElementById(ElementID).value);
+	CommentsPersistDiv.save("CommentXMLStore");
+	}
+	catch(ex)
+	{
+	}
+	
+}
+function Restore(ElementID)
+{
+	CommentsPersistDiv.load("CommentXMLStore");
+	document.getElementById(ElementID).value=CommentsPersistDiv.getAttribute("CommentContent");
+}	
+			
+			
+</script>
+<!--Ene TempSave-->
+<div class="commentform">
+<span id="AjaxHolder_PostComment_ltSubmitMsg" style="color:Red;"></span>
+<br />
+<a name="Feedback"></a>
+	<TABLE cellSpacing="1" cellPadding="1" border="0">
+		<tr>			
+		<td id="AjaxHolder_PostComment_tdOnCommentForm" colspan="3">
+		<a href="http://home.cnblogs.com/activity/aliyun" target="_blank">阿里云代金券</a><br/>
+		<!--<a href="http://www.aliyun.com/cps/channel?channel_id=1306&user=0&lv=1" target="_blank">推荐购买云服务器（15%返利+最高千元奖金）</a><br/>-->
+		<!--<a href="http://zt.cnblogs.com/training/2012/" target="_blank">国家职业资格证书.NET/Java免费培训(上海)</a>-->
+		</td>
+	
+		</tr>
+		<TR>
+			<TD colSpan="3">
+<Script Type="Text/Javascript">
+try{
+  GA_googleFillSlot("cppblog_commentbox_up");
+  } catch (e) { }
+</Script>
+<br/> </TD>
+		</TR>
+		<TR>
+			<TD width="75"></TD>
+			<TD></TD>
+			<TD></TD>
+		</TR>
+		<TR>
+			<TD></TD>
+			<TD colSpan="2">
+			<a href="http://www.cnblogs.com" target="_blank">博客园</a>&nbsp;  <a href="http://q.cnblogs.com/" target="_blank">博问</a>&nbsp; <a href="http://news.cnblogs.com" target="_blank">IT新闻</a>&nbsp; <!--<a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a>&nbsp;  --><a href="http://job.cnblogs.com/cate-cpp_programmer/" target="_blank">C++程序员招聘</a>
+			</TD>
+		</TR>
+		<TR>
+			<TD width="55">标题</TD>
+			<TD><input name="AjaxHolder$PostComment$tbTitle" type="text" value="re: nth_element ---- 比较优美的代码" id="AjaxHolder_PostComment_tbTitle" class="commenttb" style="width:320" /></TD>
+			<TD><span id="AjaxHolder_PostComment_RequiredFieldValidator1" style="color:Red;visibility:hidden;">请输入标题</span></TD>
+		</TR>
+		<TR>
+			<TD>姓名</TD>
+			<TD><input name="AjaxHolder$PostComment$tbName" type="text" id="AjaxHolder_PostComment_tbName" class="commenttb" style="width:320" /></TD>
+			<TD><span id="AjaxHolder_PostComment_RequiredFieldValidator2" style="color:Red;visibility:hidden;">请输入你的姓名</span></TD>
+		</TR>
+		<TR>
+			<TD>主页</TD>
+			<TD><input name="AjaxHolder$PostComment$tbUrl" type="text" id="AjaxHolder_PostComment_tbUrl" class="commenttb" style="width:320" /></TD>
+			<TD><FONT face="宋体"></FONT></TD>
+		</TR>
+		<tr>
+			<td align="left" colSpan="3">
+				<table id="AjaxHolder_PostComment_tbCaptchaImage" class="CommentForm" cellspacing="0" cellpadding="0" border="0">
+		<tr>
+			<td colspan="3">
+							<span id="AjaxHolder_PostComment_Requiredfieldvalidator4" style="color:Red;display:none;">请输入验证码</span>
+							<span id="AjaxHolder_PostComment_lblImage" style="color:Red;font-weight:bold;"></span>
+						</td>
+		</tr>
+		<tr>
+			<td width="78">验证码</td>
+			<td><input name="AjaxHolder$PostComment$CodeNumberTextBox" type="text" id="AjaxHolder_PostComment_CodeNumberTextBox" />*</td>
+			<td align="left">
+							<img src="../../../../../Modules/CaptchaImage/JpegImage.aspx" id="AjaxHolder_PostComment_Img1" />
+						</td>
+		</tr>
+	</table>
+	
+			</td>
+		</tr>
+		<TR>
+			<TD colSpan="3">内容(提交失败后,可以通过“恢复上次提交”恢复刚刚提交的内容)
+				<span id="AjaxHolder_PostComment_RequiredFieldValidator3" style="color:Red;visibility:hidden;">请输入评论内容</span><BR>
+				<textarea name="AjaxHolder$PostComment$tbComment" rows="10" cols="50" id="AjaxHolder_PostComment_tbComment" class="commentTextBox" onkeydown="ctlent(event,'AjaxHolder_PostComment_tbComment')" style="Width:480;Height:220"></textarea></TD>
+		</TR>
+		<TR>
+			<TD colSpan="3">
+		<span id="AjaxHolder_PostComment_Message" style="color:Red;"></span>
+		</td>
+		<TR>
+			<TD colSpan="3"><input id="AjaxHolder_PostComment_chkRemember" type="checkbox" name="AjaxHolder$PostComment$chkRemember" checked="checked" tabindex="-1" /><label for="AjaxHolder_PostComment_chkRemember">Remember Me?</label></TD>
+		</TR>
+		<TR>
+			<TD height="23"><input type="submit" name="AjaxHolder$PostComment$btnSubmit" value="提交" onclick="TempSave('AjaxHolder_PostComment_tbComment');WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;AjaxHolder$PostComment$btnSubmit&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" id="AjaxHolder_PostComment_btnSubmit" />
+				</TD>
+			<td colSpan="2" height="23">&nbsp;
+				<a id="AjaxHolder_PostComment_lnkLogin" href="http://www.cppblog.com/login.aspx?ReturnURL=http://www.cppblog.com/feng/archive/2008/11/06/66141.html&amp;SourceURL=/feng/archive/2008/11/06/66141.html">登录</a>&nbsp;&nbsp;<a id="AjaxHolder_PostComment_linkLoginComment" OnClick="if(document.getElementById('AjaxHolder_PostComment_tbComment').value != '') return confirm('未提交的评论内容将会丢失, 你真的要进入高级评论吗?');" href="http://www.cppblog.com/feng/archive/2008/11/06/66141.html?login=1#Post">使用高级评论</a>&nbsp;&nbsp;<a href="http://www.cppblog.com/RequireRegister.aspx">新用户注册</a>&nbsp;&nbsp;<A href="#Top">返回页首</A>&nbsp;&nbsp;<a id="AjaxHolder_PostComment_lbRestore" OnClick="Restore('AjaxHolder_PostComment_tbComment'); return false;" href="/feng/archive/2008/11/06/66141.html#Post">恢复上次提交</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+		</TR>
+		<TR>
+			<TD colSpan="3">[使用Ctrl+Enter键可以直接提交]</TD>
+		</TR>
+		<TR>
+		<TD colSpan="3">
+		<script type='text/javascript'>
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+(function() {
+var gads = document.createElement('script');
+gads.async = true;
+gads.type = 'text/javascript';
+var useSSL = 'https:' == document.location.protocol;
+gads.src = (useSSL ? 'https:' : 'http:') + 
+'//www.googletagservices.com/tag/js/gpt.js';
+var node = document.getElementsByTagName('script')[0];
+node.parentNode.insertBefore(gads, node);
+})();
+</script>
+
+<script type='text/javascript'>
+googletag.cmd.push(function() {
+googletag.defineSlot('/1090369/cppblog_blogpost_bottom', [300, 250], 'div-gpt-ad-1364133579678-0').addService(googletag.pubads());
+googletag.pubads().enableSingleRequest();
+googletag.enableServices();
+});
+</script>
+<!-- cppblog_blogpost_bottom -->
+<div id='div-gpt-ad-1364133579678-0' style='width:300px; height:250px;'>
+<script type='text/javascript'>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1364133579678-0'); });
+</script>
+</div>
+		</div>
+		</TD>
+		</TR>
+		<tr>			
+		<td colspan="3">
+		
+		</td>
+		</tr>
+		<TR>
+			<TD colSpan="3" height="5">
+<div id="divRelativePosts">
+相关文章:
+	
+			<ul style="margin-top:0px;line-height:1.8;">
+		
+			<li style='list-style:none;'>
+				<a id="AjaxHolder_PostComment_ctl07_RelativePostsList_ctl01_Hyperlink1" href="http://www.cppblog.com/feng/archive/2009/12/05/102593.html">位图索引排序</a>
+			</li>
+		
+			<li style='list-style:none;'>
+				<a id="AjaxHolder_PostComment_ctl07_RelativePostsList_ctl02_Hyperlink1" href="http://www.cppblog.com/feng/archive/2009/01/02/71028.html">非均匀取样数据的功率谱估计方法</a>
+			</li>
+		
+			<li style='list-style:none;display:none'>
+				<a id="AjaxHolder_PostComment_ctl07_RelativePostsList_ctl03_Hyperlink1" href="http://www.cppblog.com/feng/archive/2008/11/06/66141.html">nth_element ---- 比较优美的代码</a>
+			</li>
+		
+			<li style='list-style:none;'>
+				<a id="AjaxHolder_PostComment_ctl07_RelativePostsList_ctl04_Hyperlink1" href="http://www.cppblog.com/feng/archive/2008/10/28/65280.html">将遗传算法的库放到sf去了</a>
+			</li>
+		
+			<li style='list-style:none;'>
+				<a id="AjaxHolder_PostComment_ctl07_RelativePostsList_ctl05_Hyperlink1" href="http://www.cppblog.com/feng/archive/2008/06/22/54291.html">遗传算法系列 （4） 变异算法</a>
+			</li>
+		
+			<li style='list-style:none;'>
+				<a id="AjaxHolder_PostComment_ctl07_RelativePostsList_ctl06_Hyperlink1" href="http://www.cppblog.com/feng/archive/2008/06/18/53870.html">遗传算法系列 （3） 交叉算法</a>
+			</li>
+		
+			<li style='list-style:none;'>
+				<a id="AjaxHolder_PostComment_ctl07_RelativePostsList_ctl07_Hyperlink1" href="http://www.cppblog.com/feng/archive/2008/06/16/53372.html">遗传算法系列 （2）  遗传算法中的数据结构和与之相关的一些数值算法</a>
+			</li>
+		
+			<li style='list-style:none;'>
+				<a id="AjaxHolder_PostComment_ctl07_RelativePostsList_ctl08_Hyperlink1" href="http://www.cppblog.com/feng/archive/2008/06/15/53363.html">遗传算法系列 （1）遗传算法的基本概念</a>
+			</li>
+		
+			<li style='list-style:none;'>
+				<a id="AjaxHolder_PostComment_ctl07_RelativePostsList_ctl09_Hyperlink1" href="http://www.cppblog.com/feng/archive/2008/04/15/47157.html">一般线性模型的最小二次方拟合方法</a>
+			</li>
+		
+			</ul>
+		
+</div>
+</TD>
+		</TR>
+		<TR>
+			<TD colSpan="3"></TD>
+		</TR>
+		<TR>
+			<TD colSpan="3" height="1"><div id="blogsite">网站导航:
+			<a href="http://www.cnblogs.com">博客园</a>&nbsp;&nbsp;
+			<a href="http://news.cnblogs.com">IT新闻</a>&nbsp;&nbsp;
+			<a href="http://www.blogjava.net">BlogJava</a>&nbsp;&nbsp;
+			<a href="http://kb.cnblogs.com">知识库</a>&nbsp;&nbsp;
+			<a href="http://job.cnblogs.com">程序员招聘</a>&nbsp;&nbsp;
+			<a href="/feng/archive/2008/11/06/66141.html?opt=admin">管理</a>
+			</div></TD>
+		</TR>
+		<TR>
+			<TD colSpan="3">
+				
+<br/>
+
+<br/>
+
+</TD>
+		</TR>
+	</TABLE>	
+</div>
+<div id="AjaxHolder_PostComment_ValidationSummary1" style="color:Red;display:none;">
+
+	</div>
+
+</div>
+
+				
+</div>
+<div id="leftcontent">
+	
+		<DIV id="leftcontentcontainer" >
+			<br>			
+			<table id="Calendar1_entryCal" class="Cal" cellspacing="0" cellpadding="0" title="日历" border="0" style="border-width:1px;border-style:solid;border-collapse:collapse;border:0px">
+	<tr><td colspan="7" style="background-color:Transparent;"><table class="CalTitle" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
+		<tr><td class="CalNextPrev" style="width:15%;"><a href="javascript:__doPostBack('Calendar1$entryCal','V3196')" style="color:Black" title="转到上一个月">&lt;</a></td><td align="center" style="width:70%;">2008年11月</td><td class="CalNextPrev" align="right" style="width:15%;"><a href="javascript:__doPostBack('Calendar1$entryCal','V3257')" style="color:Black" title="转到下一个月">&gt;</a></td></tr>
+	</table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center" style="width:14%;">26</td><td class="CalOtherMonthDay" align="center" style="width:14%;">27</td><td class="CalOtherMonthDay" align="center" style="width:14%;">28</td><td class="CalOtherMonthDay" align="center" style="width:14%;">29</td><td class="CalOtherMonthDay" align="center" style="width:14%;">30</td><td class="CalOtherMonthDay" align="center" style="width:14%;">31</td><td class="CalWeekendDay" align="center" style="width:14%;">1</td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;">2</td><td align="center" style="width:14%;">3</td><td align="center" style="width:14%;">4</td><td align="center" style="width:14%;">5</td><td align="center" style="width:14%;"><a href="http://www.cppblog.com/feng/archive/2008/11/06.html"><u>6</u></a></td><td align="center" style="width:14%;">7</td><td class="CalWeekendDay" align="center" style="width:14%;">8</td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;">9</td><td align="center" style="width:14%;">10</td><td align="center" style="width:14%;">11</td><td align="center" style="width:14%;">12</td><td align="center" style="width:14%;">13</td><td align="center" style="width:14%;">14</td><td class="CalWeekendDay" align="center" style="width:14%;">15</td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;">16</td><td align="center" style="width:14%;">17</td><td align="center" style="width:14%;">18</td><td align="center" style="width:14%;">19</td><td align="center" style="width:14%;">20</td><td align="center" style="width:14%;">21</td><td class="CalWeekendDay" align="center" style="width:14%;">22</td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;">23</td><td align="center" style="width:14%;"><a href="http://www.cppblog.com/feng/archive/2008/11/24.html"><u>24</u></a></td><td align="center" style="width:14%;">25</td><td align="center" style="width:14%;">26</td><td align="center" style="width:14%;">27</td><td align="center" style="width:14%;">28</td><td class="CalWeekendDay" align="center" style="width:14%;">29</td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;">30</td><td class="CalOtherMonthDay" align="center" style="width:14%;">1</td><td class="CalOtherMonthDay" align="center" style="width:14%;">2</td><td class="CalOtherMonthDay" align="center" style="width:14%;">3</td><td class="CalOtherMonthDay" align="center" style="width:14%;">4</td><td class="CalOtherMonthDay" align="center" style="width:14%;">5</td><td class="CalOtherMonthDay" align="center" style="width:14%;">6</td></tr>
+</table>
+
+			
+<h3>常用链接</h3>
+<ul>
+		<li><a id="SingleColumn1_ctl00_repeaterLinks_ctl01_lnkLinkItem" href="http://www.cppblog.com/feng/MyPosts.html">我的随笔</a></li>
+	
+		<li><a id="SingleColumn1_ctl00_repeaterLinks_ctl02_lnkLinkItem" href="http://www.cppblog.com/feng/MyComments.html">我的评论</a></li>
+	
+		<li><a id="SingleColumn1_ctl00_repeaterLinks_ctl03_lnkLinkItem" href="http://www.cppblog.com/feng/OtherPosts.html">我参与的随笔</a></li>
+	</ul>
+<H3>留言簿<span style="font-size:11px;font-weight:normal;">(4)</span></H3>
+<ul>
+	<li>
+		<a id="SingleColumn1__3682762_lnkMessages" href="http://www.cppblog.com/feng/Contact.aspx?id=1">给我留言</a>
+	<li>
+		<a id="SingleColumn1__3682762_lnkPublicMsgView" href="http://www.cppblog.com/feng/default.aspx?opt=msg">查看公开留言</a>
+	<li>
+		<a id="SingleColumn1__3682762_lnkPrivateMsgView" href="http://www.cppblog.com/feng/admin/MyMessages.aspx">查看私人留言</a>
+	</li>
+</ul>
+
+<!--done-->
+
+		<h1 class = "catListTitle">随笔分类</h1>
+		
+				<ul class = "catList">
+			
+				<li class = "catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_Link" class="listitem" href="http://www.cppblog.com/feng/category/6764.html">Numerical C++(9)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_RssLink" title="Subscribe to Numerical C++(9)" class="listitem" href="http://www.cppblog.com/feng/category/6764.html/rss"><img title="Subscribe to Numerical C++(9)" src="/Images/xml.gif" style="border-width:0px;" /></a></li>
+			
+				<li class = "catListItem"> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_Link" class="listitem" href="http://www.cppblog.com/feng/category/7549.html">Tao(3)</a><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_RssLink" title="Subscribe to Tao(3)" class="listitem" href="http://www.cppblog.com/feng/category/7549.html/rss"><img title="Subscribe to Tao(3)" src="/Images/xml.gif" style="border-width:0px;" /></a></li>
+			
+				</ul>
+			
+	
+		<h1 class = "catListTitle">随笔档案</h1>
+		
+				<ul class = "catList">
+			
+				<li class = "catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl01_Link" class="listitem" href="http://www.cppblog.com/feng/archive/2009/12.html">2009年12月 (1)</a></li>
+			
+				<li class = "catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl02_Link" class="listitem" href="http://www.cppblog.com/feng/archive/2009/01.html">2009年1月 (2)</a></li>
+			
+				<li class = "catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl03_Link" class="listitem" href="http://www.cppblog.com/feng/archive/2008/12.html">2008年12月 (1)</a></li>
+			
+				<li class = "catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl04_Link" class="listitem" href="http://www.cppblog.com/feng/archive/2008/11.html">2008年11月 (2)</a></li>
+			
+				<li class = "catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl05_Link" class="listitem" href="http://www.cppblog.com/feng/archive/2008/10.html">2008年10月 (1)</a></li>
+			
+				<li class = "catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl06_Link" class="listitem" href="http://www.cppblog.com/feng/archive/2008/06.html">2008年6月 (4)</a></li>
+			
+				<li class = "catListItem"> <a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl07_Link" class="listitem" href="http://www.cppblog.com/feng/archive/2008/04.html">2008年4月 (1)</a></li>
+			
+				</ul>
+			
+	
+		<h1 class = "catListTitle">Link List</h1>
+		
+				<ul class = "catList">
+			
+				<li class = "catListItem"> <a id="SingleColumn1_Categories_CatList_ctl02_LinkList_ctl01_Link" class="listitem" href="http://www.faiththedog.net/">Faith The Biped Dog!</a></li>
+			<li style='margin-top:2px;'>Faith is an incredible dog. </li>
+				</ul>
+			
+	
+
+
+<script language="JavaScript">
+function SearchGoogle(key,evt,site)
+		{
+			if(evt.keyCode==13 || evt.keyCode==0 || evt.type =='click')
+			{
+				key.focus();
+				var keystr = encodeURIComponent(key.value);
+				url = "http://www.google.com/search?q=";
+				url = url+keystr;
+				url += "&ie=UTF-8&oe=GB2312&hl=zh-CN&domains="+site+"&sitesearch="+site;
+				window.location=url;
+				return false;
+			}
+		}
+</script>
+<H3>搜索</H3>
+<ul>
+	<li>
+		<li><input style="WIDTH: 130px" type="text" name="q" id="q" onkeydown="return SearchGoogle(document.getElementById('q'),event,'www.cppblog.com/feng')">&nbsp;<input onclick="SearchGoogle(document.getElementById('q'),event,'www.cppblog.com/feng')" type="button" value="搜索" name="sa">
+	</li>
+</ul>
+
+<h3>最新评论
+	<a id="SingleColumn1__1f31dde_RSSHyperlink1" href="http://www.cppblog.com/feng/CommentsRSS.aspx"><img src="/images/xml.gif" style="border-width:0px;" /></a></h3>
+<div class="RecentComment">
+	
+			<ul>
+		
+			<li style="word-break:break-all">
+				<a id="SingleColumn1__1f31dde_CommentList_ctl01_Hyperlink1" href="http://www.cppblog.com/feng/archive/2013/03/16/53363.html#198475">1. re: 遗传算法系列 （1）遗传算法的基本概念</a>
+			</li>
+			<li style="word-break:break-all">
+				@长江三峡<br>你研究过NSGA2遗传算法么
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--鑫</li>
+		
+			<li style="word-break:break-all">
+				<a id="SingleColumn1__1f31dde_CommentList_ctl02_Hyperlink1" href="http://www.cppblog.com/feng/archive/2011/08/13/66141.html#153270">2. re: nth_element ---- 比较优美的代码[未登录]</a>
+			</li>
+			<li style="word-break:break-all">
+				@雷长炎<br>是quicksort的一遍实现，不是heapsort。
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--xxx</li>
+		
+			<li style="word-break:break-all">
+				<a id="SingleColumn1__1f31dde_CommentList_ctl03_Hyperlink1" href="http://www.cppblog.com/feng/archive/2011/04/21/66141.html#144757">3. re: nth_element ---- 比较优美的代码[未登录]</a>
+			</li>
+			<li style="word-break:break-all">
+				是的
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--feng</li>
+		
+			<li style="word-break:break-all">
+				<a id="SingleColumn1__1f31dde_CommentList_ctl04_Hyperlink1" href="http://www.cppblog.com/feng/archive/2010/12/31/66141.html#137794">4. re: nth_element ---- 比较优美的代码</a>
+			</li>
+			<li style="word-break:break-all">
+				@feng<br>很明显，时间复杂度不是O(N)，最坏情况下时间复杂度是O(N^2)，最好时间复杂度是O(N)，平均时间复杂度是O(N*logN)。这是个典型的分治算法。
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--pkuoliver</li>
+		
+			<li style="word-break:break-all">
+				<a id="SingleColumn1__1f31dde_CommentList_ctl05_Hyperlink1" href="http://www.cppblog.com/feng/archive/2010/07/21/71028.html#120945">5. re: 非均匀取样数据的功率谱估计方法</a>
+			</li>
+			<li style="word-break:break-all">
+				评论内容较长,点击标题查看
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--dissertation writing service</li>
+		
+			</ul>
+		
+</div>
+
+<h3>阅读排行榜</h3>
+<div class="RecentComment">
+	
+			<ul style="word-break:break-all">
+		
+			<li>
+				<a id="SingleColumn1__220dce8_TopList_ctl01_Hyperlink1" href="http://www.cppblog.com/feng/archive/2008/06/15/53363.aspx">1. 遗传算法系列 （1）遗传算法的基本概念(3526)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__220dce8_TopList_ctl02_Hyperlink1" href="http://www.cppblog.com/feng/archive/2008/06/22/54291.aspx">2. 遗传算法系列 （4） 变异算法(3357)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__220dce8_TopList_ctl03_Hyperlink1" href="http://www.cppblog.com/feng/archive/2008/11/06/66141.aspx">3. nth_element ---- 比较优美的代码(3353)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__220dce8_TopList_ctl04_Hyperlink1" href="http://www.cppblog.com/feng/archive/2008/06/18/53870.aspx">4. 遗传算法系列 （3） 交叉算法(3120)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__220dce8_TopList_ctl05_Hyperlink1" href="http://www.cppblog.com/feng/archive/2008/04/15/47157.aspx">5. 一般线性模型的最小二次方拟合方法(3092)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+
+<h3>评论排行榜</h3>
+<div class="RecentComment">
+	
+			<ul style="word-break:break-all">
+		
+			<li>
+				<a id="SingleColumn1__344d45f_TopList_ctl01_Hyperlink1" href="http://www.cppblog.com/feng/archive/2008/11/06/66141.aspx">1. nth_element ---- 比较优美的代码(32)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__344d45f_TopList_ctl02_Hyperlink1" href="http://www.cppblog.com/feng/archive/2008/11/24/67745.aspx">2. 对一类因偷换概念而引发的悖论的思考(10)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__344d45f_TopList_ctl03_Hyperlink1" href="http://www.cppblog.com/feng/archive/2009/01/02/71028.aspx">3. 非均匀取样数据的功率谱估计方法(3)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__344d45f_TopList_ctl04_Hyperlink1" href="http://www.cppblog.com/feng/archive/2009/01/11/71733.aspx">4. Communix操作系统简史(2)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__344d45f_TopList_ctl05_Hyperlink1" href="http://www.cppblog.com/feng/archive/2008/06/15/53363.aspx">5. 遗传算法系列 （1）遗传算法的基本概念(2)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+</DIV>
+	
+</div>
+
+
+<!--done-->
+<div class="footer">
+	
+	Copyright &copy;2013 Wang Feng Powered By<a href="/">博客园</a> 模板提供：<a href="http://blog.hjenglish.com">沪江博客</a>
+</div>    
+    
+<script type="text/javascript">
+//<![CDATA[
+var Page_ValidationSummaries =  new Array(document.getElementById("AjaxHolder_PostComment_ValidationSummary1"));
+var Page_Validators =  new Array(document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2"), document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3"));
+//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+var AjaxHolder_PostComment_RequiredFieldValidator1 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator1"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1");
+AjaxHolder_PostComment_RequiredFieldValidator1.controltovalidate = "AjaxHolder_PostComment_tbTitle";
+AjaxHolder_PostComment_RequiredFieldValidator1.errormessage = "请输入标题";
+AjaxHolder_PostComment_RequiredFieldValidator1.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator1.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator2 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator2"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2");
+AjaxHolder_PostComment_RequiredFieldValidator2.controltovalidate = "AjaxHolder_PostComment_tbName";
+AjaxHolder_PostComment_RequiredFieldValidator2.errormessage = "请输入你的姓名";
+AjaxHolder_PostComment_RequiredFieldValidator2.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator2.initialvalue = "";
+var AjaxHolder_PostComment_Requiredfieldvalidator4 = document.all ? document.all["AjaxHolder_PostComment_Requiredfieldvalidator4"] : document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4");
+AjaxHolder_PostComment_Requiredfieldvalidator4.controltovalidate = "AjaxHolder_PostComment_CodeNumberTextBox";
+AjaxHolder_PostComment_Requiredfieldvalidator4.errormessage = "请输入验证码";
+AjaxHolder_PostComment_Requiredfieldvalidator4.display = "Dynamic";
+AjaxHolder_PostComment_Requiredfieldvalidator4.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_Requiredfieldvalidator4.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator3 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator3"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3");
+AjaxHolder_PostComment_RequiredFieldValidator3.controltovalidate = "AjaxHolder_PostComment_tbComment";
+AjaxHolder_PostComment_RequiredFieldValidator3.errormessage = "请输入评论内容";
+AjaxHolder_PostComment_RequiredFieldValidator3.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator3.initialvalue = "";
+var AjaxHolder_PostComment_ValidationSummary1 = document.all ? document.all["AjaxHolder_PostComment_ValidationSummary1"] : document.getElementById("AjaxHolder_PostComment_ValidationSummary1");
+AjaxHolder_PostComment_ValidationSummary1.showmessagebox = "True";
+AjaxHolder_PostComment_ValidationSummary1.showsummary = "False";
+//]]>
+</script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+        
+document.getElementById('AjaxHolder_PostComment_ValidationSummary1').dispose = function() {
+    Array.remove(Page_ValidationSummaries, document.getElementById('AjaxHolder_PostComment_ValidationSummary1'));
+}
+Sys.Application.initialize();
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2'));
+}
+
+document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3'));
+}
+//]]>
+</script>
+</form>
+	<script type="text/javascript" src="/script/ShowHidden.js"></script>   
+	<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-476124-5']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>
+</body>
+</html>

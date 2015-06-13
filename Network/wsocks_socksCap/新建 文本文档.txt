@@ -1,0 +1,2 @@
+http://code.google.com/p/wsocks/
+A transparent proxy layer on the original socket API like sockscap in windows platform.

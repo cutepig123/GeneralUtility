@@ -1,0 +1,739 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>学习笔记目录 | 酷~行天下</title>
+<meta name="copyright" content="design by huanjue" />
+<meta name="keyword" content="酷~行天下" />
+<meta name="description" content="《算法导论》笔记汇总" />
+<link rel="stylesheet" href="http://mindlee.net/wp-content/themes/huanjue2.1/style.css" type="text/css" media="screen" />
+<link rel="alternate" type="application/rss+xml" title="酷~行天下 RSS Feed" href="http://mindlee.net/feed/" />
+<link rel="pingback" href="http://mindlee.net/xmlrpc.php" />
+<link rel="stylesheet" href="http://mindlee.net/wp-content/themes/huanjue2.1/pagenavi-css.css" type="text/css" media="screen" />
+	<link rel='archives' title='2012 年四月' href='http://mindlee.net/2012/04/' />
+	<link rel='archives' title='2012 年二月' href='http://mindlee.net/2012/02/' />
+	<link rel='archives' title='2012 年一月' href='http://mindlee.net/2012/01/' />
+	<link rel='archives' title='2011 年十二月' href='http://mindlee.net/2011/12/' />
+	<link rel='archives' title='2011 年十一月' href='http://mindlee.net/2011/11/' />
+	<link rel='archives' title='2011 年十月' href='http://mindlee.net/2011/10/' />
+	<link rel='archives' title='2011 年九月' href='http://mindlee.net/2011/09/' />
+	<link rel='archives' title='2011 年八月' href='http://mindlee.net/2011/08/' />
+	<link rel='archives' title='2011 年七月' href='http://mindlee.net/2011/07/' />
+	<link rel='archives' title='2011 年六月' href='http://mindlee.net/2011/06/' />
+	<link rel='archives' title='2011 年五月' href='http://mindlee.net/2011/05/' />
+	<link rel='archives' title='2011 年四月' href='http://mindlee.net/2011/04/' />
+	<link rel='archives' title='2011 年三月' href='http://mindlee.net/2011/03/' />
+	<link rel='archives' title='2011 年二月' href='http://mindlee.net/2011/02/' />
+<script type="text/javascript" src="http://mindlee.net/wp-content/themes/huanjue2.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://mindlee.net/wp-content/themes/huanjue2.1/comments-ajax.js"></script>
+<link rel="alternate" type="application/rss+xml" title="酷~行天下 &raquo; 《算法导论》笔记汇总 评论 feed" href="http://mindlee.net/2011/08/21/study-notes-directory/feed/" />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='http://mindlee.net/wp-content/themes/huanjue2.1/pagenavi-css.css?ver=2.70' type='text/css' media='all' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://mindlee.net/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://mindlee.net/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='红黑树(Red Black Tree)' href='http://mindlee.net/2011/08/21/red-black-tree/' />
+<link rel='next' title='最长公共子序列和最优二叉查找树' href='http://mindlee.net/2011/09/06/lcs-and-osbst/' />
+<meta name="generator" content="WordPress 3.3.1" />
+<link rel='shortlink' href='http://mindlee.net/?p=543' />
+
+<!-- All in One SEO Pack 1.6.14.5 by Michael Torbert of Semper Fi Web Design[249,304] -->
+<meta name="description" content="学习笔记目录" />
+<meta name="keywords" content="学习笔记目录,算法导论,acm,c缺陷与陷进,数据结构,笔记,算法,acm历程,算法学习" />
+<link rel="canonical" href="http://mindlee.net/2011/08/21/study-notes-directory/" />
+<!-- /all in one seo pack -->
+<script type="text/javascript" src="http://mindlee.net/wp-content/plugins/audio-player/assets/audio-player.js?ver=2.0.4.1"></script>
+<script type="text/javascript">AudioPlayer.setup("http://mindlee.net/wp-content/plugins/audio-player/assets/player.swf?ver=2.0.4.1", {width:"290",animation:"yes",encode:"yes",initialvolume:"60",remaining:"yes",noinfo:"no",buffer:"5",checkpolicy:"no",rtl:"no",bg:"E5E5E5",text:"333333",leftbg:"CCCCCC",lefticon:"333333",volslider:"666666",voltrack:"FFFFFF",rightbg:"B4B4B4",rightbghover:"999999",righticon:"333333",righticonhover:"FFFFFF",track:"FFFFFF",loader:"009900",border:"CCCCCC",tracker:"DDDDDD",skip:"666666",pagebg:"FFFFFF",transparentpagebg:"yes"});</script>
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+<meta id="syntaxhighlighteranchor" name="syntaxhighlighter-version" content="3.1.3" />
+</head>
+<body>
+<div id="wrap">
+<div id="header">
+  <div class="logo">
+    <h1 ><a href="http://mindlee.net/">
+      酷~行天下      </a></h1>
+    <h2 class="description">
+      MindLee.net | 一个菜鸟的学习成长博客，记录与Code有关的人生和梦想！    </h2>
+  </div>
+  <div  class="toplink">
+    <ul>
+      <li> <a title="Home" href="http://mindlee.net/">首 页</a> </li>
+      <li class="page_item page-item-994"><a href="http://mindlee.net/my-books/">读书</a></li>
+<li class="page_item page-item-1000"><a href="http://mindlee.net/my-moives/">电影</a></li>
+<li class="page_item page-item-2"><a href="http://mindlee.net/about-me/">关于我</a></li>
+<li class="page_item page-item-69"><a href="http://mindlee.net/leave-word/">留言板</a></li>
+ 
+<!-- Feedsky FEED发布代码开始 -->
+<!-- FEED自动发现标记开始 -->
+<link title="RSS 2.0" type="application/rss+xml" href="http://feed.feedsky.com/mindlee" rel="alternate" />
+<!-- FEED自动发现标记结束 -->
+
+
+<script language="javascript"><!-- 
+main_sub="c1s17d";
+more_subs="";
+is_new="yes";
+--> </script>
+<script language="javascript" src="http://www.feedsky.com/jsout/publishlist_v2.js?burl=mindlee&out_html=true"></script>
+<!-- Feedsky FEED发布代码结束 -->
+    </ul>
+  </div>
+<div id="nav">
+<ul id="menu" class="menu"><li id="menu-item-569" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-569"><a href="http://mindlee.net/category/algorithm-learning/"><span>算法学习</span></a></li>
+<li id="menu-item-983" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-983"><a href="http://mindlee.net/category/technology-enlightenment/"><span>技术启蒙</span></a></li>
+<li id="menu-item-8" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-8"><a href="http://mindlee.net/category/lets-go-on-a-trip/"><span>出去走走</span></a></li>
+<li id="menu-item-9" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9"><a href="http://mindlee.net/category/sub-talking/"><span>闲心碎语</span></a></li>
+<li id="menu-item-72" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-72"><a href="http://mindlee.net/leave-word/"><span>留言板</span></a></li>
+</ul></div></div>
+
+<div id="main">
+
+<div id="content">
+
+<div id="home_banner">
+<div class="demo">
+<div class="num"><a class="cur">1</a><a>2</a><a>3</a></div>
+<ul>
+<li style="display:block;"><a href="#" target="_blank"><img src="http://mindlee.net/wp-content/themes/huanjue2.1/images/banner01.jpg" /></a></li><li><a href="#"  target="_blank"><img src="http://mindlee.net/wp-content/themes/huanjue2.1/images/banner02.jpg"  /></a></li><li><a href="#"  target="_blank"><img src="http://mindlee.net/wp-content/themes/huanjue2.1/images/banner03.jpg"  /></a></li>
+</ul>
+</div>
+<script type="text/javascript">
+$(function(){
+var sw = 0;
+$(".demo .num a").mouseover(function(){
+sw = $(".num a").index(this);
+myShow(sw);
+});
+function myShow(i){
+$(".demo .num a").eq(i).addClass("cur").siblings("a").removeClass("cur");
+$(".demo ul li").eq(i).stop(true,true).fadeIn(600).siblings("li").fadeOut(600);
+}
+//滑入停止动画，滑出开始动画
+$(".demo").hover(function(){
+if(myTime){
+clearInterval(myTime);
+}
+},function(){
+myTime = setInterval(function(){
+myShow(sw)
+sw++;
+if(sw==3){sw=0;}
+} , 3500);
+});
+//自动开始
+var myTime = setInterval(function(){
+myShow(sw)
+sw++;
+if(sw==3){sw=0;}
+} , 3500);
+})
+</script>
+</div>
+
+<div class="content_top"></div>
+
+<div class="content_center">
+
+ 
+<div class="post-543 post type-post status-publish format-standard hentry category-acm-algorithm category-algorithm-learning tag-data-structure tag-notes tag-algorithm tag-introduction-to-algorithms" id="post-543">
+
+<div class="content"> 
+
+<h2><a href="http://mindlee.net/2011/08/21/study-notes-directory/" rel="bookmark">《算法导论》笔记汇总</a></h2>
+
+<div class="meta"><span class="tag">分类：<a href="http://mindlee.net/category/acm-algorithm/" title="查看 ACM历程 的全部文章" rel="category tag">ACM历程</a>,<a href="http://mindlee.net/category/algorithm-learning/" title="查看 算法学习 的全部文章" rel="category tag">算法学习</a> ｜ 作者：酷~行天下 ｜ 发表于2011/08/21</span><span class="time"> <a href="http://mindlee.net/2011/08/21/study-notes-directory/#comments" title="《算法导论》笔记汇总 上的评论">15条评论</a> 4,222 views </span></div>
+
+<p><font size="2"><strong>&#160;&#160;&#160;&#160; </strong>列表里没有的，或者是纯属理论，不适合写，比如第1~5章； 或者是我也不怎么明白的，比如斐波那契堆中抽取最小结点的平摊代价分析； 还有没看的，比如数论和NP完全性等。<font color="#000000" face="微软雅黑">陆续看了四个月，有些理解的还不是很深，笔记汇总到这里。如果有问题，可以邮件交流。</font></font></p>
+<p><font color="#000000" size="2" face="微软雅黑">第<font color="#000000"><strong>六</strong></font>章：堆排序&#160;&#160;&#160; <font color="#00697f"></font><a href="http://mindlee.net/2011/07/27/heap-sort-and-priority-queue/" target="_blank"><font color="#1155c0">《堆排序》</font></a></font></p>
+<p><font color="#000000" size="2" face="微软雅黑">第<strong>七</strong>章：快速排序 <a href="http://mindlee.net/2011/07/28/four-quick-sort/" target="_blank"><font color="#1155cc">《四种快速排序》</font></a><font color="#1155cc">&#160;&#160; </font><a href="http://mindlee.net/2011/07/29/quick-sort-optimization/" target="_blank"><font color="#1155cc">《快速排序优化》</font></a></font></p>
+<p><font color="#000000" size="2" face="微软雅黑">第<strong>八</strong>章：线性时间排序&#160;&#160; <font color="#007bbb">&#160; </font><a href="http://mindlee.net/2011/07/30/count-sort-and-radix-sort/" target="_blank"><font color="#1155c0">《计数排序和基数排序》</font></a></font></p>
+<p><font color="#000000" size="2" face="微软雅黑">第<strong>九</strong>章：中位数和顺序统计学 <a href="http://mindlee.net/2011/08/03/median-and-order-statistics/" target="_blank"><font color="#1155cc">《中位数和顺序统计学》</font></a></font></p>
+<p><font color="#000000" size="2" face="微软雅黑">第<strong>十一</strong>章：散列表&#160;&#160;&#160;&#160; <a href="http://mindlee.net/2011/08/06/hash-and-hash-function/" target="_blank"><font color="#1155cc">《散列及散列函数》</font></a><a href="http://mindlee.net/2011/08/06/solve-hash-conflict-links-method-and-separation-open-addressing-method/" target="_blank"><font color="#1155c0"><font color="#1155cc">《</font>解决散列冲突之分离链接法和开放寻址法》</font></a></font></p>
+<p><font color="#000000" size="2" face="微软雅黑">第<strong>十二</strong>章：二叉查找树 <a href="http://mindlee.net/2011/08/20/binary-search-tree/" target="_blank"><font color="#1155c0">《二叉查找树》</font></a></font></p>
+<p><font color="#000000" size="2" face="微软雅黑">第<strong>十三</strong>章：红黑树&#160; <a href="http://mindlee.net/2011/08/21/red-black-tree/" target="_blank"><font color="#1155cc">《红黑树(Red Black Tree)》</font></a></font></p>
+<p><font color="#000000" size="2" face="微软雅黑">第<strong>十五</strong>章：动态规划 <a href="http://mindlee.net/2011/09/06/lcs-and-osbst/"><font color="#1155cc">《最长公共子序列和最优二叉查找树》</font></a></font><font color="#000000" size="2" face="微软雅黑"></font></p>
+<p><font color="#000000" size="2" face="微软雅黑">第<strong>十六</strong>章：贪心算法&#160; <a href="http://mindlee.net/2011/09/10/huffman-coding/" target="_blank"><font color="#1155cc">《哈弗曼编码(Huffman Coding)》</font></a></font></p>
+<p><font color="#000000" size="2" face="微软雅黑">第<strong>十八</strong>章：B-树&#160; <a href="http://mindlee.net/2011/09/18/b-trees/" target="_blank"><font color="#1155cc">《B-树(B-Trees) 》</font></a></font></p>
+<p><font color="#000000" size="2" face="微软雅黑">第<strong>十九</strong>章：二项堆 <a href="http://mindlee.net/2011/09/26/binomial-heaps/" target="_blank"><font color="#1155cc">《二项堆(Binomial Heaps)》</font></a></font></p>
+<p><font size="2">第<strong>二十</strong>章：斐波那契堆&#160; <a href="http://mindlee.net/2011/09/29/fibonacci-heaps/" target="_blank"><font color="#1155cc">《斐波那契堆(Fibonacci heaps)》</font></a></font></p>
+<p><font size="2">第<strong>二十一</strong>章：用于不相干集合的数据结构&#160;&#160; <a href="http://mindlee.net/2011/10/21/disjoint-sets/" target="_blank"><font color="#1155cc">《并查集(Disjoint Sets)》</font></a></font></p>
+<p><font size="2">第<strong>二十二</strong>章：图的基本算法&#160; <font color="#1155cc"></font><a href="http://mindlee.net/2011/10/28/graph-search/" target="_blank"><font color="#1155cc">《图搜索算法(Graph Search Algorithm)》</font></a></font></p>
+<p><font size="2">第<strong>二十三</strong>章：最小生成树&#160; <font color="#1155cc"></font><a href="http://mindlee.net/2011/11/16/minimum-spanning-trees/" target="_blank"><font color="#1155cc">《最小生成树(Minimum Spanning Trees)》</font></a></font></p>
+<p><font size="2">第<strong>二十四</strong>章：单源最短路径&#160;&#160; <a href="http://mindlee.net/2011/11/18/shortest-paths-algorithm/" target="_blank"><font color="#1155cc">《最短路算法(Shortest Paths Algorithm)》</font></a></font></p>
+<p><font size="2">第<strong>二十五</strong>章：每对顶点间的最短路径&#160; <a href="http://mindlee.net/2011/11/18/shortest-paths-algorithm/" target="_blank"><font color="#1155cc">《最短路算法(Shortest Paths Algorithm)》</font></a></font></p>
+<p><font size="2">第<strong>二十六</strong>章：最大流&#160; <a href="http://mindlee.net/2011/11/19/network-flow/" target="_blank"><font color="#1155cc">《网络流(Network Flow)》</font></a></font></p>
+<p><font size="2">第<strong>二十八</strong>章：矩阵运算 <font color="#1155cc"></font><a href="http://mindlee.net/2011/11/21/matrix-multiply/" target="_blank"><font color="#1155cc">《矩阵乘法(Matrix Multiply)》</font></a></font></p>
+<p><font size="2">第<strong>三十二</strong>章：字符串匹配 <font color="#1155cc"></font><a href="http://mindlee.net/2011/11/25/string-matching/" target="_blank"><font color="#1155cc">《字符串匹配(String Matching)》</font></a></font></p>
+<p><font size="2">第<strong>三十三</strong>章：计算几何学&#160;&#160; <a href="http://mindlee.net/2011/11/27/computational-geometry/" target="_blank"><font color="#1155cc">《计算几何学(Computational Geometry)》</font></a></font></p>
+<p><font size="2"></font></p>
+<p><font size="7" face="微软雅黑"><font color="#53a527"></font><font color="#6ab11b" size="6">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <font size="7">&#160;</font><font size="6"><strong>⁂</strong></font></font></font><font size="6"> </font></p>
+<p><font size="2">推荐几本其他算法教材：</font></p>
+<p><font color="#2e963d" size="2"><a href="http://book.douban.com/subject/1139426/" target="_blank"><font color="#2e963d">《数据结构与算法分析》</font></a><font color="#000000">：C语言实现很赞，作者有时候会说，别人的效率没我这个高。</font></font></p>
+<p><font color="#2e963d" size="2"><a href="http://book.douban.com/subject/4065258/" target="_blank"><font color="#2e963d">《算法》</font></a><font color="#000000">：普林斯顿的教材，东东说用此教材的学生非常幸福。英文版在这里：<a href="http://book.douban.com/subject/10432347/" target="_blank"><font color="#2e963d">《算法》</font></a></font></font></p>
+<p><font size="2"></font></p>
+<p><font size="7" face="微软雅黑"><font color="#53a527"></font><font color="#6ab11b" size="6"><font size="7"><strong>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <font size="6">&#160;&#160; ⁂</font></strong></font></font></font> </p>
+<p>其他朋友的CLRS笔记：</p>
+<p>Tanky Woo：&#160; <strong><a href="http://www.wutianqi.com/?p=2403" target="_blank"><font color="#1155cc">《算法导论》学习总结—【目录】</font></a></strong></p>
+<p>Adoo&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; :&#160;&#160; <a href="http://www.roading.org/algorithm/introductiontoalgorithm/%e7%ae%97%e6%b3%95%e5%af%bc%e8%ae%ba%e7%b4%a2%e5%bc%95%e8%a1%a8.html"><font color="#1155cc"><strong>《算法导论》笔记汇总</strong></font></a></p>
+<div style="clear:both; margin-top:5px; margin-bottom:5px;"></div><div style="float:left"><!-- JiaThis Button BEGIN -->
+<div id="jiathis_style_32x32">
+<a class="jiathis_button_qzone"></a>
+<a class="jiathis_button_tsina"></a>
+<a class="jiathis_button_tqq"></a>
+<a class="jiathis_button_renren"></a>
+<a class="jiathis_button_42qu"></a>
+<a class="jiathis_button_douban"></a>
+<a class="jiathis_button_douban9dian"></a>
+<a class="jiathis_button_evernote"></a>
+<a class="jiathis_button_google"></a>
+<a class="jiathis_button_email"></a>
+<a class="jiathis_button_delicious"></a>
+<a class="jiathis_button_googleplus"></a>
+<a class="jiathis_button_fb"></a>
+<a href="http://www.jiathis.com/share?uid=1519757" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+	data_track_clickback:true,
+	summary:"",
+	hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1519757" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+</div><div style="clear:both; margin-top:5px; margin-bottom:5px;"></div><h2  class="related_post_title">相关日志</h2><ul class="related_post"><li>2011/11/27 -- <a href="http://mindlee.net/2011/11/27/computational-geometry/" title="计算几何学(Computational Geometry)">计算几何学(Computational Geometry)</a> (1)</li><li>2011/11/25 -- <a href="http://mindlee.net/2011/11/25/string-matching/" title="字符串匹配(String Matching)">字符串匹配(String Matching)</a> (5)</li><li>2011/11/21 -- <a href="http://mindlee.net/2011/11/21/matrix-multiply/" title="矩阵乘法(Matrix Multiply)">矩阵乘法(Matrix Multiply)</a> (4)</li><li>2011/11/19 -- <a href="http://mindlee.net/2011/11/19/network-flow/" title="网络流(Network Flow)">网络流(Network Flow)</a> (15)</li><li>2011/11/18 -- <a href="http://mindlee.net/2011/11/18/shortest-paths-algorithm/" title="最短路算法(Shortest Paths Algorithm)">最短路算法(Shortest Paths Algorithm)</a> (17)</li></ul> 
+
+<div class="thetag">Tag： <a href="http://mindlee.net/tag/data-structure/" rel="tag">数据结构</a> <a href="http://mindlee.net/tag/notes/" rel="tag">笔记</a> <a href="http://mindlee.net/tag/algorithm/" rel="tag">算法</a> <a href="http://mindlee.net/tag/introduction-to-algorithms/" rel="tag">算法导论</a> </div>
+
+</div>
+
+</div>
+
+
+
+<div id="post_metadata">
+
+<h3>日志信息 &raquo;</h3>
+
+<div class="content">
+
+该日志于2011-08-21 23:36由 酷~行天下 发表在<a href="http://mindlee.net/category/acm-algorithm/" title="查看 ACM历程 的全部文章" rel="category tag">ACM历程</a>, <a href="http://mindlee.net/category/algorithm-learning/" title="查看 算法学习 的全部文章" rel="category tag">算法学习</a>分类下，
+
+
+你可以<a href="#respond">发表评论</a>。除了可以将这个日志以保留<a href="http://mindlee.net/2011/08/21/study-notes-directory/" rel="bookmark">源地址</a>及作者的情况下<a href="http://mindlee.net/2011/08/21/study-notes-directory/trackback/" rel="trackback">引用</a>到你的网站或博客，还可以通过
+<!-- Feedsky FEED发布代码开始 -->
+<!-- FEED自动发现标记开始 -->
+<link title="RSS 2.0" type="application/rss+xml" href="http://feed.feedsky.com/mindlee" rel="alternate" />
+<!-- FEED自动发现标记结束 -->
+<script language="javascript"><!-- 
+main_sub="c1s17d";
+more_subs="";
+is_new="yes";
+--> </script>
+<script language="javascript" src="http://www.feedsky.com/jsout/publishlist_v2.js?burl=mindlee&out_html=true"></script>
+<!-- Feedsky FEED发布代码结束 -->
+订阅本站。
+
+
+</div>
+
+</div>
+
+<div id="comments">
+       目前盖楼 (15)层：</div>
+	<ol class="comment_list">
+				<li class="comment even thread-even depth-1 parent" id="comment-112">
+				<div id="div-comment-112" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/4d67eea8bf197c20a97fe8c1cb273a30?s=48&amp;d=identicon&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />		<cite class="fn"><a href='http://zhaqiang.com' rel='external nofollow' class='url'>Hugo</a></cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://mindlee.net/2011/08/21/study-notes-directory/comment-page-1/#comment-112">
+			2011/08/22 于 15:05</a>		</div>
+
+		<p>这个贴在这里，不太合适吧，呵呵</p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/2011/08/21/study-notes-directory/?replytocom=112#respond' onclick='return addComment.moveForm("div-comment-112", "112", "respond", "543")'>回复</a>		</div>
+				</div>
+		<ul class='children'>
+		<li class="comment byuser comment-author-welon bypostauthor odd alt depth-2 parent" id="comment-113">
+				<div id="div-comment-113" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/5e176552e6eebb8e67d9cd3ff22c2dda?s=48&amp;d=identicon&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />		<cite class="fn"><a href='http://mindlee.net' rel='external nofollow' class='url'>酷~行天下</a></cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://mindlee.net/2011/08/21/study-notes-directory/comment-page-1/#comment-113">
+			2011/08/22 于 15:56</a>		</div>
+
+		<p>为什么 <img src='http://mindlee.net/wp-includes/images/smilies/050.gif' alt='[M:050]' class='wp-smiley' /> </p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/2011/08/21/study-notes-directory/?replytocom=113#respond' onclick='return addComment.moveForm("div-comment-113", "113", "respond", "543")'>回复</a>		</div>
+				</div>
+		<ul class='children'>
+		<li class="comment even depth-3 parent" id="comment-260">
+				<div id="div-comment-260" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/4d67eea8bf197c20a97fe8c1cb273a30?s=48&amp;d=identicon&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />		<cite class="fn"><a href='http://zhaqiang.com' rel='external nofollow' class='url'>HugoChou</a></cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://mindlee.net/2011/08/21/study-notes-directory/comment-page-1/#comment-260">
+			2011/09/19 于 16:38</a>		</div>
+
+		<p>个人感觉嘛，你觉得好就行，哈哈</p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/2011/08/21/study-notes-directory/?replytocom=260#respond' onclick='return addComment.moveForm("div-comment-260", "260", "respond", "543")'>回复</a>		</div>
+				</div>
+		<ul class='children'>
+		<li class="comment byuser comment-author-welon bypostauthor odd alt depth-4" id="comment-284">
+				<div id="div-comment-284" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/5e176552e6eebb8e67d9cd3ff22c2dda?s=48&amp;d=identicon&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />		<cite class="fn"><a href='http://mindlee.net' rel='external nofollow' class='url'>酷~行天下</a></cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://mindlee.net/2011/08/21/study-notes-directory/comment-page-1/#comment-284">
+			2011/09/29 于 10:37</a>		</div>
+
+		<p>暂时放这里，过几天我用HTML写一个页面，放菜单里。</p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/2011/08/21/study-notes-directory/?replytocom=284#respond' onclick='return addComment.moveForm("div-comment-284", "284", "respond", "543")'>回复</a>		</div>
+				</div>
+		</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+		<li class="comment even thread-odd thread-alt depth-1 parent" id="comment-114">
+				<div id="div-comment-114" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/5b26ef58c58d2f00707cf104a08aae11?s=48&amp;d=identicon&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />		<cite class="fn">4546</cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://mindlee.net/2011/08/21/study-notes-directory/comment-page-1/#comment-114">
+			2011/08/22 于 19:59</a>		</div>
+
+		<p> <img src='http://mindlee.net/wp-includes/images/smilies/12.gif' alt='[M:04]' class='wp-smiley' /> Orz</p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/2011/08/21/study-notes-directory/?replytocom=114#respond' onclick='return addComment.moveForm("div-comment-114", "114", "respond", "543")'>回复</a>		</div>
+				</div>
+		<ul class='children'>
+		<li class="comment byuser comment-author-welon bypostauthor odd alt depth-2" id="comment-115">
+				<div id="div-comment-115" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/5e176552e6eebb8e67d9cd3ff22c2dda?s=48&amp;d=identicon&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />		<cite class="fn"><a href='http://mindlee.net' rel='external nofollow' class='url'>酷~行天下</a></cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://mindlee.net/2011/08/21/study-notes-directory/comment-page-1/#comment-115">
+			2011/08/22 于 20:27</a>		</div>
+
+		<p>反ORZ <img src='http://mindlee.net/wp-includes/images/smilies/45.gif' alt='[M:40]' class='wp-smiley' /> 4546大神……</p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/2011/08/21/study-notes-directory/?replytocom=115#respond' onclick='return addComment.moveForm("div-comment-115", "115", "respond", "543")'>回复</a>		</div>
+				</div>
+		</li>
+</ul>
+</li>
+		<li class="comment even thread-even depth-1 parent" id="comment-117">
+				<div id="div-comment-117" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/1690533623b9d066423161d6b8602a8d?s=48&amp;d=identicon&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />		<cite class="fn"><a href='http://starfall512.com' rel='external nofollow' class='url'>starfall</a></cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://mindlee.net/2011/08/21/study-notes-directory/comment-page-1/#comment-117">
+			2011/08/23 于 11:48</a>		</div>
+
+		<p>Orz <img src='http://mindlee.net/wp-includes/images/smilies/3.gif' alt='[M:23]' class='wp-smiley' /> </p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/2011/08/21/study-notes-directory/?replytocom=117#respond' onclick='return addComment.moveForm("div-comment-117", "117", "respond", "543")'>回复</a>		</div>
+				</div>
+		<ul class='children'>
+		<li class="comment byuser comment-author-welon bypostauthor odd alt depth-2" id="comment-118">
+				<div id="div-comment-118" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/5e176552e6eebb8e67d9cd3ff22c2dda?s=48&amp;d=identicon&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />		<cite class="fn"><a href='http://mindlee.net' rel='external nofollow' class='url'>酷~行天下</a></cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://mindlee.net/2011/08/21/study-notes-directory/comment-page-1/#comment-118">
+			2011/08/23 于 12:38</a>		</div>
+
+		<p>大神见笑了 <img src='http://mindlee.net/wp-includes/images/smilies/26.gif' alt='[M:19]' class='wp-smiley' /> </p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/2011/08/21/study-notes-directory/?replytocom=118#respond' onclick='return addComment.moveForm("div-comment-118", "118", "respond", "543")'>回复</a>		</div>
+				</div>
+		</li>
+</ul>
+</li>
+		<li class="comment byuser comment-author-simon86clj even thread-odd thread-alt depth-1 parent" id="comment-432">
+				<div id="div-comment-432" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/e56750fbf89265c4c222b26228e8bf11?s=48&amp;d=identicon&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />		<cite class="fn">simon86clj</cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://mindlee.net/2011/08/21/study-notes-directory/comment-page-1/#comment-432">
+			2011/12/24 于 17:31</a>		</div>
+
+		<p> <img src='http://mindlee.net/wp-includes/images/smilies/12.gif' alt='[M:04]' class='wp-smiley' /> </p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/2011/08/21/study-notes-directory/?replytocom=432#respond' onclick='return addComment.moveForm("div-comment-432", "432", "respond", "543")'>回复</a>		</div>
+				</div>
+		<ul class='children'>
+		<li class="comment byuser comment-author-welon bypostauthor odd alt depth-2" id="comment-433">
+				<div id="div-comment-433" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/5e176552e6eebb8e67d9cd3ff22c2dda?s=48&amp;d=identicon&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />		<cite class="fn"><a href='http://mindlee.net' rel='external nofollow' class='url'>酷~行天下</a></cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://mindlee.net/2011/08/21/study-notes-directory/comment-page-1/#comment-433">
+			2011/12/24 于 17:42</a>		</div>
+
+		<p> <img src='http://mindlee.net/wp-includes/images/smilies/046.gif' alt='[M:046]' class='wp-smiley' /> </p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/2011/08/21/study-notes-directory/?replytocom=433#respond' onclick='return addComment.moveForm("div-comment-433", "433", "respond", "543")'>回复</a>		</div>
+				</div>
+		</li>
+</ul>
+</li>
+		<li class="comment even thread-even depth-1 parent" id="comment-487">
+				<div id="div-comment-487" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/5390676851286161e4b1d5677b29322f?s=48&amp;d=identicon&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />		<cite class="fn"><a href='http://www.wutianqi.com' rel='external nofollow' class='url'>Tanky Woo</a></cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://mindlee.net/2011/08/21/study-notes-directory/comment-page-1/#comment-487">
+			2012/01/07 于 20:44</a>		</div>
+
+		<p>17章求讲解   <img src='http://mindlee.net/wp-includes/images/smilies/27.gif' alt='[M:20]' class='wp-smiley' /> </p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/2011/08/21/study-notes-directory/?replytocom=487#respond' onclick='return addComment.moveForm("div-comment-487", "487", "respond", "543")'>回复</a>		</div>
+				</div>
+		<ul class='children'>
+		<li class="comment byuser comment-author-welon bypostauthor odd alt depth-2 parent" id="comment-488">
+				<div id="div-comment-488" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/5e176552e6eebb8e67d9cd3ff22c2dda?s=48&amp;d=identicon&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />		<cite class="fn"><a href='http://mindlee.net' rel='external nofollow' class='url'>酷~行天下</a></cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://mindlee.net/2011/08/21/study-notes-directory/comment-page-1/#comment-488">
+			2012/01/07 于 22:26</a>		</div>
+
+		<p> <img src='http://mindlee.net/wp-includes/images/smilies/45.gif' alt='[M:40]' class='wp-smiley' /> 现在不在学校了，没带书…… <img src='http://mindlee.net/wp-includes/images/smilies/002.gif' alt='[M:002]' class='wp-smiley' /> </p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/2011/08/21/study-notes-directory/?replytocom=488#respond' onclick='return addComment.moveForm("div-comment-488", "488", "respond", "543")'>回复</a>		</div>
+				</div>
+		<ul class='children'>
+		<li class="comment even depth-3 parent" id="comment-496">
+				<div id="div-comment-496" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/5390676851286161e4b1d5677b29322f?s=48&amp;d=identicon&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />		<cite class="fn"><a href='http://www.wutianqi.com' rel='external nofollow' class='url'>Tanky Woo</a></cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://mindlee.net/2011/08/21/study-notes-directory/comment-page-1/#comment-496">
+			2012/01/09 于 15:10</a>		</div>
+
+		<p>放假了？ 对了，你没弄个回复插件？</p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/2011/08/21/study-notes-directory/?replytocom=496#respond' onclick='return addComment.moveForm("div-comment-496", "496", "respond", "543")'>回复</a>		</div>
+				</div>
+		<ul class='children'>
+		<li class="comment byuser comment-author-welon bypostauthor odd alt depth-4" id="comment-497">
+				<div id="div-comment-497" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/5e176552e6eebb8e67d9cd3ff22c2dda?s=48&amp;d=identicon&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />		<cite class="fn"><a href='http://mindlee.net' rel='external nofollow' class='url'>酷~行天下</a></cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://mindlee.net/2011/08/21/study-notes-directory/comment-page-1/#comment-497">
+			2012/01/10 于 08:58</a>		</div>
+
+		<p>6号考完试，就跑上海来了，在同学学校图书馆溜达，回家估计还得一周…… <img src='http://mindlee.net/wp-includes/images/smilies/22.gif' alt='[M:15]' class='wp-smiley' /> 。<br />
+你说的回复插件是指这个？ Comment Reply Notification，你好像用的这个，之前装了有点小问题，我看能不能弄好。</p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/2011/08/21/study-notes-directory/?replytocom=497#respond' onclick='return addComment.moveForm("div-comment-497", "497", "respond", "543")'>回复</a>		</div>
+				</div>
+		</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+	</ol>
+	<div class="navigation">
+        <span class="alignleft"></span>
+        <span class="alignright"></span>
+        <div class="clear"></div>
+    </div>
+		<div id="respond">
+		<h3 id="post_comment" name="post_comment">发表评论 &raquo;</h3>
+		<div id="cancel_comment_reply"><a rel="nofollow" id="cancel-comment-reply-link" href="/2011/08/21/study-notes-directory/#respond" style="display:none;">点击这里取消回复。</a></div>
+				<form action="http://mindlee.net/wp-comments-post.php" method="post" id="commentform" name="commentform">
+			<p><textarea name="comment" id="comment" rows="5" tabindex="4"></textarea></p>
+						<p><input type="text" name="author" id="author" value="" size="22" tabindex="1" />
+			<label for="author">名称 (必填)</label></p>
+			<p><input type="text" name="email" id="email" value="" size="22" tabindex="2" />
+			<label for="email">电子邮件 (不会被公开) (必填)</label></p>
+			<p><input type="text" name="url" id="url" value="" size="22" tabindex="3" />
+			<label for="url">网站</label></p>
+						<p><input type="submit" id="submit" tabindex="5" value="发表评论(Ctrl+Enter)" /></p>
+			<input type='hidden' name='comment_post_ID' value='543' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+			<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="f181de4a1f" /></p>
+	<!-- Custom Smilies - Version 2.9.1 -->
+	<style type="text/css">
+	img.wp-smiley-select {cursor: pointer;}
+	</style>
+    <script type="text/javascript">
+    function grin(tag) {
+    	if (typeof tinyMCE != 'undefined') {
+    		grin_tinymcecomments(tag);
+    	} else {
+    		grin_plain(tag);
+    	}
+    }
+    function grin_tinymcecomments(tag) {
+    	tinyMCE.execCommand('mceInsertContent', false, ' ' + tag + ' ');
+    }
+    
+    function grin_plain(tag) {
+    	var myField;
+    	var myCommentTextarea = "comment";
+    	tag = ' ' + tag + ' ';
+        if (document.getElementById(myCommentTextarea) && document.getElementById(myCommentTextarea).type == 'textarea') {
+    		myField = document.getElementById(myCommentTextarea);
+    	} else {
+    		return false;
+    	}
+    	if (document.selection) {
+    		myField.focus();
+    		sel = document.selection.createRange();
+    		sel.text = tag;
+    		myField.focus();
+    	}
+    	else if (myField.selectionStart || myField.selectionStart == '0') {
+    		var startPos = myField.selectionStart;
+    		var endPos = myField.selectionEnd;
+    		var cursorPos = endPos;
+    		myField.value = myField.value.substring(0, startPos)
+    					  + tag
+    					  + myField.value.substring(endPos, myField.value.length);
+    		cursorPos += tag.length;
+    		myField.focus();
+    		myField.selectionStart = cursorPos;
+    		myField.selectionEnd = cursorPos;
+    	}
+    	else {
+    		myField.value += tag;
+    		myField.focus();
+    	}
+    }
+    
+    function moreSmilies() {
+    	document.getElementById('wp-smiley-more').style.display = 'inline';
+    	document.getElementById('wp-smiley-toggle').innerHTML = '<a href="javascript:lessSmilies()">&laquo;&nbsp;less</a></span>';
+    }
+    
+    function lessSmilies() {
+    	document.getElementById('wp-smiley-more').style.display = 'none';
+    	document.getElementById('wp-smiley-toggle').innerHTML = '<a href="javascript:moreSmilies()">more&nbsp;&raquo;</a>';
+    }
+    </script>
+<img src='http://mindlee.net/wp-includes/images/smilies/1.gif' alt='[M:01]' onclick='grin("[M:01]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/10.gif' alt='[M:02]' onclick='grin("[M:02]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/11.gif' alt='[M:03]' onclick='grin("[M:03]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/12.gif' alt='[M:04]' onclick='grin("[M:04]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/13.gif' alt='[M:05]' onclick='grin("[M:05]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/14.gif' alt='[M:06]' onclick='grin("[M:06]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/15.gif' alt='[M:07]' onclick='grin("[M:07]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/16.gif' alt='[M:08]' onclick='grin("[M:08]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/17.gif' alt='[M:09]' onclick='grin("[M:09]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/18.gif' alt='[M:10]' onclick='grin("[M:10]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/19.gif' alt='[M:11]' onclick='grin("[M:11]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/2.gif' alt='[M:12]' onclick='grin("[M:12]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/20.gif' alt='[M:13]' onclick='grin("[M:13]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/21.gif' alt='[M:14]' onclick='grin("[M:14]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/22.gif' alt='[M:15]' onclick='grin("[M:15]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/23.gif' alt='[M:16]' onclick='grin("[M:16]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/24.gif' alt='[M:17]' onclick='grin("[M:17]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/25.gif' alt='[M:18]' onclick='grin("[M:18]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/26.gif' alt='[M:19]' onclick='grin("[M:19]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/27.gif' alt='[M:20]' onclick='grin("[M:20]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/28.gif' alt='[M:21]' onclick='grin("[M:21]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/29.gif' alt='[M:22]' onclick='grin("[M:22]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/3.gif' alt='[M:23]' onclick='grin("[M:23]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/30.gif' alt='[M:24]' onclick='grin("[M:24]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/31.gif' alt='[M:25]' onclick='grin("[M:25]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/32.gif' alt='[M:26]' onclick='grin("[M:26]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/33.gif' alt='[M:27]' onclick='grin("[M:27]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/34.gif' alt='[M:28]' onclick='grin("[M:28]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/35.gif' alt='[M:29]' onclick='grin("[M:29]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/36.gif' alt='[M:30]' onclick='grin("[M:30]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/37.gif' alt='[M:31]' onclick='grin("[M:31]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/38.gif' alt='[M:32]' onclick='grin("[M:32]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/39.gif' alt='[M:33]' onclick='grin("[M:33]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/4.gif' alt='[M:34]' onclick='grin("[M:34]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/40.gif' alt='[M:35]' onclick='grin("[M:35]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/41.gif' alt='[M:36]' onclick='grin("[M:36]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/42.gif' alt='[M:37]' onclick='grin("[M:37]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/43.gif' alt='[M:38]' onclick='grin("[M:38]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/44.gif' alt='[M:39]' onclick='grin("[M:39]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/45.gif' alt='[M:40]' onclick='grin("[M:40]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/46.gif' alt='[M:41]' onclick='grin("[M:41]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/47.gif' alt='[M:42]' onclick='grin("[M:42]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/48.gif' alt='[M:43]' onclick='grin("[M:43]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/49.gif' alt='[M:44]' onclick='grin("[M:44]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/5.gif' alt='[M:45]' onclick='grin("[M:45]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/50.gif' alt='[M:46]' onclick='grin("[M:46]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/51.gif' alt='[M:47]' onclick='grin("[M:47]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/52.gif' alt='[M:48]' onclick='grin("[M:48]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/53.gif' alt='[M:49]' onclick='grin("[M:49]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/54.gif' alt='[M:50]' onclick='grin("[M:50]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/55.gif' alt='[M:51]' onclick='grin("[M:51]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/6.gif' alt='[M:52]' onclick='grin("[M:52]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/7.gif' alt='[M:53]' onclick='grin("[M:53]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/8.gif' alt='[M:54]' onclick='grin("[M:54]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/9.gif' alt='[M:55]' onclick='grin("[M:55]")' class='wp-smiley-select' /> <span id="wp-smiley-more" style="display:none"><img src='http://mindlee.net/wp-includes/images/smilies/056.gif' alt='[M:056]' onclick='grin("[M:056]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/055.gif' alt='[M:055]' onclick='grin("[M:055]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/054.gif' alt='[M:054]' onclick='grin("[M:054]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/053.gif' alt='[M:053]' onclick='grin("[M:053]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/052.gif' alt='[M:052]' onclick='grin("[M:052]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/051.gif' alt='[M:051]' onclick='grin("[M:051]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/050.gif' alt='[M:050]' onclick='grin("[M:050]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/049.gif' alt='[M:049]' onclick='grin("[M:049]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/048.gif' alt='[M:048]' onclick='grin("[M:048]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/047.gif' alt='[M:047]' onclick='grin("[M:047]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/046.gif' alt='[M:046]' onclick='grin("[M:046]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/045.gif' alt='[M:045]' onclick='grin("[M:045]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/044.gif' alt='[M:044]' onclick='grin("[M:044]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/043.gif' alt='[M:043]' onclick='grin("[M:043]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/042.gif' alt='[M:042]' onclick='grin("[M:042]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/041.gif' alt='[M:041]' onclick='grin("[M:041]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/040.gif' alt='[M:040]' onclick='grin("[M:040]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/039.gif' alt='[M:039]' onclick='grin("[M:039]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/038.gif' alt='[M:038]' onclick='grin("[M:038]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/037.gif' alt='[M:037]' onclick='grin("[M:037]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/036.gif' alt='[M:036]' onclick='grin("[M:036]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/035.gif' alt='[M:035]' onclick='grin("[M:035]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/034.gif' alt='[M:034]' onclick='grin("[M:034]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/033.gif' alt='[M:033]' onclick='grin("[M:033]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/032.gif' alt='[M:032]' onclick='grin("[M:032]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/031.gif' alt='[M:031]' onclick='grin("[M:031]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/030.gif' alt='[M:030]' onclick='grin("[M:030]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/029.gif' alt='[M:029]' onclick='grin("[M:029]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/028.gif' alt='[M:028]' onclick='grin("[M:028]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/027.gif' alt='[M:027]' onclick='grin("[M:027]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/026.gif' alt='[M:026]' onclick='grin("[M:026]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/025.gif' alt='[M:025]' onclick='grin("[M:025]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/024.gif' alt='[M:024]' onclick='grin("[M:024]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/023.gif' alt='[M:023]' onclick='grin("[M:023]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/022.gif' alt='[M:022]' onclick='grin("[M:022]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/021.gif' alt='[M:021]' onclick='grin("[M:021]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/020.gif' alt='[M:020]' onclick='grin("[M:020]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/019.gif' alt='[M:019]' onclick='grin("[M:019]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/018.gif' alt='[M:018]' onclick='grin("[M:018]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/017.gif' alt='[M:017]' onclick='grin("[M:017]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/016.gif' alt='[M:016]' onclick='grin("[M:016]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/015.gif' alt='[M:015]' onclick='grin("[M:015]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/014.gif' alt='[M:014]' onclick='grin("[M:014]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/013.gif' alt='[M:013]' onclick='grin("[M:013]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/012.gif' alt='[M:012]' onclick='grin("[M:012]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/011.gif' alt='[M:011]' onclick='grin("[M:011]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/010.gif' alt='[M:010]' onclick='grin("[M:010]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/009.gif' alt='[M:009]' onclick='grin("[M:009]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/008.gif' alt='[M:008]' onclick='grin("[M:008]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/007.gif' alt='[M:007]' onclick='grin("[M:007]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/006.gif' alt='[M:006]' onclick='grin("[M:006]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/005.gif' alt='[M:005]' onclick='grin("[M:005]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/004.gif' alt='[M:004]' onclick='grin("[M:004]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/003.gif' alt='[M:003]' onclick='grin("[M:003]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/002.gif' alt='[M:002]' onclick='grin("[M:002]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/001.gif' alt='[M:001]' onclick='grin("[M:001]")' class='wp-smiley-select' /> </span> <span id="wp-smiley-toggle"><a href="javascript:moreSmilies()">more&nbsp;&raquo;</a></span><p><input type="checkbox" name="comment_mail_notify" id="comment_mail_notify" value="comment_mail_notify" checked="checked" style="width: auto;" /><label for="comment_mail_notify">有人回复时邮件通知我</label></p>		</form>
+				<script type="text/javascript">
+			<!--//--><![CDATA[//><!--
+			var commenttextarea = document.getElementById('comment');
+			commenttextarea.onkeydown = function quickSubmit(e) {
+			if (!e) var e = window.event;
+			if (e.ctrlKey && e.keyCode == 13){
+			document.getElementById('submit').click();
+			}
+			};
+			//--><!]]>
+		</script>
+	</div>
+    
+
+<div class="post_nav">
+
+<span class="alignleft">&laquo; <a href="http://mindlee.net/2011/08/21/red-black-tree/" rel="prev">红黑树(Red Black Tree)</a></span>
+
+<span class="alignright"><a href="http://mindlee.net/2011/09/06/lcs-and-osbst/" rel="next">最长公共子序列和最优二叉查找树</a> &raquo;</span>
+
+<div class="clear"></div>
+
+</div>
+
+
+
+</div>
+
+<div class="content_bot"></div>
+
+
+
+<div class="navigation">
+
+
+
+
+<div class="clear"></div>
+
+</div>
+
+
+
+</div>
+
+
+
+ <div id="sidebar">
+<ul>
+
+<li id=”search-3”><form method="get" id="searchform" action="http://mindlee.net/">
+<div>
+	<input type="text" value="" name="s" id="s" size="25" />
+	<input type="submit" id="searchsubmit" value="搜查" />
+</div>
+</form></li><li id=”text-3”><h2>关于我</h2>			<div class="textwidget"><p><font size="2" face="微软雅黑">&#160; <font color="#fabf14">&#160; </font><font color="#51a5dc"><strong>&#160;</strong></font></font><font color="#51a5dc" size="2" face="微软雅黑"><strong>HDU大三学生，不合格程序员，立志用Code改变世界，正在学习算法，Python，PyQt，Linux, Andorid等。对所在世界越来越感到好奇，正在为实现梦想而努力……</strong></font></p>
+<p><font color="#e69d00" size="2" face="微软雅黑"><strong>QQ</strong> <font color="#000000">：</font></font><font size="2" face="微软雅黑"><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=625570113&amp;site=qq&amp;menu=yes" target="_blank"><img title="点击这里给我发消息" border="0" alt="点击这里给我发消息" src="http://wpa.qq.com/pa?p=2:625570113:44" /></a></font></p>
+<p><font color="#e69d00" face="微软雅黑"><font size="2"><strong>Mail</strong><font color="#000000">：</font></font></font><img src="http://services.nexodyne.com/email/icon/6GKcBm4HRXlhBw%3D%3D/fK5K9Co%3D/R01haWw%3D/0/image.png" /></p>
+<p><a href="http://zhihu.com/people/mindlee" target="_blank"><strong><font color="#2e963d">发现世界@知乎</font></strong></a>&#160; <a href="https://github.com/welon" target="_blank"><strong><font color="#2e963d">代码仓库@GitHub</font></strong></a></p>
+<p><a href="http://www.douban.com/people/mindlee/" target="_blank"><strong><font color="#2e963d">读书电影@豆瓣</font></strong></a></font></font>&#160; <a href="http://delicious.com/welon" target="_blank"><strong><font color="#2e963d">好文分享@Delicious</font></strong></a> </p>
+<p><a href="http://weibo.com/mindlee" target="_blank"><strong><font color="#2e963d">偶尔抽风@微博</font></strong></a>&#160; <a href="http://statigr.am/welon" target="_blank"><strong><font color="#2e963d">也拍照片@Instagram</font></strong></a></p>
+</div>
+		</li><li id=”text-4”><h2>时间在流逝</h2>			<div class="textwidget"><script charset="Shift_JIS" src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.js"></script> </div>
+		</li><li id=”categories-3”><h2>分类目录</h2>		<ul>
+	<li class="cat-item cat-item-1"><a href="http://mindlee.net/category/acm-algorithm/" title="学习算法，每天A题……">ACM历程</a> (7)
+</li>
+	<li class="cat-item cat-item-50"><a href="http://mindlee.net/category/android/" title="除了APP，还是APP……">Android</a> (4)
+</li>
+	<li class="cat-item cat-item-45"><a href="http://mindlee.net/category/c-c-plus-plus/" title="记录学习C和C++的过程……">C/C++</a> (3)
+</li>
+	<li class="cat-item cat-item-32"><a href="http://mindlee.net/category/learn-java/" title="记录学习JAVA的过程……">JAVA</a> (6)
+</li>
+	<li class="cat-item cat-item-6"><a href="http://mindlee.net/category/lets-go-on-a-trip/" title="不只是旅行，包括生命体验">出去走走</a> (2)
+</li>
+	<li class="cat-item cat-item-75"><a href="http://mindlee.net/category/technology-enlightenment/" title="还在学">技术启蒙</a> (10)
+</li>
+	<li class="cat-item cat-item-43"><a href="http://mindlee.net/category/algorithm-learning/" title="算法学习笔记">算法学习</a> (26)
+</li>
+	<li class="cat-item cat-item-8"><a href="http://mindlee.net/category/sub-talking/" title="平常日子……">闲心碎语</a> (12)
+</li>
+		</ul>
+</li><li id=”recent-comments-2”><h2>近期评论</h2><ul id="recentcomments"><li class="recentcomments"><a href='http://mindlee.net' rel='external nofollow' class='url'>酷~行天下</a> 在 <a href="http://mindlee.net/2011/09/26/binomial-heaps/comment-page-1/#comment-696">二项堆(Binomial Heaps)</a> 上的评论</li><li class="recentcomments"><a href='http://mindlee.net' rel='external nofollow' class='url'>酷~行天下</a> 在 <a href="http://mindlee.net/2011/09/26/binomial-heaps/comment-page-1/#comment-695">二项堆(Binomial Heaps)</a> 上的评论</li><li class="recentcomments"><a href='http://mindlee.net' rel='external nofollow' class='url'>酷~行天下</a> 在 <a href="http://mindlee.net/2011/09/29/fibonacci-heaps/comment-page-1/#comment-694">斐波那契堆(Fibonacci heaps)</a> 上的评论</li><li class="recentcomments"><a href='http://mindlee.net' rel='external nofollow' class='url'>酷~行天下</a> 在 <a href="http://mindlee.net/2011/11/19/network-flow/comment-page-1/#comment-693">网络流(Network Flow)</a> 上的评论</li><li class="recentcomments">wangyu 在 <a href="http://mindlee.net/2011/11/19/network-flow/comment-page-1/#comment-692">网络流(Network Flow)</a> 上的评论</li><li class="recentcomments">wangyu 在 <a href="http://mindlee.net/2011/11/19/network-flow/comment-page-1/#comment-691">网络流(Network Flow)</a> 上的评论</li><li class="recentcomments"><a href='http://mindlee.net' rel='external nofollow' class='url'>酷~行天下</a> 在 <a href="http://mindlee.net/2011/11/19/network-flow/comment-page-1/#comment-690">网络流(Network Flow)</a> 上的评论</li><li class="recentcomments">wangyu 在 <a href="http://mindlee.net/2011/11/19/network-flow/comment-page-1/#comment-689">网络流(Network Flow)</a> 上的评论</li></ul></li><li id=”views-3”><h2>Most Viewed</h2><ul>
+<li><a href="http://mindlee.net/2011/06/22/dream/"  title="15年内要实现的（梦想）">15年内要实现的（梦想）</a> - 4,481 views</li><li><a href="http://mindlee.net/2011/08/21/study-notes-directory/"  title="《算法导论》笔记汇总">《算法导论》笔记汇总</a> - 4,222 views</li><li><a href="http://mindlee.net/2012/02/05/kindle-dxg/"  title="入手了Kindle DXG">入手了Kindle DXG</a> - 2,827 views</li><li><a href="http://mindlee.net/2011/02/15/the-first-blog-talking/"  title="开博碎碎念">开博碎碎念</a> - 2,534 views</li><li><a href="http://mindlee.net/2011/06/23/hackers-and-painters/"  title="《黑客与画家》简单读书笔记">《黑客与画家》简单读书笔记</a> - 2,341 views</li><li><a href="http://mindlee.net/2011/04/19/first-time-to-acm-provincial-competition/"  title="第一次ACM省赛">第一次ACM省赛</a> - 2,193 views</li><li><a href="http://mindlee.net/2011/08/01/c-traps-and-pitfalls/"  title="《C陷进与缺陷》读书笔记">《C陷进与缺陷》读书笔记</a> - 2,193 views</li><li><a href="http://mindlee.net/2011/08/01/change-july/"  title="七月：跌宕起伏，波澜不惊">七月：跌宕起伏，波澜不惊</a> - 2,094 views</li><li><a href="http://mindlee.net/2011/07/24/java-little-calculator/"  title="JAVA之小型计算器">JAVA之小型计算器</a> - 2,066 views</li><li><a href="http://mindlee.net/2011/07/29/quick-sort-optimization/"  title="快速排序优化">快速排序优化</a> - 2,051 views</li></ul>
+</li>		<li id=”recent-posts-2”>		<h2>最近文章</h2>		<ul>
+				<li><a href="http://mindlee.net/2012/04/27/learning-git/" title="Git学习笔记">Git学习笔记</a></li>
+				<li><a href="http://mindlee.net/2012/04/11/devil-language-study/" title="魔王语言小窥">魔王语言小窥</a></li>
+				<li><a href="http://mindlee.net/2012/04/05/hurriedly/" title="匆匆">匆匆</a></li>
+				<li><a href="http://mindlee.net/2012/02/05/kindle-dxg/" title="入手了Kindle DXG">入手了Kindle DXG</a></li>
+				<li><a href="http://mindlee.net/2012/01/06/my-2011/" title="2011年终总结">2011年终总结</a></li>
+				<li><a href="http://mindlee.net/2011/12/23/just-for-fun-hdu-navigater/" title="Just For Fun，HDU Navigater">Just For Fun，HDU Navigater</a></li>
+				<li><a href="http://mindlee.net/2011/12/02/thanks-god%ef%bc%8cits-friday/" title="Thanks God，It&#8217;s Friday">Thanks God，It&#8217;s Friday</a></li>
+				<li><a href="http://mindlee.net/2011/11/27/computational-geometry/" title="计算几何学(Computational Geometry)">计算几何学(Computational Geometry)</a></li>
+				</ul>
+		</li><li id=”tag_cloud-3”><h2>标签</h2><div class="tagcloud"><a href='http://mindlee.net/tag/acm/' class='tag-link-17' title='9 个话题' style='font-size: 16.2352941176pt;'>ACM</a>
+<a href='http://mindlee.net/tag/android-2/' class='tag-link-51' title='3 个话题' style='font-size: 11.5294117647pt;'>Android</a>
+<a href='http://mindlee.net/tag/cc-plus-plus/' class='tag-link-65' title='3 个话题' style='font-size: 11.5294117647pt;'>C/C++</a>
+<a href='http://mindlee.net/tag/git/' class='tag-link-80' title='1 个话题' style='font-size: 8pt;'>git</a>
+<a href='http://mindlee.net/tag/java/' class='tag-link-34' title='5 个话题' style='font-size: 13.6470588235pt;'>JAVA</a>
+<a href='http://mindlee.net/tag/kindle-dxg/' class='tag-link-78' title='1 个话题' style='font-size: 8pt;'>kindle dxg</a>
+<a href='http://mindlee.net/tag/median/' class='tag-link-71' title='1 个话题' style='font-size: 8pt;'>中位数</a>
+<a href='http://mindlee.net/tag/binary-matching/' class='tag-link-30' title='1 个话题' style='font-size: 8pt;'>二分匹配</a>
+<a href='http://mindlee.net/tag/graph-algorithms/' class='tag-link-73' title='4 个话题' style='font-size: 12.7058823529pt;'>图论</a>
+<a href='http://mindlee.net/tag/heap/' class='tag-link-66' title='3 个话题' style='font-size: 11.5294117647pt;'>堆</a>
+<a href='http://mindlee.net/tag/string-matching/' class='tag-link-74' title='1 个话题' style='font-size: 8pt;'>字符串匹配</a>
+<a href='http://mindlee.net/tag/yearend-summary/' class='tag-link-77' title='1 个话题' style='font-size: 8pt;'>年终总结</a>
+<a href='http://mindlee.net/tag/sort/' class='tag-link-60' title='4 个话题' style='font-size: 12.7058823529pt;'>排序</a>
+<a href='http://mindlee.net/tag/hash/' class='tag-link-70' title='2 个话题' style='font-size: 10.1176470588pt;'>散列</a>
+<a href='http://mindlee.net/tag/data-structure/' class='tag-link-79' title='23 个话题' style='font-size: 20.7058823529pt;'>数据结构</a>
+<a href='http://mindlee.net/tag/travel/' class='tag-link-59' title='2 个话题' style='font-size: 10.1176470588pt;'>旅行</a>
+<a href='http://mindlee.net/tag/tree/' class='tag-link-67' title='5 个话题' style='font-size: 13.6470588235pt;'>树</a>
+<a href='http://mindlee.net/tag/binary-indexed-tree/' class='tag-link-29' title='1 个话题' style='font-size: 8pt;'>树状数组</a>
+<a href='http://mindlee.net/tag/dream/' class='tag-link-25' title='2 个话题' style='font-size: 10.1176470588pt;'>梦想</a>
+<a href='http://mindlee.net/tag/life/' class='tag-link-24' title='12 个话题' style='font-size: 17.5294117647pt;'>生活</a>
+<a href='http://mindlee.net/tag/matrix-multiplication/' class='tag-link-28' title='2 个话题' style='font-size: 10.1176470588pt;'>矩阵乘法</a>
+<a href='http://mindlee.net/tag/notes/' class='tag-link-62' title='24 个话题' style='font-size: 20.9411764706pt;'>笔记</a>
+<a href='http://mindlee.net/tag/algorithm/' class='tag-link-10' title='30 个话题' style='font-size: 22pt;'>算法</a>
+<a href='http://mindlee.net/tag/introduction-to-algorithms/' class='tag-link-37' title='23 个话题' style='font-size: 20.7058823529pt;'>算法导论</a>
+<a href='http://mindlee.net/tag/reading/' class='tag-link-61' title='4 个话题' style='font-size: 12.7058823529pt;'>读书</a>
+<a href='http://mindlee.net/tag/software/' class='tag-link-52' title='3 个话题' style='font-size: 11.5294117647pt;'>软件</a>
+<a href='http://mindlee.net/tag/sports/' class='tag-link-72' title='2 个话题' style='font-size: 10.1176470588pt;'>运动</a></div>
+</li><li id=”archives-2”><h2>文章归档</h2>		<ul>
+			<li><a href='http://mindlee.net/2012/04/' title='2012 年四月'>2012 年四月</a>&nbsp;(3)</li>
+	<li><a href='http://mindlee.net/2012/02/' title='2012 年二月'>2012 年二月</a>&nbsp;(1)</li>
+	<li><a href='http://mindlee.net/2012/01/' title='2012 年一月'>2012 年一月</a>&nbsp;(1)</li>
+	<li><a href='http://mindlee.net/2011/12/' title='2011 年十二月'>2011 年十二月</a>&nbsp;(2)</li>
+	<li><a href='http://mindlee.net/2011/11/' title='2011 年十一月'>2011 年十一月</a>&nbsp;(8)</li>
+	<li><a href='http://mindlee.net/2011/10/' title='2011 年十月'>2011 年十月</a>&nbsp;(5)</li>
+	<li><a href='http://mindlee.net/2011/09/' title='2011 年九月'>2011 年九月</a>&nbsp;(7)</li>
+	<li><a href='http://mindlee.net/2011/08/' title='2011 年八月'>2011 年八月</a>&nbsp;(8)</li>
+	<li><a href='http://mindlee.net/2011/07/' title='2011 年七月'>2011 年七月</a>&nbsp;(7)</li>
+	<li><a href='http://mindlee.net/2011/06/' title='2011 年六月'>2011 年六月</a>&nbsp;(3)</li>
+	<li><a href='http://mindlee.net/2011/05/' title='2011 年五月'>2011 年五月</a>&nbsp;(4)</li>
+	<li><a href='http://mindlee.net/2011/04/' title='2011 年四月'>2011 年四月</a>&nbsp;(1)</li>
+	<li><a href='http://mindlee.net/2011/03/' title='2011 年三月'>2011 年三月</a>&nbsp;(2)</li>
+	<li><a href='http://mindlee.net/2011/02/' title='2011 年二月'>2011 年二月</a>&nbsp;(1)</li>
+		</ul>
+</li>
+ 
+		<li id=”links-3”><h2>My Hero</h2>
+	<ul class='xoxo blogroll'>
+<li><a href="http://alexmaccaw.co.uk/" rel="friend" title="需翻墙" target="_blank">Alex MacCaw</a></li>
+<li><a href="http://markbao.com/" title="精神偶像" target="_blank">MarkBao</a></li>
+<li><a href="http://www.matrix67.com/blog/about" title="对这样的广博很是羡慕" target="_blank">Matrix67</a></li>
+<li><a href="http://www.paulgraham.com/index.html" title="保罗·格雷厄姆" target="_blank">Paul Graham</a></li>
+<li><a href="http://mindhacks.cn/" target="_blank">刘未鹏</a></li>
+<li><a href="http://blog.youxu.info/" target="_blank">徐宥</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/" target="_blank">阮一峰</a></li>
+
+	</ul>
+</li>
+<li id=”links-4”><h2>Spirit of Water</h2>
+	<ul class='xoxo blogroll'>
+<li><a href="http://calmrey.diandian.com/" target="_blank">CalmRey</a></li>
+<li><a href="http://blog.sina.com.cn/purofhap" rel="friend" target="_blank">Pursuit Of Happiness</a></li>
+<li><a href="http://tikiet.blog.163.com/" rel="friend" title="基友" target="_blank">东东</a></li>
+<li><a href="http://cindywise.blog.163.com/" rel="friend" target="_blank">丝绒</a></li>
+<li><a href="http://weiweihe.com/" rel="friend" target="_blank">左岸</a></li>
+<li><a href="http://zhaqiang.com/" rel="friend" target="_blank">揸枪</a></li>
+
+	</ul>
+</li>
+<li id=”links-2”><h2>Code Fighter</h2>
+	<ul class='xoxo blogroll'>
+<li><a href="http://www.roading.org/" target="_blank">Adoo</a></li>
+<li><a href="http://www.cnblogs.com/ambition/" title="Amb教主" target="_blank">Amb</a></li>
+<li><a href="http://blog.163.com/zheng_feng_hi/" title="HDOJ管理员" target="_blank">Black KniGht</a></li>
+<li><a href="http://www.flyingcat.me/" title="大神" target="_blank">FlyingCat</a></li>
+<li><a href="http://www.geekermx.com/" rel="friend" target="_blank">SAI_佐為</a></li>
+<li><a href="http://starfall512.com" rel="friend" title="队友+ 师傅" target="_blank">Starfall</a></li>
+<li><a href="http://www.wutianqi.com/" title="北化的大牛" target="_blank">Tanky Woo</a></li>
+<li><a href="http://haipo.me/" title="腾讯的大牛" target="_blank">杨海坡</a></li>
+<li><a href="http://www.keepsimply.org/" target="_blank">独酌逸醉</a></li>
+
+	</ul>
+</li>
+<li id=”meta-3”><h2>功能</h2>			<ul>
+			<li><a href="http://mindlee.net/wp-login.php?action=register">注册</a></li>			<li><a href="http://mindlee.net/wp-login.php">登录</a></li>
+			<li><a href="http://mindlee.net/feed/" title="使用 RSS 2.0 同步站点内容">文章 <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://mindlee.net/comments/feed/" title="使用 RSS 同步站点的近期评论">评论 <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://wordpress.org/" title="基于 WordPress，优美的个人信息发布平台。">WordPress.org</a></li>
+						</ul>
+</li>		<!-- #secondary .widget-area -->
+
+
+</ul>
+</div>
+<div class="clear"></div>
+
+</div>
+
+ <div id="foot">
+Except where otherwise noted, this site is licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/2.5/">a Creative Commons License</a>. <br /> 
+&copy;2010-2011 酷~行天下 All Rights Reservied (Designed by <a href="http://www.liudaiquan.com" target="_blank">huanjue</a>). 
+</div>
+ </div>
+<script src="http://www.clicki.cn/boot/42838"></script>
+<div id="clicki_group_203" title="clicki"></div>
+</body>
+</html>

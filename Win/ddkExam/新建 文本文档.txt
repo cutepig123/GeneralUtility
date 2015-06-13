@@ -1,0 +1,27 @@
+F:\_codes\svn_repo\branches\Win\ddkExam\chapter03  
+	load NT driver
+F:\_codes\svn_repo\branches\Win\ddkExam\chapter04\NT_Driver\2 
+	Create 2 devices and dumpo them
+F:\_codes\svn_repo\branches\Win\ddkExam\chapter05\FileTest\NT_Driver\2 
+	CreateFileTest
+F:\_codes\svn_repo\branches\Win\ddkExam\chapter05\TestCreateProcess
+	Fails!
+F:\_codes\svn_repo\branches\Win\ddkExam\chapter07\DispatchTest\NT_Driver
+	HelloDDKDispatchRoutin Test
+F:\_codes\svn_repo\branches\Win\ddkExam\chapter07\IOCTL_Test
+	IOCTL_Test
+F:\_codes\svn_repo\branches\Win\ddkExam\chapter07\MDL_Test\NT_Driver
+	Mdl Test
+F:\_codes\svn_repo\branches\Win\ddkExam\chapter15\Test1
+	IO r/w
+F:\_codes\svn_repo\branches\Win\ddkExam\chapter16\Test4
+	Get PCI config
+
+F:\_codes\svn_repo\branches\Win\ddkExam\KernelExec_src
+F:\_codes\svn_repo\branches\Win\ddkExam\chapter07\CreateProcess_Test\NT_Driver
+	Port the KernelExec to a IO control codes
+
+编写driver和exe的sources文件，可以参考
+	F:\_codes\svn_repo\branches\Win\ddkExam\chapter07\CreateProcess_Test\
+	F:\_codes\svn_repo\branches\Win\ddkExam\Test1
+

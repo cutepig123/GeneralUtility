@@ -1,0 +1,292 @@
+<!DOCTYPE HTML PUBLIC "-//Netscape Corp.//DTD HTML plus Tables//EN" "html-net.dtd">
+<meta name="description" content="The sliding window minimum  algorithm">
+<meta name="keywords" content="mathematics, algorithms">
+<HTML>
+<HEAD>
+<TITLE>The sliding window minimum  algorithm</TITLE>
+</HEAD>
+<BODY bgcolor="#fffdf0">
+<CENTER>
+<table border="4" cellpadding="5" width="95%">
+<tr>
+<td bgcolor = "#e0e0e0"><strong><center>
+<A HREF="../index.html">home</A>
+</center></strong></td>
+<td bgcolor = "#e0e0e0"><strong><center>
+<A HREF="../toc.html" >table of contents</A>
+</center></strong></td>
+<td bgcolor = "#e0e0e0"><strong><center>
+<A HREF="../mathcomp.html" >Math and computers</A>
+</center></strong></td>
+<td bgcolor = "#e0e0e0"><strong><center>
+<A HREF="../2001/toc01jan.html" >January 2001</A>
+</center></strong></td>
+<td bgcolor = "#e0e0e0"><strong><center>
+<A HREF="../2009/toc09may.html" >May 2009</A>
+</center></strong></td>
+<td bgcolor = "#e0e0e0"><strong><center>
+<A HREF="mailto:cri@tiac.net">email</A>
+</center></strong></td>
+</tr></table>
+</CENTER>
+<center><H1>The minimum on a sliding window algorithm</H1></center>
+<blockquote>
+<p>
+<font color = "#800000">
+This article replaces an article that I published on the web in 2001.
+Unfortunately the 
+<a href="old_slidingmin.html">original article</a> had (a) a code error, and (b) 
+an erroneous claim about the effectiveness of the algorithm; it is better 
+than claimed.  Hopefully this is a better treatment.  
+</font>
+<p>
+<hr size="2" noshade>
+</p><p>
+<h3>Problem statement</h3>
+The sliding window minimum (maximum) problem runs as follows:
+<p>
+We are given a vector V of numeric values of length n and a window size,
+k.  Produce a vector R containing the minimum seen in a window as it 
+slides over the vector V.  This formulation can be interpreted in one
+of two ways, depending on whether the we start with a full window or with
+a partial window.  Here is an example:
+<pre>    
+    k = 3, V = {4,3,2,1,5,7,6,8,9,...}
+</pre>
+In the full window case we define R[i] as the minimum value of V[j] 
+for j=i,...,i+k-1.  For our example we get 
+<pre>
+    R = {2,1,1,1,5,6,6,...}
+</pre>    
+In the partial window case we define R[i] as the minimum value of V[j]
+for j = max(0,i-k+1),...,i.  For our example we get
+<pre>
+    R = {4,3,2,1,1,1,5,6,6,...}
+</pre>    
+The partial window version has an additional k-1 values at the
+beginning of R; other than that they are identical.
+<p>
+<h3>The ascending minima algorithm</h3>
+<p>
+The algorithm presented here is the ascending minima algorithm; it
+requires O(n) time and O(k) space.  The general idea is to locate
+the minimum in the window, then the minimum in the remainder of
+the window, and so.  Values between the ascending minima can be
+ignored.  
+<p>
+More formally, let W be a vector of values of length k.  Define the 
+sequence of ascending mimima, A, as follows: 
+<p>
+Let A[0] be the minimum value in W and for j>0 let A[j] be the minimum 
+value in W with index greater than the index of A[j-1].  (If two locations
+have the same minimum value take the later one.) Example: 
+<pre> 
+W = 5,2,8,6,4,7
+A = 2,4,7
+</pre>
+Evidently the length of A is 1 if the minimum in W is the last element in 
+W and k if W is monotonic increasing.  
+<p>
+Now suppose that we have a window W on V and that we know the ascending
+minima vector A.  Consider what happens when we move the window one
+location.  We add one element at the end of the window and remove
+one element from the beginning of the window.  Let x be the newly added
+element.  Then A can be updated by 
+<ol type="a">
+<li> removing all elements of A greater than or equal to x, 
+<li> appending x to A, and 
+<li> removing the initial element of A if it is being removed 
+    from the window.
+</ol>
+<p>
+We do not need to record the window; all we need is the ascending minima 
+sequence.  However it is necessary to record when an entry in the sequence 
+will be deleted from the window.  For this reason it is useful if the 
+elements of A have two fields, the first being a value from V, i.e., V[i] 
+for some i, and the second being the index when the entry will disappear 
+from the window.  This happens k entries later.  
+<p>
+Since the length of A is bounded and since A is a queue, it is natural
+to store it in a ring buffer.  
+<p>
+Steps (b) and (c) are straightforward without significant alternatives.
+In step (a) we need to locate the last value in A that is less than the
+newly added x.  At first sight it might seem that a binary search of A
+would be optimal.  This is not the case; the optimal search is from back
+to front in a simple loop.
+<p>
+The proof is simple enough; the linear search loop deletes elements one 
+by one with an O(1) time cost for each deletion.  On average the number
+of deletions from A is the same as the number of additions.  The upshot
+is that the average time cost of moving the window one location is O(1).
+
+<h3>Alternatives</h3>
+
+There are two obvious alternatives to the ascending minima 
+algorithm.  The first is a simple "track the minimum" scheme.  
+The second is to use a heap.
+<p>
+<h4>Track the minimum</h4>
+In the first the plan is to locate the minimum in the window.  
+When the window moves there are three possible actions.  These 
+are: 
+<ol type="a">
+<li> If the current minimum is deleted we scan the window to find
+    the new minimum.
+    
+<li> If the newly added value is less than or equal to the current
+    minimum, mark it as the current minimum.
+    
+<li> Otherwise do nothing.
+</ol>
+<p>
+Evidently the expected cost depends on how often we have to 
+rescan the window.  One might argue that the average cost is O(1) 
+since on average the minimum will be located at the midpoint of 
+window when we scan.  The idea is that the frequency of scans is 
+2/k with a cost per scan of O(k*2/k) = O(1).  A more legitimate 
+form of this argument is to assume that all locations are equally 
+likely.  In such case the cost is O(1+1/2+...+1/k) = O(log k).
+<p>
+There is a catch.  If the wavelength of the data is longer than 
+the window, i.e., if there are stretches longer than the window 
+of mostly increasing data and of mostly decreasing data, the cost 
+will be O(k).  The reason is that in increasing stretches the 
+next minimum is regularly very close to the beginning of the 
+window, so the increasing stretches are O(k).  Of course the 
+decreasing stretches are O(1) but the average is O(k).
+<p>
+<h4>Use a heap</h4>
+
+The second alternative is to put the window values in a heap.  
+There will need to be a mapping from window position to location 
+within the heap. This can be handled with a linked list; the
+mechanics are O(1).  When the window is updated, the deleted item 
+is removed from the heap and is replaced with the added item,
+which is then sifted up or down as needed.
+<p>
+If the distribution of the values being inserted is random and 
+unbiased, the average cost of updating the heap is O(1).  
+Again there is a catch, and it is the same catch.  When the data 
+is mostly increasing the root is regularly deleted and the cost
+of updating the heap is O(log k).
+
+<h3>Conclusion</h3>
+<p>
+The upshot is that the time costs are:
+<table cellpadding = "2" border="2">
+<tr>
+<td align="left"><b>Algorithm</b></td>
+<td align="left"><b>Random&nbsp;&nbsp;&nbsp;</b></td>
+<td align="left"><b>Mostly increasing&nbsp;</b></td>
+</tr><tr>                      
+<td align="left">Ascending minima:</td>
+<td align="left">O(1)</td>
+<td align="left">O(1)</td>
+</tr><tr>                      
+<td align="left">Use a heap:</td>
+<td align="left">O(1)</td>
+<td align="left">O(log k)</td>
+</tr><tr>                      
+<td align="left">Track the minimum:&nbsp;&nbsp;&nbsp;</td>
+<td align="left">O(log k)</td>
+<td align="left">O(k)</td>
+</tr>
+</table>
+<p>
+The "track the minimum" algorithm has the advantages of being
+simple and cache friendly.  However its performance can be very
+bad for large k.  Using a heap is a viable alternative; it is
+a familiar data structure and the performance is not horrid.
+However using a heap is more complicated than the "ascending
+minima" algorithm and its performance is worse.
+<p>
+In many applications it probably won't matter which algorithm
+is used - the cost for computing the minimum on a sliding window
+will be small compared to other costs.  None-the-less, it is as
+easy to use the better algorithm as the worse, and sometimes the
+costs do matter.  
+
+<h3>An implementation in C</h3>
+
+
+<pre>
+#include "stdlib.h"
+
+struct pairs {
+    int value;
+    int death;
+};
+
+void
+minwindow(int *in, int *out, int n, int k)
+{
+    int i;
+    struct pairs * ring;
+    struct pairs * minpair;
+    struct pairs * end;
+    struct pairs * last;
+
+    ring = malloc(k * sizeof *ring);
+    if (!ring) exit(EXIT_FAILURE);
+    end  = ring + k;
+    last = ring;
+    minpair = ring;
+    minpair-&gt;value = in[0];
+    minpair-&gt;death = k;
+    out[0] = in[0];
+
+    for (i=1;i&lt;n;i++) {
+        if (minpair-&gt;death == i) {
+            minpair++;
+            if (minpair &gt;= end) minpair = ring;
+        }
+        if (in[i] &lt;= minpair-&gt;value) {
+            minpair-&gt;value = in[i];
+            minpair-&gt;death = i+k;
+            last = minpair;
+        } else {
+            while (last-&gt;value &gt;= in[i]) {
+                if (last == ring) last = end;
+                --last;
+            }
+            ++last;
+            if (last == end) last = ring;
+            last-&gt;value = in[i];
+            last-&gt;death = i+k;
+        }
+        out[i] = minpair-&gt;value;
+    }
+    free(ring);
+}
+</pre>
+<br><br>
+<hr><p>
+<i>This page was last updated May 13, 2009.</i>
+</blockquote>
+<p>
+<CENTER>
+<table border="4" cellpadding="5" width="95%">
+<tr>
+<td bgcolor = "#e0e0e0"><strong><center>
+<A HREF="../index.html">home</A>
+</center></strong></td>
+<td bgcolor = "#e0e0e0"><strong><center>
+<A HREF="../toc.html" >table of contents</A>
+</center></strong></td>
+<td bgcolor = "#e0e0e0"><strong><center>
+<A HREF="../mathcomp.html" >Math and computers</A>
+</center></strong></td>
+<td bgcolor = "#e0e0e0"><strong><center>
+<A HREF="../2001/toc01jan.html" >January 2001</A>
+</center></strong></td>
+<td bgcolor = "#e0e0e0"><strong><center>
+<A HREF="../2009/toc09may.html" >May 2009</A>
+</center></strong></td>
+<td bgcolor = "#e0e0e0"><strong><center>
+<A HREF="mailto:cri@tiac.net">email</A>
+</center></strong></td>
+</tr></table>
+</CENTER>
+</BODY>
+</HTML>

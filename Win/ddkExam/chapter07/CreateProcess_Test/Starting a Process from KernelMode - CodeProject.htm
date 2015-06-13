@@ -1,0 +1,2158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+<html>
+<head>
+	<title>Starting a Process from KernelMode - CodeProject</title> 
+	<link type="text/css" rel="stylesheet" href="/App_Themes/CodeProject/Css/Main.min.css?dt=2.6.130912.1">
+
+	
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Description" content="How to start a Win32 process from within a driver; Author: Stan Alex; Updated: 25 Mar 2006; Section: Hardware &amp; System; Chapter: General Reading; Updated: 25 Mar 2006" />
+<meta name="Keywords" content="VC6, WinXP, C, Dev, Advanced,Hardware &amp; System,General Reading,Free source code, tutorials" />
+<meta name="Author" content="Stan Alex" />
+<meta name="Rating" content="General" />
+<meta name="Robots" content="index, follow, NOODP" />
+<meta name="Revisit-After" content="1 days" />
+<meta name="application-name" content="CodeProject" />
+
+<meta name="msapplication-navbutton-color" content="#FF9900" />
+<meta name="msapplication-tooltip" content="Your Development Resource." />
+<meta name="msapplication-starturl" content="http://www.codeproject.com/?pinned=true" />
+<meta name="msapplication-task" content="name=Homepage;action-uri=http://www.codeproject.com/;icon-uri=http://www.codeproject.com/favico.ico" />
+<meta name="msapplication-task" content="name=Latest Articles;action-uri=http://www.codeproject.com/script/articles/Latest.aspx;icon-uri=http://www.codeproject.com/favico.ico" />
+<meta name="msapplication-task" content="name=Questions and Answers;action-uri=http://www.codeproject.com/script/Answers/;icon-uri=http://www.codeproject.com/favico.ico" />
+<meta name="msapplication-task" content="name=The Lounge;action-uri=http://www.codeproject.com/Lounge.aspx;icon-uri=http://www.codeproject.com/favico.ico" />
+
+<link rel="dns-prefetch" href="//ajax.googleapis.com" /> 
+<link rel="canonical" href="/Articles/13572/Starting-a-Process-from-KernelMode" />
+
+
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - All Topics" href="http://www.codeproject.com/WebServices/ArticleRSS.aspx?cat=1" />
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - MFC/C++" href="http://www.codeproject.com/WebServices/ArticleRSS.aspx?cat=2" />
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - C#" href="http://www.codeproject.com/WebServices/ArticleRSS.aspx?cat=3" />
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - VB.NET" href="http://www.codeproject.com/WebServices/ArticleRSS.aspx?cat=6" />
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - Mobile" href="http://www.codeproject.com/WebServices/ArticleRSS.aspx?cat=18" />
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - ASP.NET" href="http://www.codeproject.com/WebServices/ArticleRSS.aspx?cat=4" />
+<link rel="alternate" type="application/rss+xml" title="CodeProject Lounge Postings" href="http://www.codeproject.com/webservices/LoungeRSS.aspx" />
+<link rel="search" type="application/opensearchdescription+xml" title="CodeProject" href="http://www.codeproject.com/info/OpenSearch.xml" />
+
+	<base target="_top" />
+	<link rel="icon" href="/favicon.ico" type="image/ico" >
+<link rel="shortcut icon" href="/favicon.ico"  type="image/ico" >
+<link rel="apple-touch-icon" href="/images/FavIcon-Apple.png" type="image/png" >
+<script type="text/javascript" language="Javascript">//<![CDATA[
+function defrm () { /* thanks twitter */ document.write = ''; window.top.location = window.self.location;  setTimeout(function() { document.body.innerHTML = ''; }, 0);  window.self.onload = function(evt) { document.body.innerHTML = ''; }; }if (window.top !== window.self) {  try {  if (window.top.location.host) { /* will throw */ } else { defrm(); /* chrome */ }  } catch (ex) { defrm(); /* everyone else */ } }if (typeof(DemoUrl)!='undefined')   document.write(unescape('%3Cme')+'ta http'+'-equiv="re'+'fresh"                  con'+'tent="1;url='+DemoUrl+unescape('"%3CE'));
+function _dmBootstrap(file) { var _dma = document.createElement('script');  _dma.type = 'text/javascript'; _dma.async = true;  _dma.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + file; (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(_dma);}
+function _dmFollowup(file) { if (typeof DMAds === 'undefined')  _dmBootstrap('cdn2.developermedia.com/a.min.js?dt=2.6.130912.1');}
+(function () { _dmBootstrap('cdn1.developermedia.com/a.min.js?dt=2.6.130912.1'); setTimeout(_dmFollowup, 2000);})();
+
+//]]>
+</script>
+
+	
+
+
+
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-1735123-1']);
+	_gaq.push(['_trackPageview']);
+	_gaq.push(['_setDomainName', 'www.codeproject.com']);
+	_gaq.push(['_setSessionTimeout', '1200']); 
+
+	(function () {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})(); 
+</script>
+
+
+</head>	
+
+<body class="firefox firefox23">
+
+<a href="#Main"><img alt="Click here to Skip to main content" class="access-link" src="/Images/t.gif" /></a>
+
+
+
+
+
+<div class="page-background">
+
+	
+	
+
+	
+
+	<table id="ctl00_Bn" style="width:100%;height:135px" cellpadding="0" cellspacing="0" class="banner fixed">
+	<tr valign="bottom">
+		<td class="blank-background" style="height:31px">&nbsp;</td>
+		<td class="blank-background" rowspan="3" style="width:250px;height:135px"><a href="/"><img id="ctl00_Logo" tabindex="1" title="CodeProject" src="/App_Themes/CodeProject/Img/logo250x135.gif" alt="Home" style="height:135px;width:250px;border-width:0px;" /></a></td>
+		<td class="blank-background align-right" style="width:728px;height:31px">
+
+<div class="container memberbar clearfix">
+
+	<div id="ctl00_MemberMenu_GenInfo" class="float-left">10,084,899 members (48,207 online) &nbsp; &nbsp; </div>
+
+	<div class="float-left">
+		
+	</div>
+
+	<div class="float-right">
+
+		<span id="ctl00_MemberMenu_CodeProjectTV" class="tooltip" style="margin-right:15px;">
+			<a href="http://CodeProject.TV"><img src="/images/CPTV-24.gif" 
+				width="24px" height="24px" style="vertical-align:middle;border:0"></a>
+			<div class="speech-bubble-container-up" style="width:180px;line-height:20px">
+				<div class="speech-bubble-up">
+					<b><a href="http://codeproject.TV">Visit CodeProject.TV</a><br />
+					<a id="ctl00_MemberMenu_DiscussCPTV" href="/Forums/1829610/CodeProject-TV.aspx">Discuss CodeProject.TV</a></b>
+				</div>
+				<div class="speech-bubble-pointer-up">
+					<div class="speech-bubble-pointer-up-inner"></div>
+				</div>
+			</div>
+		</span>
+
+		
+
+		<span id="ctl00_MemberMenu_Messages_NotificationDiv" class="tooltip member-message">
+	<a id="ctl00_MemberMenu_Messages_NotificationCount" class="notification-count" href="/script/Membership/MyNotifications.aspx">1</a>
+
+	<div class="tooltip-flyout notification-dropdown">
+		
+		<div id="ctl00_MemberMenu_Messages_Confirm" class="bold spaced"><a id="ctl00_MemberMenu_Messages_EmailConfirm" href="/script/Membership/SendConfirmRequest.aspx?rp=%2fArticles%2f13572%2fStarting-a-Process-from-KernelMode">Your email address needs to be confirmed.</a></div>
+		
+		<div id="Notifications" class="notification-list">
+			<img src="/images/animated_loading.gif" alt="loading" style="margin:auto;" />
+		</div>
+		<div class="spaced">
+			
+		</div>
+	</div>
+</span><span id="ctl00_MemberMenu_CurRat" class="tooltip">
+				<a id="ctl00_MemberMenu_MyProfile" href="/Members/hjs00">hjs00</a><img src="/Images/arrow-down-16.png" 
+					style="width:16px;height:16px;vertical-align:text-top" />
+				<div class="tooltip-flyout" style="width:135px !important">
+					<div class="list-item"><a id="ctl00_MemberMenu_MySettingsDefault" href="https://www.codeproject.com/script/Membership/Modify.aspx">My Settings</a></div>
+					
+					<div class="list-item"><a id="ctl00_MemberMenu_MyContacts" href="/script/Membership/ListContacts.aspx">My Contact info</a></div>
+					<div class="list-item"><a id="ctl00_MemberMenu_MyBookmarks" href="/script/Bookmarks/List.aspx?obtid=2">My Bookmarks</a></div>
+					
+					<div class="list-item"><a id="ctl00_MemberMenu_MyCodeProject" href="/script/Membership/MyWatchedItems.aspx">My Watched Items</a></div>
+					<div class="list-item"><a id="ctl00_MemberMenu_MyArticles" href="/script/Articles/MemberArticles.aspx?amid=2015171">My Articles</a></div>
+					<div class="list-item"><a id="ctl00_MemberMenu_MyMessages" href="/script/Forums/Messages.aspx?fmid=2015171">My Messages</a></div>
+					<div class="list-item"><a id="ctl00_MemberMenu_MyQuestions" href="/script/Answers/MemberPosts.aspx?tab=questions&amp;mid=2015171&amp;showall=True">My Questions</a></div>
+					<div class="list-item"><a id="ctl00_MemberMenu_MyAnswers" href="/script/Answers/MemberPosts.aspx?tab=answers&amp;mid=2015171&amp;showall=True">My Answers</a></div>
+					<div class="list-item"><a id="ctl00_MemberMenu_MyComments" href="/script/comments/MemberComments.aspx?mid=2015171">My Comments</a></div>
+					
+					
+				</div>
+			</span><span id="ctl00_MemberMenu_TotalPoints" title="Total reputation points"><a class="bold member-rep-box bronze" title="475" href="/script/Reputation/List.aspx?mid=2015171">475</a></span>
+			&nbsp;
+			<a id="ctl00_MemberMenu_Signout" href="/script/Membership/LogOff.aspx?rp=%2fArticles%2f13572%2fStarting-a-Process-from-KernelMode">Sign out</a>
+			<img src="/images/circle-cross.gif" width="16px" height="16px" style="vertical-align:middle;margin-top:-3px;"/>
+		
+
+		
+	</div>
+</div></td>
+		<td class="blank-background" style="height:31px">&nbsp;</td>
+	</tr>
+	<tr valign="middle">
+		<td class="theme1-background" style="height:94px">&nbsp;</td>
+		<td class="theme1-background ad"><div class="msg-728x90" data-format="728x90" data-type="ad" data-publisher="lqm.codeproject.site" data-zone="ros"  data-country='HK' data-tags='VC6, WinXP, C, Dev, Advanced,rating4.5'></div></td>
+		<td class="theme1-background" style="height:94px">&nbsp;</td>
+	</tr>
+	<tr valign="top">
+		<td style="height: 10px;"></td>
+		<td style="height: 10px;" class="blank-background"></td>
+		<td style="height: 10px;"></td>
+	</tr>
+</table>
+
+
+	<a href="#Main"><img alt="Click here to Skip to main content" class="access-link" 
+		src="/Images/t.gif" /></a>
+
+	
+	<div id="ctl00_TPR" class="sub-headerbar fixed">
+	<table cellpadding="0" cellspacing="0" class="extended"><tr><td nowrap="nowrap">
+		
+
+<div class="navbar clearfix">
+<ul class="navmenu openable">
+
+<li><a id="ctl00_TopNavBar_Home" href="http://www.codeproject.com">home</a>
+
+
+<li class="openable"><a id="ctl00_TopNavBar_Art" class="down selected" href="/script/Articles/Latest.aspx">articles</a>
+
+	<ul>
+		<li class="openable"><a id="ctl00_TopNavBar_ArtTopicList" class="fly" onmouseover="navBarMenu.ShowMap(this, &#39;ctl00_TopNavBar_MapFlyout&#39;);" href="/script/Content/SiteMap.aspx">Chapters and Sections<span class="has-submenu">&gt;</span></a><ul id="ctl00_TopNavBar_MapFlyout">
+			<li>
+				<div id="siteMap">
+					<img src="/images/animated.gif" alt="loading" style="margin:150px;width:100px;height:100px;" />
+				</div>
+			</li>
+			</ul>
+		</li>
+		<li><a id="ctl00_TopNavBar_ArtSearch" class="fly break" href="/search.aspx">Search</a></li>
+		<li><a id="ctl00_TopNavBar_ArtLatestArts" class="fly" href="/script/Articles/Latest.aspx?at=1,3,7">Latest Articles</a></li>
+		<li><a id="ctl00_TopNavBar_ArtLatestTips" class="fly" href="/script/Articles/Latest.aspx?at=6">Latest Tips/Tricks</a></li>
+		<li><a id="ctl00_TopNavBar_ArtTop" class="fly" href="/script/Articles/TopArticles.aspx?ta_so=5">Top Articles</a></li>
+		<li><a id="ctl00_TopNavBar_ArtBeginner" class="fly" href="/search.aspx?aidlst=152&amp;sa_us=True">Beginner Articles</a></li>
+		<li><a id="ctl00_TopNavBar_ArtBlogArticles" class="fly break" href="/script/Articles/BlogArticleList.aspx">Technical Blogs</a></li>
+		<li><a id="ctl00_TopNavBar_ArtGuide" class="fly" href="/info/Submit.aspx">Posting/Update Guidelines</a></li>
+		<li><a id="ctl00_TopNavBar_ArtHelpForum" class="fly" href="/Forums/1641/Article-Writing.aspx">Article Help Forum</a></li>
+		<li><a id="ctl00_TopNavBar_ArtCompetition" class="fly break" href="/script/Awards/CurrentCompetitions.aspx?cmpTpId=1">Article Competition</a></li>
+		<li><a id="ctl00_TopNavBar_ArtPostArticle" class="fly highlight1" href="/script/Articles/Submit.aspx">
+			<img src="/images/write-gr.png" width="19px" height="13px" /> Submit an article or tip
+			</a></li>
+		<li><a id="ctl00_TopNavBar_ArtPostBlog" class="fly highlight2" href="/script/Articles/BlogFeed.aspx">
+			<img src="/images/write-or.png" width="19px" height="13px" /> Post your Blog
+			</a></li>		<li class="last"></li>
+	</ul>
+
+</li>
+
+
+
+<li class="openable"><a id="ctl00_TopNavBar_Answers" href="/script/Answers/List.aspx?tab=active">quick answers</a>
+	<ul>
+		<li id="ctl00_TopNavBar_AQL"><a id="ctl00_TopNavBar_ArticleQuestion" class="fly highlight1" href="#_comments">
+			<img src="/images/write-gr.png" width="19px" height="13px" /> Ask a Question about this 
+			article</a>
+		</li>
+
+		<li><a id="ctl00_TopNavBar_QAAsk" class="fly highlight2" href="/Questions/ask.aspx"><img 
+			src="/images/write-or.png" width="19px" height="13px" /> Ask a Question</a></li>
+
+		
+		<li><a id="ctl00_TopNavBar_QAUnanswered" class="fly" href="/script/Answers/List.aspx?tab=unanswered">View Unanswered Questions</a></li>
+		<li><a id="ctl00_TopNavBar_QALatest" class="fly" href="/script/Answers/List.aspx?tab=active">View All Questions...</a></li>
+		
+				<li><a id="ctl00_TopNavBar_QATR_ctl00_Tag" class="fly" href="/script/Answers/List.aspx?tab=active&amp;alltags=true&amp;tags=81" style="padding-left:30px">C# questions</a></li>
+			
+				<li><a id="ctl00_TopNavBar_QATR_ctl01_Tag" class="fly" href="/script/Answers/List.aspx?tab=active&amp;alltags=true&amp;tags=85" style="padding-left:30px">ASP.NET questions</a></li>
+			
+				<li><a id="ctl00_TopNavBar_QATR_ctl02_Tag" class="fly" href="/script/Answers/List.aspx?tab=active&amp;alltags=true&amp;tags=842" style="padding-left:30px">VB.NET questions</a></li>
+			
+				<li><a id="ctl00_TopNavBar_QATR_ctl03_Tag" class="fly" href="/script/Answers/List.aspx?tab=active&amp;alltags=true&amp;tags=308" style="padding-left:30px">C#4.0 questions</a></li>
+			
+				<li><a id="ctl00_TopNavBar_QATR_ctl04_Tag" class="fly" href="/script/Answers/List.aspx?tab=active&amp;alltags=true&amp;tags=78" style="padding-left:30px">C++ questions</a></li>
+			
+		<li class="last"></li>
+	</ul>
+
+</li>
+
+
+
+<li class="openable"><a id="ctl00_TopNavBar_Forums" href="/script/Forums/List.aspx">discussions</a>
+
+	<ul>
+		<li><a id="ctl00_TopNavBar_MessageBoardsAll" class="fly" href="/script/Forums/List.aspx">All Message Boards...</a></li>
+		<li class="openable"><a class="fly" style="padding-left:30px" href="/Forums/1580997/Application-Lifecycle.aspx">Application Lifecycle<span class="has-submenu">&gt;</span></a>
+<ul class="openable"><li><a class="fly" href="/Forums/1533717/Running-a-Business.aspx">Running a Business</a></li>
+<li><a class="fly" href="/Forums/1533716/Sales-Marketing.aspx">Sales / Marketing</a></li>
+<li><a class="fly" href="/Forums/1651/Collaboration-Beta-Testing.aspx">Collaboration / Beta Testing</a></li>
+<li><a class="fly" href="/Forums/3304/Work-Training-Issues.aspx">Work &amp; Training Issues</a></li>
+</ul></li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/369270/Design-and-Architecture.aspx">Design and Architecture</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/12076/ASP-NET.aspx">ASP.NET</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1580226/JavaScript.aspx">JavaScript</a>
+</li>
+<li class="openable"><a class="fly" style="padding-left:30px" href="/Forums/1647/C-Cplusplus-MFC.aspx">C / C++ / MFC<span class="has-submenu">&gt;</span></a>
+<ul class="openable"><li><a class="fly" href="/Forums/4486/ATL-WTL-STL.aspx">ATL /  WTL / STL</a></li>
+<li><a class="fly" href="/Forums/3785/Managed-Cplusplus-CLI.aspx">Managed C++/CLI</a></li>
+</ul></li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1827459/Adobe-Technologies.aspx">Adobe Technologies</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1649/Csharp.aspx">C#</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1627782/Free-Tools.aspx">Free Tools</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1827460/Objective-C.aspx">Objective-C</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1832431/Ruby-On-Rails.aspx">Ruby On Rails</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1725/Database.aspx">Database</a>
+</li>
+<li class="openable"><a class="fly" style="padding-left:30px" href="/Forums/186301/Hardware-Devices.aspx">Hardware &amp; Devices<span class="has-submenu">&gt;</span></a>
+<ul class="openable"><li><a class="fly" href="/Forums/1644/System-Admin.aspx">System Admin</a></li>
+</ul></li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1606152/Hosting-and-Servers.aspx">Hosting and Servers</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1643/Java.aspx">Java</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1650/NET-Framework.aspx">.NET Framework</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/13695/Mobile.aspx">Mobile</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1653293/VS-2012-2013-NET-4-5-1.aspx">VS 2012/2013 &amp; .NET 4.5.1</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1540733/Sharepoint.aspx">Sharepoint</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1004257/Silverlight-WPF.aspx">Silverlight / WPF</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1646/Visual-Basic.aspx">Visual Basic</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1640/Web-Development.aspx">Web Development</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1645/Site-Bugs-Suggestions.aspx">Site Bugs / Suggestions</a>
+</li>
+
+		<li class="last"></li>
+	</ul>
+
+</li>
+
+
+
+
+<li class="openable"><a id="ctl00_TopNavBar_Features" href="/Feature/">features</a>
+
+	<ul>
+		<li><a id="ctl00_TopNavBar_Catalog" class="fly" href="/script/Catalog/List.aspx">Component & Service Catalog</a></li>
+		<li><a id="ctl00_TopNavBar_Comps" class="fly" href="/script/Awards/CurrentCompetitions.aspx?cmpTpId=1&amp;awsac=true">Competitions</a></li>
+		<li><a id="ctl00_TopNavBar_News" class="fly" href="/script/News/List.aspx">News</a></li>
+		<li><a id="ctl00_TopNavBar_Insider" class="fly" href="/Feature/Insider/">The Insider Newsletter</a></li>
+		<li><a id="ctl00_TopNavBar_Newsletters" class="fly" href="/script/Mailouts/Archive.aspx?mtpid=1">Newsletter archive</a></li>
+		<li><a id="ctl00_TopNavBar_Surveys" class="fly" href="/script/Surveys/List.aspx">Surveys</a></li>
+		<li><a id="ctl00_TopNavBar_Showcase" class="fly" href="/KB/showcase/">Product Showcase</a></li>
+		<li><a id="ctl00_TopNavBar_Research" class="fly" href="/script/ResearchLibrary/Index.aspx">Research Library</a></li>
+
+		
+		<li><a id="ctl00_TopNavBar_Stuff" class="fly" href="/Info/Stuff.aspx">CodeProject Stuff</a></li>
+		<li class="last"></li>
+	</ul>
+
+</li>
+
+
+<li  class="openable"><a id="ctl00_TopNavBar_Lounge" href="/Lounge.aspx">community</a>
+
+	<ul>
+		<li><a id="ctl00_TopNavBar_InsiderLnk" class="fly" href="/insider.aspx/undefined/generalobject]">The Insider News</a></li>
+		<li><a id="ctl00_TopNavBar_LoungeLnk" class="fly" href="/Lounge.aspx">The Lounge  </a></li>
+		<li><a id="ctl00_TopNavBar_WeirdWonderful" class="fly" href="/Feature/WeirdAndWonderful.aspx">The Weird & The Wonderful</a></li>
+		<li><a id="ctl00_TopNavBar_SoapBoxLnk" class="fly" href="/Forums/1536756/The-Soapbox.aspx">The Soapbox</a></li>
+		<li><a id="ctl00_TopNavBar_PRLnk" class="fly break" href="/Forums/1738007/Press-Releases.aspx">Press Releases</a></li>
+		<li><a id="ctl00_TopNavBar_WhosWho" class="fly" href="/script/Membership/Profiles.aspx">Who's Who</a></li>
+		<li><a id="ctl00_TopNavBar_MVPs" class="fly" href="/script/Awards/MVPWinners.aspx">Most Valuable Professionals</a></li>
+		<li><a id="ctl00_TopNavBar_Companies" class="fly break" href="/script/Membership/Profiles.aspx?mgtid=1&amp;mgm=True">Company Listings</a></li>
+
+		
+		<li class="openable"><a class="fly" href="/Forums/1580229/Hindi.aspx">Non-English Language
+			<span class="has-submenu">&gt;</span></a>
+		<ul>
+		<li><a class="fly" href="/Forums/1580229/Hindi.aspx">General Indian Topics</a></li>
+		<li><a class="fly" href="/Forums/1580230/Chinese.aspx">General Chinese Topics</a></li>
+		</ul>
+		<li class="last"></li>
+		
+	</ul>
+
+</li>
+
+
+<li class="openable" style="margin-left:20px"><a id="ctl00_TopNavBar_Help" href="/KB/FAQs/">help</a>
+
+	<ul>
+		<li><a id="ctl00_TopNavBar_HelpWhatIs" class="fly" href="/info/guide.aspx">What is 'CodeProject'?</a></li>
+		<li><a id="ctl00_TopNavBar_HelpGeneral" class="fly break" href="/KB/FAQs/">General FAQ</a></li>
+		<li><a id="ctl00_TopNavBar_HelpPostQuestion" class="fly break highlight1" href="/Questions/ask.aspx">Ask a Question</a></li>
+		<li><a id="ctl00_TopNavBar_HelpBugs" class="fly" href="/Forums/1645/Site-Bugs-Suggestions.aspx">Bugs and Suggestions</a></li>
+		<li><a id="ctl00_TopNavBar_HelpArticles" class="fly" href="/Forums/1641/Article-Writing.aspx">Article Help Forum</a></li>
+		<li><a id="ctl00_TopNavBar_HelpSiteMap" class="fly" href="/script/Content/SiteMap.aspx">Site Map</a></li>
+		<li><a id="ctl00_TopNavBar_HelpAdvertise" class="fly" href="http://developermedia.com/">Advertise with us</a></li>
+		<li><a id="ctl00_TopNavBar_HelpJobs" class="fly" href="/info/Jobs/">Employment Opportunities</a></li>
+		<li><a id="ctl00_TopNavBar_HelpAboutUs" class="fly" href="/info/about.aspx">About Us</a></li>
+		<li class="last"></li>
+	</ul>
+
+</li>
+
+</ul>
+
+</div>
+	</td><td align="right">
+		
+
+<div class="searchbar">
+
+<form method="get" action="/search.aspx" name="Search" class="tight">
+
+
+<table border="0" cellspacing="0" cellpadding="0" class="search"><tr><td><input TabIndex="2" class="search " id="sb_tb" value="" name="q" /></td><td><input type="image" src="/images/search.gif" /></td></tr></table>
+
+<div class="hover-container">
+	<div id="SearchFilter" class="search-advanced popup small-text align-left">
+	<b>Search within:<br /></b>
+		
+		<input type="radio" id="sb_kw" name="sbo" value="kw" checked="true"><label for="sb_kw">Articles</label><br>
+<input type="radio" id="sb_vkw" name="sbo" value="vkw"><label for="sb_vkw">Videos</label><br>
+<input type="radio" id="sb_qa" name="sbo" value="qa"><label for="sb_qa">Quick Answers</label><br>
+<input type="radio" id="sb_fm" name="sbo" value="fm"><label for="sb_fm">Messages</label><br>
+<input type="radio" id="sb_ctlk" name="sbo" value="ctlk"><label for="sb_ctlk">Product Catalog</label><br>
+
+
+		
+		
+	</div>
+</div>
+</form>
+
+</div>
+	</td></tr></table>
+	<div class="sub-headerbar-divider"></div>
+	</div>
+	
+
+	<div id="A" class="container-content-wrap fixed"> 
+
+	<div itemscope itemtype="http://schema.org/Article" class="container-content"> 
+
+		<div class="clearfix">
+			<div class="float-left container-breadcrumb">
+				<div><a href="/script/Content/SiteMap.aspx">Articles</a> &#187; <a href="/Chapters/7/General-Reading.aspx">General Reading</a> &#187; <a href="/KB/system/"><span itemprop="articleSection">Hardware & System</span></a> &#187; <a href="/KB/system/#General">General</a></div>
+			</div>
+
+			<div class="align-left float-right padded-top">
+				
+
+
+ 
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+			</div>
+
+			<div class="float-right container-breadcrumb article-nav">
+				
+<div class="">
+
+
+<a id="ctl00_PrevNext_NextLink" title="Next" href="/script/Articles/PrevNextLookup.aspx?aid=13572&amp;at=1&amp;secId=48" style="margin-left:5px">Next</a>
+<img id="ctl00_PrevNext_NextImg" title="Next" rel="nofollow" src="/Images/arrow-right.png" style="border-width:0px;vertical-align:bottom;" />
+</div>
+			</div>
+
+			<div class="align-right float-left">
+				
+			</div>
+		</div>
+
+		<table class="extended container-article-parts" cellpadding="0" cellspacing="0"><tr valign="top">
+		<td>
+
+			<div id="ctl00_Nav" class="container-article-tabs">
+				<div class="tabs">
+					
+
+<div class="">
+	<div class="selected">Article</div><div class="unselected"><a href="/script/Articles/ViewDownloads.aspx?aid=13572">Browse Code</a></div><div class="unselected"><a href="/script/Articles/Statistics.aspx?aid=13572">Stats</a></div><div class="unselected"><a href="/script/Articles/ListVersions.aspx?aid=13572">Revisions</a></div><div class="unselected"><a href="/script/Articles/ListAlternatives.aspx?aid=13572">Alternatives</a></div>
+</div>	
+
+
+					<!-- anchorLink used to auto-link to comments at end of article -->
+					<div class="unselected"><a href="../../MasterPages/#_comments" id="ctl00_CommentLink" class="anchorLink">Comments &amp; 
+						Discussions <span id="ctl00_CmtCnt">(35)</span></a>
+					</div>
+				</div>
+
+				<a id="ctl00_AddAlternative" title="Write a related article about upgrades or translate this into a different language." class="add-item" href="/script/Articles/SubmissionWizard.aspx?at=1&amp;apid=13572">Add your own<br />alternative version</a>
+			</div>
+
+		</td>
+		<td>
+			
+			<div id="AT" class="container-article  fixed"> 
+				<div class="article">
+
+					
+					 
+					<div class="header">
+
+					<a name="Main"></a>
+
+					
+					<a name="_articleTop" id="_articleTop"></a>
+					<div class="title">
+					
+					
+					<h1 id="ctl00_ArticleTitle" itemprop="name">Starting a Process from KernelMode</h1> 
+					</div>
+
+					
+					<div class="entry">
+						By <span class="author"><a href="/script/Membership/View.aspx?mid=2843928" rel="author"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Stan Alex</span></span></a></span>, 
+						<span class="date" itemprop="dateModified" content="2006-03-25 16:22:00">
+							25 Mar 2006</span>
+			
+									
+					</div>
+
+					
+					<!-- Tables. Yes. I'm weak -->
+					<table class="container-rating"><tr><td>
+						<div id="ctl00_CurRat" class="tooltip anchorLink" style="cursor:pointer" onclick="scrollToAnchor(&#39;#_rating&#39;);" name="CurRat_13572">
+				
+							
+
+<table cellpadding="0" cellspacing="0" class="small-text" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"> 
+<tr>
+	
+	<td class="nowrap">
+
+		
+			<meta itemprop="bestRating" content="5"> 
+			<meta itemprop="worstRating" content="1">
+		
+
+		<span id="ctl00_ArticleRating_VI">
+		<div class="nowrap rating-stars-large" style="height:19px;width:139px;position:relative;">
+	<div class="clipped align-left float-left" style="height:19px;width:138px;">
+		<img src="/script/Ratings/Images/stars-fill-lg.png" style="border-width:0px;" />
+	</div><div class="clipped" style="height:19px;width:1px;position:relative;">
+		<img src="/script/Ratings/Images/stars-empty-lg.png" style="border-width:0px;position:absolute;top:0;right:0;" />
+	</div>
+</div>
+		</span>
+
+		
+	</td>
+	
+	<td id="ctl00_ArticleRating_VR" class="nowrap">
+		&nbsp;
+		<span id="ctl00_ArticleRating_VotesR">&nbsp;<span itemprop="ratingValue" class="rating">4.96</span> (<span itemprop="ratingCount" class="count">15</span> votes)</span>
+		
+	</td>
+
+</tr>
+
+</table>
+
+
+							<div id="ctl00_RB" class="speech-bubble-container-up">
+								<div class="speech-bubble-up" style="width:150px !important">
+									            
+<div>
+<table class="feature" width="100%" height="50px" title="Voting Distribution. Recent data only" cellpadding="0" cellspacing="0"><tr class="chart-row"><td class="chart-column rating-ignore-vote" title="Outside deviation limits - not included in score."><img src="/script/Ratings/Images/pollcol.gif" width="20pxpx" height="3px" border="0px" alt="1 vote, 6.7%" title="1 vote, 6.7%" /><br /><span title="1 vote">1</span></td>
+<td class="chart-column rating-ignore-vote" title="Outside deviation limits - not included in score."><img src="/Images/t.gif" width="20pxpx" height="1px" border="0px" alt="" title="" /><br /><span title="0 votes">2</span></td>
+<td class="chart-column"><img src="/Images/t.gif" width="20pxpx" height="1px" border="0px" alt="" title="" /><br /><span title="0 votes">3</span></td>
+<td class="chart-column"><img src="/script/Ratings/Images/pollcol.gif" width="20pxpx" height="3px" border="0px" alt="1 vote, 6.7%" title="1 vote, 6.7%" /><br /><span title="1 vote">4</span></td>
+<td class="chart-column"><img src="/script/Ratings/Images/pollcol.gif" width="20pxpx" height="50px" border="0px" alt="13 votes, 86.7%" title="13 votes, 86.7%" /><br /><span title="13 votes">5</span></td>
+</tr></table><div class="small-text align-center">4.96/5 - 15 votes</div><div class="small-text align-center subdue">1 removed</div><div class="small-text align-center subdue">μ 4.48, σ<sub>a</sub> 1.89 [<a href="/KB/FAQs/RatingReputationFAQ.aspx#noisefilter">?</a>]</div>
+</div>
+								</div>
+								<div class="speech-bubble-pointer-up">
+									<div class="speech-bubble-pointer-up-inner"></div>
+								</div>
+							</div>
+						</div>
+					</td>
+					<td>
+						&nbsp;
+						
+					</td></tr></table>
+
+					</div>
+					
+					
+
+					
+					
+
+					
+					
+					
+
+						
+					
+
+					<div id="ctl00_confirmError" class="advise"><img 
+						style="float:left;margin-right:10px" src="/images/warning48.png" width="48px" 
+						height="48px" /><b>Is your email address OK?</b> You are signed up for our 
+						newsletters but your email address is either unconfirmed, or has not been 
+						reconfirmed in a long time. Please click <a id="ctl00_RequestConfirmLink2" href="/script/Membership/SendConfirmRequest.aspx?rp=%2fArticles%2f13572%2fStarting-a-Process-from-KernelMode">here</a> to have a confirmation email sent 
+						so we can confirm your email address and start sending you newsletters 
+						again. Alternatively, you can 
+						<a id="ctl00_SubscribeLink2" href="/script/Membership/Subscribe.aspx?rp=%2fArticles%2f13572%2fStarting-a-Process-from-KernelMode">update your subscriptions</a>.</div><form name="aspnetForm" method="post" action="/Articles/13572/Starting-a-Process-from-KernelMode" id="aspnetForm" style="margin:0;padding:0">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMjExOTQzNjk4Mw9kFgJmD2QWBAIKDxYCHgVjbGFzcwUTc3ViLWhlYWRlcmJhciBmaXhlZGQCCw8WAh8ABRxjb250YWluZXItY29udGVudC13cmFwIGZpeGVkFhACAQ9kFgJmDxYCHgRUZXh0BY8CPGRpdj48YSBocmVmPSIvc2NyaXB0L0NvbnRlbnQvU2l0ZU1hcC5hc3B4Ij5BcnRpY2xlczwvYT4gJiMxODc7IDxhIGhyZWY9Ii9DaGFwdGVycy83L0dlbmVyYWwtUmVhZGluZy5hc3B4Ij5HZW5lcmFsIFJlYWRpbmc8L2E+ICYjMTg3OyA8YSBocmVmPSIvS0Ivc3lzdGVtLyI+PHNwYW4gaXRlbXByb3A9ImFydGljbGVTZWN0aW9uIj5IYXJkd2FyZSAmIFN5c3RlbTwvc3Bhbj48L2E+ICYjMTg3OyA8YSBocmVmPSIvS0Ivc3lzdGVtLyNHZW5lcmFsIj5HZW5lcmFsPC9hPjwvZGl2PmQCAw9kFgQCAg8PFgIeC05hdmlnYXRlVXJsBTgvc2NyaXB0L0F3YXJkcy9BZG1pbi9Bd2FyZE9iamVjdC5hc3B4P29iaWQ9MTM1NzImb2J0aWQ9MmRkAgwPDxYCHwIFLy9zY3JpcHQvQXJ0aWNsZXMvQWRtaW4vUXVldWVFZGl0LmFzcHg/YWlkPTEzNTcyZGQCBQ9kFgQCAg8PFgYfAgU8L3NjcmlwdC9BcnRpY2xlcy9QcmV2TmV4dExvb2t1cC5hc3B4P2FpZD0xMzU3MiZhdD0xJnNlY0lkPTQ4HgdUb29sVGlwBQROZXh0HgdWaXNpYmxlZ2RkAgMPDxYEHghJbWFnZVVybAUXL0ltYWdlcy9hcnJvdy1yaWdodC5wbmcfBGcWBB4Fc3R5bGUFFnZlcnRpY2FsLWFsaWduOmJvdHRvbTseA3JlbAUIbm9mb2xsb3dkAgkPZBYEAgMPFgQeBGhyZWYFCiNfY29tbWVudHMfAAUKYW5jaG9yTGluaxYCAgEPFgIeCWlubmVyaHRtbAUEKDM1KWQCBQ8PFgQfAgU2L3NjcmlwdC9BcnRpY2xlcy9TdWJtaXNzaW9uV2l6YXJkLmFzcHg/YXQ9MSZhcGlkPTEzNTcyHwRnZGQCCw8WAh8ABRhjb250YWluZXItYXJ0aWNsZSAgZml4ZWQWBgIBDxYCHwRnFghmDxYCHwkFIlN0YXJ0aW5nIGEgUHJvY2VzcyBmcm9tIEtlcm5lbE1vZGVkAgEPFgIfAQW3ATxhIGhyZWY9Ii9zY3JpcHQvTWVtYmVyc2hpcC9WaWV3LmFzcHg/bWlkPTI4NDM5MjgiIHJlbD0iYXV0aG9yIj48c3BhbiBpdGVtcHJvcD0iYXV0aG9yIiBpdGVtc2NvcGUgaXRlbXR5cGU9Imh0dHA6Ly9zY2hlbWEub3JnL1BlcnNvbiI+PHNwYW4gaXRlbXByb3A9Im5hbWUiPlN0YW4gQWxleDwvc3Bhbj48L3NwYW4+PC9hPmQCAg8WAh8BBRMyMDA2LTAzLTI1IDE2OjIyOjAwZAIDDxYCHwEFCzI1IE1hciAyMDA2ZAIDDw8WAh8EZ2RkAg0PZBYEZg8WAh8EZxYEAgEPDxYCHwIFZi9zY3JpcHQvTWVtYmVyc2hpcC9TZW5kQ29uZmlybVJlcXVlc3QuYXNweD9ycD0lMmZBcnRpY2xlcyUyZjEzNTcyJTJmU3RhcnRpbmctYS1Qcm9jZXNzLWZyb20tS2VybmVsTW9kZWRkAgMPDxYCHwIFXS9zY3JpcHQvTWVtYmVyc2hpcC9TdWJzY3JpYmUuYXNweD9ycD0lMmZBcnRpY2xlcyUyZjEzNTcyJTJmU3RhcnRpbmctYS1Qcm9jZXNzLWZyb20tS2VybmVsTW9kZWRkAgIPFgIeBmFjdGlvbgUyL0FydGljbGVzLzEzNTcyL1N0YXJ0aW5nLWEtUHJvY2Vzcy1mcm9tLUtlcm5lbE1vZGUWCAIBD2QWAgIBDxYCHwRoZAIDD2QWAgICD2QWAgIBDxBkZBYAZAIJDxYCHgtfIUl0ZW1Db3VudAIBZAILD2QWAgIBDxYCHwEFazxhIGNsYXNzPSJhbmNob3JMaW5rIiBocmVmPSIvQXJ0aWNsZXMvMTM1NzIvU3RhcnRpbmctYS1Qcm9jZXNzLWZyb20tS2VybmVsTW9kZSNfYXJ0aWNsZVRvcCI+QXJ0aWNsZSBUb3A8L2E+ZAIND2QWAgILD2QWBAICDw8WAh8CBUAvQXJ0aWNsZXMvMTM1NzIvU3RhcnRpbmctYS1Qcm9jZXNzLWZyb20tS2VybmVsTW9kZT9kaXNwbGF5PVByaW50ZGQCBA8PFgIfAgUxL3NjcmlwdC9jb21tb24vVGVsbEZyaWVuZC5hc3B4P29idGlkPTImb2JpZD0xMzU3MmRkAg8PDxYEHwEFCVBlcm1hbGluax8CBTIvQXJ0aWNsZXMvMTM1NzIvU3RhcnRpbmctYS1Qcm9jZXNzLWZyb20tS2VybmVsTW9kZWRkAh8PFgIfAQUbQ29weXJpZ2h0IDIwMDYgYnkgU3RhbiBBbGV4ZGQI11uStfQf5E39XnwuaIP2Abl/aw==" />
+</div>
+
+<div>
+
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWCAKAhqjyDQLAlMXDBwLBlMXDBwLClMXDBwLDlMXDBwLElMXDBwLP+++tCwK5upDkC8hBudcCMjf3IMDgiQo0z7YNgAK2" />
+</div>
+
+							
+							<div id="contentdiv" class="text" itemprop="articleBody">
+							
+
+
+
+<ul class="download">
+<li><a href="/KB/system/KernelExec/KernelExec_src.zip">Download source files - 54.87 KB</a> </li>
+
+<li><a href="/KB/system/KernelExec/KernelExec_demo.zip">Download demo project - 27.46 KB</a> </li>
+</ul>
+<img height="259" alt="Sample Image - KernelExec.jpg" hspace="0" src="/KB/system/KernelExec/KernelExec.jpg" width="561" border="0" /> 
+<h2>Introduction</h2>
+
+<p>After many unsuccessful attempts trying to find a way to start a working Win32 process from <strong>KernelMode</strong>, I finally stumbled upon a promising piece of code that was both original and innovative (Note: the idea belongs to <strong>Valerino</strong>). </p>
+
+<p>Unfortunately that code didn't seem to work properly on my machine, and it always ended up crashing it, or just a process (in the most fortunate cases). So I've decided to reimplement Mighty Valerino's idea in my own way (although the structure of the code is basically the same). </p>
+
+<p>So let's get started. First, you must know of... </p>
+
+<h2>APCs</h2>
+
+<p>APC, standing for <strong>Asynchronous Procedure Call</strong>, represents a kernel procedure that is queued to a particular thread for execution. In other words, it's a code that is forcibly executed in a thread's context (This method is mostly employed by the I/O Manager). That is the SIMPLEST explanation I can give you, and that's all you need to know for now. There are three types of APCs: </p>
+
+<ol>
+<li><strong>Kernel APCs</strong> - They can be queued to any kernel thread and they will execute only if the specified thread isn't already executing a Kernel APC. </li>
+
+<li><strong>Special Kernel APCs</strong> - Basically the same as above. They run at IRQL <code>APC_LEVEL </code>and cannot be blocked except by running at a raised IRQL. They can always preempt normal Kernel APCs.</li>
+
+<li><strong>User APCs</strong> - These are APCs that can be queued to <code>UserMode</code> threads, but there's a catch: the thread must have previously called a <strong>wait service</strong> like <code>WaitForSingleObject</code> with the <code>Alertable</code> field set to <code>TRUE</code>. The APC will be invoked next time the thread returns from <strong>KernelMode</strong>. This is the kind of APC that we will be dealing with from now on. </li>
+</ol>
+
+<p>Enough talking. Let's get to the fun part. </p>
+
+<h2>Running That Process</h2>
+
+<p>A brief description of the idea behind starting a Win32 process is the following: </p>
+
+<ol>
+<li>We loop through the list of running processes until we find <em>Explorer.exe</em>. Why <em>explorer.exe</em>? Because it's a desktop-interactive service (I tried popping up a message box from <em>WinLogon.exe</em> and I could only hear the sound of it). It also has many waiting threads (both alertable and non-alertable), so it works best with this code. </li>
+
+<li>Once we've found <em>Explorer.exe</em>, we iterate through its threads searching for an alertable thread. If no such thread is found, we simply save a pointer to a non-alertable one and set its <code>ApcState.UserApcPending</code> to <code>TRUE</code>, thus making it alertable (Notice: in this case it usually takes a few seconds for the thread to return to <strong>KernelMode</strong>). </li>
+
+<li>Now we have the <code>PEPROCESS</code> of <em>Explorer.exe</em> and one of its <code>PETHREAD</code>s. Next we queue our APC object (which will contain the code to be executed in <strong>UserMode</strong>) and when it completes, we just release the memory that we have previously allocated for it. That's all. </li>
+</ol>
+
+<h2>The Implementation</h2>
+
+<p>The main procedure is <code>RunProcess(LPSTR lpProcess)</code> where <code>lpProcess</code> must be the FULL PATH to the application that is to be run (<em>c:\RawWrite.exe</em> in our example): </p>
+
+<pre lang="C++"><span class="code-keyword">void</span> RunProcess(LPSTR lpProcess)
+{
+  PEPROCESS pTargetProcess = NULL;<span class="code-comment">//</span><span class="code-comment">self explanatory
+</span>  PKTHREAD pTargetThread = NULL;  <span class="code-comment">//</span><span class="code-comment">thread that can be either
+</span>                                  <span class="code-comment">//</span><span class="code-comment">alertable or not
+</span>  PKTHREAD pNotAlertableThread = NULL;<span class="code-comment">//</span><span class="code-comment">non-alertable thread
+</span>  PEPROCESS pSystemProcess = NULL; <span class="code-comment">//</span><span class="code-comment">May not necessarily be the
+</span>                                   <span class="code-comment">//</span><span class="code-comment">'System' process
+</span>
+  PETHREAD pTempThread = NULL;
+  PLIST_ENTRY  pNextEntry, pListHead, pThNextEntry;
+
+<span class="code-comment">//</span><span class="code-comment">...
+</span>}</pre>
+
+<p>We start off by retrieving a pointer to the 'System' process: </p>
+
+<pre lang="C++">  pSystemProcess = PsGetCurrentProcess();
+  <span class="code-comment">//</span><span class="code-comment">make sure you are running at IRQL PASSIVE_LEVEL</span></pre>
+
+<p><code>pSystemProcess-<span class="code-keyword">&gt;</span>ActiveProcessLinks</code> is a <code>LIST_ENTRY</code> field that contains links(pointers) to other processes (<code>PEPROCESS</code>) running on the machine. Let's search for <em>Explorer.exe</em> and save a pointer to it and to one of its threads. (Note: you can queue an APC to ANY process, even <code>CSRSS</code> or <code>SVCHOST</code>, but the system will probably crash.) Once we've got a pointer to <em>Explorer.exe</em> and one of its threads (I will not explain how to do that here), it's time to queue our APC to that thread: </p>
+
+<pre lang="C++"><span class="code-keyword">if</span>(!pTargetThread)
+{
+  <span class="code-comment">//</span><span class="code-comment">No alertable thread was found, so let's hope
+</span>  <span class="code-comment">//</span><span class="code-comment">we've at least got a non-alertable one
+</span>  pTargetThread = pNotAlertableThread;
+}
+
+<span class="code-keyword">if</span>(pTargetThread)
+{
+  DbgPrint(<span class="code-string">"</span><span class="code-string">KernelExec -&gt; Targeted thread: 0x%p"</span>,
+           pTargetThread);
+  <span class="code-comment">//</span><span class="code-comment">We have a thread, now install the APC
+</span>  InstallUserModeApc(lpProcess,
+                     pTargetThread,
+                     pTargetProcess);
+}</pre>
+
+<p><code>InstallUserModeApc</code> has the following prototype... </p>
+
+<pre lang="C++">NTSTATUS
+InstallUserModeApc(
+                   IN LPSTR lpProcess,
+                   IN PKTHREAD pTargetThread,
+                   IN PEPROCESS pTargetProcess);</pre>
+
+<p>... where <code>pTargetProcess</code> points to the <code>PEPROCESS</code> of <em>Explorer.exe</em> and <code>pTargetThread</code> is the <code>PKTHREAD</code> which the APC will be queued to. Let's now allocate some memory for that APC and for an <code>MDL</code> (Memory Descriptor List) to map our <strong>UserMode</strong> code: </p>
+
+<pre lang="C++">PRKAPC pApc = NULL;
+PMDL pMdl = NULL;
+ULONG dwSize = <span class="code-digit">0</span>; <span class="code-comment">//</span><span class="code-comment">Size of code to be executed in Explorer's address space
+</span>
+pApc = ExAllocatePool (NonPagedPool,<span class="code-keyword">sizeof</span> (KAPC));
+
+dwSize = (<span class="code-keyword">unsigned</span> <span class="code-keyword">char</span>*)ApcCreateProcessEnd-
+         (<span class="code-keyword">unsigned</span> <span class="code-keyword">char</span>*)ApcCreateProcess;
+pMdl = IoAllocateMdl (ApcCreateProcess, dwSize, FALSE,FALSE,NULL);
+
+<span class="code-comment">//</span><span class="code-comment">Probe the pages for Write access and make them memory resident
+</span>MmProbeAndLockPages (pMdl,KernelMode,IoWriteAccess);</pre>
+
+<p>Our APC is now valid and <code>pMdl</code> is memory resident and maps our <strong>UserMode</strong> code (<code>ApcCreateProcess()</code> that is. We'll get to that later). So what now? Should we deliver our APC to the thread and watch our Win32 process run? No no no.. not so fast! </p>
+
+<p>How is <em>Explorer.exe</em>'s thread supposed to invoke our APC routine if it doesn't have access to the Kernel memory? It cannot do that! Fine then, let's map our APC code to <strong>UserMode</strong> memory: </p>
+
+<pre lang="C++">KAPC_STATE ApcState;
+
+<span class="code-comment">//</span><span class="code-comment">Attach to the Explorer's address space
+</span>KeStackAttachProcess(&amp;(pTargetProcess-&gt;Pcb),&amp;ApcState);
+
+<span class="code-comment">//</span><span class="code-comment">Now map the physical pages (our code) described by pMdl
+</span>pMappedAddress =
+  MmMapLockedPagesSpecifyCache(pMdl,
+                               UserMode,
+                               MmCached,
+                               NULL,FALSE,
+                               NormalPagePriority);</pre>
+
+<p>To continue, first I must show you how <code>ApcCreateProcess</code> (the code mapped to <strong>UserMode</strong> memory, into Explorer's address space) works: </p>
+
+<pre lang="C++"><span class="code-keyword">__declspec</span>(<span class="code-keyword">naked</span>)
+<span class="code-keyword">void</span> ApcCreateProcess(
+  PVOID NormalContext,
+  PVOID  SystemArgument1,
+  PVOID SystemArgument2)
+{
+  <span class="code-keyword">__asm</span>
+  {
+    <span class="code-keyword">mov</span> <span class="code-keyword">eax</span>,0x7C86114D
+    <span class="code-keyword">push</span> <span class="code-digit">1</span>
+    <span class="code-keyword">nop</span>
+    <span class="code-keyword">push</span> 0xabcd
+    <span class="code-keyword">call</span> <span class="code-keyword">eax</span>
+    <span class="code-keyword">jmp</span> end
+    <span class="code-keyword">nop</span>
+    <span class="code-keyword">nop</span>
+    <span class="code-comment">//</span><span class="code-comment">...about 400 nop's here
+</span>end:
+    <span class="code-keyword">nop</span>
+    <span class="code-keyword">ret</span> 0x0c
+  }
+}
+
+<span class="code-keyword">void</span> ApcCreateProcessEnd(){}
+<span class="code-comment">//</span><span class="code-comment">Used only to calculate the size of the code above</span></pre>
+
+<p>We move the address of <code>WinExec</code> into <code>eax</code> (<code>0x7C86114D </code>is its address, on WinXP SP2), we push 1 on the stack (<code>SW_SHOWNORMAL</code>) and then we push... <code>0xabcd</code> before calling <code>WinExec</code>. Why <code>0xabcd</code> you might ask? Well, <code>push 0xabcd</code> is the first parameter of <code>WinExec</code> and it points to the path of the application to be executed. But that means <code>0xabcd</code> cannot possibly point to the path all the time! </p>
+
+<p>Why don't you simply <code>push lpProcess</code> from <code>RunProcess(LPSTR lpProcess)</code> then? Answer - Because <code>WinExec</code> will NOT be able to access it and it will throw an 'Access Violation' at you! You cannot access Kernel memory from <strong>UserMode</strong>, remember? Instead, right after we map our code to <strong>UserMode</strong> memory, we copy the path to the location right after the first <code>nop</code> instruction (that's why there are so many <code>nop</code>s in there) and we modify <code>0xabcd</code> to point to it. Now here's the code: </p>
+
+<pre lang="C++">ULONG *data_addr=0; <span class="code-comment">//</span><span class="code-comment">just a helper to change the address of the 'push' instruction
+</span>                    <span class="code-comment">//</span><span class="code-comment">in the ApcCreateProcess routine
+</span>ULONG dwMappedAddress = <span class="code-digit">0</span>; <span class="code-comment">//</span><span class="code-comment">same as above
+</span>
+pMappedAddress =
+         MmMapLockedPagesSpecifyCache(pMdl,
+                                      UserMode,
+                                      MmCached,
+                                      NULL,FALSE,
+                                      NormalPagePriority);
+dwMappedAddress = (ULONG)pMappedAddress;
+
+<span class="code-comment">//</span><span class="code-comment">zero everything out except our assembler code
+</span>memset ((<span class="code-keyword">unsigned</span> <span class="code-keyword">char</span>*)pMappedAddress + 0x14, <span class="code-digit">0</span>, <span class="code-digit">300</span>);
+
+<span class="code-comment">//</span><span class="code-comment">copy the path to the executable
+</span>memcpy ((<span class="code-keyword">unsigned</span> <span class="code-keyword">char</span>*)pMappedAddress + 0x14,
+        lpProcess,
+        strlen (lpProcess));
+
+data_addr = (ULONG*)((<span class="code-keyword">char</span>*)pMappedAddress+0x9);<span class="code-comment">//</span><span class="code-comment">address pushed on the stack
+</span>                                                <span class="code-comment">//</span><span class="code-comment">(originally 0xabcd)...
+</span>*data_addr = dwMappedAddress+0x14; <span class="code-comment">//</span><span class="code-comment">gets changed to point to our exe's path
+</span>
+<span class="code-comment">//</span><span class="code-comment">all done, detach now
+</span>KeUnstackDetachProcess (&amp;ApcState);</pre>
+
+<p>What's left now is to initialize the APC and queue it to the thread. I will not explain how <code>KeInitializeApc </code>and <code>KeInsertQueueApc </code>work as Tim Deveaux has already done that <a href="http://www.codeproject.com/KB/threads/YATMon.aspx">here</a>. </p>
+
+<pre lang="C++">  <span class="code-comment">//</span><span class="code-comment">Initialize the APC...
+</span>  KeInitializeApc(pApc,
+                  pTargetThread,
+                  OriginalApcEnvironment,
+                  &amp;ApcKernelRoutine, <span class="code-comment">//</span><span class="code-comment">this will fire after
+</span>                                     <span class="code-comment">//</span><span class="code-comment">the APC has returned
+</span>                  NULL,
+                  pMappedAddress,
+                  UserMode,
+                  NULL);
+
+  <span class="code-comment">//</span><span class="code-comment">...and queue it
+</span>  KeInsertQueueApc(pApc,<span class="code-digit">0</span>,NULL,<span class="code-digit">0</span>);
+
+  <span class="code-comment">//</span><span class="code-comment">is this a non-alertable thread?
+</span>  <span class="code-keyword">if</span>(!pTargetThread-&gt;ApcState.UserApcPending)
+  {
+    <span class="code-comment">//</span><span class="code-comment">if yes then alert it
+</span>    pTargetThread-&gt;ApcState.UserApcPending = TRUE;
+  }
+
+  <span class="code-keyword">return</span> STATUS_SUCCESS;
+}</pre>
+
+<h2>Compiling the Code</h2>
+
+<p>This is simple - do a <strong>cd</strong> <em>sys_path</em>, where <em>sys_path</em> is the path to the driver project, then run <strong>build -ceZ</strong>. Or just press the <strong>F7</strong> key in Microsoft Visual Studio 6. </p>
+
+<p>Now copy <em>KernelExec.sys</em> to your <em>C:\</em> directory, run Dbgview to see the output of the driver. Then double-click on <em>Start_KE_Driver.exe</em> to install and start the driver. Et voila! <em>RawWrite.exe</em>'s window should be on your screen right now! </p>
+
+<p>P.S.: Make sure you first put an application called <em>RawWrite.exe</em> in your <em>c:\</em> directory, because that is what the driver attempts to run. </p>
+
+
+							</div>
+							
+
+							
+							
+							<h2>License</h2>
+							<div id="LicenseTerms"><p>This article, along with any associated source code and files, is licensed under <a href="http://www.codeproject.com/info/cpol10.aspx" rel="license">The Code Project Open License (CPOL)</a></p></div>
+							
+
+							<div class="float-right" style="margin:20px 0 0 0;border:1px solid #ccc">
+							<div class="msg-300x250" data-format="300x250" data-type="ad" data-publisher="lqm.codeproject.site" data-zone="ros"  data-country='HK' data-loadOnView='true'  data-tags='VC6, WinXP, C, Dev, Advanced,rating4.5'></div>
+							</div>
+
+							
+							<h2 id="ctl00_AboutHeading">About the Author</h2>
+
+							
+							
+
+<div class="container">
+<div style="width:210px;overflow:hidden;float:left;text-align:center">
+	<img id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_memberPhoto" class="profile-pic" src="http://www.codeproject.com/script/Membership/ProfileImages/{DC14A6B8-8077-463E-9932-7FD43D86F759}.png" style="border-width:0px;transform:rotate(1deg);" />
+</div>
+<div class="container-member float-left" style="width:235px">
+	<b><a id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_memberProfileLink" class="author" href="/Members/Stan-Alex">Stan Alex</a></b>
+	<div class="company">
+		<span id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_memberJobTitle">Web Developer</span>
+		<span id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_memberCompany"></span> 
+		<br /><span id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_memberLocation">Romania <img src="/script/Geo/Images/RO.gif" alt="Romania" width="16px" height="11px" /></span>
+	</div>
+</div>
+	
+<div class="padded-top float-left clearfix" style="width:600px">
+	No Biography provided
+
+	
+
+	
+</div>
+</div><br />
+							
+							
+
+							<div class="clearfix"></div>
+
+							
+							<div id="ctl00_RateArticleRow" class="clearfix voting-bar">
+							<div class="float-left" style="padding-top:8px"><a class="anchorLink" href="/Articles/13572/Starting-a-Process-from-KernelMode#_articleTop">Article Top</a></div>
+							<div class="float-left"><a id="_rating" name="_rating">&nbsp;</a></div> 
+							<div class="float-left">
+
+<div class="social-bookmarks">
+<span class="facebook"><div id="fb-root"></div><div class="fb-like" data-href="http://www.codeproject.com/Articles/13572/Starting-a-Process-from-KernelMode" data-send="false" data-layout="button_count" data-width="450"  data-show-faces="false" data-font="segoe ui"></div></span>
+<span class="google" style="position:relative;top:-4px"><div class="g-plusone" data-size="medium"></div></span>
+<span class="twitter" style="position:relative;top:-4px"><a href="https://twitter.com/share" class="twitter-share-button" data-hashtags="CodeProject">Tweet</a></span>
+</div></div> 
+							<div class="float-right align-right">
+								<div id="ctl00_RateArticle_RateItemWrapper" class="container-rating small-text" name="RateItem_13572">
+
+	<table width="100%" cellpadding="0" cellspacing="0" class="small-text">
+	<tr>
+		<td id="ctl00_RateArticle_VoteResultDiv" nowrap="nowrap" align="right">
+			<span class="voteRes"></span>
+			<img class="loaderImg" width="16px" alt="loading..." height="16px" 
+				src="/Images/animated_loading_blue.gif" style="display:none;" /> 
+		</td>
+
+	
+		<td class="voteTbl" style="white-space:nowrap" align="right">
+			<table class="small-text">
+			<tr>
+				
+				<td id="ctl00_RateArticle_RateText" class="rating-prompt">
+					Rate this:
+				</td>
+
+				<td id="ctl00_RateArticle_StartForm" align="right" nowrap="nowrap">
+					<i>&nbsp;&nbsp;Poor</i>
+				</td>
+
+				<td id="ctl00_RateArticle_VoteFormDiv" class="nowrap">
+					
+
+					<span id="ctl00_RateArticle_RB" class="tooltip ajaxHist radio voting">
+						<span id="ctl00_RateArticle_VoteRBL"><input id="ctl00_RateArticle_VoteRBL_0" type="radio" name="ctl00$RateArticle$VoteRBL" value="1" onclick="ChkRtctl00_RateArticle(1, 13572);
+$(&#39;#ctl00_RateArticle_RCD&#39;).show();
+;" /><input id="ctl00_RateArticle_VoteRBL_1" type="radio" name="ctl00$RateArticle$VoteRBL" value="2" onclick="ChkRtctl00_RateArticle(2, 13572);
+$(&#39;#ctl00_RateArticle_RCD&#39;).show();
+;" /><input id="ctl00_RateArticle_VoteRBL_2" type="radio" name="ctl00$RateArticle$VoteRBL" value="3" onclick="ChkRtctl00_RateArticle(3, 13572);
+$(&#39;#ctl00_RateArticle_RCD&#39;).show();
+;" /><input id="ctl00_RateArticle_VoteRBL_3" type="radio" name="ctl00$RateArticle$VoteRBL" value="4" onclick="ChkRtctl00_RateArticle(4, 13572);
+$(&#39;#ctl00_RateArticle_RCD&#39;).show();
+;" /><input id="ctl00_RateArticle_VoteRBL_4" type="radio" name="ctl00$RateArticle$VoteRBL" value="5" onclick="ChkRtctl00_RateArticle(5, 13572);
+$(&#39;#ctl00_RateArticle_RCD&#39;).show();
+;" /></span> 
+
+						
+					</span>
+
+				</td>
+
+				<td id="ctl00_RateArticle_EndForm" align="left">
+					<i>Excellent</i>
+				</td>
+
+				<td style="padding-left:5px">	
+					<input type="submit" name="ctl00$RateArticle$SubmitRateBtn" value="Vote" onclick="return PostBack_ctl00_RateArticle_RateItemWrapper();" id="ctl00_RateArticle_SubmitRateBtn" class="button" />
+				</td>
+			</tr>
+			</table>
+			
+		</td>
+	</tr>
+	</table>
+	<div class="hover-container">
+		<div id="ctl00_RateArticle_RCD" class="rating-comment align-left float-right">
+			Add a reason or comment to your vote: <a href="#" id="clear-rate_ctl00_RateArticle_RCD" 
+				title="close">x</a><br />
+			<textarea class="RateComment" rows="5" cols="60" style="width:98%;"></textarea>
+			<span id="ctl00_RateArticle_CommentReq" class="subdue">Votes of 3 or less require a comment</span>
+		</div>
+	</div>
+</div>
+							</div>
+							</div>
+							
+
+						</form>
+
+						
+						<div style="margin:auto;height:90px;margin-top:10px"> 
+							<div class="msg-728x90" data-format="728x90" data-type="ad" data-publisher="lqm.codeproject.site" data-zone="bottom"  data-country='HK' data-loadOnView='true'  data-tags='VC6, WinXP, C, Dev, Advanced,pos_bottom'></div>
+						</div>
+						
+					
+
+				</div>
+
+				
+					
+					<h2>Comments and Discussions</h2>
+					<a class="float-left" name="_comments" id="_comments">&nbsp;</a><div id="_MessageBoardctl00_MessageBoard" onclick="return SwitchMessage(event, null)">
+	<table id="ForumTable" class="forum relaxed" cellpadding="0" cellspacing="0">
+		<tr>
+			<td><table width="100%" border="0" cellpadding="3px" cellspacing="0">
+				<tr class="header1">
+					<td colspan="2" style="white-space:nowrap;"><div class="container">
+						<div class="button new-message compose float-left" onclick="FireNew(this)">
+							<a href="/script/Forums/Edit.aspx?fid=284480&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode" name="Frm_HoverNL" target="_top">Add a Comment or Question&nbsp;</a>
+						</div><div class="admin-links float-left align-middle" style="width:60px;line-height:24px;margin-top:4px;">
+							&nbsp;<a href="/KB/FAQs/MessageBoardsFAQ.aspx"><img src="/images/help_sm.png" title="FAQ" alt="FAQ" style="border-width:0;width:16px;height:16px;vertical-align:middle;" /></a>
+						</div><div class="float-right">
+							<form action="/Search.aspx?fid=0" method="get" class="tight">
+								<input type="hidden" name="fid" value="284480" /><b>Search this forum </b><input type="text" class="text-input" name="qf" style="width:200px;" />&nbsp;<input type="submit" value="Go" class="button" />
+							</form>
+						</div>
+					</div></td><tr class="header2">
+						<td></td><td style="width:100%;"><div style="text-align:right;">
+							<form action="/script/Forums/SetOptions.aspx?floc=%2fArticles%2f13572%2fStarting-a-Process-from-KernelMode&amp;fid=284480&amp;df=90&amp;mpp=25&amp;noise=3&amp;prof=False&amp;sort=Position&amp;view=Quick&amp;spc=Relaxed" method="get" style="margin:0;padding:0;">
+								<input type="hidden" name="fid" value="284480" /><input type="hidden" name="currentQS" value="?floc=%2fArticles%2f13572%2fStarting-a-Process-from-KernelMode&amp;fid=284480&amp;df=90&amp;mpp=25&amp;noise=3&amp;prof=False&amp;sort=Position&amp;view=Quick&amp;spc=Relaxed" /><input type="hidden" name="floc" value="/Articles/13572/Starting-a-Process-from-KernelMode" /><input type="checkbox" name="prof" id="prof" style="vertical-align:middle;" /><label for="prof">Profile popups</label>&nbsp;&nbsp;&nbsp;&nbsp;Spacing<select size="1" class="dropdown" name="spc">
+									<option selected value="Relaxed">Relaxed</option><option value="Compact">Compact</option><option value="Tight">Tight</option>
+								</select>&nbsp;&nbsp;Noise<select size="1" class="dropdown" name="noise">
+									<option value="1">Very High</option><option value="2">High</option><option selected value="3">Medium</option><option value="4">Low</option><option value="5">Very Low</option>
+								</select>&nbsp;&nbsp;Layout<select size="1" class="dropdown" name="view">
+									<option selected value="Quick">Normal</option><option value="Topic">Open Topics</option><option value="Expanded">Open All</option><option value="Thread">Thread View</option><option value="Normal">No Javascript</option><option value="Preview">Preview</option>
+								</select>&nbsp;&nbsp;Per page<select size="1" class="dropdown" name="mpp">
+									<option value="10">10</option><option selected value="25">25</option><option value="50">50</option>
+								</select>&nbsp;&nbsp;&nbsp;<input type="submit" value="Update" name="SetOpt" class="button" />
+							</form>
+						</div></td>
+					</tr>
+				</tr>
+			</table></td><tr>
+				<td><a name="xx0xx"></a><table border="0" cellpadding="2px" cellspacing="0" width="100%">
+					<tr class="navbar">
+						<td></td><td style="text-align:right;width:50%;"></td><td style="text-align:right;white-space:nowrap;"><span class="nav-link disabled">First</span> <span class="nav-link disabled">Prev</span><a class="nav-link" name="Frm_HoverNL" href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;noise=3&amp;prof=False&amp;sort=Position&amp;view=Quick&amp;spc=Relaxed&amp;fr=26#xx0xx">Next</a></td>
+					</tr>
+				</table></td>
+			</tr><tr>
+				<td><table border="0" cellpadding="0" cellspacing="0" width="100%" class="fixed-layout blank-background">
+					<tr>
+						<td><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="5px" alt="" /></td>
+					</tr><tr id="F3245498_h0" class="header hover-row root">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="20px" class="indent"><a name="xx3245498xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="subject hover-container"><a class="message-link" name="3245498" parent="0" thread="3245498" href="/Messages/3245498/Error-at-run-Start_KE_Driver-exe.aspx">Error at run Start_KE_Driver.exe</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=3670341">IL_Agent</a></td><td class="date">23-Oct-09  0:08&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F3245498_h1" class="content root selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:20px;"><img src="/script/Forums/Images/t.gif" height="1px" width="20px" alt="" /><div class="voteform vertical" ownerid="3670341" msgid="3245498" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2"><pre>D:\SRC\KernelExec_demo&gt;Start_KE_Driver.exe
+Attempting to install <span class="code-string">"</span><span class="code-string">c:\KernelExec.sys"</span>
+Press any key to <span class="code-keyword">continue</span>...
+&nbsp;
+CreateService SUCCESS
+Failure - StartService(): ═х єфрхЄё  эрщЄш єърчрээ√щ Їрщы.
+&nbsp;
+Deleting service...
+DeleteService SUCCESS</pre>
+&nbsp;<br />
+What to do ?<br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=3245498&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=3245498&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=3245498" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/3245498/Error-at-run-Start_KE_Driver-exe.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=3245498&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=3245498&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF3245498" data-ref="3_3245498" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="3670341" msgid="3245498"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F3245504_h0" class="header hover-row">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="38px" class="indent"><a name="xx3245504xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="subject hover-container"><a class="message-link" name="3245504" parent="3245498" thread="3245498" href="/Messages/3245504/Re-Error-at-run-Start_KE_Driver-exe.aspx">Re: Error at run Start_KE_Driver.exe</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=3670341">IL_Agent</a></td><td class="date">23-Oct-09  0:15&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F3245504_h1" class="content selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:38px;"><img src="/script/Forums/Images/t.gif" height="1px" width="38px" alt="" /><div class="voteform vertical" ownerid="3670341" msgid="3245504" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">Sorry, forgot to copy sys on c: )))<br />
+But i have other problem. At start IE throws the offer to send the report ((. <br />
+Win XP SP2.<br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=3245504&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=3245504&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=3245498" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/3245504/Re-Error-at-run-Start_KE_Driver-exe.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=3245504&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=3245504&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF3245504" data-ref="3_3245504" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="3670341" msgid="3245504"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F3030671_h0" class="header hover-row root">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="20px" class="indent"><a name="xx3030671xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="subject hover-container"><a class="message-link" name="3030671" parent="0" thread="3030671" href="/Messages/3030671/Opinia-mea.aspx">Opinia mea</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=1028806">euacela</a></td><td class="date">6-May-09  6:22&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F3030671_h1" class="content root selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:20px;"><img src="/script/Forums/Images/t.gif" height="1px" width="20px" alt="" /><div class="voteform vertical" ownerid="1028806" msgid="3030671" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">Lasa-te de Kernel mode programming, really. You really suck about it, si ceea ce faci tu nu ar trebuie incurajat <img src="/script/Forums/Images/smiley_frown.gif" align="top" alt="Frown | :(" /> <br />
+Profund dezamagit.<br />
+&nbsp;<br />
+Mai scrii si ca esti web developer.<br />
+Se vede really.<br />
+&nbsp;<br />
+Success. <br />
+&nbsp;<br />
+<div class="ForumSig">gabby</div><br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=3030671&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=3030671" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/3030671/Opinia-mea.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=3030671&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=3030671&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF3030671" data-ref="3_3030671" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="1028806" msgid="3030671"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F3033139_h0" class="header hover-row">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="38px" class="indent"><a name="xx3033139xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="subject hover-container"><a class="message-link" name="3033139" parent="3030671" thread="3030671" href="/Messages/3033139/Re-Opinia-mea.aspx">Re: Opinia mea</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=2843928">Stan Alex</a></td><td class="date">7-May-09  23:08&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F3033139_h1" class="content selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:38px;"><img src="/script/Forums/Images/t.gif" height="1px" width="38px" alt="" /><div class="voteform vertical" ownerid="2843928" msgid="3033139" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">Hi, <br />
+&nbsp;<br />
+Please choose one language and stick to it. It's more easy to follow <img src="/script/Forums/Images/smiley_wink.gif" align="top" alt="Wink | ;)" />  <br />
+&nbsp;<br />
+Thanks for the comments anyway. Unfortunatelly, I'm not the best kernel programmer in the world. Actually that's what I used to do in my spare time a few years back, before completely switching to web dev.<br />
+&nbsp;<br />
+The code is intended to be more of a guideline for you to follow, not a copy and paste solution. I'm sure it can be rewritten to be 10x more efficient, but that's not what I'm after.<br />
+Also, please be kind enough to mention the exact problem you've been encountering, otherwise I'm not sure I can help you out.  <img src="/script/Forums/Images/smiley_smile.gif" align="top" alt="Smile | :)" /> <br />
+&nbsp;<br />
+All the best!<br />
+Alex<br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=3033139&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=3030671" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/3033139/Re-Opinia-mea.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=3033139&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=3033139&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF3033139" data-ref="3_3033139" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="2843928" msgid="3033139"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F2937568_h0" class="header hover-row root">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="20px" class="indent"><a name="xx2937568xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="subject hover-container"><a class="message-link" name="2937568" parent="0" thread="2937568" href="/Messages/2937568/rawwrite.aspx">rawwrite</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=5369939">deshiko</a></td><td class="date">24-Feb-09  4:16&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F2937568_h1" class="content root selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:20px;"><img src="/script/Forums/Images/t.gif" height="1px" width="20px" alt="" /><div class="voteform vertical" ownerid="5369939" msgid="2937568" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">Please, give you rawwrite.exe and src file in this project!<br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=2937568&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=2937568&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=2937568" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/2937568/rawwrite.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=2937568&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=2937568&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF2937568" data-ref="3_2937568" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="5369939" msgid="2937568"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F4506877_h0" class="header hover-row">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="38px" class="indent"><a name="xx4506877xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="subject hover-container"><a class="message-link" name="4506877" parent="2937568" thread="2937568" href="/Messages/4506877/Re-rawwrite.aspx">Re: rawwrite</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=8386520">gddcxysqw</a></td><td class="date">28-Feb-13  7:13&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F4506877_h1" class="content selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:38px;"><img src="/script/Forums/Images/t.gif" height="1px" width="38px" alt="" /><div class="voteform vertical" ownerid="8386520" msgid="4506877" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">anyone is ok<br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=4506877&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=4506877&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=2937568" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/4506877/Re-rawwrite.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=4506877&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=4506877&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF4506877" data-ref="3_4506877" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="8386520" msgid="4506877"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F2937060_h0" class="header hover-row root">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="20px" class="indent"><a name="xx2937060xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_question.gif" alt="Question" /></td><td class="subject hover-container"><a class="message-link" name="2937060" parent="0" thread="2937060" href="/Messages/2937060/Question.aspx">Question?</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=5369939">deshiko</a></td><td class="date">23-Feb-09  22:37&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F2937060_h1" class="content root selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:20px;"><img src="/script/Forums/Images/t.gif" height="1px" width="20px" alt="" /><div class="voteform vertical" ownerid="5369939" msgid="2937060" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">Hi, i like you code! But i have some problem?<br />
+I write little rawwrite.exe (for example: <br />
+<code>#include	<stdio.h><br />
+&nbsp;<br />
+int main (int argc,char **argv[])<br />
+{<br />
+&nbsp;<br />
+	//puts("HELLO WORLD");<br />
+	FILE *fd;<br />
+	fd=fopen("c:\\win.txt","w");<br />
+&nbsp;<br />
+	fputs("start",fd);<br />
+	<br />
+	fclose(fd);<br />
+&nbsp;<br />
+	return 0;<br />
+}</stdio.h></code>)<br />
+and when i start Start_KE_driver.exe explorer.exe - is error!!!<br />
+dbgview show :<br />
+<pre><span class="code-digit">00000000</span>	<span class="code-digit">0</span>.<span class="code-digit">00000000</span>	KernelExec -&gt; Driver Loaded	
+<span class="code-digit">00000001</span>	<span class="code-digit">0</span>.<span class="code-digit">00000894</span>	KernelExec -&gt; Found alertable <span class="code-keyword">thread</span>	
+<span class="code-digit">00000002</span>	<span class="code-digit">0</span>.<span class="code-digit">00001229</span>	KernelExec -&gt; Targeted <span class="code-keyword">thread</span>: 0x88878620	
+<span class="code-digit">00000003</span>	<span class="code-digit">0</span>.<span class="code-digit">00002011</span>	KernelExec -&gt; UserMode memory at address: 0x023A0010	
+<span class="code-digit">00000004</span>	<span class="code-digit">0</span>.<span class="code-digit">00002514</span>	KernelExec -&gt; APC delivered	
+<span class="code-digit">00000005</span>	<span class="code-digit">0</span>.<span class="code-digit">00003269</span>	KernelExec -&gt; ApcKernelRoutine called. Memory freed.</pre>
+Whi it done?<br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=2937060&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=2937060&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=2937060" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/2937060/Question.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=2937060&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=2937060&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF2937060" data-ref="3_2937060" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="5369939" msgid="2937060"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F2937760_h0" class="header hover-row">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="38px" class="indent"><a name="xx2937760xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_answer.gif" alt="Answer" /></td><td class="subject hover-container"><a class="message-link" name="2937760" parent="2937060" thread="2937060" href="/Messages/2937760/Re-Question.aspx">Re: Question?</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=2843928">Stan Alex</a></td><td class="date">24-Feb-09  6:16&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F2937760_h1" class="content selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:38px;"><img src="/script/Forums/Images/t.gif" height="1px" width="38px" alt="" /><div class="voteform vertical" ownerid="2843928" msgid="2937760" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">Hi there, <br />
+&nbsp;<br />
+Wow, that was 3 years ago, I had totally forgotten of the existence of this article. I'm affraid I can't help you too much because the original sources were erased from my HDD a LONG time ago <img src="/script/Forums/Images/smiley_smile.gif" align="top" alt="Smile | :)" />  <br />
+&nbsp;<br />
+Anyway, to answer your question:<br />
+Check out this line <pre><span class="code-string">"</span><span class="code-string">We move the address of WinExec into eax (0x7C86114D is its address, on WinXP SP2)"</span></pre>
+The only thing I can think of is the address of WinExec, wich may not be the same on your machine. Please open Kernel32.dll with a disassembler and get the correct value from there. By the way, I hope you're not trying to run it from Vista, or Windows 7, are you? I've only tested it on WinXP SP2 (the SP# shouldn't make any difference, though).<br />
+&nbsp;<br />
+Also, rawwrite was a MFC application used to... write something, I guess, I don't remeber <img src="/script/Forums/Images/smiley_sigh.gif" align="top" alt="Sigh | :sigh:" />   It was just an arbitrarily chosen exe file.<br />
+&nbsp;<br />
+Good luck!<br />
+Alex<br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=2937760&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=2937760&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=2937060" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/2937760/Re-Question.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=2937760&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=2937760&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF2937760" data-ref="3_2937760" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="2843928" msgid="2937760"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F2938610_h0" class="header hover-row">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="56px" class="indent"><a name="xx2938610xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="subject hover-container"><a class="message-link" name="2938610" parent="2937760" thread="2937060" href="/Messages/2938610/Re-Question.aspx">Re: Question?</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=5369939">deshiko</a></td><td class="date">24-Feb-09  20:26&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F2938610_h1" class="content selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:56px;"><img src="/script/Forums/Images/t.gif" height="1px" width="56px" alt="" /><div class="voteform vertical" ownerid="5369939" msgid="2938610" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">thank's for your answer!<br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=2938610&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=2938610&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=2937060" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/2938610/Re-Question.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=2938610&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=2938610&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF2938610" data-ref="3_2938610" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="5369939" msgid="2938610"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F2561260_h0" class="header hover-row root">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="20px" class="indent"><a name="xx2561260xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_question.gif" alt="Question" /></td><td class="subject hover-container"><a class="message-link" name="2561260" parent="0" thread="2561260" href="/Messages/2561260/Compilation-Errors-in-VC6-and-XP-DDK.aspx">Compilation Errors in VC6 and XP DDK</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=2069009">SecureCode</a></td><td class="date">20-May-08  2:55&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F2561260_h1" class="content root selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:20px;"><img src="/script/Forums/Images/t.gif" height="1px" width="20px" alt="" /><div class="voteform vertical" ownerid="2069009" msgid="2561260" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">I did my best but always I get this errors:<br />
+I opened XP DDK and build environment for free XP release. Then I cd to folder which I have files there and I run build -ceZ, but I get this errors:<br />
+&nbsp;<br />
+<br />
+&nbsp;<br />
+ntifs.h(7192) : error C2375: 'ObDereferenceSecurityDescriptor' : redefinition; d<br />
+ifferent linkage<br />
+e:\winddk\2600\inc\ddk\wxp\ntddk.h(21302) : error see declaration of 'ObDerefere<br />
+nceSecurityDescriptor'<br />
+ntifs.h(7221) : error C2375: 'ObLogSecurityDescriptor' : redefinition; different<br />
+ linkage<br />
+e:\winddk\2600\inc\ddk\wxp\ntddk.h(21295) : error see declaration of 'ObLogSecur<br />
+ityDescriptor'<br />
+ntifs.h(7279) : error C2375: 'ObReferenceSecurityDescriptor' : redefinition; dif<br />
+ferent linkage<br />
+e:\winddk\2600\inc\ddk\wxp\ntddk.h(21308) : error see declaration of 'ObReferenc<br />
+eSecurityDescriptor'<br />
+Compiling - process.c for i386<br />
+ntifs.h(7192) : error C2375: 'ObDereferenceSecurityDescriptor' : redefinition; d<br />
+ifferent linkage<br />
+e:\winddk\2600\inc\ddk\wxp\ntddk.h(21302) : error see declaration of 'ObDerefere<br />
+nceSecurityDescriptor'<br />
+ntifs.h(7221) : error C2375: 'ObLogSecurityDescriptor' : redefinition; different <br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=2561260&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=2561260&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=2561260" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/2561260/Compilation-Errors-in-VC6-and-XP-DDK.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=2561260&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=2561260&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF2561260" data-ref="3_2561260" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="2069009" msgid="2561260"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F2028923_h0" class="header hover-row root">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="20px" class="indent"><a name="xx2028923xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_question.gif" alt="Question" /></td><td class="subject hover-container"><a class="message-link" name="2028923" parent="0" thread="2028923" href="/Messages/2028923/some-question.aspx">some question</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=3782631">baisix</a></td><td class="date">9-May-07  17:52&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F2028923_h1" class="content root selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:20px;"><img src="/script/Forums/Images/t.gif" height="1px" width="20px" alt="" /><div class="voteform vertical" ownerid="3782631" msgid="2028923" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">ntifs.h<7192>:error C2375:'ObDereferenceSecurityDescriptor':redefinition;different linkage<br />
+d:\winddk\winxp\inc\ddk\wxp\ntddk.h<21302>:error see declaration of 'ObDereferenceSecurityDescriptor'<br />
+ntifs.h<7221>:error C2375:'ObLogSecurityDescriptor':redefinition;different linkage<br />
+d:\winddk\winxp\inc\ddk\wxp\ntddk.h<21302>:error see declaration of 'ObLogSecurityDescriptor'<br />
+ <br />
+&nbsp;<br />
+<div class="ForumSig">hello</div><br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=2028923&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=2028923&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=2028923" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/2028923/some-question.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=2028923&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=2028923&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF2028923" data-ref="3_2028923" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="3782631" msgid="2028923"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1891084_h0" class="header hover-row root">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="20px" class="indent"><a name="xx1891084xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_question.gif" alt="Question" /></td><td class="subject hover-container"><a class="message-link" name="1891084" parent="0" thread="1891084" href="/Messages/1891084/it-seems-everything-ok-but-cant-run-apply-process-.aspx">it seems everything ok,but can't run apply process,why?</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=3264611">lsxredrain1</a></td><td class="date">12-Feb-07  17:24&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1891084_h1" class="content root selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:20px;"><img src="/script/Forums/Images/t.gif" height="1px" width="20px" alt="" /><div class="voteform vertical" ownerid="3264611" msgid="1891084" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">i include "Process.h","Process.c" and "ntifs.h"	in my project.<br />
+I rebuild it suceess and the result is as follow,but i can't see "d:\hellp.exe"(a simple MFC dialog program) on my screen. <br />
+why? 3x<br />
+ps: my os is xp sp2<br />
+Monitor  	  	Reader thread started<br />
+  	Monitor  	  	Remote reader thread started<br />
+-1081.453  	Win32  	  	>> MSEnv extensibility IClassFactory::LockServer(TRUE), lock count: 1<br />
+-883.719  	Default  	  	watchdog!WdUpdateRecoveryState: Recovery enabled.<br />
+-2.156  	Default  	  	SFilter!SioctlDeviceControl begin run RunProcess(d:\hellp.exe); <br />
+-2.156  	Default  	  	KernelExec -> Found alertable thread <br />
+-2.156  	Default  	  	KernelExec -> Targeted thread: 0x86192630 <br />
+-2.156  	Default  	  	KernelExec -> UserMode memory at address: 0x031D0F30 lpProcess=d:\hellp.exe<br />
+-2.156  	Default  	  	KernelExec -> APC delivered <br />
+-2.156  	Default  	  	SFilter!SioctlDeviceControl end run RunProcess(d:\hellp.exe); <br />
+-2.156  	Default  	  	SFilter!SioctlDeviceControl FILEFIXNAME=*.DOC;*.TXT;<br />
+-2.141  	Default  	  	KernelExec -> ApcKernelRoutine called. Memory freed. <br />
+&nbsp;<br />
+lsx <br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1891084&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1891084&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1891084" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/1891084/it-seems-everything-ok-but-cant-run-apply-process-.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=1891084&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=1891084&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF1891084" data-ref="3_1891084" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="3264611" msgid="1891084"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1774395_h0" class="header hover-row root">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="20px" class="indent"><a name="xx1774395xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="subject hover-container"><a class="message-link" name="1774395" parent="0" thread="1774395" href="/Messages/1774395/Good-solution-but-it-has-a-problem-of-compatabilit.aspx">Good solution, but it has a problem of compatability with the any new Windows updates...</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=2636554">RealBobEx</a></td><td class="date">24-Nov-06  6:43&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1774395_h1" class="content root selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:20px;"><img src="/script/Forums/Images/t.gif" height="1px" width="20px" alt="" /><div class="voteform vertical" ownerid="2636554" msgid="1774395" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">The problem:<br />
+The address of WinExec function (you set it equal to 0x7C86114D) is valid to WinXP SP2 only and undergo changes at the almost any new Windows updates.<br />
+For example on my test machine WinXP SP2 freshly installed from the CD and I see the address 0x7C86114D for this function.<br />
+But on my primary machine, I have about eighty updates installed.<br />
+As result its address on my machine equal to 0x7C86136D.<br />
+&nbsp;<br />
+How your opinion, does exist any way for determining this address directly from the driver?<br />
+&nbsp;<br />
+Regards,<br />
+Boris Chukhlov <br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1774395&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1774395&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1774395" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/1774395/Good-solution-but-it-has-a-problem-of-compatabilit.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=1774395&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=1774395&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF1774395" data-ref="3_1774395" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="2636554" msgid="1774395"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F2014679_h0" class="header hover-row">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="38px" class="indent"><a name="xx2014679xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="subject hover-container"><a class="message-link" name="2014679" parent="1774395" thread="1774395" href="/Messages/2014679/Re-Good-solution-but-it-has-a-problem-of-compatabi.aspx">Re: Good solution, but it has a problem of compatability with the any new Windows updates...</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=710252">JimD.9999</a></td><td class="date">1-May-07  6:54&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F2014679_h1" class="content selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:38px;"><img src="/script/Forums/Images/t.gif" height="1px" width="38px" alt="" /><div class="voteform vertical" ownerid="710252" msgid="2014679" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">No offense, but this whole thing is a hack, and not in any way useful for anything other than entertainment. <br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=2014679&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=2014679&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1774395" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/2014679/Re-Good-solution-but-it-has-a-problem-of-compatabi.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=2014679&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=2014679&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF2014679" data-ref="3_2014679" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="710252" msgid="2014679"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1625348_h0" class="header hover-row root">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="20px" class="indent"><a name="xx1625348xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="subject hover-container"><a class="message-link" name="1625348" parent="0" thread="1625348" href="/Messages/1625348/Demo-not-working-modified.aspx">Demo not working [modified]</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=291232">Sharath C V</a></td><td class="date">14-Aug-06  21:55&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1625348_h1" class="content root selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:20px;"><img src="/script/Forums/Images/t.gif" height="1px" width="20px" alt="" /><div class="voteform vertical" ownerid="291232" msgid="1625348" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">Hi Stan,<br />
+&nbsp;<br />
+I did run this sample once on my XP SP2 machine. After that what I could remember is that I installed XP DDK. Since then its not working. I uninstalled XP DDK but still the demo is not working.<br />
+&nbsp;<br />
+What could be the reason? Thanks a lot in advance.<br />
+&nbsp;<br />
+Regards,<br />
+Sharath<br />
+&nbsp;<br />
+<br />
+ -- modified at 0:02 Friday 18th August, 2006 <br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1625348&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1625348&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1625348" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/1625348/Demo-not-working-modified.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=1625348&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=1625348&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF1625348" data-ref="3_1625348" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="291232" msgid="1625348"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1606826_h0" class="header hover-row root">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="20px" class="indent"><a name="xx1606826xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="subject hover-container"><a class="message-link" name="1606826" parent="0" thread="1606826" href="/Messages/1606826/Calling-process-from-Kernel-mode-in-Vista.aspx">Calling process from Kernel mode in Vista</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=291232">Sharath C V</a></td><td class="date">2-Aug-06  2:49&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1606826_h1" class="content root selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:20px;"><img src="/script/Forums/Images/t.gif" height="1px" width="20px" alt="" /><div class="voteform vertical" ownerid="291232" msgid="1606826" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">Hi Stan,<br />
+&nbsp;<br />
+Good article. Is it possible to call a process from Kernel mode in Vista also?<br />
+&nbsp;<br />
+This has to be acheived using CreateProcess(). The main requirement is that the UAC consent/credential dialog should not come up when calling a process from standard account as well as administrator account<br />
+&nbsp;<br />
+Regards,<br />
+Sharath C V<br />
+ <br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1606826&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1606826&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1606826" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/1606826/Calling-process-from-Kernel-mode-in-Vista.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=1606826&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=1606826&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF1606826" data-ref="3_1606826" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="291232" msgid="1606826"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1607966_h0" class="header hover-row">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="38px" class="indent"><a name="xx1607966xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="subject hover-container"><a class="message-link" name="1607966" parent="1606826" thread="1606826" href="/Messages/1607966/Re-Calling-process-from-Kernel-mode-in-Vista.aspx">Re: Calling process from Kernel mode in Vista</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=2843928">Stan Alex</a></td><td class="date">2-Aug-06  14:04&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1607966_h1" class="content selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:38px;"><img src="/script/Forums/Images/t.gif" height="1px" width="38px" alt="" /><div class="voteform vertical" ownerid="2843928" msgid="1607966" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">Hi Sharath,<br />
+&nbsp;<br />
+Unfortunately I cannot answer your question since I have never used Windows Vista and I'm not even planning to do so in the near future. But I guess if it was possible on WindowsXP, it must also be achievable on Windows Vista. <img src="/script/Forums/Images/smiley_smile.gif" align="top" alt="Smile | :)" /> <br />
+&nbsp;<br />
+Regards,<br />
+Stan Alex <br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1607966&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1607966&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1606826" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/1607966/Re-Calling-process-from-Kernel-mode-in-Vista.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=1607966&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=1607966&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF1607966" data-ref="3_1607966" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="2843928" msgid="1607966"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1619100_h0" class="header hover-row">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="56px" class="indent"><a name="xx1619100xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="subject hover-container"><a class="message-link" name="1619100" parent="1607966" thread="1606826" href="/Messages/1619100/Re-Calling-process-from-Kernel-mode-in-Vista.aspx">Re: Calling process from Kernel mode in Vista</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=291232">Sharath C V</a></td><td class="date">10-Aug-06  2:38&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1619100_h1" class="content selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:56px;"><img src="/script/Forums/Images/t.gif" height="1px" width="56px" alt="" /><div class="voteform vertical" ownerid="291232" msgid="1619100" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">Hi Stan,<br />
+&nbsp;<br />
+One more query, which is away from this topic. Is it possible to get the inbuilt administrator token even when the logged in user is a standard user? Any suggestion on this? I am looking for the same in Vista but if you have any suggestion about the same in XP it would be helpful too.<br />
+&nbsp;<br />
+Thanks in advance for your help.<br />
+&nbsp;<br />
+Regards,<br />
+Sharath <br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1619100&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1619100&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1606826" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/1619100/Re-Calling-process-from-Kernel-mode-in-Vista.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=1619100&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=1619100&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF1619100" data-ref="3_1619100" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="291232" msgid="1619100"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1581455_h0" class="header hover-row root">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="20px" class="indent"><a name="xx1581455xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="subject hover-container"><a class="message-link" name="1581455" parent="0" thread="1581455" href="/Messages/1581455/after-reboot.aspx">after reboot</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=293915">sysnet</a></td><td class="date">17-Jul-06  13:58&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1581455_h1" class="content root selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:20px;"><img src="/script/Forums/Images/t.gif" height="1px" width="20px" alt="" /><div class="voteform vertical" ownerid="293915" msgid="1581455" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">when i reboot my pc,this driver not work. why? <br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1581455&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1581455&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1581455" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/1581455/after-reboot.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=1581455&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=1581455&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF1581455" data-ref="3_1581455" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="293915" msgid="1581455"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1581609_h0" class="header hover-row">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="38px" class="indent"><a name="xx1581609xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="subject hover-container"><a class="message-link" name="1581609" parent="1581455" thread="1581455" href="/Messages/1581609/Re-after-reboot.aspx">Re: after reboot</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=2843928">Stan Alex</a></td><td class="date">17-Jul-06  17:06&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1581609_h1" class="content selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:38px;"><img src="/script/Forums/Images/t.gif" height="1px" width="38px" alt="" /><div class="voteform vertical" ownerid="2843928" msgid="1581609" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">I REALLY don't know why! You haven't given me any details. Do you mean it only worked ONCE? And then the driver failed to start no matter how many times you reebooted your PC? Maybe you forgot to uninstall it, so try that!<br />
+&nbsp;<br />
+Also keep in mind that the driver won't run on every version of WindowsXP, so the code serves more as a blueprint to developing your own app. <br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1581609&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1581609&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1581455" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/1581609/Re-after-reboot.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=1581609&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=1581609&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF1581609" data-ref="3_1581609" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="2843928" msgid="1581609"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1584501_h0" class="header hover-row">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="56px" class="indent"><a name="xx1584501xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="subject hover-container"><a class="message-link" name="1584501" parent="1581609" thread="1581455" href="/Messages/1584501/Re-after-reboot.aspx">Re: after reboot</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=293915">sysnet</a></td><td class="date">19-Jul-06  1:58&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1584501_h1" class="content selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:56px;"><img src="/script/Forums/Images/t.gif" height="1px" width="56px" alt="" /><div class="voteform vertical" ownerid="293915" msgid="1584501" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">I hope that it can  automatically, when I reboot . <br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1584501&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1584501&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1581455" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/1584501/Re-after-reboot.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=1584501&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=1584501&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF1584501" data-ref="3_1584501" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="293915" msgid="1584501"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F4506882_h0" class="header hover-row">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="38px" class="indent"><a name="xx4506882xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="subject hover-container"><a class="message-link" name="4506882" parent="1581455" thread="1581455" href="/Messages/4506882/Re-after-reboot.aspx">Re: after reboot</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=8386520">gddcxysqw</a></td><td class="date">28-Feb-13  7:17&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F4506882_h1" class="content selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:38px;"><img src="/script/Forums/Images/t.gif" height="1px" width="38px" alt="" /><div class="voteform vertical" ownerid="8386520" msgid="4506882" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">it is not 0 or 1 or2 ,it is just 3.<br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=4506882&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=4506882&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1581455" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/4506882/Re-after-reboot.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=4506882&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=4506882&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF4506882" data-ref="3_4506882" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="8386520" msgid="4506882"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1422578_h0" class="header hover-row root">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="20px" class="indent"><a name="xx1422578xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="subject hover-container"><a class="message-link" name="1422578" parent="0" thread="1422578" href="/Messages/1422578/Error-when-build.aspx">Error when build</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=916827">cgf99</a></td><td class="date">25-Mar-06  22:08&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1422578_h1" class="content root selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:20px;"><img src="/script/Forums/Images/t.gif" height="1px" width="20px" alt="" /><div class="voteform vertical" ownerid="916827" msgid="1422578" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">I build the code with win2000 ddk,but get the error message<br />
+&nbsp;<br />
+BUILD: Computing Include file dependencies:<br />
+BUILD: Examining c:\ directory for files to compile.<br />
+Compiling c:\ directory ********************<br />
+'nmake.exe /c BUILDMSG=Stop. -i NTTEST= UMTEST= NOLINK=1 NOPASS0=1 386=1'<br />
+cl -nologo -Ii386\ -I. -I.. -Ic:\NTDDK\inc -Ic:\NTDDK\inc -Ic:\NTDDK\inc\ddk -Ic:\NTDDK\inc\ddk\wdm -Ic:\NTDDK\private\inc -Ic:\NTDDK\inc -D_X86_=1 -Di386=1  -DSTD_CALL -DCONDITION_HANDLING=1 -DNT_UP=1  -DNT_INST=0 -DWIN32=100 -D_NT1X_=100 -DWINNT=1 -D_WIN32_WINNT=0x0500 -DWINVER=0x0500 -D_WIN32_IE=0x0501    -DWIN32_LEAN_AND_MEAN=1 -DDBG=1 -DDEVL=1 -DFPO=0    -DNDEBUG -D_DLL=1      /c /Zel /Zp8 /Gy -cbstring /W3 /Gz  /QIfdiv- /QIf /QI0f /GB /Gi- /Gm- /GX-  /GR- /GF -Z7 /Oxs /Oy-   -FIc:\NTDDK\inc\warning.h  .\kernelexec.c<br />
+kernelexec.c<br />
+cl -nologo -Ii386\ -I. -I.. -Ic:\NTDDK\inc -Ic:\NTDDK\inc -Ic:\NTDDK\inc\ddk -Ic:\NTDDK\inc\ddk\wdm -Ic:\NTDDK\private\inc -Ic:\NTDDK\inc -D_X86_=1 -Di386=1  -DSTD_CALL -DCONDITION_HANDLING=1 -DNT_UP=1  -DNT_INST=0 -DWIN32=100 -D_NT1X_=100 -DWINNT=1 -D_WIN32_WINNT=0x0500 -DWINVER=0x0500 -D_WIN32_IE=0x0501    -DWIN32_LEAN_AND_MEAN=1 -DDBG=1 -DDEVL=1 -DFPO=0    -DNDEBUG -D_DLL=1      /c /Zel /Zp8 /Gy -cbstring /W3 /Gz  /QIfdiv- /QIf /QI0f /GB /Gi- /Gm- /GX-  /GR- /GF -Z7 /Oxs /Oy-   -FIc:\NTDDK\inc\warning.h  .\process.c<br />
+process.c<br />
+c:\process.c(63) : error C2039: 'ActiveThreads' : is not a member  of '_EPROCESS'<br />
+        c:\ntifs.h(2608) : see declaration of '_EPROCESS'<br />
+ <br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1422578&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1422578&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1422578" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/1422578/Error-when-build.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=1422578&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=1422578&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF1422578" data-ref="3_1422578" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="916827" msgid="1422578"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1664547_h0" class="header hover-row">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="38px" class="indent"><a name="xx1664547xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="subject hover-container"><a class="message-link" name="1664547" parent="1422578" thread="1422578" href="/Messages/1664547/Re-Error-when-build.aspx">Re: Error when build</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=1851887">wanjianxin</a></td><td class="date">11-Sep-06  18:46&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1664547_h1" class="content selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:38px;"><img src="/script/Forums/Images/t.gif" height="1px" width="38px" alt="" /><div class="voteform vertical" ownerid="1851887" msgid="1664547" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">Hi cgf99<br />
+&nbsp;<br />
+  How do u the error(error C2039: 'ActiveThreads' : is not a member of '_EPROCESS')?<br />
+&nbsp;<br />
+Thanks a lot <img src="/script/Forums/Images/smiley_smile.gif" align="top" alt="Smile | :)" />  <br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1664547&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1664547&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1422578" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/1664547/Re-Error-when-build.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=1664547&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=1664547&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF1664547" data-ref="3_1664547" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="1851887" msgid="1664547"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1422571_h0" class="header hover-row root">
+						<td class="subject-line quick " width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td width="20px" class="indent"><a name="xx1422571xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="subject hover-container"><a class="message-link" name="1422571" parent="0" thread="1422571" href="/Messages/1422571/so-good-code.aspx">so good code</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.png" border="0" align="top" alt="Pin" width="13px" height="13px" /></a></td><td class="icon"><img border="0" src="/App_Themes/CodeProject/Img/icn-member-16.gif" title="member" alt="member" height="16px" /></td><td class="author"><a href="/script/Membership/View.aspx?mid=916827">cgf99</a></td><td class="date">25-Mar-06  21:54&nbsp;</td>
+							</tr>
+						</table></td>
+					</tr><tr id="F1422571_h1" class="content root selected" style="display:none;">
+						<td class="quick" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr valign="top">
+								<td class="indent align-right" style="width:20px;"><img src="/script/Forums/Images/t.gif" height="1px" width="20px" alt="" /><div class="voteform vertical" ownerid="916827" msgid="1422571" votingType="GoodOrBad">
+
+								</div></td><td class="text"><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+									<tr>
+										<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+											<tr>
+												<td colspan="2">i Run the application,my machine crasheds soon!<br />
+my os is win2k,Can you give me a way to run in win2k<br />
+should i change the address of WinExec in code!<br />
+ sorry ,my englist is so poor <br /></td>
+											</tr><tr class="footer" style="vertical-align:top;">
+												<td><a class="new-message" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1422571&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=r" title="Reply">Reply</a>·<wbr><a class="nav-link" href="/script/Forums/Edit.aspx?fid=284480&amp;select=1422571&amp;floc=/Articles/13572/Starting-a-Process-from-KernelMode&amp;action=e" title="Email">Email</a>·<wbr><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1422571" title="View&nbsp;Thread">View&nbsp;Thread</a>·<wbr><a href="/Messages/1422571/so-good-code.aspx" title="Get permanent link">Permalink</a>·<wbr><a href="/script/Bookmarks/Add.aspx?obid=1422571&amp;obtid=3&amp;action=AddBookmark&amp;bio=false" title="Bookmark this post" onclick="return bookmarkMe(0,0,'/script/Bookmarks/Ajax/Add.aspx?obid=1422571&obtid=3&action=AddBookmark&bio=false',false, this, this);">Bookmark</a></td><td style="text-align:right;"><span id="MVF1422571" data-ref="3_1422571" class="rating-label" style="white-space:nowrap;"><span class="reportform" ownerid="916827" msgid="1422571"></span></span></td>
+											</tr>
+										</table></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr><tr>
+						<td><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="5px" alt="" /></td>
+					</tr>
+				</table></td>
+			</tr><tr>
+				<td><table width="100%" cellpadding="2px" cellspacing="0">
+					<tr class="footer">
+						<td>Last Visit: 31-Aug-13  17:39 &nbsp; &nbsp; Last Update: 14-Sep-13  21:35</td><td><a href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;noise=3&amp;prof=False&amp;sort=Position&amp;view=Quick&amp;spc=Relaxed">Refresh</a></td><td style="text-align:right;white-space:nowrap;"><input id="_mbnUrl" type="hidden" value="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;noise=3&amp;prof=False&amp;sort=Position&amp;view=Quick&amp;spc=Relaxed&amp;fr=26" /><span class="nav-link selected">1</span><a class="nav-link" name="Frm_HoverNL" href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;noise=3&amp;prof=False&amp;sort=Position&amp;view=Quick&amp;spc=Relaxed&amp;fr=26#xx0xx">2</a> <a class="nav-link" name="Frm_HoverNL" href="/Articles/13572/Starting-a-Process-from-KernelMode?fid=284480&amp;df=90&amp;mpp=25&amp;noise=3&amp;prof=False&amp;sort=Position&amp;view=Quick&amp;spc=Relaxed&amp;fr=26#xx0xx">Next »</a></td>
+					</tr>
+				</table></td>
+			</tr>
+		</tr>
+	</table>
+</div><p class="small-text"><img align="top" src="/script/Forums/Images/msg_general.gif" width="16px" height="16px" alt="General" /> General &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_news.gif" width="16px" height="16px" alt="News" /> News &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_idea.gif" width="16px" height="16px" alt="Suggestion" /> Suggestion &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_question.gif" width="16px" height="16px" alt="Question" /> Question &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_bug.gif" width="16px" height="16px" alt="Bug" /> Bug &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_answer.gif" width="16px" height="16px" alt="Answer" /> Answer &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_joke.gif" width="16px" height="16px" alt="Joke" /> Joke &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_rant.gif" width="16px" height="16px" alt="Rant" /> Rant &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_admin.gif" width="16px" height="16px" alt="Admin" /> Admin &nbsp;&nbsp; </p><p class="small-text">Use Ctrl+Left/Right to switch messages, Ctrl+Up/Down to switch threads, Ctrl+Shift+Left/Right to switch pages.</p>
+
+				
+
+			</div>
+			
+		</td>
+		<td>
+			<div id="ctl00_RightSideBar" class="container-article-info">
+
+				<div class="header">About Article</div>
+				<div class="article-summary">
+
+					
+					
+
+					
+					
+
+					
+					<div class="summary"><span id="ctl00_ArticleDescr">How to start a Win32 process from within a driver</span></div>
+
+					<a id="ctl00_InfoBox_ParentLink"></a>
+
+<table cellpadding="0" cellspacing="0" class="article-info">
+
+	
+	<tr><td>Type&nbsp;</td><td class="value"><a id="ctl00_InfoBox_TypeName" href="/script/Articles/Types.aspx?#Article">Article</a></td></tr>
+	
+
+	<tr><td>Licence&nbsp;</td><td class="value"><a href="http://www.codeproject.com/info/cpol10.aspx" title="The Code Project Open License (CPOL)">CPOL</a></td></tr>
+
+	
+
+	<tr><td>First Posted&nbsp;</td><td nowrap="nowrap" class="value"><span itemprop="datePublished" content="2006-03-25">25 Mar 2006</span></td></tr>
+
+	<tr><td>Views&nbsp;</td><td class="value">91,145</td></tr>
+
+	
+	<tr><td>Downloads&nbsp;</td><td  class="value">3,020</td></tr>
+		
+
+	
+	<tr><td>Bookmarked&nbsp;</td><td class="value">74 times</td></tr>
+	
+
+	
+
+	
+	
+	
+	<tr><td colspan="2"></td>
+	</tr>
+	
+	
+</table>
+
+					<div class="tags"> 
+					<span id="ctl00_TagsList_TagWrp" class="tags">
+	
+	
+	
+	<span id="ctl00_TagsList_VisibleTags"><span class="t"><a rel="tag" href="/Tags/VC6">VC6</a></span><span class="t"><a rel="tag" href="/Tags/WinXP">WinXP</a></span><span class="t"><a rel="tag" href="/Tags/C">C</a></span><span class="t"><a rel="tag" href="/Tags/Dev">Dev</a></span><span class="t"><a rel="tag" href="/Tags/Advanced">Advanced</a></span></span> 
+
+	
+	
+</span>
+
+					</div>
+
+					<div class="nowrap align-left">
+						<a id="ctl00_ActionLinks_ArticleBmk_ImgBt" title="Bookmark" AlternateText="Bookmark" name="bm_13572_2" onclick="return bookmarkMe(13572,2,&#39;/script/Bookmarks/Ajax/Add.aspx?obid=13572&amp;obtid=2&amp;action=AddBookmark&amp;bio=true&#39;,false);" href="/script/Bookmarks/Add.aspx?obid=13572&amp;obtid=2&amp;action=AddBookmark&amp;bio=true" style="display:inline-block;height:46px;width:46px;vertical-align:middle;"><img title="Bookmark" src="/App_Themes/CodeProject/Img/bookmark.gif" alt="" style="border-width:0px;" /></a>
+
+
+<span id="ctl00_ActionLinks_ArticleBmk_StatusMsg" class="tiny-text" style="display:none" name="bm_13572_2"></span>
+ 
+
+<a id="ctl00_ActionLinks_PrintLnk" href="/Articles/13572/Starting-a-Process-from-KernelMode?display=Print">
+	<img src="/App_Themes/CodeProject/Img/print.gif" 
+		width="46px" height="46px" style="border:0">
+</a>
+
+<a id="ctl00_ActionLinks_MailLink" href="/script/common/TellFriend.aspx?obtid=2&amp;obid=13572">
+	<img src="/App_Themes/CodeProject/Img/email.gif" 
+		width="46px" height="46px" style="border:0">
+</a>
+					</div>
+
+					
+				</div>
+
+				<div style="width:160px;margin: 10px auto;">
+					<div class="msg-160x600" data-format="160x600" data-type="ad" data-publisher="lqm.codeproject.site" data-zone="ros"  data-country='HK' data-tags='VC6, WinXP, C, Dev, Advanced,rating4.5'></div>
+				</div>
+
+				
+<div class="padded-top">
+<div class="header">Top News</div>
+
+<p><a id="ctl00_News_News_ctl01_Link" href="http://www.slate.com/articles/technology/technology/2013/09/microsoft_nokia_deal_a_great_idea_that_came_too_late_and_killed_windows.html">R.I.P. Windows</a></p>
+
+Get the <a id="ctl00_News_News_ctl02_Subscribe" href="/Feature/Insider/">Insider News</a> free each morning.
+</div>
+
+				
+
+				<div class="padded-top">
+					
+	<div id="ctl00_RelatedVideos_RelatedResults_ctl00_header" class="header">Related Videos</div>
+	<div class="content-list align-center">	
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedVideos_RelatedResults_ctl01_Link" class="title" href="http://codeproject.tv/video/4964820/ruby_programming_files_and_io"><img id="ctl00_RelatedVideos_RelatedResults_ctl01_Thumbnail" src="//codeprojecttv.s3.amazonaws.com/thumbnails_production/5/2214/thumb/ruby-course-logo-small.png" style="border-style:None;width:125px;border-width:0px;" /></a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedVideos_RelatedResults_ctl02_Link" class="title" href="http://codeproject.tv/video/4939947/ruby_programming_loops_and_iterators"><img id="ctl00_RelatedVideos_RelatedResults_ctl02_Thumbnail" src="//codeprojecttv.s3.amazonaws.com/thumbnails_production/f/3981/thumb/iterators-and-for-loops-small.png" style="border-style:None;width:125px;border-width:0px;" /></a>
+		
+	</div>
+	
+	</div>
+	
+
+				</div>
+				<div class="padded-top">
+					
+	<div id="ctl00_RelatedArticles_RelatedResults_ctl00_header" class="header">Related Articles</div>
+	<div class="content-list">	
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl02_Link" class="title" href="/Articles/9636/Driver-Development-Part-3-Introduction-to-driver-c">Driver Development Part 3: Introduction to driver contexts</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl03_Link" class="title" href="/Articles/2026/Communication-between-GUI-Application-and-Device-D">Communication between GUI Application and Device Driver</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl04_Link" class="title" href="/Articles/11985/Hooking-the-native-API-and-controlling-process-cre">Hooking the native API and controlling process creation on a system-wide basis</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl05_Link" class="title" href="/Articles/58950/How-to-develop-a-virtual-disk-for-Windows">How to develop a virtual disk for Windows</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl06_Link" class="title" href="/Articles/9974/Driver-Development-Part-5-Introduction-to-the-Tran">Driver Development Part 5: Introduction to the Transport Device Interface</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl07_Link" class="title" href="/Articles/11792/Eliminating-Explorers-delay-when-deleting-an-in-us">Eliminating Explorer's delay when deleting an in-use file</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl08_Link" class="title" href="/Articles/3405/Developing-Firewalls-for-Windows-2000-XP">Developing Firewalls for Windows 2000/XP</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl09_Link" class="title" href="/Articles/66305/Simple-SST-Unhooker">Simple SST Unhooker</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl10_Link" class="title" href="/Articles/43144/Keystroke-Monitoring">Keystroke Monitoring</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl11_Link" class="title" href="/Articles/13677/Hooking-the-kernel-directly">Hooking the kernel directly</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl12_Link" class="title" href="/Articles/58895/Detect-Driver">Detect Driver</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl13_Link" class="title" href="/Articles/37182/Debug-your-ASP-NET-Application-while-Hosted-on-IIS">Debug your ASP.NET Application while Hosted on IIS</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl14_Link" class="title" href="/Articles/6805/Kernel-mode-API-spying-an-ultimate-hack">Kernel-mode API spying - an ultimate hack</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl15_Link" class="title" href="/Articles/13289/Managing-Processes-and-Shell-API-Functionality-usi">Managing Processes and Shell API Functionality using .NET, Part 1</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl16_Link" class="title" href="/Articles/16796/Riding-the-Vista-UAC-elevator-up-and-down">Riding the Vista UAC elevator, up and down</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl17_Link" class="title" href="/Articles/18577/How-to-redirect-Standard-Input-Output-of-an-applic">How to redirect Standard Input/Output of an application</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl18_Link" class="title" href="/Articles/34750/Three-Steps-Down-the-Stairs-From-Win32-User-Land-t">Three Steps Down the Stairs: From Win32 User-Land through Native API to Kernel</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl19_Link" class="title" href="/Articles/26238/A-Process-viewer-with-alert-notification">A Process viewer with alert notification</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl20_Link" class="title" href="/Articles/2018/Detecting-Windows-NT-2K-process-execution">Detecting Windows NT/2K process execution</a>
+		
+	</div>
+	
+	<div class="content-list-item">
+		<a id="ctl00_RelatedArticles_RelatedResults_ctl21_Link" class="title" href="/Articles/5779/How-to-use-Process-Class-in-Managed-Cplusplus">How to use Process Class in Managed C++</a>
+		
+	</div>
+	
+	</div>
+	
+
+				</div>
+				<div class="padded-top">
+					
+				</div>
+
+				
+				
+			</div>
+		</td>
+		</tr></table>
+
+		
+		<div class="theme1-background" style="height:2px"></div>
+
+		<div class="extended tiny-text">
+			<div class="row">
+				<div class="float-left">
+					<a id="ctl00_PermaLink" itemprop="url" href="/Articles/13572/Starting-a-Process-from-KernelMode">Permalink</a> | 
+					<a id="ctl00_AdvertiseLink" href="http://developermedia.com/">Advertise </a> |
+					<a id="ctl00_PrivacyLink" href="/info/privacy.aspx">Privacy</a> |
+					<a id="ctl00_Mobile" rel="nofollow" href="/Articles/13572/Starting-a-Process-from-KernelMode?display=Mobile">Mobile</a>
+					<br />
+								
+					
+					Web02 |
+					2.6.130912.1 |
+					Last Updated 25 Mar 2006								
+				</div>
+				<div class="float-right align-right">
+					Article Copyright 2006 by Stan Alex<br />Everything else
+					Copyright &copy; <a href="mailto:webmaster@codeproject.com">CodeProject</a>, 1999-2013 <br />
+					<a id="ctl00_TermsOfUseLink" href="/info/TermsOfUse.aspx">Terms of Use</a>
+				</div>
+
+				
+
+
+<div class="page-width">
+Layout: <a id="ctl00_PageWidth_FixedT" title="Fixed width layout" rel="nofollow" class=" active" href="/Articles/13572/Starting-a-Process-from-KernelMode?PageFlow=FixedWidth">fixed</a>
+|
+<a id="ctl00_PageWidth_FluidT" title="Fluid layout" rel="nofollow" href="/Articles/13572/Starting-a-Process-from-KernelMode?PageFlow=Fluid">fluid</a>
+</div>
+
+
+
+			</div>
+		</div>
+		
+
+		<br clear="all" />
+		
+			
+
+	</div> 
+	</div>
+</div>
+
+
+<div style="display:none;" id="lqm_AdTable">
+	
+</div>
+
+
+<script type="text/javascript" language="Javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script><script type='text/javascript'>//<![CDATA[
+if (typeof jQuery == 'undefined') {
+    document.write(unescape("%3Cscript src='/script/JS/jquery-1.6.2.min.js' type='text/javascript' %3E%3C/script%3E"));
+}//]]></script>
+<script type="text/javascript" language="Javascript" src="/script/Articles/JS/article.min.js?dt=2.6.130912.1"></script>
+<script type="text/javascript" language="Javascript" src="/script/JS/navbar.min.js?dt=2.6.130912.1"></script>
+<script type="text/javascript" language="Javascript" src="/script/Membership/JS/Notifications.min.js?dt=2.6.130912.1"></script>
+<script type="text/javascript" language="Javascript">//<![CDATA[
+$(document).ready(function() { anchorAnimate(); });
+(function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));
+(function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; po.src = 'https://apis.google.com/js/plusone.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s); })();
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){ js=d.createElement(s);js.id=id; js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+var DMReportsOK = null;function showDMAlert() {   var $div = $('div.msg-728x90');  $div.append($('<img src="/images/alert-top-block.gif" style="right:0;position:absolute;z-index:0">'));}function onDMcallBack(event){   if (event.originalEvent) event = event.originalEvent;   jQuery.support.cors = true;   if (event.data == 'DM-disabled') DMReportsOK = false;   else if (event.data == 'DM-enabled') DMReportsOK = true;}function checkLoaded() {  var recordCheck  = false; var showBlockMsg = false; var block        = 'None'; if (!DMReportsOK && block == 'None' && typeof DMAds === 'undefined')     block = 'ResourceBlocked'; if (DMReportsOK === true) block = 'None'; else if (DMReportsOK === false) block = 'DomModified'; if (recordCheck) {  $.ajax({ url:'/script/AdServe/Ajax/VS.aspx',data:{'adbm':block}, cache:false, async:true }); } if (showBlockMsg && block != 'None')    showDMAlert();}$(document).ready(function() {  $(window).bind('message', onDMcallBack);  setTimeout(checkLoaded, 4000);});
+var notificationAlert = new NotificationAlert('ctl00_MemberMenu_Messages_NotificationCount','Notifications','/script/Membership/Ajax/NotificationList.aspx');
+notificationAlert.initialise();
+var oSrchFlt = false, oSrchBox=false,srchBoxFoc=false;
+$(document).ready(function() {
+ if(InitWatermark)InitWatermark('sb_tb', 'Search for articles, questions, tips');
+ var sbar = $('#sb_tb'); 
+ var sfilter = $('#SearchFilter');
+ if (sbar && sfilter) {
+  sfilter.removeClass('popup'); sfilter.hide();
+  sbar.blur(function() {
+ if (!oSrchFlt)sfilter.hide();
+ srchBoxFoc=false;
+ /*sbar.animate( { width:'210px' }, { queue:false, duration:300 });
+*/ });
+  sbar.focus(function() {
+ oSrchFlt=false;srchBoxFoc=true;
+ sfilter.show();
+ /*sbar.animate( { width:'500px' }, { queue:false, duration:300 });
+*/ });
+  sbar.mouseleave(function() { oSrchBox=false; });
+  sbar.mouseover(function() { oSrchBox=true; });
+  sfilter.mouseleave(function() { oSrchFlt=false; if (!srchBoxFoc&&!oSrchBox)sfilter.hide();});
+  sfilter.mouseover(function() { oSrchFlt=true; });
+ }
+});
+$("#ctl00_RateArticle_RateItemWrapper").removeClass("container-rating");$('#clear-rate_ctl00_RateArticle_RCD').click(function () { $('#ctl00_RateArticle_RCD').hide(); return false;});
+function PostBack_ctl00_RateArticle_RateItemWrapper() {
+  return rateItem(13572,2,1,true,true,3,'LargeStars');
+}
+function ChkRtctl00_RateArticle(val, objId) {if (val<=3||true) {
+$('div[name=RateItem_' + objId + '] .rating-comment').css("display","");}
+else $('div[name=RateItem_' + objId + '] .rating-comment').css("display","none");}
+
+forumDir = '/script/Forums/';
+staticServer = '';
+allowReporting = false;
+allowRating = true;
+allowRatingDisplay = true;
+var smoothScroll = false;
+Selected        = -1;
+oldTitle        = document.title;
+minMessageScore = 1;
+minMessageScore = 5;
+abuseScore      = -2;
+spamScore       = -1;
+getRatingUrl    = '/script/Ratings/Ajax/GetRatings.aspx';
+noiseThreshold  = 3;
+getRatingRefKey = 'obrs';
+
+
+//]]>
+</script>
+
+
+</body>
+</html>

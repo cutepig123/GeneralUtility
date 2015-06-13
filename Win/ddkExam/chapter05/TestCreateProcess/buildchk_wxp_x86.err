@@ -1,0 +1,40 @@
+1>driver.cpp(380) : error C2065: 'BOOL' : undeclared identifier
+1>driver.cpp(380) : error C2146: syntax error : missing ';' before identifier 'bReturn'
+1>driver.cpp(380) : error C2065: 'bReturn' : undeclared identifier
+1>driver.cpp(381) : error C2065: 'InheritAll' : undeclared identifier
+1>driver.cpp(385) : error C2065: 'ZwCreateProcess' : undeclared identifier
+1>driver.cpp(390) : error C2065: 'ZwGetContextThread' : undeclared identifier
+1>driver.cpp(391) : error C2065: 'child' : undeclared identifier
+1>driver.cpp(393) : error C2065: 'MEMORY_BASIC_INFORMATION' : undeclared identifier
+1>driver.cpp(393) : error C2146: syntax error : missing ';' before identifier 'mbi'
+1>driver.cpp(393) : error C2065: 'mbi' : undeclared identifier
+1>driver.cpp(394) : error C2065: 'ZeroMemory' : undeclared identifier
+1>driver.cpp(394) : error C2070: ''unknown-type'': illegal sizeof operand
+1>driver.cpp(395) : error C2065: 'ZwQueryVirtualMemory' : undeclared identifier
+1>driver.cpp(396) : error C2065: 'MemoryBasicInformation' : undeclared identifier
+1>driver.cpp(396) : error C2070: ''unknown-type'': illegal sizeof operand
+1>driver.cpp(399) : error C2065: 'USER_STACK' : undeclared identifier
+1>driver.cpp(399) : error C2146: syntax error : missing ';' before identifier 'stack'
+1>driver.cpp(399) : error C2065: 'stack' : undeclared identifier
+1>driver.cpp(399) : error C2059: syntax error : '{'
+1>driver.cpp(399) : error C2143: syntax error : missing ';' before '{'
+1>driver.cpp(399) : error C2228: left of '.BaseAddress' must have class/struct/union type
+1>driver.cpp(399) : error C2514: 'PCHAR' : class has no constructors
+1>driver.cpp(399) : error C2228: left of '.RegionSize' must have class/struct/union type
+1>driver.cpp(400) : error C2228: left of '.BaseAddress' must have class/struct/union type
+1>driver.cpp(400) : error C2228: left of '.AllocationBase' must have class/struct/union type
+1>driver.cpp(400) : error C2143: syntax error : missing ';' before '}'
+1>driver.cpp(402) : error C2065: 'ZwCreateThread' : undeclared identifier
+1>driver.cpp(404) : error C2065: 'THREAD_BASIC_INFORMATION' : undeclared identifier
+1>driver.cpp(404) : error C2146: syntax error : missing ';' before identifier 'tbi'
+1>driver.cpp(404) : error C2065: 'tbi' : undeclared identifier
+1>driver.cpp(405) : error C2070: ''unknown-type'': illegal sizeof operand
+1>driver.cpp(406) : error C2065: 'ZwQueryInformationThread' : undeclared identifier
+1>driver.cpp(408) : error C2070: ''unknown-type'': illegal sizeof operand
+1>driver.cpp(409) : error C2228: left of '.TebBaseAddress' must have class/struct/union type
+1>driver.cpp(411) : error C2070: ''unknown-type'': illegal sizeof operand
+1>driver.cpp(412) : error C2065: 'ZwWriteVirtualMemory' : undeclared identifier
+1>driver.cpp(412) : error C2228: left of '.TebBaseAddress' must have class/struct/union type
+1>driver.cpp(414) : error C2059: syntax error : '>'
+1>driver.cpp(416) : error C2065: 'InformCsrss' : undeclared identifier
+1>driver.cpp(419) : error C2065: 'ZwResumeThread' : undeclared identifier

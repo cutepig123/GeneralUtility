@@ -1,0 +1,89 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en]C-CCK-MCD   (Win95; I) [Netscape]">
+   <meta name="Author" content="Kirill Kouzoubov">
+   <meta name="Description" content="Open source SOCKS Proxy Server, written in java. Proxy supports SOCKS4 and SOCKS5 protocols.">
+   <meta name="KeyWords" content="SOCKS5, SOCKS4, SOCKS Proxy, SOCKS5 Proxy, Proxy, Server, Java Server, Java source code, source code, open source.">
+   <title>Java SOCKS Proxy Server</title>
+</head>
+<body>
+
+<h1>
+JAVA SOCKS Server</h1>
+It is a SOCKS server written entirely in Java, which supports both SOCKS4
+and SOCKS5 protocols. This software is distributed under GNU Lesser General Public
+License, meaning that both binary and source code are freely available
+and can be modified an distributed.
+<p><font size=+0>I would not bother you with long list of things I'm not
+responsible for. Let me just say, that you are using this program on your
+own risk, and it is not me to blame if anything doesn't work as you expected.
+I tried my best, but it is up to you to check if it works as you wish it
+to, the source code is there, so you can correct whatever you don't like.</font>
+<h2>
+Update Information</h2>
+Please visit the <a href=https://sourceforge.net/projects/jsocks>JSocks Project Page</a> for latest updates. The CVS update log should be most informative.
+<br>
+Latest packaged version is 1.01. Proxy have been rewised and there are some changes
+to the <a href="SOCKSLib.html">Socks Library</a>. New features have been
+added to the proxy server itself, well at least one
+<ul>
+<li>
+Now it is possible to use this proxy from behind another proxy.</li>
+
+<li>
+Also proxy chaining is introduced, it allows you to configure the proxy
+to connect through a series of proxies before reaching the desired host:
+proxy1-> proxy2->...proxyN->desired_host. It is a strange feature but might
+be useful in some situations.</li>
+</ul>
+Some bug fixes have been done, it is now possible to use ICQ with this
+proxy server.
+<h2>
+How to download</h2>
+
+To download the latest binary and documentation packages, visit  the <a href=https://sourceforge.net/projects/jsocks/files/>JSocks project files</a> page.
+<br><br>
+To download and work on latest sources, visit the <a href=https://sourceforge.net/projects/jsocks/develop> JSock CVS repository</a>.
+<br>
+<br>
+<a href="docs/index.html">Online Documentation</a> - Online version
+of the SOCKS documentation.
+<h2>
+What this Server is good for?</h2>
+Well, it is a not a commercial proxy server. It does not have plenty of
+features like address caching. Authentication scheme is rather simplistic,
+but can be extended, if you know how to program in Java. It is java application
+after all, which gives platform independence but at the cost of performance.
+But it is simple to install and use.
+<p>It is assumed that the socks library itself is more useful to most developers,
+rather than a simple server which uses the library. If you are a developer
+and want your applications to have support for SOCKSv5 protocol, you might
+find useful visiting <a href="SOCKSLib.html">Socks Library</a> page.
+<h2>
+SocksEcho</h2>
+SocksEcho is another application which uses <tt>socks</tt> package. It
+is GUI echo client, which is SOCKS aware, you can make and accept connections
+through the proxy using this client. You can also send datagrams through
+SOCKS5 proxy. I have used it a lot for testing. This application is also
+included.
+<h2>
+How to Install</h2>
+First download pre compiled class files, and unzip the socks_bin.zip this
+will create a directory called socks. See README.html in this directory
+for further instructions.
+<h2>
+Requirements</h2>
+In order to run these application you will need Java Virtual Machine which
+supports Java 1.1 or higher. I have tested it with jdk1.1.6 and jdk1.2.2
+under Windows95 and on jdk1.1.5 under Solaris. Server application might
+be able to run even under java 1.0, but I haven't tested this.
+<br>&nbsp;
+<h2>Acknowledgments</h2>
+I would like to thank people at <a href="http://sourceforge.net">SourceForge
+</a> for the great services they provide to open source community.<br>&nbsp;
+
+
+</body>
+</html>

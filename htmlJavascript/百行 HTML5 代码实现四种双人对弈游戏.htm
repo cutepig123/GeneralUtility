@@ -1,0 +1,1107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0080)http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs- -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>百行 HTML5 代码实现四种双人对弈游戏</title>
+<meta http-equiv="PICS-Label" content="(PICS-1.1 &quot;http://www.icra.org/ratingsv02.html&quot; l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) &quot;http://www.rsac.org/ratingsv01.html&quot; l gen true r (n 0 s 0 v 0 l 0) &quot;http://www.classify.org/safesurf/&quot; l gen true r (SS~~000 1))">
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/">
+<link rel="SHORTCUT ICON" href="http://www.ibm.com/favicon.ico">
+  <meta name="Owner" content="dw@cn.ibm.com">
+  <meta name="DC.Language" scheme="rfc1766" content="zh-CN">
+  <meta name="IBM.Country" content="CN">
+<meta name="Security" content="Public">
+<meta name="IBM.SpecialPurpose" content="SP001">
+<meta name="IBM.PageAttributes" content="sid=1003,1004">
+<meta name="Source" content="v16 Template Generator">
+<meta name="Robots" content="index,follow">
+<meta name="Abstract" content="本文是一个非常具有挑战性的编程，因为 100 行代码，约莫 10000 个字符左右，将实现围棋、五子棋、四子棋和翻转棋四种双人对弈游戏。请注意，这四个对弈游戏不是初级编程者的习作，而是有着棋盘、立体棋子、事件、走棋规则判断、输赢判断的完整对弈游戏，并且可以离线存储到 iPad、Android 平板中，试想一下，把这种游戏下载到平板中，就可以在火车，旅游景区，等没有信号的地方进行对弈，是不是扩展了平板电脑的功能，是不是一种很惬意的事情。而且，关键是，这个程序没有图片，不需要去应用商店付费下载，仅仅是用 HTML5 技术写的 100 行代码而已，绝对是目前最迷您精悍的双人对弈游戏源码。">
+<meta name="Description" content="本文是一个非常具有挑战性的编程，因为 100 行代码，约莫 10000 个字符左右，将实现围棋、五子棋、四子棋和翻转棋四种双人对弈游戏。请注意，这四个对弈游戏不是初级编程者的习作，而是有着棋盘、立体棋子、事件、走棋规则判断、输赢判断的完整对弈游戏，并且可以离线存储到 iPad、Android 平板中，试想一下，把这种游戏下载到平板中，就可以在火车，旅游景区，等没有信号的地方进行对弈，是不是扩展了平板电脑的功能，是不是一种很惬意的事情。而且，关键是，这个程序没有图片，不需要去应用商店付费下载，仅仅是用 HTML5 技术写的 100 行代码而已，绝对是目前最迷您精悍的双人对弈游戏源码。">
+<meta name="Keywords" content="棋类 , 游戏 ,HTML5,JavaScript, tttwaca">
+<meta name="DC.Date" scheme="iso8601" content="2012-06-28">
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316">
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="TTA00">
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" content="SOFDCDEVCN">
+<meta name="DC.Rights" content="© Copyright IBM Corporation 2012">
+<meta name="IBM.Effective" scheme="W3CDTF" content="2012-06-28">
+<meta name="title" content="百行 HTML5 代码实现四种双人对弈游戏">
+
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+<link href="./百行 HTML5 代码实现四种双人对弈游戏_files/all.css" media="all" rel="stylesheet" title="www" type="text/css">
+<link href="./百行 HTML5 代码实现四种双人对弈游戏_files/screen.css" media="screen,projection" rel="stylesheet" title="www" type="text/css">
+<link href="./百行 HTML5 代码实现四种双人对弈游戏_files/screen-uas.css" media="screen,projection" rel="stylesheet" title="www" type="text/css">
+<link href="./百行 HTML5 代码实现四种双人对弈游戏_files/screen-fonts.css" media="screen,projection" rel="stylesheet" title="www" type="text/css">
+<link href="./百行 HTML5 代码实现四种双人对弈游戏_files/handheld.css" media="handheld" rel="stylesheet" title="www" type="text/css">
+<link href="./百行 HTML5 代码实现四种双人对弈游戏_files/print.css" media="print" rel="stylesheet" title="www" type="text/css">
+<link href="./百行 HTML5 代码实现四种双人对弈游戏_files/overlay.css" media="screen,projection" rel="stylesheet" title="www" type="text/css">
+
+<!-- dW-specific CSS -->
+<link href="./百行 HTML5 代码实现四种双人对弈游戏_files/dw-screen.css" media="screen,projection" rel="stylesheet" title="www" type="text/css">
+<link href="./百行 HTML5 代码实现四种双人对弈游戏_files/dw-local-site.css" media="screen,projection" rel="stylesheet" title="www" type="text/css">
+<link href="./百行 HTML5 代码实现四种双人对弈游戏_files/dw-screen-comments-ratings-signin.css" media="screen,projection" rel="stylesheet" title="www" type="text/css">
+<link href="./百行 HTML5 代码实现四种双人对弈游戏_files/jquery.cluetip.css" media="screen,projection" rel="stylesheet" title="www" type="text/css">
+
+<!-- JPP: LOCAL URL FOR TESTING V16 DEFIANT MASTHEAD/FOOTER -->
+<link href="./百行 HTML5 代码实现四种双人对弈游戏_files/dw-mf2012-01.css" rel="stylesheet" title="www" type="text/css">
+<link href="./百行 HTML5 代码实现四种双人对弈游戏_files/dw-mf-cn.css" rel="stylesheet" title="www" type="text/css">
+<script src="./百行 HTML5 代码实现四种双人对弈游戏_files/ibmcommon.js" type="text/javascript">//</script><link rel="search" type="application/opensearchdescription+xml" href="http://www.ibm.com/search/opensearch/description.xml" title="IBM Search">
+<script src="./百行 HTML5 代码实现四种双人对弈游戏_files/dynamicnav.js" type="text/javascript">//</script>
+<script language="JavaScript" src="./百行 HTML5 代码实现四种双人对弈游戏_files/urltactic.js" type="text/javascript"></script>
+<!-- Rating_START -->
+<script language="JavaScript" type="text/javascript">
+  // <![CDATA[
+
+ dwr = {};
+  dwr.clickhere = '点击评分';
+  dwr.starIntro = ''; 
+  dwr.stars = '星';
+  dwr.star = '星'; 
+  dwr.avgRatingOf = '平均分';
+  dwr.youRated = '您的评分是';
+  dwr.avgRating = '平均分';
+  dwr.basedOnVote = '共 {1} 个评分'; // {1} to be substitue by code
+  dwr.basedOnVotes = '共 {1} 个评分';
+  dwr.leftParen = '（'; 
+  dwr.rightParen = ' ）'; 
+  dwr.space = ' '; 
+  dwr.yourRating = '您的评分';
+dwr.avgRating2 = '总共 {1} 评分的平均分';
+dwr.avgRating3 = '平均分{1} 星';
+dwr.rateThisArticle = '为本文评分';
+dwr.votes = '{1}个评分';
+dwr.vote = '{1}个评分';
+dwr.submitErr = '错误：提交失败，请重试。';
+dwr.noRatingErr = '错误：请选择一个评分并重新提交。';
+dwr.submit = '提交';
+// ]]>
+</script>
+
+<!-- Rating_START -->
+<script language="JavaScript" src="./百行 HTML5 代码实现四种双人对弈游戏_files/showrating.js" type="text/javascript"></script>
+<style type="text/css">
+  .metavalue {
+  display: none;
+  }
+</style>
+<!-- Rating_END --><!-- RESERVED_HEADER_INCLUDE -->
+<script language="javascript" src="./百行 HTML5 代码实现四种双人对弈游戏_files/ajax1.js" type="text/javascript"></script>
+<script language="javascript" src="./百行 HTML5 代码实现四种双人对弈游戏_files/search_counter-maverick.js" type="text/javascript"></script>
+<script language="javascript" src="./百行 HTML5 代码实现四种双人对弈游戏_files/request_referer_capture-maverick.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ setDefaultQuery('dwchina');
+ //-->
+</script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ function openNewWindow(url,tar,arg){window.open(url,tar,arg);}
+ //-->
+</script>
+  <!-- Include file support -->
+  <script language="JavaScript" type="text/javascript">
+    (function($) {
+    jQuery.extend({
+    getInc: function(u,d){
+    if(u==null)return;
+    jQuery.ajax({
+    type: "GET",
+    url: u,
+    dataType: "text",
+    success: function(t) {
+    jQuery(d).html(t);
+    ibmCommon.initShowHide(jQuery(d).children()[0]);	
+    },
+    async: true
+    });
+    }
+    });
+    })(jQuery);
+  </script>
+<script id="flashdetect" type="text/javascript" src="./百行 HTML5 代码实现四种双人对弈游戏_files/flash-detect.js" charset="UTF-8"></script><script id="mhMenu" type="text/javascript" src="./百行 HTML5 代码实现四种双人对弈游戏_files/cnzh-utf8.js" charset="UTF-8"></script><script id="wiBundle" type="text/javascript" src="./百行 HTML5 代码实现四种双人对弈游戏_files/Controller" charset="UTF-8"></script></head>
+
+<body id="ibm-com">
+<div id="ibm-top" class="ibm-landing-page">
+
+<!-- MASTHEAD_BEGIN -->
+<!-- MASTHEAD_BEGIN -->
+<div class="ibm-access"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#ibm-content">跳转到主要内容</a></div>
+<div id="ibm-masthead-dw">
+  
+    <!-- TOP ROW -->    
+    <div id="dw-masthead-top-row">
+    	<ul id="ibm-mast-options-dw" class="cn">
+    		<li id="dw-mast-top-0"> 	
+    			<a class="dw-mf-noscript" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#" title="登录（或注册）需启用 JavaScript">登录 (或注册)</a>
+    		</li>
+    		<li id="dw-mast-top-1" class="dw-mast-top-1-cn">
+    			<a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#SELECTLANG">中文</a><img class="dw-preload" src="./百行 HTML5 代码实现四种双人对弈游戏_files/arrow-down-active.gif" width="8" height="7" alt="">
+    		</li>
+    		<li id="dw-mast-top-2" class="dw-mf-hide">
+    			<a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#"><img src="./百行 HTML5 代码实现四种双人对弈游戏_files/photo.do" alt="PHOTO" class="dw-mast-profimg" width="20" height="20"> [userid]</a>
+    		</li>
+    		<li id="dw-mast-top-3">
+    			<a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#"><img src="./百行 HTML5 代码实现四种双人对弈游戏_files/ibm-smlogo.gif" width="44" height="16" alt="IBM®"></a>
+    		</li>
+    	</ul>
+	</div>
+    
+    <!-- TOP ROW SLIDER -->
+    <div id="ibm-my-menu-dw">    
+        <div class="ibm-ribbon-pane-dw">
+            <div class="ibm-ribbon-section-dw">
+                <!-- Sign-in -->
+                <div class="dw-mast-columns">                
+					<div class="dw-mast-col-1-1">
+						<div id="dw-mast-sso">
+							<!--<div id="dw-mast-sso-reg">
+								<p class="dw-mast-sso-reg-cn">如果您还没有注册到 IBM 注册系统，我们为给您带来的不便表示道歉，并请您马上注册。 							
+									<a href="#" onclick="(function () {window.location='/developerworks/dwwi/DWAuthRouter?m=reg&amp;lang=zh&amp;d='+encodeURIComponent(location.href);})();">现在注册</a>。</p>
+							</div>-->
+							<div id="signin_error_mf" class="dw-mf-hide"></div>
+							<div id="dw-mast-sso-form">
+								<form id="sForm_mf" action="" method="post" name="sForm_name_mf" onsubmit="return false;">
+									<div id="dw-mast-sso-id" class="dw-mast-sso-id-cn">
+										<label for="ibmid_mf">IBM ID：</label>
+										<input id="ibmid_mf" type="text" value="" name="ibmid_name_mf" maxlength="100" onkeypress="handleEP(event,this.form,&#39;mf&#39;);">
+									</div>
+									<div id="dw-mast-sso-pw" class="dw-mast-sso-pw-cn">
+										<label for="pw_mf">密码：</label>
+										<input id="pw_mf" type="password" value="" name="pw_name_mf" maxlength="100" onkeypress="handleEP(event,this.form,&#39;mf&#39;);">
+									</div>
+									<div id="dw-mast-sso-target" class="dw-mast-sso-target-cn">
+										<p class="dw-mf-perm-box">
+											<input id="perm_mf" type="checkbox" name="perm_name_mf"><label for="perm_mf"> 保持登录。</label>
+										</p>
+									</div>
+									<div id="dw-mast-sso-terms">
+										<p class="dw-mast-sso-terms-cn">单击提交则表示您同意developerWorks 的条款和条件。 <a href="http://www.ibm.com/developerworks/mydeveloperworks/terms?lang=zh">查看条款和条件</a>.</p>
+									</div>
+									<div>
+										<input class="dw-mf-submit-btn-cn" name="ibm_submit_name_mf" value="提交" onclick="signin(&#39;mf&#39;);return false;" type="submit">
+									</div>
+								</form>
+							</div>
+							<div id="dw-mast-sso-update">
+								<div id="dw-mast-sso-update-id">
+									<ul>
+										<li><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#" onclick="(function () {window.location=&#39;/developerworks/dwwi/DWAuthRouter?m=reg&amp;lang=zh_CN&amp;d=&#39;+encodeURIComponent(location.href);})();">需要一个 IBM ID？</a></li>
+										
+									<li><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/dwwi/jsp/WSHelp.jsp?lang=zh_CN">忘记 IBM ID？</a></li>
+									</ul>
+								</div>
+								<div id="dw-mast-sso-update-pw">
+								<ul class="dw-mf-pwupdate">
+									<li><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#" onclick="(function () {window.location=&#39;https://www.ibm.com/account/profile?page=forgot&amp;lang=zh_CN&amp;appname=ibm&amp;required=null&amp;d=&#39;+encodeURIComponent(getAuthUrl())+&#39;%3Fm%3Dloginpage%26lang%3Dzh_CN%26d%3D&#39;+encodeURIComponent(location.href);})();">忘记密码？</a></li>
+									<li><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#" onclick="(function () {window.location=&#39;https://www.ibm.com/account/profile?page=chpw&amp;lang=zh_CN&amp;appname=ibm&amp;required=null&amp;d=&#39;+encodeURIComponent(location.href);})();">更改您的密码</a></li>
+								</ul>
+									</div>
+							</div>
+							<div id="dw-mast-sso-text">
+								<p>当您初次登录到 developerWorks 时，将会为您创建一份概要信息。<strong>您在 developerWorks 概要信息中选择公开的信息将公开显示给其他人，但您可以随时修改这些信息的显示状态。</strong>您的姓名（除非选择隐藏）和昵称将和您在 developerWorks 发布的内容一同显示。</p>
+								<p class="dw-mf-secure-cn">所有提交的信息确保安全。</p>
+							</div>
+							<div class="dw-mast-close">
+								<ul>
+									<li><div class="dw-mast-close-sign-cn"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#"><img src="./百行 HTML5 代码实现四种双人对弈游戏_files/c.gif" alt="关闭 [x]" width="20" height="10" border="0"></a></div></li>
+								</ul>
+							</div>	
+						</div>
+						
+						<div id="dw-mast-dname" class="dw-mf-hide">
+							<p>当您初次登录到 developerWorks 时，将会为您创建一份概要信息，您需要指定一个昵称。您的昵称将和您在 developerWorks 发布的内容显示在一起。</p><p><strong>昵称长度在 3 至 31 个字符之间</strong>。 您的昵称在 developerWorks 社区中必须是唯一的，并且出于隐私保护的原因，不能是您的电子邮件地址。</p>
+							<div id="signin_dname_error_mf" class="dw-mf-hide"></div>
+							<div id="dw-mast-dname-form">
+								<form id="dForm_mf" action="" method="post" name="dForm_name_mf" onsubmit="return false;">
+									<div id="dw-mast-dname-mf">
+										<label for="dname_mf">昵称：</label>
+										<input id="dname_mf" name="dname_name_mf" maxlength="31" size="25" value="" type="text" onkeypress="handleEP(event,this.form,&#39;mf&#39;);">
+									</div>
+									<div id="dw-mast-dname-terms">
+										<p class="dw-mast-dname-terms-cn">单击<strong>提交</strong>则表示您同意developerWorks 的条款和条件。 <a href="http://www.ibm.com/developerworks/mydeveloperworks/terms?lang=zh">查看条款和条件</a>.</p>
+									</div>
+									<div>
+										<input class="dw-mf-submit-btn-cn" name="dname_submit_name_mf" value="提交" onclick="signin(&#39;mf&#39;);return false;" type="submit">
+									</div>
+								</form>								
+							</div>
+							<div id="dw-mast-dname-secure">
+								<p class="dw-mf-secure-cn">所有提交的信息确保安全。</p>
+							</div>
+							<div class="dw-mast-close">
+								<ul>
+									<li><div class="dw-mast-close-sign-cn"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#"><img src="./百行 HTML5 代码实现四种双人对弈游戏_files/c.gif" alt="关闭 [x]" width="20" height="10" border="0"></a></div></li>
+								</ul>
+							</div>	
+						</div>
+	
+						<div id="dw-mast-auth" class="dw-mf-hide">
+							<div>
+
+								<h2>My developerWorks:</h2>
+								<ul>
+									<li><a id="dw-mast-top-0-0" href="http://www.ibm.com/developerworks/mydeveloperworks/profiles/html/myProfileView.do?lang=zh">我的概要信息</a></li>
+									<li><a href="http://www.ibm.com/developerworks/mydeveloperworks/homepage?lang=zh">我的首页</a></li>
+									<li><a href="http://www.ibm.com/developerworks/mydeveloperworks/groups/service/html/mycommunities?lang=zh">我的群组</a></li>
+								</ul>     
+							</div>
+							<div id="dw-mast-notify" class="dw-mf-hide">
+								<h2>我的通知：</h2>
+								<ul>
+									<li><a id="new_notify" href="http://www.ibm.com/developerworks/mydeveloperworks/homepage?lang=zh">{[num_notify] 个新通知}([num_notify] 个新通知)</a></li>
+									<li><a id="new_invite" href="http://www.ibm.com/developerworks/mydeveloperworks/profiles/html/wc.do?action=in&requireAuth=true&widgetId=friends&lang=[lang]">{[num_invite] 个网络请求}([num_invite] 个网络请求)</a></li>  
+								</ul>
+							</div>
+							<div class="dw-mast-more">
+								<ul class="ibm-link-list">
+									<li><a class="dw-more-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#" onclick="signOut(); return false;"><strong>退出</strong></a></li>
+								</ul>
+							</div>
+							<div class="dw-mast-close">
+								<ul>
+									<li><div class="dw-mast-close-sign"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#"><img src="./百行 HTML5 代码实现四种双人对弈游戏_files/c.gif" alt="关闭 [x]" width="20" height="10" border="0"></a></div></li>
+								</ul>
+							</div>		
+						</div>
+						
+					</div>
+                	
+                </div>
+                <!-- Site selector --> 
+				<div class="dw-mast-columns">
+					<div class="dw-mast-col-2-1">
+						<h2>选择语言：</h2>
+						<ul>
+							<li><a id="dw-mast-top-1-0" href="http://www.ibm.com/developerworks/">English</a></li>
+							<li><a href="http://www.ibm.com/developerworks/cn/">中文</a></li>
+							<li><a href="http://www.ibm.com/developerworks/jp/">日本語</a></li>
+						    <li><a href="http://www.ibm.com/developerworks/ru/">Русский</a></li>
+						</ul>
+					</div>
+					<div class="dw-mast-col-2-2">
+						<ul>
+							<li><a href="http://www.ibm.com/developerworks/br/">Português (Brasil)</a></li>
+							<li><a href="http://www.ibm.com/developerworks/ssa/">Español</a></li>
+							<li><a href="http://www.ibm.com/developerworks/vn/">Việt</a></li>
+						</ul>
+					</div>
+					<div class="dw-mast-close">
+						<ul>
+							<li><div class="dw-mast-close-lang"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#"><img src="./百行 HTML5 代码实现四种双人对弈游戏_files/c.gif" alt="关闭 [x]" width="20" height="10" border="0"></a></div></li>
+						</ul>
+                    </div>
+                </div>
+                <div class="dw-mast-columns"><!-- Authenticated --></div>
+                <!-- IBM -->
+				<div class="dw-mast-columns">
+					<div class="dw-mast-col-2-1">
+						<ul>
+							<li><a id="dw-mast-top-3-0" href="http://www.ibm.com/cn/zh/">IBM 主页</a></li>
+							<li><a href="http://www.ibm.com/solutions/cn/zh/">解决方案</a></li>
+							<li><a href="http://www.ibm.com/software/cn/">软件</a></li>
+						</ul>
+					</div>
+					<div class="dw-mast-col-2-2 dw-mast-ibm">
+						<ul>
+							<li><a href="http://www.ibm.com/support/cn/zh/">支持门户</a></li>
+							<li><a href="http://www.ibm.com/support/documentation/cn/zh/">产品文档</a></li>
+							<li><a href="http://www.ibm.com/redbooks/">Redbooks（英文）</a></li>
+						</ul>
+					</div>
+					<div class="dw-mast-close">
+						<ul>
+							<li><div class="dw-mast-close-ibm-cn"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#"><img src="./百行 HTML5 代码实现四种双人对弈游戏_files/c.gif" alt="关闭 [x]" width="20" height="10" border="0"></a></div></li>
+						</ul>
+                    </div> 
+				</div>
+			</div>
+        </div>
+    </div>
+
+    <!-- BOTTOM ROW -->
+    <div id="ibm-universal-nav-dw">
+        <ul id="ibm-unav-links-dw">
+        	<li id="ibm-unav-home-dwlogo">
+        		<a href="http://www.ibm.com/developerworks/cn/"><img src="./百行 HTML5 代码实现四种双人对弈游戏_files/dw-wordmark.gif" width="218" height="32" alt="developerWorks®"></a>
+        	</li>
+        </ul>
+    	<ul id="ibm-menu-links-dw" class="ibm-menu-links-dw-cn">
+    		
+    		<li id="dw-mast-nav-0"><a href="http://www.ibm.com/developerworks/cn/topics">技术主题</a></li>
+    		<li id="dw-mast-nav-1"><a href="http://www.ibm.com/developerworks/cn/downloads/">软件下载</a></li>
+    		<li id="dw-mast-nav-2"><a href="https://www.ibm.com/developerworks/community/?lang=zh">社区</a></li>
+    		<li id="dw-mast-nav-3"><a href="https://www.ibm.com/developerworks/community/groups/service/html/communityview?communityUuid=6d7f9e5d-5f89-4767-a006-a81b8d186370&lang=zh">技术讲座</a></li>
+    	</ul>   
+    	<form id="ibm-search-form" action="http://www.ibm.com/search/csass/search/" method="get" name="form1">
+    		<input type="hidden" name="sn" value="dw">
+    		<input type="hidden" name="lang" value="zh">
+    		<input type="hidden" name="cc" value="CN">
+    		<input type="hidden" name="en" value="utf">
+    		<input type="hidden" name="hpp" value="20">
+    		<input type="hidden" name="dws" value="cndw">
+    		<input type="hidden" name="lo" value="zh">
+    		<p>
+    			<label for="q"><img alt="查询:" height="1" width="1" src="./百行 HTML5 代码实现四种双人对弈游戏_files/c.gif"></label>
+    			<input type="text" value="搜索 developerWorks" name="q" maxlength="100" id="q">
+    			<input type="submit" id="ibm-search" class="ibm-btn-search ibm-btn-search-cn" name="Search" value="搜索">
+    		</p>
+    	</form>
+    </div>
+    
+    <!-- BOTTOM ROW SLIDER -->
+    <div id="ibm-common-menu-dw">
+        <div class="ibm-ribbon-pane-dw">
+            <div class="ibm-ribbon-section-dw">
+				<!-- Technical topics category -->
+  
+            	<div class="dw-mast-columns">
+            	<div class="dw-mast-col-4-1">
+            		<h2><a id="dw-mast-nav-0-0" href="http://www.ibm.com/developerworks/cn/topics/">技术主题</a></h2>
+            		
+            		<ul>
+            			<li><a href="http://www.ibm.com/developerworks/cn/aix/">AIX and UNIX</a></li>
+            			<li><a href="http://www.ibm.com/developerworks/cn/cloud/">Cloud computing</a></li>
+            			<li><a href="http://www.ibm.com/developerworks/cn/ibmi/">IBM i</a></li>
+            			<li><a href="http://www.ibm.com/developerworks/cn/data/">Information management</a></li>
+            			<li><a href="http://www.ibm.com/developerworks/cn/java/">Java technology</a></li>
+            			
+            		</ul>     
+            	</div>
+            	<div class="dw-mast-col-4-2">
+            		
+            		<ul>
+            			<li><a href="http://www.ibm.com/developerworks/cn/linux/">Linux</a></li>
+            			<li><a href="http://www.ibm.com/developerworks/cn/lotus/">Lotus</a></li>
+            			<li><a href="http://www.ibm.com/developerworks/cn/opensource/">Open source</a></li>
+            			<li><a href="http://www.ibm.com/developerworks/cn/rational/">Rational</a></li>
+            			<li><a href="http://www.ibm.com/developerworks/cn/webservices/">SOA and web services</a></li>
+            			
+            		</ul>
+            	</div>
+            	<div class="dw-mast-col-4-3">
+            		
+            		<ul>
+            			<li><a href="http://www.ibm.com/developerworks/cn/web/">Web development</a></li>  
+            			<li><a href="http://www.ibm.com/developerworks/cn/websphere/">WebSphere</a></li>     
+            			<li><a href="http://www.ibm.com/developerworks/cn/xml/">XML</a></li> 
+            		</ul>
+            		
+            	</div>
+            	<div class="dw-mast-col-4-4">
+            		<ul>
+            			<li><a href="http://www.ibm.com/developerworks/cn/library/"><strong>文档库</strong></a></li>
+            			<li><a href="http://www.ibm.com/developerworks/cn/products/"><strong>产品 A - Z</strong></a></li>				    
+            		</ul>        
+            	</div>
+            	<div class="dw-mast-close">
+            		<ul>
+            			<li><div class="dw-mast-close-tech-cn"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#"><img src="./百行 HTML5 代码实现四种双人对弈游戏_files/c.gif" alt="关闭 [x]" width="20" height="10" border="0"></a></div></li>
+            		</ul>
+            	</div>
+            </div>
+            	<!-- Evaluation software category -->
+            	<div class="dw-mast-columns">
+            		<div class="dw-mast-col-2-1">
+            			<h2><a id="dw-mast-nav-1-0" href="http://www.ibm.com/developerworks/cn/downloads">软件下载</a></h2>
+            			<ul>
+            				<li><a href="http://www.ibm.com/developerworks/cn/downloads/#data">Information management</a></li>
+            				<li><a href="http://www.ibm.com/developerworks/cn/downloads/#lotus">Lotus</a></li>
+            				<li><a href="http://www.ibm.com/developerworks/cn/downloads/#rational">Rational</a></li>
+            			</ul>            
+            		</div>
+            		<div class="dw-mast-col-2-2">
+            			<ul>
+            				<li><a href="http://www.ibm.com/developerworks/cn/downloads/#tivoli">Tivoli</a></li>
+            				<li><a href="http://www.ibm.com/developerworks/cn/downloads/#websphere">WebSphere</a></li>
+            				
+            			</ul>            
+            		</div>
+            		<div class="dw-mast-close">
+            			<ul>
+            				<li><div class="dw-mast-close-eval-cn"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#"><img src="./百行 HTML5 代码实现四种双人对弈游戏_files/c.gif" alt="关闭 [x]" width="20" height="10" border="0"></a></div></li>
+            			</ul>
+            		</div>
+            	</div>
+            	<!-- Community category -->
+            	<div class="dw-mast-columns">
+            		<div class="dw-mast-col-2-1">
+            			<h2><a id="dw-mast-nav-2-0" href="https://www.ibm.com/developerworks/community/?lang=zh">社区</a></h2>
+            			<ul>
+            				<li><a href="https://www.ibm.com/developerworks/community/homepage/?lang=zh">我的首页</a></li>
+            				<li><a href="https://www.ibm.com/developerworks/community/profiles/home.do?lang=zh">概要信息</a></li>
+            				<li><a href="https://www.ibm.com/developerworks/community/groups/service/html/allcommunities?lang=zh">群组</a></li>
+            				<li><a href="https://www.ibm.com/developerworks/mydeveloperworks/blogs/?lang=zh">博客</a></li>
+            				<li><a href="https://www.ibm.com/developerworks/community/bookmarks/html?lang=zh">书签</a></li>  
+            			</ul>     
+            		</div>
+            		<div class="dw-mast-col-2-2">
+            			<ul>
+            				<!--	<li><a href="">Forums</a></li> -->
+            				<li><a href="https://www.ibm.com/developerworks/mydeveloperworks/wikis/home?lang=zh">Wiki</a></li>
+            				<li><a href="https://www.ibm.com/developerworks/community/files/app?lang=zh">文件</a></li>
+            				<li><a href="https://www.ibm.com/developerworks/community/activities/service/html/mainpage?lang=zh#dashboard,myactivities">活动</a></li>
+            				<!--	<li><a href="">Podcasts</a></li> -->    
+            			</ul>
+            		</div>
+            		<div class="dw-mast-close">
+            			<ul>
+            				<li><div class="dw-mast-close-comm-cn"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#"><img src="./百行 HTML5 代码实现四种双人对弈游戏_files/c.gif" alt="关闭 [x]" width="20" height="10" border="0"></a></div></li>
+            			</ul>
+            		</div>
+            	</div>
+            	<!-- Events category -->
+            	<div class="dw-mast-columns">
+            		<div class="dw-mast-col-1-1">
+            			<h2><a id="dw-mast-nav-3-0" href="https://www.ibm.com/developerworks/community/groups/service/html/communityview?communityUuid=6d7f9e5d-5f89-4767-a006-a81b8d186370&lang=zh">技术讲座</a></h2>
+            			<ul>
+            				<li><a href="https://www.ibm.com/developerworks/community/groups/service/html/communityview?communityUuid=6d7f9e5d-5f89-4767-a006-a81b8d186370&lang=zh">技术讲座</a></li>
+            				<li><a href="http://www.ibm.com/developerworks/cn/swi/">多媒体课堂</a></li>
+            				<li><a href="http://www.ibm.com/developerworks/find/webcasts/">网络广播（英文）</a></li>
+            				<li><a href="http://www.ibm.com/developerworks/find/events/">查找活动（技术讲座，网络广播，会议等）（英文）</a></li> 
+            			</ul>            
+            		</div>
+            		<div class="dw-mast-close">
+            			<ul>
+            				<li><div class="dw-mast-close-event-cn"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#"><img src="./百行 HTML5 代码实现四种双人对弈游戏_files/c.gif" alt="关闭 [x]" width="20" height="10" border="0"></a></div></li>
+            			</ul>
+            		</div>
+            	</div>
+            </div>
+        </div>
+    </div>
+	
+</div>
+<div id="fdiv" class="ibm-access"></div>
+<!-- MASTHEAD_END --><!-- MASTHEAD_END -->
+
+<div id="ibm-pcon">
+
+<!-- CONTENT_BEGIN -->
+<div id="ibm-content">
+
+<!-- Navigation_Trail_BEGIN -->
+<!-- &nbsp; -->
+      <div id="ibm-content-head"><ul id="ibm-navigation-trail"><li class="ibm-first"><a href="http://www.ibm.com/developerworks/cn/">developerWorks</a></li><li><a href="http://www.ibm.com/developerworks/cn/topics/">技术主题</a></li><li><a href="http://www.ibm.com/developerworks/cn/web/">Web development</a></li><li><a href="http://www.ibm.com/developerworks/cn/views/web/libraryview.jsp">文档库</a></li></ul></div>
+<!-- Navigation_Trail_END -->
+
+<!-- dW_Summary Area_START -->
+<div id="dw-summary-article">
+
+<div class="dw-content-head">
+<h1>百行 HTML5 代码实现四种双人对弈游戏
+		</h1><p>
+</p></div>
+
+<div class="ibm-container-body ibm-two-column">
+
+<div class="ibm-column ibm-first">
+<div class="author"><a class="dwauthor" rel="#authortip1" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#author1">于 丙超</a>, CEO, 北京周服科技有限公司</div><div id="authortip1" class="dwauthor-onload-state ibm-no-print">于丙超，北京周服科技有限公司（http://www.chofo.com ）CEO，系统架构师，新浪文学签约作者。曾出版过多部计算机书籍，在各种杂志发表文章近百篇。</div>
+<p></p>
+  <p><strong>简介：</strong>&nbsp;本文是一个非常具有挑战性的编程，因为 100 行代码，约莫 10000 个字符左右，将实现围棋、五子棋、四子棋和翻转棋四种双人对弈游戏。请注意，这四个对弈游戏不是初级编程者的习作，而是有着棋盘、立体棋子、事件、走棋规则判断、输赢判断的完整对弈游戏，并且可以离线存储到 iPad、Android 平板中，试想一下，把这种游戏下载到平板中，就可以在火车，旅游景区，等没有信号的地方进行对弈，是不是扩展了平板电脑的功能，是不是一种很惬意的事情。而且，关键是，这个程序没有图片，不需要去应用商店付费下载，仅仅是用 HTML5 技术写的 100 行代码而已，绝对是目前最迷您精悍的双人对弈游戏源码。<em>（编者注：由于网页代码的宽度有限制，所以作者的源代码经过了一些换行处理，特此说明。）</em></p>
+
+  <!-- <p class="ibm-no-print"><div id="dw-tag-this" class="ibm-no-print"></div><div id="interestShow" class="ibm-no-print"></div></p> -->
+<div id="dw-tag-content" class="ibm-no-print"></div><div id="dw-moretags-access" class="ibm-access"></div>
+<p class="ibm-no-print"></p><div id="dw-tag-this" class="ibm-no-print"><a class="ibm-external-link" onclick="jQuery.launchTagThisWindow(); return false;" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#">标记本文！</a></div><div id="interestShow" class="ibm-no-print"></div><p></p>
+</div>
+
+<div class="ibm-column ibm-second">
+
+<p class="leading"><strong>发布日期：</strong>&nbsp;2012 年 6 月 28 日
+  
+<br><strong>级别：</strong>&nbsp;高级
+    
+
+<br><strong>访问情况 ：</strong>&nbsp;378 次浏览
+  <br><strong>评论：</strong>&nbsp;<span id="nCmts"><img alt="" src="./百行 HTML5 代码实现四种双人对弈游戏_files/circle-preloader.gif" height="12" width="50"><img alt="" src="./百行 HTML5 代码实现四种双人对弈游戏_files/c.gif" height="14" width="1"></span>
+  <!-- Rating_Area_Begin -->
+  </p><div id="art-rating-summary"></div>
+  <!-- Rating_Area_End -->
+  <br>
+<p></p>
+</div>
+
+</div>
+</div>
+<!-- dW_Summary_Area_END -->
+
+<!-- CONTENT_BODY -->
+<div id="ibm-content-body">
+
+<!-- MAIN_COLUMN_BEGIN -->
+<div id="ibm-content-main">
+
+<!-- Related_Searches_Area_And_Overlays_Begin -->
+
+<!-- MAIN_COLUMN_CONTAINER_BEGIN -->
+<div class="ibm-container">
+
+<!-- MAIN_COLUMN_CONTENT_BEGIN -->
+<p><a name="major1"><span class="atitle">目标</span></a></p>
+			 <p>要做一个完整的双人对弈游戏，至少要做如下事情，第一步：绘制棋盘。不同的棋类游戏棋盘不同，这一点需要进行动态处理；第二步：绘制棋子。需要说明的是，围棋，五子棋等这些棋子都是圆的啊，请不要为了图片苦恼，在 HTML5 时代，我们用代码就可以实现立体圆形棋子；第三步：判断落子事件。当然是要定位手指的点击位置，这四种棋中，有的是落在框里面的，有的却是落在纵横交错的棋盘十字线上，需要动态处理；第四步：判断落子规则。下棋都有规则，不要因为代码少，就将规则打折扣，否则程序不成熟，会变成小朋友的玩具了；第五步：判断输赢。最后，我们要判断输赢。也就是要数子，这个事情必须由程序来完成，因为下棋总得需要一个裁判嘛；第六步：就是平板电脑时代，我们得实现离线应用。这个太重要了，否则，要是在台式电脑上，接根网线玩的游戏，已经遍地都是了，您写得再牛，有什么用？就是要移动，在没有信号的地方，才有市场，现在平板，智能手机这么多，在没有网络信号的地方，掏出移动设备来下棋，才是一件很牛的事情。</p>
+			 <div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a name="major2"><span class="atitle">绘制棋盘</span></a></p>
+			 <p>前面说了围棋、五子棋、四子棋和翻转棋的棋盘并不相同，围棋是纵横 18 个格，其他三种棋则是 8 个格。所以绘制棋盘是需要有参数。这是个小问题，大问题是，选择什么方法来绘制棋盘？</p>
+			 <p>HTML5 框架下，有至少 3 种方法：第一种，用 Canvas  画线；第二种，用 DIV，CSS3 里面增加了行列属性；第三种，用 table 标签。</p>
+			 <p>用哪一种速度最快，代码少呢？答案是：第三种。多少有点失望啊，HTML5 不是万能的。详细代码如下：</p>
+			 <table width="100%" cellpadding="0" summary="这一表格包含代码清单。" cellspacing="0" border="0"><tbody><tr><td class="code-outline"><pre class="displaycode"> this.board=function(name,width,height,rowBak,colBak){ /* 画棋盘 */ 
+ nameBak=name; 
+ if("turnover"==name){row=8;col=8;}else if("gogame"==name){row=18;col=18;} 
+ var aW=Math.floor(width/(col+2)),aH=Math.floor(height/(row+2)); 
+ minL=(aW&gt;aH?aH:aW)-4;// 这个减法很重要，否则填空时会把表格撑大
+ var array=new Array("&lt;div style=\"margin:"+minL+"px;\"&gt; "+
+ "&lt;table border=1 cellspacing=0 width=\""+(aW*col)+"\" 
+ height=\""+(aH*row)+"\"&gt;");
+ for(var i=0;i&lt;row;i++){ 
+       array.push("&lt;tr&gt;"); 
+       for(var j=0;j&lt;col;j++){array.push("&lt;td align=center&gt;"+ 
+ evt(i,j,minL,minL,aW*j+minL/2+8,aH*i+minL/2)+"&lt;/td&gt;");} 
+       if(nameBak!="four"&amp;&amp;nameBak!="turnover")/* 将事件添加到表格中 */ 
+             array.push(evt(i,col,minL,minL,aW*col+minL/2+8,aH*i+minL/2)); 
+             array.push("&lt;/tr&gt;"); 
+		 } 
+	   if(nameBak!="four"&amp;&amp;nameBak!="turnover"){ 
+           for(var j=0;j&lt;=col;j++){ 
+               array.push(evt(row,j,minL,minL,aW*j+minL/2+8,aH*row+minL/2)); 
+               } 
+           } 
+ document.write(array.join("")+"&lt;/table&gt;&lt;/div&gt;"); 
+ setClick(row,col,minL,minL);/* 初始化事件 */ 
+ start();/* 初始化棋子 */ 
+	 } 
+</pre></td></tr></tbody></table><br>
+			 <p>上面代码中，最重要的是标黑体的第 6 行代码，这里面有两个诀窍，第一个就是 table 的定义，第二个就是使用了 Array 数组。为什么要使用数组，而不是定义一个字符串呢？答案是优化，就是 Array 数组的 push 方法的速度要远远快于 String 字符串的加 + 运算。共计 16 行代码，一个棋盘就画好了，当然这其中不仅仅是画线，还有棋子处理，事件定义等方法的调用，后面将陆续谈到。</p>
+			 <div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a name="major3"><span class="atitle">绘制棋子</span></a></p>
+			 <p>绘制完棋盘，我们来绘制棋子。我们挑选的这四种棋，虽然棋盘不同，但是棋子都是相同的，都是黑白棋子。这在以前，做在线对弈，除了 Flash 能实现美观效果外，其他的必须先请美工做几副小图片，HTML5 时代，美工的人力和沟通成本就节省了。</p>
+			 <p>我们至少有两种方法绘制棋子，第一种是：canvas 类，第二种就是 css 的圆角属性。用哪种速度又快代码又少呢？答案是第二种，圆角。代码如下：	</p>
+			 <table width="100%" cellpadding="0" summary="这一表格包含代码清单。" cellspacing="0" border="0"><tbody><tr><td class="code-outline"><pre class="displaycode"> function man(width,height,id,colorBak){ /* 画棋子 */ 
+   var color=colorBak==null?(order++%2==0?"000":"CCC"):colorBak; 
+   var r="border-radius:"+width/2+"px;"; 
+   var obj=id==null?event.srcElement:_$(id); 
+   obj.innerHTML="&lt;div id=\"man_"+color+"_"+order+"\" style=\"display:block;-webkit-"
+   +r+"-moz-"+r+""+r+"-moz-box-shadow:inset 0 -10px 40px rgba(0,0,0,1);"+
+   "box-shadow:inset 0 -10px 40px rgba(0,0,0,1);"+
+   "background:-webkit-gradient(radial, 50 40, 30, center center, 80, from(#"+color+"),
+      to(rgba(255,255,255,1)));"+
+   "width:"+width+"px;height:"+height+"px;\"&gt;&lt;/div&gt;"; 
+	 } 
+</pre></td></tr></tbody></table><br>
+			 <p>上面代码中，我们看到，我们将每一个棋子定义了一个 DIV，使用了 CSS3 的 shadow，gradient 属性，并且可以根据棋盘的大小自动计算棋子的大小，另外，如果用户不喜欢黑白颜色，甚至可以定义成红黄颜色，女生和小朋友估计会喜欢。这 5 行代码是画一个棋子的方法，做一个简单的循环，就可以画出多个棋子，方法如下。</p>
+			  <table width="100%" cellpadding="0" summary="这一表格包含代码清单。" cellspacing="0" border="0"><tbody><tr><td class="code-outline"><pre class="displaycode">function moreMan(array){for(var i=0;i&lt;array.length;i++) 
+man(minL,minL,nameBak+"_"+array[i]);}
+/* 绘制多个棋子 */</pre></td></tr></tbody></table><br>
+			 <div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a name="major4"><span class="atitle">处理事件</span></a></p>
+			 <p>	绘制完棋盘和棋子，我们来分析一下用户的动作。用户的动作无非就是两种，一种是点击棋盘 table，另外一种就是点击棋子 DIV。难点在点击 table 这里，我们要获知用户点击 table 的位置。</p>
+			 <p>	传统思路可能是这样，使用 event 方法，获得 x,y 的坐标，然后与 table 的左上角做减法，然后再跟单元格 cell 做除法。听起来都麻烦。</p>
+			 <p>	如果您仔细阅读了前面的代码，就应该发现，其实在画棋盘是，我们向 array 数组中 push 了一个 evt 方法，很明显，这个 evt 方法要返回一个字符串变量的，那么他的内容是什么呢？答案揭晓：	</p>
+			 <table width="100%" cellpadding="0" summary="这一表格包含代码清单。" cellspacing="0" border="0"><tbody><tr><td class="code-outline"><pre class="displaycode">function evt(i,j,width,height,left,top){ /* 单一单元格事件 */ 
+  return "&lt;div id=\""+nameBak+"_"+i+"_"+j+"\" style=\"position:"+ 
+ (nameBak=="four"||nameBak=="turnover"?"block":"absolute")+
+ ";border:0px solid #000;width:"+ 
+ width+"px;height:"+height+"px;top:"+top+"px;left:"+left+"px;\"&gt;&lt;/div&gt;"; 
+	 } 
+</pre></td></tr></tbody></table><br>
+			 <p>原理是一个 DIV。对了，这个添加事件的方法非常特殊，实际上是在每个棋盘的交叉的地方画了一个 DIV，然后给 DIV 添加事件。</p>
+			 <table width="100%" cellpadding="0" summary="这一表格包含代码清单。" cellspacing="0" border="0"><tbody><tr><td class="code-outline"><pre class="displaycode">function setClick(row,col,width,height){ 
+	    for(var i=0;i&lt;=row;i++){ 
+            for(var j=0;j&lt;=col;j++){ 
+                var els=_$(nameBak+"_"+i+"_"+j); 
+                if(els!=null)els.onclick=function(){if(rule())man(width,height);}; 
+			 } 
+	    } 
+	 } 
+</pre></td></tr></tbody></table><br>
+			 <p>需要说明的是，DIV 一定要先定义，即 document.write 输出出来，然后才能执行 onclick 的定义，否则会返回 DIV 未定义的错误。寥寥 10 行代码，把事件问题搞定了。</p>
+			 <div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a name="major5"><span class="atitle">落子规则</span></a></p>
+			 <p>前面说了，用户点击事件有两种，点击棋盘 table 事件我们采用额外增加 DIV 的方法巧妙解决了，第二种点击棋子的方法又该如何呢？</p>
+			 <p>	先要说明的是，点击棋子其实是一种错误的事件，点击棋盘可以落子，点击棋子是什么意思？黑白棋点击棋子是无意义的，我们必须要进行判断，不能在有子的地方落子，这是规则之一。所以必须要定义一个方法，判断是不是点击的地方是不是有棋子。代码如下：</p>
+			 <table width="100%" cellpadding="0" summary="这一表格包含代码清单。" cellspacing="0" border="0"><tbody><tr><td class="code-outline"><pre class="displaycode">function isMan(row,col){var obj=_$(nameBak+"_"+row+"_"+col,1);
+if(obj==null||obj.indexOf("man_")==-1)return null;
+else if(obj.indexOf("000")!=-1)
+  return 0;
+else if(obj.indexOf("CCC")!=-1)return 1;} 
+</pre></td></tr></tbody></table><br>
+			 <p>	想不到吧，其实只要一行代码就可以就可以做是否有子的判断，怎么判断的，诀窍就在于判断 DIV 的颜色，棋子要么黑，返回 0，要么白，返回 1，但是空白地方是没有颜色的，返回 null。这里要特别注意返回值，后面判断输赢的时候还要用，所以不能简单通过 true 或者 false 的的返回值来判断是否有子，而是要判断出有什么颜色的子。</p>
+			 <p>	对于五子棋和围棋，这一条规则够用了，但是对于翻转棋和四子棋，还有第二条规则：不能在四周空白的地方落子，就是说必须是相连的。也就是说，不仅仅要判断点击的地方是不是有棋子，还要判断其四周是不是有棋子，这个，不是可以有，而是，必须有。需要做一个小循环啊，代码如下：</p>
+			 <table width="100%" cellpadding="0" summary="这一表格包含代码清单。" cellspacing="0" border="0"><tbody><tr><td class="code-outline"><pre class="displaycode"> function rule(){/* 走棋规则 */ 
+ var id=event.srcElement.id; 
+ if(id.indexOf("man_")==0){alert("不能在有子的地方落子");return false;}else{ 
+     var p=id.indexOf("_"),p1=id.lastIndexOf("_"); 
+     var row=id.substr(p+1,p1-p-1)*1,col=id.substr(p1+1)*1; 
+     if("gobang"==nameBak)return gobang(row,col); 
+        else if("four"==nameBak){ 
+     if(isMan(row,col+1)==null&amp;&amp;isMan(row,col-1)==null&amp;&amp; 
+     isMan(row+1,col)==null&amp;&amp; 
+     isMan(row-1,col)==null){ 
+     alert("四子棋不能在四周空白的地方落子！"); 
+     return false; 
+ } 
+ return gobang(row,col,3); 
+ }else if("turnover"==nameBak){ 
+ if(isMan(row,col+1)==null&amp;&amp;isMan(row,col-1)==null&amp;&amp; 
+ isMan(row+1,col)==null&amp;&amp;isMan(row-1,col)==null&amp;&amp; 
+ isMan(row-1,col-1)==null&amp;&amp; 
+ isMan(row+1,col+1)==null){ 
+ alert("翻转棋不能在四周空白的地方落子！"); 
+ return false; 
+ } 
+  turnover(); 
+ }else if("gogame"==nameBak){ 
+     } 
+     } 
+  return true; 
+ }
+</pre></td></tr></tbody></table><br>
+			 
+			 <p>循环中，反复调用 isMan 方法判断是否有棋子，所以如果 isMan 写得不够简练，快速，不知道要耗费多少时间啊。数一数，总共 19 行代码就处理了落子规则。</p>
+			 <p>到这里，我们绘制了棋盘，棋子，获得了点击时间，判断了落子规则，才用了 40 行左右的代码，其实程序基本上可用了，但是我们不能满足啊，还得让他更加智能一些，我们还需要一个裁判断输赢。</p>
+			 <div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a name="major6"><span class="atitle">判断输赢</span></a></p>
+			 <p>	要判断输赢，我们必须要知道下棋的规则：</p>
+			 <p>	五子棋是各个方向的五子相连算赢，四子棋是各个方向四个子相连算赢，翻转棋数棋子的个数，围棋则要麻烦些，不仅仅数棋子个数，还要数围住的区域。</p>
+			 <p>	逻辑上好像很复杂啊，似乎也是计算最多的地方，有点人工智能的意思。没错，如果前面的基础打得不好，这里的确要耗费很多代码，但是因为我们前面定义了 DIV 用颜色判断是否存在棋子的 iaMan 方法，这里再使用一个小技巧，就可以轻松搞定这个输赢判断。先看看五子棋和四子棋的输赢判断代码，然后对照代码来分析。</p>
+			 <table width="100%" cellpadding="0" summary="这一表格包含代码清单。" cellspacing="0" border="0"><tbody><tr><td class="code-outline"><pre class="displaycode"> function gobang(row,col,num){ 
+ num=num==null?4:num; 
+ var rs=[[],[],[],[]],b=[],w=[];/* 这里采用四维数组来存储棋子位置 */ 
+ for(var i=0,j=0;i&lt;num*2+1;i++,j++){ 
+ rs[0].push(isMan(row-num+i,col)); 
+ rs[1].push(isMan(row,col-num+j)); 
+ rs[2].push(isMan(row-num+i,col-num+j)); 
+ rs[3].push(isMan(row-num+i,col-num+j)); 
+ if(i&lt;num){b.push(0);w.push(1);} 
+		 } 
+ if(rs.join("#").indexOf(b.join(","))!=-1){alert("黑棋胜");return false; 
+ }else if(rs.join("#").indexOf(w.join(","))!=-1){alert("白棋胜");return false;} 
+     return true; 
+	 } 
+</pre></td></tr></tbody></table><br>
+			 <p>共计 9 行代码就搞定，看懂没？首先定义了一个 Javascript 多维数组 rs=[[],[],[],[]]，这种定义多维数组的方法，挑出来重点说明一下，因为搜索引擎上都是搜不到的，我讲课时差不多遇到的学生也都不清楚，他们大多采用 new Array，然后加循环的蜗牛方法。</p>
+			 <p>	第二步：从落子的地方开始循环，注意，不是循环整个棋盘，为的就是节省时间啊。循环设计纵横交叉四个方向，有棋子的地方，就向这个四维数组 push 棋子的颜色。</p>
+			 <p>	第三步：把数组 join 起来就 ok 啦，如果有 4 个或 5 个 1 相连，自然就是白棋胜，否则就是黑棋胜。</p>
+			 <p>	写道这里，就有点意思啦，注意我们处理的数据的方法，我称之为“块数据”的处理方法，就是充分利用 array 数组，保存一块一块的数据，无论写入，读取，还是统计分析，都是针对这一块数据进行，这样既可以提高内聚度，便于提炼出可以重用的方法，就可以大大的加快执行速度。</p>
+			 <p>	处理相连都不在话下，数子就更简单了，使用块数据处理方法，3 行搞定。</p>
+			 <table width="100%" cellpadding="0" summary="这一表格包含代码清单。" cellspacing="0" border="0"><tbody><tr><td class="code-outline"><pre class="displaycode"> function turnover(){ 
+    if(order&lt;64)return; 
+    var num=0;var total=row*col;for(var i=0;i&lt;row;i++){ 
+        for(var j=0;j&lt;col;j++){num+=isMan(i+"_"+j);} 
+    } 
+ if(num&lt;total/2)alert("黑棋胜"+(total-num*2)+"子"); 
+ else if(num&gt;row*col/2)alert("白棋胜"+(num*2-total)+"子");
+ else alert("平局"); 
+	 } 
+</pre></td></tr></tbody></table><br>
+			 <div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a name="major7"><span class="atitle">棋子初始化</span></a></p>
+			 <p>	环环相扣地写到这里，还有最后一个关于棋子的问题需要处理。那就是，下五子棋是从空白棋盘开始，其他三种棋却一开始都是有子的。其实给一个空白棋盘也行，但是其他三种棋因为一般的前几步走法都是固定的，我们为了提高智能化程度，不得不在浪费四行代码，毕竟，我们的目标是一个市场化的产品，而不是一个初学者不考虑用户体验的程序。</p>
+			 <table width="100%" cellpadding="0" summary="这一表格包含代码清单。" cellspacing="0" border="0"><tbody><tr><td class="code-outline"><pre class="displaycode"> function start(){ 
+   if("turnover"==nameBak){moreMan([3+"_"+3,4+"_"+3,4+"_"+4,3+"_"+4]); 
+   }else if("four"==nameBak){man(minL,minL,nameBak+"_"+row/2+"_"+0); 
+   }else if("gogame"==nameBak){moreMan([3+"_"+3,15+"_"+3,15+"_"+15,3+"_"+15]);
+   } 
+	 } 
+</pre></td></tr></tbody></table><br>
+			 <p>	其实就是调用了一下 moreMan 方法，注意也是块数据引用，传输了一个数组，用下划线分割横向和纵向坐标。</p>
+			 <div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a name="major8"><span class="atitle">做成离线应用</span></a></p>
+			 <p>	本文开头就说过，台式电脑的双人或多人对弈程序早已多如牛毛烂大街了，只有移动应用才能有市场，我们的目标就是奔着这个来的，所以最后必须做成离线应用。</p>
+			 <p>	如何实现 HTML5 的离线应用，搜索引擎很快能找到结果，其实只要三个关键步骤。</p>
+			 <p>	第一步；在 Web 服务器的配置文件中声明一下。Tomcat 和 Apache 的声明方式不相同，需要注意；</p>
+			 <p>	第二步：定义 manifest 文件，文件格式需要注意；</p>
+			 <p>	第三步：在 HTML 的文件中调用一下 manifest 文件。</p>
+			 <p>	根据这三个步骤，读者可以自行搜索细节，这里就不赘述了，我只讲搜索引擎搜不到的。</p>
+			 <p>	另外需要说明的是，iPad 和 Android 平板上浏览器实现全屏的方法也不一样，针对 iPad 用户，我们还必须定义一行能够实现全屏的代码。</p>
+			 <div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a name="major9"><span class="atitle">9. 效果图、在线演示、开放源代码</span></a></p>
+			 <p>本文的在线演示网址是：<a href="http://www.chofo.com/chess.htm">http://www.chofo.com/chess.htm</a>，效果图如下图所示：</p>
+				 <br><a name="fig1"><strong>图 1. 效果图</strong></a><br>
+				 <img alt="图 1. 效果图" height="446" src="./百行 HTML5 代码实现四种双人对弈游戏_files/image001.png" width="538">
+			<br>
+			 <p>图中加了一个选择棋类型和设置背景功能，如要获得全部源代码，只要使用浏览器的查看源代码功能即可，限于篇幅，这里就不贴了。</p>
+			 <div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a name="major10"><span class="atitle">总结</span></a></p>
+			 <p>作为一个程序员，最高的境界不是写得代码越多越好，而是用最少的代码实现最多的计算，解决最多的问题。回想当年，盖茨在编写 Basic 时，为了节省几个字符需要绞尽脑汁通宵达旦，以至于遗留了千年虫世纪难题，反观今日，在云计算时代，随着硬盘和内存的容量越来越大，CPU 的运算越来越快，很多大型项目的程序员似乎失去了精简代码的习惯。但是移动计算的硬件，目前还没有那么高的配置，本文通过 HTML5 对弈游戏，使用“块数据”计算方法，实现了用最少代码实现最多计算的目标，特别适用移动计算，与大家共勉。</p>
+	
+		<!-- CMA ID: 823273 --> <!-- Site ID: 10 --> <!-- XSLT stylesheet used to transform this file: dw-document-html-6.0.xsl -->
+<br>
+<p><a name="resources"><span class="atitle">参考资料 </span></a></p><p><strong>学习</strong></p><ul><li>
+				在线演示地址：<a href="http://www.chofo.com/chess.htm">http://www.chofo.com/chess.htm</a>。
+			<br><br></li><li>“<a href="http://www.ibm.com/developerworks/cn/web/wa-crossbrowsertechniques/">实现 HTML5 和 CSS3 的跨浏览器功能</a>”（developerWorks，2012 年 2 月）：HTML5 和 CSS3 有许多杰出的新特性，比如能够离线储存数据和创建无图像圆角效果。然而并不是所有这些新特性都能够跨浏览器使用。通过本文学习一些能够在所有主要浏览器的最新版本上使用的 HTML5 和 CSS3 技巧，这些浏览器包括 Safari、Internet Explorer、Firefox 和 Chrome。<br><br></li><li>“<a href="http://www.ibm.com/developerworks/cn/web/1102_guoqing_draganddrop/">拖拽：从 Dojo 到 HTML5</a>”（developerWorks，2011 年 2 月）：拖拽是 Web 2.0 应用中最流行的技术之一。本文将介绍如何在网络应用程序中使用 dojo 和 HTML5 这两种技术的拖拽功能。并将通过示例详细介绍 HTML5 的拖拽功能。<br><br></li><li>“<a href="http://www.ibm.com/developerworks/cn/web/wa-html5fundamentals/">HTML5 基础知识，第 1 部分</a>”（developerWorks，2012 年 6 月）：HTML5 代表了 WebSphere Application Server 业务和云业务在实现方式上的里程碑式改变。本文是 4 部分系列文章的第 1 部分，该系列旨在介绍 HTML5 的演变，文本首先介绍 HTML5 中新增加的标记和页面结构，提供有关 WebSphere Application Server 页面设计的高级信息、表单的创建、API 的使用和价值、以及 Canvas 提供的种种创新可能。<br><br></li><li>“<a href="http://www.ibm.com/developerworks/cn/web/1107_shaoyu_html5widget/">基于 HTML5 的 Dojo Widget 开发</a>”（developerWorks，2011 年 7 月）：本文主要介绍基于 HTML5 来扩展 Dojo Widget，它不仅具有强大的 JavaScript 逻辑控制，而且具有丰富的页面展现和良好的运行性能。<br><br></li><li>
+            <a href="http://www.ibm.com/developerworks/cn/web/">developerWorks Web development 
+               专区</a>：通过专门关于 Web 技术的文章和教程，扩展您在网站开发方面的技能。<br><br></li><li>
+            <a href="http://www.ibm.com/developerworks/cn/ajax/">developerWorks Ajax 资源中心</a>：这是有关 Ajax 编程模型信息的一站式中心，包括很多文档、教程、论坛、blog、wiki 和新闻。任何 Ajax 的新信息都能在这里找到。<br><br></li><li>
+            <a href="http://www.ibm.com/developerworks/cn/web20/">developerWorks Web 2.0 资源中心</a>，这是有关 Web 2.0 相关信息的一站式中心，包括大量 Web 2.0 技术文章、教程、下载和相关技术资源。您还可以通过 <a href="http://www.ibm.com/developerworks/cn/web20/newto/">Web 2.0 新手入门</a>栏目，迅速了解 Web 2.0 的相关概念。<br><br></li><li>查看 <a href="http://www.ibm.com/developerworks/cn/web/lp/html5/">HTML5 专题</a>，了解更多和 HTML5 相关的知识和动向。<br><br></li></ul><p><strong>讨论</strong></p><ul><li>加入 <a href="http://www.ibm.com/developerworks/cn/community/" onmouseover="linkQueryAppend(this)">developerWorks 中文社区</a>。查看开发人员推动的博客、论坛、组和维基，并与其他 developerWorks 用户交流。<br><br></li></ul>
+<p><a name="author"><span class="atitle">关于作者</span></a></p><div class="ibm-container ibm-portrait-module ibm-alternate-two"><div class="ibm-container-body"><p><a name="author1"> </a>于丙超，北京周服科技有限公司（http://www.chofo.com ）CEO，系统架构师，新浪文学签约作者。曾出版过多部计算机书籍，在各种杂志发表文章近百篇。</p></div></div>
+<!-- MAIN_COLUMN_CONTENT_END -->
+  <!-- OVERLAYS_START -->
+  <!-- Report_Abuse_Start -->
+  <div class="ibm-common-overlay ibm-no-print" id="reportabuseoverlay">
+    <div class="ibm-head"><p><a class="ibm-common-overlay-close" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#">关闭 [x]</a></p></div>
+    <div class="ibm-body">
+      <div class="ibm-main">
+        <a class="ibm-access" name="reportabuseoverlay">关于报告滥用的帮助</a>   
+        <div class="ibm-title"><h1>报告滥用</h1></div>
+        <div class="ibm-container ibm-alternate">
+          <p><strong>谢谢!</strong>  此内容已经标识给管理员注意。</p>
+          <div class="ibm-overlay-rule"><hr></div>
+          <div class="ibm-buttons-row">
+            <input type="button" onclick="ibmCommon.Overlays.hide(&#39;reportabuseoverlay&#39;);return false;" class="ibm-btn-cancel-sec dw-btn-cancel-sec" name="ibm-cancel" value="关闭">
+          </div>
+        </div>
+      </div> 
+    </div>
+    <div class="ibm-footer"></div>
+  </div>
+  <!-- Report_Abuse_Error_Start -->
+  <div class="ibm-common-overlay ibm-no-print" id="reportabuseoverlayerror">
+    <div class="ibm-head"><p><a class="ibm-common-overlay-close" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#">关闭 [x]</a></p></div>
+    <div class="ibm-body">
+      <div class="ibm-main">
+        <a class="ibm-access" name="reportabuseoverlayerror">关于报告滥用的帮助</a>   
+        <div class="ibm-title"><h1>报告滥用</h1></div>
+        <div class="ibm-container ibm-alternate">
+          <p class="ibm-ind-error"><strong>报告滥用提交失败。  请稍后重试。</strong></p>
+          <div class="ibm-overlay-rule"><hr></div>
+          <div class="ibm-buttons-row">
+            <input type="button" onclick="ibmCommon.Overlays.hide(&#39;reportabuseoverlayerror&#39;);return false;" class="ibm-btn-cancel-sec dw-btn-cancel-sec" name="ibm-cancel" value="关闭">
+          </div>
+        </div>
+      </div> 
+    </div>
+    <div class="ibm-footer"></div>
+  </div>
+  <!-- Sign in OVERLAY STARTS HERE --> 
+  <div class="ibm-common-overlay" id="signin_overlay">
+    <div class="ibm-head">
+      <p><a class="ibm-common-overlay-close" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#" onclick="clearForm();">关闭 [x]</a></p>
+    </div>
+    <div class="ibm-body">
+      <div class="ibm-main">
+        <div class="ibm-title ibm-subtitle">
+          <h1>developerWorks：登录</h1>
+          <div id="ibm-overlay-error-signin" class="no-display"></div>
+        </div>
+        
+        <div class="ibm-container ibm-alternate ibm-buttons-last">
+          <div class="ibm-container-body">
+
+            <form class="ibm-column-form" id="sFormId" action="" method="post" name="sForm" onsubmit="return false;">
+              <p><label for="ibmid">IBM ID：</label><span><input name="ibm-id" id="ibmid" size="25" value="" class="required" type="text" onkeypress="handleEP(event,this.form);">
+                <br><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#" onclick="(function () {window.location=&#39;/developerworks/dwwi/DWAuthRouter?m=reg&amp;lang=zh_CN&amp;d=&#39;+encodeURIComponent(location.href);})();">需要一个 IBM ID？</a>
+                <br><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/dwwi/jsp/WSHelp.jsp?lang=zh_CN">忘记 IBM ID？</a></span>   
+              </p> 
+              <p><label for="password">密码：</label><span><input name="password" id="password" size="25" value="" class="required" type="password" onkeypress="handleEP(event,this.form);"><br>
+                <a class="ibm-forward-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#" onclick="(function () {window.location=&#39;https://www.ibm.com/account/profile?page=forgot&amp;lang=zh_CN&amp;appname=ibm&amp;required=null&amp;d=&#39;+encodeURIComponent(getAuthUrl())+&#39;%3Fm%3Dloginpage%26lang%3Dzh_CN%26d%3D&#39;+encodeURIComponent(location.href);})();">忘记密码？</a><br>
+                <a class="ibm-forward-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#" onclick="(function () {window.location=&#39;https://www.ibm.com/account/profile?page=chpw&amp;lang=zh_CN&amp;appname=ibm&amp;required=null&amp;d=&#39;+encodeURIComponent(location.href);})();">更改您的密码</a></span></p> 
+
+              <p class="dw-perm-box">
+                <span><input id="perm" type="checkbox" name="perm_name"><label for="perm"> 保持登录。</label></span>
+              </p>
+
+              <p>单击提交则表示您同意developerWorks 的条款和条件。 <a href="http://www.ibm.com/developerworks/mydeveloperworks/terms?lang=zh">使用条款</a></p>
+              <div class="ibm-buttons-row">
+                <p><input class="ibm-btn-arrow-pri" name="ibm-submit" value="提交" onclick="signin();return false;" type="submit"><span class="ibm-sep">&nbsp;</span>
+                  <input value="取消" type="button" name="ibm-cancel" class="ibm-btn-cancel-sec" onclick="clearForm();ibmCommon.Overlays.hide(&#39;signin_overlay&#39;);return false;"></p>
+              </div>
+            </form>
+            <div class="ibm-overlay-rule"><hr></div>
+            <p>当您初次登录到 developerWorks 时，将会为您创建一份概要信息。<strong>您在 developerWorks 概要信息中选择公开的信息将公开显示给其他人，但您可以随时修改这些信息的显示状态。</strong>您的姓名（除非选择隐藏）和昵称将和您在 developerWorks 发布的内容一同显示。</p>
+            <div class="dw-overlay-legal"><p>所有提交的信息确保安全。</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ibm-footer"></div>
+  </div>
+  <!-- Sign in OVERLAY ENDS HERE --> 
+  
+  
+  <!-- Display name OVERLAY STARTS HERE --> 
+  <div class="ibm-common-overlay" id="displayname_overlay">
+    <div class="ibm-head">
+      <p><a class="ibm-common-overlay-close" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#" onclick="clearForm();">关闭 [x]</a></p>
+    </div>
+    <div class="ibm-body">
+      <div class="ibm-main">
+        <div class="ibm-title ibm-subtitle">
+          <h1>请选择您的昵称：</h1>
+          <div id="ibm-overlay-error-dname" class="no-display"></div>
+        </div>
+        <div class="ibm-container ibm-alternate ibm-buttons-last">
+          <div class="ibm-container-body">
+            <p class="ibm-overlay-intro">当您初次登录到 developerWorks 时，将会为您创建一份概要信息，您需要指定一个昵称。您的昵称将和您在 developerWorks 发布的内容显示在一起。</p><p><strong>昵称长度在 3 至 31 个字符之间</strong>。 您的昵称在 developerWorks 社区中必须是唯一的，并且出于隐私保护的原因，不能是您的电子邮件地址。</p>
+            <form id="dFormId" method="post" action="" name="dForm" onsubmit="return false;" class="ibm-column-form">
+              <p><label for="displayname">昵称：</label><span><input name="displayname" id="displayname" size="25" value="" type="text" onkeypress="handleEP(event,this.form);"></span><span class="ibm-form-note">（长度在 3 至 31 个字符之间）</span>
+              </p>
+              
+              <div class="ibm-overlay-rule"><hr>
+              </div>
+              <p>单击<strong>提交</strong>则表示您同意developerWorks 的条款和条件。 <a href="http://www.ibm.com/developerworks/mydeveloperworks/terms?lang=zh">使用条款</a>.</p>
+              <div class="ibm-buttons-row">
+                <p><input class="ibm-btn-arrow-pri" name="ibm-submit" value="提交" onclick="signin();return false;" type="submit"><span class="ibm-sep">&nbsp;</span>
+                  <input value="取消" type="button" name="ibm-cancel" class="ibm-btn-cancel-sec" onclick="clearForm();ibmCommon.Overlays.hide(&#39;displayname_overlay&#39;);return false;"></p>
+              </div>
+            </form>
+            <div class="ibm-overlay-rule"><hr></div>
+            <div class="dw-overlay-legal"><p>所有提交的信息确保安全。</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ibm-footer"></div>
+  </div>
+  <!-- Display name OVERLAY ENDS HERE -->
+  <!-- OVERLAYS_END -->
+  <!-- RATINGS START -->
+  <p class="ibm-no-print"><span class="atitle"><a name="iratings">为本文评分</a></span></p>
+  <input id="art-rating" name="ratinga" type="hidden" value="0"><div id="art-rating-module"></div>
+  <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+   // widget div id and article id as args
+   window.artRating.init('art-rating-module','art-rating-summary');
+// ]]>
+  </script>
+  <!-- RATINGS END --> 
+  
+  <!-- INLINE_COMMENTS_START -->
+  <p class="ibm-no-print"><span class="atitle"><a name="icomments">评论</a></span></p>
+    <script language="JavaScript" type="text/javascript">
+      // <![CDATA[
+dwc = {};
+dwc.cmts = '条评论';
+dwc.signInPreText = '请';
+dwc.signIn = '登录';
+dwc.or = '或';
+dwc.register = '注册';
+dwc.signInPostText = '';
+dwc.leaveCmt = '后发表评论。';
+dwc.view = '查看';
+dwc.totalCmts = '共有评论';
+dwc.postYourCmt = '添加您的评论';
+dwc.show = '显示：';
+dwc.recentCmts = '最新评论';
+dwc.allCmts = '所有评论';
+dwc.tooLongCmt = '您的评论超过了 1000 字符限制';
+dwc.numCharsLeft = '剩余 <span id="charCount">{1}</span> 字符';
+dwc.reportAbuse = '报告滥用';
+dwc.notifyMsg = '有新评论时提醒我';
+dwc.htmlWarning = '注意：评论中不支持 HTML 语法'; 
+dwc.cmt = '评论：';
+dwc.addCmts = '添加评论';
+dwc.addCmt = '添加评论';
+dwc.doNotErase = '--在下方添加评论--'; 
+dwc.viewOrAddCmts = '查看或添加评论';
+dwc.reportInapprCont = '举报不良信息';
+dwc.reportInapprContLink = 'http://www.ibm.com/developerworks/forums/forum.jspa?forumID=1834';
+dwc.postingCmt = '正在发布评论……';
+dwc.noCmt = '快来添加第一条评论';
+dwc.netwkErr = '在检索评论时出错，请稍后刷新。';
+dwc.addACmt = '添加评论';
+dwc.instructCmt = '标有星号（<span class="ibm-required">*</span>）的是必填项目。';
+dwc.btnPost = '发布';
+dwc.btnPostAnon = '匿名发布';
+dwc.btnClrCmt = '清除评论';
+dwc.btnCancel = '取消';
+dwc.showRecent = '显示最新的 {1} 条评论'; // {1} is the count to be substituted
+dwc.showNext = '显示后 {1} 条评论'; // {1} is the count to be substituted
+dwc.showAllCmts = '显示所有评论';
+dwc.enterCmt = '请输入评论内容。';
+dwc.loginErr = '暂时无法验证您的登录状态，请稍后再试。';
+dwc.postErr = '暂时无法发布您的评论，请稍后再试。';
+dwc.postBy = '由 <strong>{1}</strong>  于 {2} '; // {1} is the author to be substituted; {2} is the date
+dwc.siteId = 10;
+dwc.lang = 'zh_CN';
+dwc.viperLang = 'zh';
+// ]]>
+    </script>
+    <div id="threadShow"></div>
+  <!-- INLINE_COMMENTS_END -->
+  
+
+  <p class="ibm-ind-link ibm-back-to-top"><a class="ibm-anchor-up-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#ibm-pcon">回页首</a></p>
+
+<!-- Overlays -->
+<!-- lk - pull in overlays from ww when required on cn -->
+  </div>
+<!-- MAIN_COLUMN_CONTAINER_END -->
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div class="metavalue">SITE_ID=10</div><div class="metavalue">Zone=Web development</div><div class="metavalue">ArticleID=823273</div><div class="metavalue">ArticleTitle=百行 HTML5 代码实现四种双人对弈游戏
+		</div><div class="metavalue">publish-date=06282012</div><script language="javascript" type="text/javascript">document.write('<div class="metavalue">url='+location.href.replace(/</g,  '%3C')+'</div>');</script><div class="metavalue">url=http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-</div><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- MAIN_COLUMN_END-->
+
+<!-- RIGHT_COLUMN_BEGIN -->
+<div id="ibm-content-sidebar">
+
+<!-- RIGHT_COLUMN_CONTENT_BEGIN --> 
+<div class="ibm-container"><h2>内容</h2><div class="ibm-container-body"><img alt="" height="1" width="1" src="./百行 HTML5 代码实现四种双人对弈游戏_files/c(1).gif"><ul class="ibm-bullet-list"><li><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#major1">目标</a></li><li><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#major2">绘制棋盘</a></li><li><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#major3">绘制棋子</a></li><li><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#major4">处理事件</a></li><li><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#major5">落子规则</a></li><li><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#major6">判断输赢</a></li><li><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#major7">棋子初始化</a></li><li><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#major8">做成离线应用</a></li><li><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#major9">9. 效果图、在线演示、开放源代码</a></li><li><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#major10">总结</a></li><li><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#resources">参考资料 </a></li><li><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#author">关于作者</a></li><li><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#icomments">评论</a></li></ul></div></div>
+
+ 
+
+<!-- Tagging_Start -->
+<div id="dw-tag-cloud-container" class="ibm-container dw-hidetag"><h2>标签</h2>
+<div id="dw-tag-help"><a class="dwauthor" rel="#tagtip" id="dwtagtip"><img alt="Help" height="16" width="16" align="top" src="./百行 HTML5 代码实现四种双人对弈游戏_files/help_icon.gif"></a></div>
+<div id="tagtip" class="dwauthor-onload-state ibm-no-print">使用 <strong>搜索</strong> 文本框在 My developerWorks 中查找包含该标签的所有内容。<p>使用 <strong>滑动条</strong> 调节标签的数量。</p><p><strong>热门标签</strong> 显示了特定专区最受欢迎的标签（例如 Java technology，Linux，WebSphere）。</p><p><strong>我的标签</strong> 显示了特定专区您标记的标签（例如 Java technology，Linux，WebSphere）。</p></div>
+<div class="ibm-access">使用搜索文本框在 My developerWorks 中查找包含该标签的所有内容。<em>热门标签</em> 显示了特定专区最受欢迎的标签（例如 Java technology，Linux，WebSphere）。<em>我的标签</em> 显示了特定专区您标记的标签（例如 Java technology，Linux，WebSphere）。</div>
+<div class="ibm-container-body">
+<div class="dw-tag-search"><form action="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html" method="get" id="actualtagform" onsubmit="popupform(this, &#39;join&#39;)">
+<p><label for="tagfield"><strong>搜索所有标签</strong></label>
+<input type="hidden" name="lang" value="zh">
+<input id="tagfield" name="tag" type="text" maxlength="20" size="17">&nbsp;<input src="./百行 HTML5 代码实现四种双人对弈游戏_files/short-btn.gif" type="image" class="ibm-btn-view" alt="submit search" title="提交搜索" value="Search"></p></form></div>
+<div class="ibm-rule"><hr></div>
+<div id="dw-tag-select">
+<div id="dw-tag-select-popular"><p><strong>热门文章标签</strong>&nbsp;|&nbsp;<br><a id="a-my" href="javascript:;">我的文章标签</a><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#dw-tag-access" class="ibm-access">跳转到标签列表</a></p></div>
+<div id="dw-tag-select-my" class="dw-hidetag"><p><a id="a-popular" href="javascript:;">热门文章标签</a>&nbsp;|&nbsp;<br><strong>我的文章标签</strong></p><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#dw-tag-access" class="ibm-access">跳转到标签列表</a></div>
+<div id="dw-tag-cloud"></div>  
+</div>   
+</div>
+</div>
+<!-- Tagging_End -->
+
+<!-- Dig_Deeper -->
+
+<!-- High_Visibility_Offer -->
+
+<!-- Special_Offers -->
+
+<!-- RIGHT_COLUMN_CONTENT_END -->
+
+</div>
+<!-- RIGHT_COLUMN_END -->
+
+<!-- CONTENT_BODY_END -->
+</div>
+
+</div>
+<!-- CONTENT_END -->
+
+ <!-- END_IBM-PCON -->
+</div>
+
+<!-- FOOTER_BEGIN -->
+<div id="ibm-footer">
+<!-- IBM footer container; disabled -->
+</div>
+
+<div id="ibm-page-tools-dw">
+	<div id="dw-footer-top-row">
+		<ul id="dw-foot-options">
+			<li id="dw-print"><a class="ibm-print-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#">打印此页面</a></li>
+		</ul>
+		<ul id="ibm-foot-options-dw">
+			<li id="dw-foot-0" class="dw-foot-0-cn"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#">分享此页面</a></li>
+			<li id="dw-foot-1" class="dw-foot-1-cn"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#">关注 developerWorks</a></li>
+		</ul>
+	</div>       
+	
+	
+	<!-- TOP ROW SLIDER -->
+    <div id="dw-page-tools-menu">    
+        <div class="ibm-ribbon-pane-dw">
+            <div class="ibm-ribbon-section-dw">
+				<!-- Share this page -->			
+                <div class="dw-footer-columns">
+                    <div class="dw-footer-col-3-1">
+                    	<h2>分享此页面：</h2>                            
+						<ul class="ibm-link-list">
+							<li><a id="dw-foot-0-0" class="ibm-facebook-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#">Facebook</a></li>
+							<li><a class="ibm-linkedin-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#">LinkedIn</a></li>
+							<li><a class="ibm-twitter-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#">Twitter</a></li>
+						</ul>
+                    </div>
+                    <div class="dw-footer-col-3-2">
+						<ul class="ibm-link-list">
+							<li><a class="ibm-delicious-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#">Delicious</a></li>
+							<li><a class="ibm-digg-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#">Digg</a></li>
+							<!--<li><a class="ibm-stumbleupon" href="#">StumbleUpon</a></li>-->
+						</ul>
+                    </div>
+                    <div class="dw-footer-col-3-3">
+						<ul class="ibm-link-list">
+							<li><a class="ibm-email-link" href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#">发送此页面</a></li>
+						</ul>
+                    </div>
+                    <div class="dw-footer-close">
+						<ul>
+							<li><div class="dw-footer-close-share"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#"><img src="./百行 HTML5 代码实现四种双人对弈游戏_files/c.gif" alt="关闭 [x]" width="20" height="10"></a></div></li>
+						</ul>
+                    </div>
+                </div>
+                <!-- Follow developerWorks -->
+                <div class="dw-footer-columns">
+                    <div class="dw-footer-col-1-1">
+                    	<h2>分享此页面：</h2>
+						<ul class="ibm-link-list">
+							<li><a id="dw-foot-1-0" class="ibm-twitter-link" href="http://www.twitter.com/dwchina">Twitter</a></li>
+						</ul>
+                    </div>
+                    <div class="dw-footer-close">
+						<ul>
+							<li><div class="dw-footer-close-follow-cn"><a href="http://www.ibm.com/developerworks/cn/web/1206_yubc_html5games/index.html?ca=drs-#"><img src="./百行 HTML5 代码实现四种双人对弈游戏_files/c.gif" alt="关闭 [x]" width="20" height="10"></a></div></li>
+						</ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ibm-footer-module-dw">
+	<div class="dw-footer-columns">
+		<div class="dw-footer-col-6-1">
+			<ul>
+				<!--<li><a href="http://www.ibm.com/developerworks/aboutdw/">About</a></li>-->
+				<li><a href="https://www.ibm.com/developerworks/secure/feedback.jsp?domain=dwchina">帮助</a></li>
+				<li><a href="http://www.ibm.com/developerworks/cn/author/">联系编辑</a></li>
+				<li><a href="https://www.ibm.com/developerworks/secure/myideas2.jsp?domain=dwchina&start=true">提交内容</a></li>
+				<li><a href="http://www.ibm.com/developerworks/cn/sitemap/">网站导航</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-2">
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/cn/rss/">订阅源</a></li>
+				<li><a href="http://www.ibm.com/vrm/newsletter/10104?S_TACT=105AGX52&S_CMP=dwcntop">在线浏览每周时事通讯</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-3">
+			<ul>
+				<li><a href="https://www.ibm.com/developerworks/community/report?lang=zh">报告滥用</a></li>
+				<li><a href="https://www.ibm.com/developerworks/community/terms?lang=zh">使用条款</a></li>
+				<li><a href="http://www.ibm.com/privacy/cn/zh/">隐私条约</a></li>
+				<li><a href="http://www.ibm.com/ibm/accessibility/cn/">浏览辅助</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-4-cn">
+			<ul>
+				<li><a href="http://www-900.ibm.com/cn/ai/">IBM 教育学院教育培养计划</a></li>
+				<li><a href="http://www.ibm.com/partnerworld/isv/">ISV 资源 (英语)</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-5">
+		</div>
+		<div class="dw-footer-col-6-6">
+		</div>
+	</div>
+	<!-- Language selector no-script -->
+	<noscript>
+	&lt;div id="dw-footer-selectlang"&gt;
+		&lt;h2&gt;&lt;a name="SELECTLANG"&gt;选择语言：&lt;/a&gt;&lt;/h2&gt;
+		&lt;ul&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/"&gt;English&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/cn/"&gt;中文&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/jp/"&gt;日本語&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/ru/"&gt;Русский&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/br/"&gt;Português (Brasil)&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/ssa/"&gt;Español&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/vn/"&gt;Việt&lt;/a&gt;&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/div&gt;
+	</noscript>
+</div><!-- FOOTER_END -->
+
+ <!-- END_IBM-TOP -->
+<div id="ibm-overlay-top"></div></div>
+ 
+ <!-- SCRIPTS_INCLUDE_BEGIN -->
+<!-- JQuery start -->
+<script type="text/javascript" language="JavaScript" src="./百行 HTML5 代码实现四种双人对弈游戏_files/jquery.hoverIntent.minified.js"></script>
+<script type="text/javascript" language="JavaScript" src="./百行 HTML5 代码实现四种双人对弈游戏_files/jquery.cluetip.js"></script>
+<script type="text/javascript" language="JavaScript" src="./百行 HTML5 代码实现四种双人对弈游戏_files/ui.core-1.7.1.js"></script>
+<script type="text/javascript" language="JavaScript" src="./百行 HTML5 代码实现四种双人对弈游戏_files/ui.slider-1.7.1.js"></script>
+
+<!-- xM Masthead/Footer -->
+<script src="./百行 HTML5 代码实现四种双人对弈游戏_files/jquery.tools.min.js" type="text/javascript">//</script>
+<script src="./百行 HTML5 代码实现四种双人对弈游戏_files/jquery.jscroll.js" type="text/javascript">//</script></body></html>

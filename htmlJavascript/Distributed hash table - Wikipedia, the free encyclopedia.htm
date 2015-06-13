@@ -1,0 +1,501 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" dir="ltr" class="client-nojs" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Distributed hash table - Wikipedia, the free encyclopedia</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="generator" content="MediaWiki 1.20wmf6" />
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="/w/index.php?title=Distributed_hash_table&amp;action=edit" />
+<link rel="edit" title="Edit this page" href="/w/index.php?title=Distributed_hash_table&amp;action=edit" />
+<link rel="apple-touch-icon" href="//en.wikipedia.org/apple-touch-icon.png" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/w/opensearch_desc.php" title="Wikipedia (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="//en.wikipedia.org/w/api.php?action=rsd" />
+<link rel="copyright" href="//creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="Wikipedia Atom feed" href="/w/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="//bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&amp;lang=en&amp;modules=ext.gadget.teahouse%7Cext.wikihiero%7Cmediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=vector&amp;*" type="text/css" media="all" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="//bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=vector&amp;*" type="text/css" media="all" />
+<style type="text/css" media="all">a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+
+/* cache key: enwiki:resourceloader:filter:minify-css:7:4edf467d58fee44c83dfe724ca07c179 */</style>
+
+<script src="//bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*" type="text/javascript"></script>
+<script type="text/javascript">if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Distributed_hash_table","wgTitle":"Distributed hash table","wgCurRevisionId":501972791,"wgArticleId":192141,"wgIsArticle":true,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Distributed data storage","File sharing"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgRelevantPageName":"Distributed_hash_table","wgRestrictionEdit":[],"wgRestrictionMove":[],"wgSearchNamespaces":[0],"wgVectorEnabledModules":{"collapsiblenav":true,"collapsibletabs":true,"editwarning":true,"expandablesearch":false,"footercleanup":false,"sectioneditlinks":false,"simplesearch":true,"experiments":true},"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":false,"previewDialog":false,"publish":false,"toc":false},"wgTrackingToken":"aaa968c19cccafa72988e96c7a8cc491","wgArticleFeedbackv5Permissions":{"oversighter":false,"moderator":false,"editor":false},"wikilove-recipient":"","wikilove-edittoken":"+\\","wikilove-anon":0,"mbEmailEnabled":true,"mbUserEmail":false,"mbIsEmailConfirmationPending":false,"wgFlaggedRevsParams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgStableRevisionId":null,"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","Geo":{"city":"","country":""},"wgNoticeProject":"wikipedia","aftv5Whitelist":false});
+}</script><script type="text/javascript">if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":false,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3
+,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"vector-simplesearch":1,"useeditwarning":1,"vector-collapsiblenav":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikilove-enabled":1,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"searchNs100":false,"searchNs101":false,"searchNs108":false,"searchNs109":false,"gadget-teahouse":1,"gadget-mySandbox":1});;},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","watchToken":false});;},{},{});
+
+/* cache key: enwiki:resourceloader:filter:minify-js:7:15f947b8a5d6ceebd1f399c3a1526c80 */
+}</script>
+<script type="text/javascript">if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.wikimediaShopLink.core"]);
+}</script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/skins-1.20wmf6/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Distributed_hash_table skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content" class="mw-body">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- sitenotice -->
+			<div id="siteNotice"><!-- centralNotice loads here --></div>
+			<!-- /sitenotice -->
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading"><span dir="auto">Distributed hash table</span></h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+								<!-- tagline -->
+				<div id="siteSub">From Wikipedia, the free encyclopedia</div>
+				<!-- /tagline -->
+								<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav" class="mw-jump">
+					Jump to: <a href="#mw-head">navigation</a>,
+					<a href="#p-search">search</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodycontent -->
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>A <b>distributed hash table</b> (<b>DHT</b>) is a class of a decentralized <a href="/wiki/Distributed_computing" title="Distributed computing">distributed system</a> that provides a lookup service similar to a <a href="/wiki/Hash_table" title="Hash table">hash table</a>; (<i>key</i>, <i>value</i>) pairs are stored in a DHT, and any participating <a href="/wiki/Node_(networking)" title="Node (networking)">node</a> can efficiently retrieve the value associated with a given key. Responsibility for maintaining the mapping from keys to values is distributed among the nodes, in such a way that a change in the set of participants causes a minimal amount of disruption. This allows a DHT to <a href="/wiki/Scale_(computing)" title="Scale (computing)" class="mw-redirect">scale</a> to extremely large numbers of nodes and to handle continual node arrivals, departures, and failures.</p>
+<p>DHTs form an infrastructure that can be used to build more complex services, such as <a href="/wiki/Anycast" title="Anycast">anycast</a>, cooperative <a href="/wiki/Web_cache" title="Web cache">Web caching</a>, <a href="/wiki/Distributed_file_system" title="Distributed file system">distributed file systems</a>, <a href="/wiki/Domain_name_system" title="Domain name system" class="mw-redirect">domain name services</a>, <a href="/wiki/Instant_messaging" title="Instant messaging">instant messaging</a>, <a href="/wiki/Multicast" title="Multicast">multicast</a>, and also <a href="/wiki/Peer-to-peer" title="Peer-to-peer">peer-to-peer</a> <a href="/wiki/File_sharing" title="File sharing">file sharing</a> and <a href="/wiki/Content_distribution" title="Content distribution" class="mw-redirect">content distribution</a> systems. Notable distributed networks that use DHTs include <a href="/wiki/BitTorrent_(protocol)" title="BitTorrent (protocol)" class="mw-redirect">BitTorrent</a>'s distributed tracker, the <a href="/wiki/Coral_Content_Distribution_Network" title="Coral Content Distribution Network">Coral Content Distribution Network</a>, the <a href="/wiki/Kad_network" title="Kad network">Kad network</a>, the <a href="/wiki/Storm_botnet" title="Storm botnet">Storm botnet</a>, and the <a href="/wiki/YaCy" title="YaCy">YaCy</a> search engine.</p>
+<div class="thumb tright">
+<div class="thumbinner" style="width:502px;"><a href="/wiki/File:DHT_en.svg" class="image"><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/9/98/DHT_en.svg/500px-DHT_en.svg.png" width="500" height="210" class="thumbimage" /></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="/wiki/File:DHT_en.svg" class="internal" title="Enlarge"><img src="//bits.wikimedia.org/static-1.20wmf6/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>
+Distributed hash tables</div>
+</div>
+</div>
+<table id="toc" class="toc">
+<tr>
+<td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#History"><span class="tocnumber">1</span> <span class="toctext">History</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Properties"><span class="tocnumber">2</span> <span class="toctext">Properties</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Structure"><span class="tocnumber">3</span> <span class="toctext">Structure</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Keyspace_partitioning"><span class="tocnumber">3.1</span> <span class="toctext">Keyspace partitioning</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Overlay_network"><span class="tocnumber">3.2</span> <span class="toctext">Overlay network</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Algorithms_for_overlay_networks"><span class="tocnumber">3.3</span> <span class="toctext">Algorithms for overlay networks</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#DHT_implementations"><span class="tocnumber">4</span> <span class="toctext">DHT implementations</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Examples"><span class="tocnumber">5</span> <span class="toctext">Examples</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#DHT_protocols_and_implementations"><span class="tocnumber">5.1</span> <span class="toctext">DHT protocols and implementations</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Applications_employing_DHTs"><span class="tocnumber">5.2</span> <span class="toctext">Applications employing DHTs</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#References"><span class="tocnumber">7</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#External_links"><span class="tocnumber">8</span> <span class="toctext">External links</span></a></li>
+</ul>
+</td>
+</tr>
+</table>
+<h2><span class="editsection">[<a href="/w/index.php?title=Distributed_hash_table&amp;action=edit&amp;section=1" title="Edit section: History">edit</a>]</span> <span class="mw-headline" id="History">History</span></h2>
+<p>DHT research was originally motivated, in part, by <a href="/wiki/Peer-to-peer" title="Peer-to-peer">peer-to-peer</a> systems such as <a href="/wiki/Freenet" title="Freenet">Freenet</a>, <a href="/wiki/Gnutella" title="Gnutella">gnutella</a>, and <a href="/wiki/Napster" title="Napster">Napster</a>, which took advantage of resources distributed across the Internet to provide a single useful application. In particular, they took advantage of increased <a href="/wiki/Bandwidth_(computing)" title="Bandwidth (computing)">bandwidth</a> and <a href="/wiki/Hard_disk" title="Hard disk" class="mw-redirect">hard disk</a> capacity to provide a file-sharing service.</p>
+<p>These systems differed in how they <i>found</i> the data their peers contained:</p>
+<ul>
+<li>Napster, the first large-scale P2P content delivery system to exist, had a central index server: each node, upon joining, would send a list of locally held files to the server, which would perform searches and refer the querier to the nodes that held the results. This central component left the system vulnerable to attacks and lawsuits.</li>
+<li>Gnutella and similar networks moved to a flooding query model—in essence, each search would result in a message being broadcast to every other machine in the network. While avoiding a <a href="/wiki/Single_point_of_failure" title="Single point of failure">single point of failure</a>, this method was significantly less efficient than Napster.</li>
+<li>Finally, <a href="/wiki/Freenet" title="Freenet">Freenet</a> is fully distributed, but employs a heuristic <a href="/wiki/Key-based_routing" title="Key-based routing">key-based routing</a> in which each file is associated with a key, and files with similar keys tend to cluster on a similar set of nodes. Queries are likely to be routed through the network to such a cluster without needing to visit many peers.<sup id="cite_ref-0" class="reference"><a href="#cite_note-0"><span>[</span>1<span>]</span></a></sup> However, Freenet does not guarantee that data will be found.</li>
+</ul>
+<p>Distributed hash tables use a more structured key-based routing in order to attain both the decentralization of Freenet and gnutella, and the efficiency and guaranteed results of Napster. One drawback is that, like Freenet, DHTs only directly support exact-match search, rather than keyword search, although Freenet's routing algorithm can be generalized to any key type where a closeness operation can be defined.<sup id="cite_ref-1" class="reference"><a href="#cite_note-1"><span>[</span>2<span>]</span></a></sup></p>
+<p>In 2001, four systems—<a href="/wiki/Content_addressable_network" title="Content addressable network">CAN</a>, <a href="/wiki/Chord_(peer-to-peer)" title="Chord (peer-to-peer)">Chord</a>,<sup id="cite_ref-2" class="reference"><a href="#cite_note-2"><span>[</span>3<span>]</span></a></sup> <a href="/wiki/Pastry_(DHT)" title="Pastry (DHT)">Pastry</a>, and <a href="/wiki/Tapestry_(DHT)" title="Tapestry (DHT)">Tapestry</a>—ignited DHTs as a popular research topic, and this area of research remains active. Outside academia, DHT technology has been adopted as a component of <a href="/wiki/BitTorrent_(protocol)" title="BitTorrent (protocol)" class="mw-redirect">BitTorrent</a> and in the <a href="/wiki/Coral_Content_Distribution_Network" title="Coral Content Distribution Network">Coral Content Distribution Network</a>.</p>
+<h2><span class="editsection">[<a href="/w/index.php?title=Distributed_hash_table&amp;action=edit&amp;section=2" title="Edit section: Properties">edit</a>]</span> <span class="mw-headline" id="Properties">Properties</span></h2>
+<p>DHTs characteristically emphasize the following properties:</p>
+<ul>
+<li><a href="/wiki/Decentralized_computing" title="Decentralized computing">Decentralization</a>: the nodes collectively form the system without any central coordination.</li>
+<li><a href="/wiki/Fault_tolerance" title="Fault tolerance" class="mw-redirect">Fault tolerance</a>: the system should be reliable (in some sense) even with nodes continuously joining, leaving, and failing.</li>
+<li><a href="/wiki/Scale_(computing)" title="Scale (computing)" class="mw-redirect">Scalability</a>: the system should function efficiently even with thousands or millions of nodes.</li>
+</ul>
+<p>A key technique used to achieve these goals is that any one node needs to coordinate with only a few other nodes in the system – most commonly, <a href="/wiki/Big_O_notation" title="Big O notation">O</a>(log <i>n</i>) of the <img class="tex" alt="n" src="//upload.wikimedia.org/wikipedia/en/math/7/b/8/7b8b965ad4bca0e41ab51de7b31363a1.png" /> participants (see below) – so that only a limited amount of work needs to be done for each change in membership.</p>
+<p>Some DHT designs seek to be <a href="/wiki/Secure" title="Secure">secure</a> against malicious participants<sup id="cite_ref-3" class="reference"><a href="#cite_note-3"><span>[</span>4<span>]</span></a></sup> and to allow participants to remain <a href="/wiki/Anonymity" title="Anonymity">anonymous</a>, though this is less common than in many other <a href="/wiki/Peer-to-peer" title="Peer-to-peer">peer-to-peer</a> (especially <a href="/wiki/File_sharing" title="File sharing">file sharing</a>) systems; see <a href="/wiki/Anonymous_P2P" title="Anonymous P2P">anonymous P2P</a>.</p>
+<p>Finally, DHTs must deal with more traditional distributed systems issues such as <a href="/wiki/Load_balancing_(computing)" title="Load balancing (computing)">load balancing</a>, <a href="/wiki/Data_integrity" title="Data integrity">data integrity</a>, and performance (in particular, ensuring that operations such as routing and data storage or retrieval complete quickly).</p>
+<h2><span class="editsection">[<a href="/w/index.php?title=Distributed_hash_table&amp;action=edit&amp;section=3" title="Edit section: Structure">edit</a>]</span> <span class="mw-headline" id="Structure">Structure</span></h2>
+<p>The structure of a DHT can be decomposed into several main components.<sup id="cite_ref-4" class="reference"><a href="#cite_note-4"><span>[</span>5<span>]</span></a></sup><sup id="cite_ref-5" class="reference"><a href="#cite_note-5"><span>[</span>6<span>]</span></a></sup> The foundation is an abstract <b>keyspace</b>, such as the set of 160-bit <a href="/wiki/String_(computer_science)" title="String (computer science)">strings</a>. A <b>keyspace partitioning</b> scheme splits ownership of this keyspace among the participating nodes. An <b>overlay network</b> then connects the nodes, allowing them to find the owner of any given key in the keyspace.</p>
+<p>Once these components are in place, a typical use of the DHT for storage and retrieval might proceed as follows. Suppose the keyspace is the set of 160-bit strings. To store a file with given <img class="tex" alt="filename" src="//upload.wikimedia.org/wikipedia/en/math/4/3/5/435ed7e9f07f740abf511a62c00eef6e.png" /> and <img class="tex" alt="data" src="//upload.wikimedia.org/wikipedia/en/math/8/d/7/8d777f385d3dfec8815d20f7496026dc.png" /> in the DHT, the <a href="/wiki/SHA-1" title="SHA-1">SHA-1</a> hash of <img class="tex" alt="filename" src="//upload.wikimedia.org/wikipedia/en/math/4/3/5/435ed7e9f07f740abf511a62c00eef6e.png" /> is generated, producing a 160-bit key <img class="tex" alt="k" src="//upload.wikimedia.org/wikipedia/en/math/8/c/e/8ce4b16b22b58894aa86c421e8759df3.png" />, and a message <img class="tex" alt="put(k, data)" src="//upload.wikimedia.org/wikipedia/en/math/6/d/0/6d099a5d4e08cd04c6e78b0f6d78edb2.png" /> is sent to any node participating in the DHT. The message is forwarded from node to node through the overlay network until it reaches the single node responsible for key <img class="tex" alt="k" src="//upload.wikimedia.org/wikipedia/en/math/8/c/e/8ce4b16b22b58894aa86c421e8759df3.png" /> as specified by the keyspace partitioning. That node then stores the key and the data. Any other client can then retrieve the contents of the file by again hashing <img class="tex" alt="filename" src="//upload.wikimedia.org/wikipedia/en/math/4/3/5/435ed7e9f07f740abf511a62c00eef6e.png" /> to produce <img class="tex" alt="k" src="//upload.wikimedia.org/wikipedia/en/math/8/c/e/8ce4b16b22b58894aa86c421e8759df3.png" /> and asking any DHT node to find the data associated with <img class="tex" alt="k" src="//upload.wikimedia.org/wikipedia/en/math/8/c/e/8ce4b16b22b58894aa86c421e8759df3.png" /> with a message <img class="tex" alt="get(k)" src="//upload.wikimedia.org/wikipedia/en/math/e/2/c/e2c4f6394a6b2ff9385ba054f032d7f0.png" />. The message will again be routed through the overlay to the node responsible for <img class="tex" alt="k" src="//upload.wikimedia.org/wikipedia/en/math/8/c/e/8ce4b16b22b58894aa86c421e8759df3.png" />, which will reply with the stored <img class="tex" alt="data" src="//upload.wikimedia.org/wikipedia/en/math/8/d/7/8d777f385d3dfec8815d20f7496026dc.png" />.</p>
+<p>The keyspace partitioning and overlay network components are described below with the goal of capturing the principal ideas common to most DHTs; many designs differ in the details.</p>
+<h3><span class="editsection">[<a href="/w/index.php?title=Distributed_hash_table&amp;action=edit&amp;section=4" title="Edit section: Keyspace partitioning">edit</a>]</span> <span class="mw-headline" id="Keyspace_partitioning">Keyspace partitioning</span></h3>
+<p>Most DHTs use some variant of <a href="/wiki/Consistent_hashing" title="Consistent hashing">consistent hashing</a> to map keys to nodes. This technique employs a function <img class="tex" alt="\delta(k_1, k_2)" src="//upload.wikimedia.org/wikipedia/en/math/0/0/2/0024c889a39c92af42aeecb71491a17f.png" /> that defines an abstract notion of the <i>distance</i> between the keys <img class="tex" alt="k_1" src="//upload.wikimedia.org/wikipedia/en/math/d/e/8/de83b4778b8582d6b501555da17bd8e7.png" /> and <img class="tex" alt="k_2" src="//upload.wikimedia.org/wikipedia/en/math/5/6/5/565916fdc4f0364b33ce9c7f270984a2.png" />, which is unrelated to geographical <a href="/wiki/Distance" title="Distance">distance</a> or network <a href="/wiki/Latency_(engineering)" title="Latency (engineering)">latency</a>. Each node is assigned a single key called its <i>identifier</i> (ID). A node with ID <img class="tex" alt="i_x" src="//upload.wikimedia.org/wikipedia/en/math/5/2/6/5265c5790d9f84f6226a0c6af1fbbbef.png" /> owns all the keys <img class="tex" alt="k_m" src="//upload.wikimedia.org/wikipedia/en/math/d/2/6/d26dc14d6e728f26c5badc802efa2c05.png" /> for which <img class="tex" alt="i_x" src="//upload.wikimedia.org/wikipedia/en/math/5/2/6/5265c5790d9f84f6226a0c6af1fbbbef.png" /> is the closest ID, measured according to <img class="tex" alt="\delta(k_m, i_x)" src="//upload.wikimedia.org/wikipedia/en/math/8/5/0/850a26147caaae177d0a121ad160151b.png" />.</p>
+<blockquote>
+<p><b>Example.</b> The <a href="/wiki/Chord_(peer-to-peer)" title="Chord (peer-to-peer)">Chord DHT</a> treats keys as points on a circle, and <img class="tex" alt="\delta(k_1, k_2)" src="//upload.wikimedia.org/wikipedia/en/math/0/0/2/0024c889a39c92af42aeecb71491a17f.png" /> is the distance traveling clockwise around the circle from <img class="tex" alt="k_1" src="//upload.wikimedia.org/wikipedia/en/math/d/e/8/de83b4778b8582d6b501555da17bd8e7.png" /> to <img class="tex" alt="k_2" src="//upload.wikimedia.org/wikipedia/en/math/5/6/5/565916fdc4f0364b33ce9c7f270984a2.png" />. Thus, the circular keyspace is split into contiguous segments whose endpoints are the node identifiers. If <img class="tex" alt="i_1" src="//upload.wikimedia.org/wikipedia/en/math/8/0/e/80e7141eebd5f8442aafd551e54bc6c5.png" /> and <img class="tex" alt="i_2" src="//upload.wikimedia.org/wikipedia/en/math/2/e/3/2e333706da5361f34692cf7ac2249eeb.png" /> are two adjacent IDs, then the node with ID <img class="tex" alt="i_2" src="//upload.wikimedia.org/wikipedia/en/math/2/e/3/2e333706da5361f34692cf7ac2249eeb.png" /> owns all the keys that fall between <img class="tex" alt="i_1" src="//upload.wikimedia.org/wikipedia/en/math/8/0/e/80e7141eebd5f8442aafd551e54bc6c5.png" /> and <img class="tex" alt="i_2" src="//upload.wikimedia.org/wikipedia/en/math/2/e/3/2e333706da5361f34692cf7ac2249eeb.png" />.</p>
+</blockquote>
+<p>Consistent hashing has the essential property that removal or addition of one node changes only the set of keys owned by the nodes with adjacent IDs, and leaves all other nodes unaffected. Contrast this with a traditional <a href="/wiki/Hash_table" title="Hash table">hash table</a> in which addition or removal of one bucket causes nearly the entire keyspace to be remapped. Since any change in ownership typically corresponds to <a href="/wiki/Bandwidth_(computing)" title="Bandwidth (computing)">bandwidth</a>-intensive movement of objects stored in the DHT from one node to another, minimizing such reorganization is required to efficiently support high rates of churn (node arrival and failure).</p>
+<p><a href="/wiki/Locality-preserving_hashing" title="Locality-preserving hashing" class="mw-redirect">Locality-preserving hashing</a> ensures that similar keys are assigned to similar objects. This can enable a more efficient execution of range queries. Self-Chord <sup id="cite_ref-6" class="reference"><a href="#cite_note-6"><span>[</span>7<span>]</span></a></sup> decouples object keys from peer IDs and sorts keys along the ring with a statistical approach based on the <a href="/wiki/Swarm_intelligence" title="Swarm intelligence">swarm intelligence</a> paradigm. Sorting ensures that similar keys are stored by neighbour nodes and that discovery procedures, including range queries, can be performed in logarithmic time.</p>
+<h3><span class="editsection">[<a href="/w/index.php?title=Distributed_hash_table&amp;action=edit&amp;section=5" title="Edit section: Overlay network">edit</a>]</span> <span class="mw-headline" id="Overlay_network">Overlay network</span></h3>
+<p>Each node maintains a set of <a href="/wiki/Data_link" title="Data link">links</a> to other nodes (its <i>neighbors</i> or <a href="/wiki/Routing_table" title="Routing table">routing table</a>). Together, these links form the <a href="/wiki/Overlay_network" title="Overlay network">overlay network</a>. A node picks its neighbors according to a certain structure, called the <a href="/wiki/Network_topology" title="Network topology">network's topology</a>.</p>
+<p>All DHT topologies share some variant of the most essential property: for any key <img class="tex" alt="k" src="//upload.wikimedia.org/wikipedia/en/math/8/c/e/8ce4b16b22b58894aa86c421e8759df3.png" />, each node either has a node ID that owns <img class="tex" alt="k" src="//upload.wikimedia.org/wikipedia/en/math/8/c/e/8ce4b16b22b58894aa86c421e8759df3.png" /> or has a link to a node whose node ID is <i>closer</i> to <img class="tex" alt="k" src="//upload.wikimedia.org/wikipedia/en/math/8/c/e/8ce4b16b22b58894aa86c421e8759df3.png" />, in terms of the keyspace distance defined above. It is then easy to route a message to the owner of any key <img class="tex" alt="k" src="//upload.wikimedia.org/wikipedia/en/math/8/c/e/8ce4b16b22b58894aa86c421e8759df3.png" /> using the following <a href="/wiki/Greedy_algorithm" title="Greedy algorithm">greedy algorithm</a> (that is not necessarily globally optimal): at each step, forward the message to the neighbor whose ID is closest to <img class="tex" alt="k" src="//upload.wikimedia.org/wikipedia/en/math/8/c/e/8ce4b16b22b58894aa86c421e8759df3.png" />. When there is no such neighbor, then we must have arrived at the closest node, which is the owner of <img class="tex" alt="k" src="//upload.wikimedia.org/wikipedia/en/math/8/c/e/8ce4b16b22b58894aa86c421e8759df3.png" /> as defined above. This style of routing is sometimes called <a href="/wiki/Key-based_routing" title="Key-based routing">key-based routing</a>.</p>
+<p>Beyond basic routing correctness, two important constraints on the topology are to guarantee that the maximum number of <a href="/wiki/Hop_(networking)" title="Hop (networking)">hops</a> in any route (route length) is low, so that requests complete quickly; and that the maximum number of neighbors of any node (maximum node <a href="/wiki/Degree_(graph_theory)" title="Degree (graph theory)">degree</a>) is low, so that maintenance overhead is not excessive. Of course, having shorter routes requires higher <a href="/wiki/Maximum_degree" title="Maximum degree" class="mw-redirect">maximum degree</a>. Some common choices for maximum degree and route length are as follows, where <img class="tex" alt="n" src="//upload.wikimedia.org/wikipedia/en/math/7/b/8/7b8b965ad4bca0e41ab51de7b31363a1.png" /> is the number of nodes in the DHT, using <a href="/wiki/Big_O_notation" title="Big O notation">Big O notation</a>:</p>
+<table class="wikitable">
+<tr>
+<th>Degree</th>
+<th>Route length</th>
+<th>Notice</th>
+</tr>
+<tr>
+<td><img class="tex" alt="O(1)" src="//upload.wikimedia.org/wikipedia/en/math/5/e/0/5e079a28737d5dd019a3b8f6133ee55e.png" /></td>
+<td><img class="tex" alt="O(n)" src="//upload.wikimedia.org/wikipedia/en/math/7/b/a/7ba55e7c64a9405a0b39a1107e90ca94.png" /></td>
+<td></td>
+</tr>
+<tr>
+<td><img class="tex" alt="O(\log n)" src="//upload.wikimedia.org/wikipedia/en/math/0/c/a/0ca47d9a481af371d1210a620c1945db.png" /></td>
+<td><img class="tex" alt="O(\log n/\log (\log n))" src="//upload.wikimedia.org/wikipedia/en/math/3/d/7/3d7bcca375c7132ce6eacbf4ba33c3d8.png" /></td>
+<td></td>
+</tr>
+<tr>
+<td><img class="tex" alt="O(\log n)" src="//upload.wikimedia.org/wikipedia/en/math/0/c/a/0ca47d9a481af371d1210a620c1945db.png" /></td>
+<td><img class="tex" alt="O(\log n)" src="//upload.wikimedia.org/wikipedia/en/math/0/c/a/0ca47d9a481af371d1210a620c1945db.png" /></td>
+<td>most common, but not optimal (degree/route length)</td>
+</tr>
+<tr>
+<td><img class="tex" alt="O(1)" src="//upload.wikimedia.org/wikipedia/en/math/5/e/0/5e079a28737d5dd019a3b8f6133ee55e.png" /></td>
+<td><img class="tex" alt="O(\log n)" src="//upload.wikimedia.org/wikipedia/en/math/0/c/a/0ca47d9a481af371d1210a620c1945db.png" /></td>
+<td></td>
+</tr>
+<tr>
+<td><img class="tex" alt="O(\sqrt{n})" src="//upload.wikimedia.org/wikipedia/en/math/a/c/2/ac27e5cdfa6e5e77d77ded8ddea73bc8.png" /></td>
+<td><img class="tex" alt="O(1)" src="//upload.wikimedia.org/wikipedia/en/math/5/e/0/5e079a28737d5dd019a3b8f6133ee55e.png" /></td>
+<td></td>
+</tr>
+</table>
+<p>The most common choice, <img class="tex" alt="O(\log n)" src="//upload.wikimedia.org/wikipedia/en/math/0/c/a/0ca47d9a481af371d1210a620c1945db.png" /> degree/route length, is not optimal in terms of degree/route length tradeoff, as such topologies typically allow more flexibility in choice of neighbors. Many DHTs use that flexibility to pick neighbors that are close in terms of latency in the physical underlying network.</p>
+<p>Maximum route length is closely related to <a href="/wiki/Diameter_(graph_theory)" title="Diameter (graph theory)" class="mw-redirect">diameter</a>: the maximum number of hops in any shortest path between nodes. Clearly, the network's worst case route length is at least as large as its diameter, so DHTs are limited by the degree/diameter tradeoff<sup id="cite_ref-7" class="reference"><a href="#cite_note-7"><span>[</span>8<span>]</span></a></sup> that is fundamental in <a href="/wiki/Graph_theory" title="Graph theory">graph theory</a>. Route length can be greater than diameter, since the greedy routing algorithm may not find shortest paths.<sup id="cite_ref-8" class="reference"><a href="#cite_note-8"><span>[</span>9<span>]</span></a></sup></p>
+<h3><span class="editsection">[<a href="/w/index.php?title=Distributed_hash_table&amp;action=edit&amp;section=6" title="Edit section: Algorithms for overlay networks">edit</a>]</span> <span class="mw-headline" id="Algorithms_for_overlay_networks">Algorithms for overlay networks</span></h3>
+<p>Aside from routing, there exist many algorithms that exploit the structure of the overlay network for sending a message to all nodes, or a subset of nodes, in a DHT.<sup id="cite_ref-9" class="reference"><a href="#cite_note-9"><span>[</span>10<span>]</span></a></sup> These algorithms are used by applications to do <a href="/wiki/Overlay_multicast" title="Overlay multicast">overlay multicast</a>, range queries, or to collect statistics. Two systems that are based on this approach are Structella,<sup id="cite_ref-10" class="reference"><a href="#cite_note-10"><span>[</span>11<span>]</span></a></sup> which implements flooding and random walks on a Pastry overlay, and DQ-DHT,<sup id="cite_ref-11" class="reference"><a href="#cite_note-11"><span>[</span>12<span>]</span></a></sup> which implements a dynamic querying search algorithm over a Chord network.</p>
+<h2><span class="editsection">[<a href="/w/index.php?title=Distributed_hash_table&amp;action=edit&amp;section=7" title="Edit section: DHT implementations">edit</a>]</span> <span class="mw-headline" id="DHT_implementations">DHT implementations</span></h2>
+<p>Most notable differences encountered in practical instances of DHT implementations include at least the following:</p>
+<ul>
+<li>The address space is a parameter of DHT. Several real world DHTs use 128-bit or 160-bit key space</li>
+<li>Some real-world DHTs use hash functions other than SHA-1.</li>
+<li>In the real world the key <img class="tex" alt="k" src="//upload.wikimedia.org/wikipedia/en/math/8/c/e/8ce4b16b22b58894aa86c421e8759df3.png" /> could be a hash of a file's <i>content</i> rather than a hash of a file's <i>name</i> to provide <a href="/wiki/Content-addressable_storage" title="Content-addressable storage">content-addressable storage</a>, so that renaming of the file does not prevent users from finding it.</li>
+<li>Some DHTs may also publish objects of different types. For example, key <img class="tex" alt="k" src="//upload.wikimedia.org/wikipedia/en/math/8/c/e/8ce4b16b22b58894aa86c421e8759df3.png" /> could be the node <img class="tex" alt="ID" src="//upload.wikimedia.org/wikipedia/en/math/b/7/1/b718adec73e04ce3ec720dd11a06a308.png" /> and associated data could describe how to contact this node. This allows publication-of-presence information and often used in IM applications, etc. In the simplest case, <img class="tex" alt="ID" src="//upload.wikimedia.org/wikipedia/en/math/b/7/1/b718adec73e04ce3ec720dd11a06a308.png" /> is just a random number that is directly used as key <img class="tex" alt="k" src="//upload.wikimedia.org/wikipedia/en/math/8/c/e/8ce4b16b22b58894aa86c421e8759df3.png" /> (so in a 160-bit DHT <img class="tex" alt="ID" src="//upload.wikimedia.org/wikipedia/en/math/b/7/1/b718adec73e04ce3ec720dd11a06a308.png" /> will be a 160-bit number, usually randomly chosen). In some DHTs, publishing of nodes IDs is also used to optimize DHT operations.</li>
+<li>Redundancy can be added to improve reliability. The <img class="tex" alt="(k, data)" src="//upload.wikimedia.org/wikipedia/en/math/6/4/9/649d0a62bbcf318eeb6d553060a93f90.png" /> key pair can be stored in more than one node corresponding to the key. Usually, rather than selecting just one node, real world DHT algorithms select <img class="tex" alt="i" src="//upload.wikimedia.org/wikipedia/en/math/8/6/5/865c0c0b4ab0e063e5caa3387c1a8741.png" /> suitable nodes, with <img class="tex" alt="i" src="//upload.wikimedia.org/wikipedia/en/math/8/6/5/865c0c0b4ab0e063e5caa3387c1a8741.png" /> being an implementation-specific parameter of the DHT. In some DHT designs, nodes agree to handle a certain keyspace range, the size of which may be chosen dynamically, rather than hard-coded.</li>
+<li>Some advanced DHTs like <a href="/wiki/Kademlia" title="Kademlia">Kademlia</a> perform iterative lookups through the DHT first in order to select a set of suitable nodes and send <img class="tex" alt="put(k, data)" src="//upload.wikimedia.org/wikipedia/en/math/6/d/0/6d099a5d4e08cd04c6e78b0f6d78edb2.png" /> messages only to those nodes, thus drastically reducing useless traffic, since published messages are only sent to nodes that seem suitable for storing the key <img class="tex" alt="k" src="//upload.wikimedia.org/wikipedia/en/math/8/c/e/8ce4b16b22b58894aa86c421e8759df3.png" />; and iterative lookups cover just a small set of nodes rather than the entire DHT, reducing useless forwarding. In such DHTs, forwarding of <img class="tex" alt="put(k, data)" src="//upload.wikimedia.org/wikipedia/en/math/6/d/0/6d099a5d4e08cd04c6e78b0f6d78edb2.png" /> messages may only occur as part of a self-healing algorithm: if a target node receives a <img class="tex" alt="put(k, data)" src="//upload.wikimedia.org/wikipedia/en/math/6/d/0/6d099a5d4e08cd04c6e78b0f6d78edb2.png" /> message, but believes that <img class="tex" alt="k" src="//upload.wikimedia.org/wikipedia/en/math/8/c/e/8ce4b16b22b58894aa86c421e8759df3.png" /> is out of its handled range and a closer node (in terms of DHT keyspace) is known, the message is forwarded to that node. Otherwise, data are indexed locally. This leads to a somewhat self-balancing DHT behavior. Of course, such an algorithm requires nodes to publish their presence data in the DHT so the iterative lookups can be performed.</li>
+</ul>
+<h2><span class="editsection">[<a href="/w/index.php?title=Distributed_hash_table&amp;action=edit&amp;section=8" title="Edit section: Examples">edit</a>]</span> <span class="mw-headline" id="Examples">Examples</span></h2>
+<h3><span class="editsection">[<a href="/w/index.php?title=Distributed_hash_table&amp;action=edit&amp;section=9" title="Edit section: DHT protocols and implementations">edit</a>]</span> <span class="mw-headline" id="DHT_protocols_and_implementations">DHT protocols and implementations</span></h3>
+<ul>
+<li><a href="/wiki/Apache_Cassandra" title="Apache Cassandra">Apache Cassandra</a></li>
+<li><a href="/wiki/BitTorrent_(protocol)" title="BitTorrent (protocol)" class="mw-redirect">BitTorrent</a> DHT (based on <a href="/wiki/Kademlia" title="Kademlia">Kademlia</a> as provided by Khashmir<sup id="cite_ref-12" class="reference"><a href="#cite_note-12"><span>[</span>13<span>]</span></a></sup>)</li>
+<li><a href="/wiki/Content_Addressable_Network" title="Content Addressable Network" class="mw-redirect">CAN</a> (Content Addressable Network)</li>
+<li><a href="/wiki/Chord_(DHT)" title="Chord (DHT)" class="mw-redirect">Chord</a></li>
+<li><a href="/wiki/Kademlia" title="Kademlia">Kademlia</a></li>
+<li><a href="/wiki/Pastry_(DHT)" title="Pastry (DHT)">Pastry</a></li>
+<li><a href="/wiki/P-Grid" title="P-Grid">P-Grid</a></li>
+<li><a href="/wiki/Tapestry_(DHT)" title="Tapestry (DHT)">Tapestry</a></li>
+<li><a href="/wiki/TomP2P" title="TomP2P">TomP2P</a></li>
+</ul>
+<h3><span class="editsection">[<a href="/w/index.php?title=Distributed_hash_table&amp;action=edit&amp;section=10" title="Edit section: Applications employing DHTs">edit</a>]</span> <span class="mw-headline" id="Applications_employing_DHTs">Applications employing DHTs</span></h3>
+<ul>
+<li><a href="/wiki/BTDigg" title="BTDigg">BTDigg</a>: <a href="/wiki/BitTorrent_(protocol)" title="BitTorrent (protocol)" class="mw-redirect">BitTorrent</a> DHT search engine</li>
+<li><a href="/wiki/CloudSNAP" title="CloudSNAP">CloudSNAP</a>: a decentralized web application deployment platform</li>
+<li><a href="/wiki/Codeen" title="Codeen" class="mw-redirect">Codeen</a>: Web caching</li>
+<li><a href="/wiki/Coral_Content_Distribution_Network" title="Coral Content Distribution Network">Coral Content Distribution Network</a></li>
+<li><a href="/w/index.php?title=Dijjer&amp;action=edit&amp;redlink=1" class="new" title="Dijjer (page does not exist)">Dijjer</a>: Freenet-like distribution network</li>
+<li><a href="/wiki/FAROO" title="FAROO">FAROO</a>: Peer-to-peer Web search engine</li>
+<li><a href="/wiki/Freenet" title="Freenet">Freenet</a>: A censorship-resistant anonymous network</li>
+<li><a href="/wiki/GNUnet" title="GNUnet">GNUnet</a>: Freenet-like distribution network including a DHT implementation</li>
+<li><a href="/wiki/JXTA" title="JXTA">JXTA</a>: Opensource P2P platform</li>
+<li><a href="/w/index.php?title=Maidsafe&amp;action=edit&amp;redlink=1" class="new" title="Maidsafe (page does not exist)">maidsafe</a>: C++ implementation of Kademlia, with NAT traversal and crypto libraries. On its home page listed as "Available as a technology licence and a software solution written in cross platform C++."<sup id="cite_ref-13" class="reference"><a href="#cite_note-13"><span>[</span>14<span>]</span></a></sup></li>
+<li><a href="/wiki/Oracle_Coherence" title="Oracle Coherence">Oracle Coherence</a>: An <a href="/w/index.php?title=In_Memory_Data_Grid&amp;action=edit&amp;redlink=1" class="new" title="In Memory Data Grid (page does not exist)">In Memory Data Grid</a> built on a Java DHT implementation</li>
+<li><a href="/wiki/Retroshare" title="Retroshare" class="mw-redirect">Retroshare</a>: a <a href="/wiki/Friend-to-friend" title="Friend-to-friend">Friend-to-friend</a> network<sup id="cite_ref-14" class="reference"><a href="#cite_note-14"><span>[</span>15<span>]</span></a></sup></li>
+<li><a href="/w/index.php?title=WebSphere_eXtreme_Scale&amp;action=edit&amp;redlink=1" class="new" title="WebSphere eXtreme Scale (page does not exist)">WebSphere eXtreme Scale</a>: proprietary DHT implementation by IBM,<sup id="cite_ref-15" class="reference"><a href="#cite_note-15"><span>[</span>16<span>]</span></a></sup> used for object caching</li>
+<li><a href="/wiki/YaCy" title="YaCy">YaCy</a>: distributed <a href="/wiki/Web_search_engine" title="Web search engine">search engine</a></li>
+<li><a href="/w/index.php?title=I2p-Bote&amp;action=edit&amp;redlink=1" class="new" title="I2p-Bote (page does not exist)">i2p-Bote</a>: Decentralised email service which stores encrypted messages in a DHT.</li>
+</ul>
+<h2><span class="editsection">[<a href="/w/index.php?title=Distributed_hash_table&amp;action=edit&amp;section=11" title="Edit section: See also">edit</a>]</span> <span class="mw-headline" id="See_also">See also</span></h2>
+<div class="noprint tright portal" style="border:solid #aaa 1px; margin:0.5em 0 0.5em 0.5em;">
+<table style="background:#f9f9f9; font-size:85%; line-height:110%; max-width:175px;">
+<tr>
+<td style="text-align: center;"><a href="/wiki/File:Internet_map_1024.jpg" class="image"><img alt="Portal icon" src="//upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Internet_map_1024.jpg/28px-Internet_map_1024.jpg" width="28" height="28" /></a></td>
+<td style="padding: 0 0.2em; vertical-align: middle; font-style: italic; font-weight: bold"><a href="/wiki/Portal:Computer_Science" title="Portal:Computer Science" class="mw-redirect">Computer Science  portal</a></td>
+</tr>
+</table>
+</div>
+<ul>
+<li><a href="/wiki/Membase" title="Membase">membase</a>: a persistent, replicated, clustered distributed object storage system compatible with memcached protocol</li>
+<li><a href="/wiki/Memcached" title="Memcached">memcached</a>: a high-performance, distributed memory object caching system</li>
+<li><a href="/wiki/NCache_(product)" title="NCache (product)">NCache</a>: a high-performance, distributed in-memory object caching system</li>
+<li><a href="/wiki/Prefix_hash_tree" title="Prefix hash tree">prefix hash tree</a>: sophisticated querying over DHTs</li>
+<li>most <a href="/wiki/Distributed_data_store" title="Distributed data store">distributed data stores</a> employ some form of DHT for lookup.</li>
+</ul>
+<h2><span class="editsection">[<a href="/w/index.php?title=Distributed_hash_table&amp;action=edit&amp;section=12" title="Edit section: References">edit</a>]</span> <span class="mw-headline" id="References">References</span></h2>
+<div class="reflist references-column-width" style="-moz-column-width: 30em; -webkit-column-width: 30em; column-width: 30em; list-style-type: decimal;">
+<ol class="references">
+<li id="cite_note-0"><span class="mw-cite-backlink"><b><a href="#cite_ref-0">^</a></b></span> <span class="reference-text"><span class="citation"><a rel="nofollow" class="external text" href="https://freenetproject.org/papers/lic.pdf"><i>Searching in a Small World Chapters 1 &amp; 2</i></a><span class="printonly">, <a rel="nofollow" class="external free" href="https://freenetproject.org/papers/lic.pdf">https://freenetproject.org/papers/lic.pdf</a></span><span class="reference-accessdate">, retrieved 2012-01-10</span></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=Searching+in+a+Small+World+Chapters+1+%26+2&amp;rft_id=https%3A%2F%2Ffreenetproject.org%2Fpapers%2Flic.pdf&amp;rfr_id=info:sid/en.wikipedia.org:Distributed_hash_table"><span style="display: none;">&#160;</span></span></span></li>
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="#cite_ref-1">^</a></b></span> <span class="reference-text"><span class="citation"><a rel="nofollow" class="external text" href="https://freenetproject.org/papers/ddisrs.pdf">"Section 5.2.2"</a>, <i>A Distributed Decentralized Information Storage and Retrieval System</i><span class="printonly">, <a rel="nofollow" class="external free" href="https://freenetproject.org/papers/ddisrs.pdf">https://freenetproject.org/papers/ddisrs.pdf</a></span><span class="reference-accessdate">, retrieved 2012-01-10</span></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=Section+5.2.2&amp;rft.atitle=A+Distributed+Decentralized+Information+Storage+and+Retrieval+System&amp;rft_id=https%3A%2F%2Ffreenetproject.org%2Fpapers%2Fddisrs.pdf&amp;rfr_id=info:sid/en.wikipedia.org:Distributed_hash_table"><span style="display: none;">&#160;</span></span></span></li>
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="#cite_ref-2">^</a></b></span> <span class="reference-text"><a href="/wiki/Hari_Balakrishnan" title="Hari Balakrishnan">Hari Balakrishnan</a>, M. Frans Kaashoek, David Karger, <a href="/wiki/Robert_Tappan_Morris" title="Robert Tappan Morris">Robert Morris</a>, and Ion Stoica. <a rel="nofollow" class="external text" href="http://www.cs.berkeley.edu/~istoica/papers/2003/cacm03.pdf">Looking up data in P2P systems</a>. In <a href="/wiki/Communications_of_the_ACM" title="Communications of the ACM">Communications of the ACM</a>, February 2003.</span></li>
+<li id="cite_note-3"><span class="mw-cite-backlink"><b><a href="#cite_ref-3">^</a></b></span> <span class="reference-text">Guido Urdaneta, Guillaume Pierre and Maarten van Steen. <a rel="nofollow" class="external text" href="http://www.globule.org/publi/SDST_acmcs2009.html">A Survey of DHT Security Techniques</a>. ACM Computing Surveys 43(2), January 2011.</span></li>
+<li id="cite_note-4"><span class="mw-cite-backlink"><b><a href="#cite_ref-4">^</a></b></span> <span class="reference-text">Moni Naor and Udi Wieder. <a rel="nofollow" class="external text" href="http://www.wisdom.weizmann.ac.il/~naor/PAPERS/dh.pdf">Novel Architectures for P2P Applications: the Continuous-Discrete Approach</a>. Proc. SPAA, 2003.</span></li>
+<li id="cite_note-5"><span class="mw-cite-backlink"><b><a href="#cite_ref-5">^</a></b></span> <span class="reference-text">Gurmeet Singh Manku. <a rel="nofollow" class="external text" href="http://www-db.stanford.edu/~manku/phd/index.html">Dipsea: A Modular Distributed Hash Table</a>. Ph. D. Thesis (Stanford University), August 2004.</span></li>
+<li id="cite_note-6"><span class="mw-cite-backlink"><b><a href="#cite_ref-6">^</a></b></span> <span class="reference-text">Agostino Forestiero, Emilio Leonardi, Carlo Mastroianni and Michela Meo. <a rel="nofollow" class="external text" href="http://dx.doi.org/10.1109/TNET.2010.2046745">Self-Chord: a Bio-Inspired P2P Framework for Self-Organizing Distributed Systems</a>. IEEE/ACM Transactions on Networking, 2010.</span></li>
+<li id="cite_note-7"><span class="mw-cite-backlink"><b><a href="#cite_ref-7">^</a></b></span> <span class="reference-text"><span class="citation"><a rel="nofollow" class="external text" href="http://maite71.upc.es/grup_de_grafs/table_g.html"><i>The (Degree,Diameter) Problem for Graphs</i></a>, Maite71.upc.es<span class="printonly">, <a rel="nofollow" class="external free" href="http://maite71.upc.es/grup_de_grafs/table_g.html">http://maite71.upc.es/grup_de_grafs/table_g.html</a></span><span class="reference-accessdate">, retrieved 2012-01-10</span></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=The+%28Degree%2CDiameter%29+Problem+for+Graphs&amp;rft.pub=Maite71.upc.es&amp;rft_id=http%3A%2F%2Fmaite71.upc.es%2Fgrup_de_grafs%2Ftable_g.html&amp;rfr_id=info:sid/en.wikipedia.org:Distributed_hash_table"><span style="display: none;">&#160;</span></span></span></li>
+<li id="cite_note-8"><span class="mw-cite-backlink"><b><a href="#cite_ref-8">^</a></b></span> <span class="reference-text">Gurmeet Singh Manku, Moni Naor, and Udi Wieder. <a rel="nofollow" class="external text" href="http://citeseer.ist.psu.edu/naor04know.html">Know thy Neighbor's Neighbor: the Power of Lookahead in Randomized P2P Networks</a>. Proc. STOC, 2004.</span></li>
+<li id="cite_note-9"><span class="mw-cite-backlink"><b><a href="#cite_ref-9">^</a></b></span> <span class="reference-text">Ali Ghodsi. <a rel="nofollow" class="external text" href="http://www.sics.se/~ali/thesis/">Distributed k-ary System: Algorithms for Distributed Hash Tables</a>. KTH-Royal Institute of Technology, 2006.</span></li>
+<li id="cite_note-10"><span class="mw-cite-backlink"><b><a href="#cite_ref-10">^</a></b></span> <span class="reference-text">Miguel Castro, Manuel Costa, and Antony Rowstron. <a rel="nofollow" class="external text" href="http://dx.doi.org/10.1145/972374.972397">Should we build Gnutella on a structured overlay?</a>. Computer Communication Review, 2004.</span></li>
+<li id="cite_note-11"><span class="mw-cite-backlink"><b><a href="#cite_ref-11">^</a></b></span> <span class="reference-text">Domenico Talia and Paolo Trunfio. <a rel="nofollow" class="external text" href="http://dx.doi.org/10.1016/j.jpdc.2010.08.012">Enabling Dynamic Querying over Distributed Hash Tables</a>. Journal of Parallel and Distributed Computing, 2010.</span></li>
+<li id="cite_note-12"><span class="mw-cite-backlink"><b><a href="#cite_ref-12">^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://www.tribler.org/trac/wiki/Khashmir">Tribler wiki</a> retrieved January 2010.</span></li>
+<li id="cite_note-13"><span class="mw-cite-backlink"><b><a href="#cite_ref-13">^</a></b></span> <span class="reference-text"><span class="citation"><a rel="nofollow" class="external text" href="http://code.google.com/p/maidsafe-dht/"><i>maidsafe-dht</i></a>, Code.google.com<span class="printonly">, <a rel="nofollow" class="external free" href="http://code.google.com/p/maidsafe-dht/">http://code.google.com/p/maidsafe-dht/</a></span><span class="reference-accessdate">, retrieved 2012-01-10</span></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=maidsafe-dht&amp;rft.pub=Code.google.com&amp;rft_id=http%3A%2F%2Fcode.google.com%2Fp%2Fmaidsafe-dht%2F&amp;rfr_id=info:sid/en.wikipedia.org:Distributed_hash_table"><span style="display: none;">&#160;</span></span></span></li>
+<li id="cite_note-14"><span class="mw-cite-backlink"><b><a href="#cite_ref-14">^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://retroshare.sourceforge.net/wiki/index.php/Frequently_Asked_Questions#4-1_How_does_RetroShare_know_my_friend.27s_IP_address_and_port.3F_Why_don.27t_I_need_a_static_IP_address.3F_What_is_DHT_for.3F">Retroshare FAQ</a> retrieved December 2011</span></li>
+<li id="cite_note-15"><span class="mw-cite-backlink"><b><a href="#cite_ref-15">^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://www.devwebsphere.com/devwebsphere/2010/01/implementing-global-indexes-on-websphere-extreme-scale.html">Billy Newport, IBM Distinguished Engineer</a> retrieved October 2010.</span></li>
+</ol>
+</div>
+<h2><span class="editsection">[<a href="/w/index.php?title=Distributed_hash_table&amp;action=edit&amp;section=13" title="Edit section: External links">edit</a>]</span> <span class="mw-headline" id="External_links">External links</span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="http://linuxjournal.com/article/6797">Distributed Hash Tables, Part 1</a> by Brandon Wiley.</li>
+<li><a rel="nofollow" class="external text" href="http://deim.urv.cat/~cpairot/dhts.html">Distributed Hash Tables links</a> Carles Pairot's Page on DHT and P2P research</li>
+<li><a rel="nofollow" class="external text" href="http://web.archive.org/web/*/http://kademlia.scs.cs.nyu.edu/">kademlia.scs.cs.nyu.edu</a> Archive.org snapshots of kademlia.scs.cs.nyu.edu</li>
+<li><a rel="nofollow" class="external text" href="http://code.google.com/p/hazelcast/">Hazelcast</a> open source DHT implementation</li>
+<li><a rel="nofollow" class="external text" href="http://code.google.com/p/scale4j">scale4j</a> highly scalable domain oriented data-distributed platform for java</li>
+<li><a rel="nofollow" class="external text" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.111.4197&amp;rep=rep1&amp;type=pdf">IEEE Survey on overlay network schemes</a> covering unstructured and structured decentralized overlay networks including DHTs (Chord, Pastry, Tapestry and others) by Eng-Keong. Lua, Jon Crowcroft, Marcelo Pias, Ravi Sharma and Steve Lim.</li>
+</ul>
+
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 3537/1000000
+Post-expand include size: 17001/2048000 bytes
+Template argument size: 3412/2048000 bytes
+Highest expansion depth: 14/40
+Expensive parser function count: 1/500
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:192141-0!0!0!!en!4!* and timestamp 20120713001647 -->
+</div>				<!-- /bodycontent -->
+								<!-- printfooter -->
+				<div class="printfooter">
+				Retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=Distributed_hash_table&amp;oldid=501972791">http://en.wikipedia.org/w/index.php?title=Distributed_hash_table&amp;oldid=501972791</a>"				</div>
+				<!-- /printfooter -->
+												<!-- catlinks -->
+				<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/wiki/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/wiki/Category:Distributed_data_storage" title="Category:Distributed data storage">Distributed data storage</a></li><li><a href="/wiki/Category:File_sharing" title="Category:File sharing">File sharing</a></li></ul></div></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+				<!-- debughtml -->
+								<!-- /debughtml -->
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Personal tools</h5>
+	<ul>
+		<li id="pt-createaccount"><a href="/w/index.php?title=Special:UserLogin&amp;returnto=Distributed+hash+table&amp;type=signup">Create account</a></li>
+		<li id="pt-login"><a href="/w/index.php?title=Special:UserLogin&amp;returnto=Distributed+hash+table" title="You are encouraged to log in; however, it is not mandatory. [o]" accesskey="o">Log in</a></li>
+	</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Namespaces</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/wiki/Distributed_hash_table"  title="View the content page [c]" accesskey="c">Article</a></span></li>
+					<li  id="ca-talk"><span><a href="/wiki/Talk:Distributed_hash_table"  title="Discussion about the content page [t]" accesskey="t">Talk</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+	<h4>
+		</h4>
+	<h5><span>Variants</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Views</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/wiki/Distributed_hash_table" >Read</a></span></li>
+					<li id="ca-edit"><span><a href="/w/index.php?title=Distributed_hash_table&amp;action=edit"  title="You can edit this page. &#10;Please use the preview button before saving. [e]" accesskey="e">Edit</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/w/index.php?title=Distributed_hash_table&amp;action=history"  title="Past versions of this page [h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Actions</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Search</label></h5>
+	<form action="/w/index.php" id="searchform">
+				<div id="simpleSearch">
+						<input type="text" name="search" value="" title="Search Wikipedia [f]" accesskey="f" id="searchInput" />						<button type="submit" name="button" title="Search Wikipedia for this text" id="searchButton" width="12" height="13"><img src="//bits.wikimedia.org/static-1.20wmf6/skins/vector/images/search-ltr.png?303-4" alt="Search" /></button>								<input type='hidden' name="title" value="Special:Search"/>
+		</div>
+	</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png);" href="/wiki/Main_Page"  title="Visit the main page"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Navigation</h5>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/wiki/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+			<li id="n-contents"><a href="/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li>
+			<li id="n-featuredcontent"><a href="/wiki/Portal:Featured_content" title="Featured content – the best of Wikipedia">Featured content</a></li>
+			<li id="n-currentevents"><a href="/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li>
+			<li id="n-randompage"><a href="/wiki/Special:Random" title="Load a random article [x]" accesskey="x">Random article</a></li>
+			<li id="n-sitesupport"><a href="//donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=20120521SB001&amp;uselang=en" title="Support us">Donate to Wikipedia</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- interaction -->
+<div class="portal" id='p-interaction'>
+	<h5>Interaction</h5>
+	<div class="body">
+		<ul>
+			<li id="n-help"><a href="/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li>
+			<li id="n-aboutsite"><a href="/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li>
+			<li id="n-portal"><a href="/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+			<li id="n-recentchanges"><a href="/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-contact"><a href="/wiki/Wikipedia:Contact_us" title="How to contact Wikipedia">Contact Wikipedia</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /interaction -->
+
+<!-- TOOLBOX -->
+<div class="portal" id='p-tb'>
+	<h5>Toolbox</h5>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/wiki/Special:WhatLinksHere/Distributed_hash_table" title="List of all English Wikipedia pages containing links to this page [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/wiki/Special:RecentChangesLinked/Distributed_hash_table" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-upload"><a href="/wiki/Wikipedia:Upload" title="Upload files [u]" accesskey="u">Upload file</a></li>
+			<li id="t-specialpages"><a href="/wiki/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-permalink"><a href="/w/index.php?title=Distributed_hash_table&amp;oldid=501972791" title="Permanent link to this revision of the page">Permanent link</a></li>
+<li id="t-cite"><a href="/w/index.php?title=Special:Cite&amp;page=Distributed_hash_table&amp;id=501972791" title="Information on how to cite this page">Cite this page</a></li>		</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- coll-print_export -->
+<div class="portal" id='p-coll-print_export'>
+	<h5>Print/export</h5>
+	<div class="body">
+		<ul id="collectionPortletList"><li id="coll-create_a_book"><a href="/w/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=Distributed+hash+table" title="Create a book or page collection" rel="nofollow">Create a book</a></li><li id="coll-download-as-rl"><a href="/w/index.php?title=Special:Book&amp;bookcmd=render_article&amp;arttitle=Distributed+hash+table&amp;oldid=501972791&amp;writer=rl" title="Download a PDF version of this wiki page" rel="nofollow">Download as PDF</a></li><li id="t-print"><a href="/w/index.php?title=Distributed_hash_table&amp;printable=yes" title="Printable version of this page [p]" accesskey="p">Printable version</a></li></ul>	</div>
+</div>
+
+<!-- /coll-print_export -->
+
+<!-- LANGUAGES -->
+<div class="portal" id='p-lang'>
+	<h5>Languages</h5>
+	<div class="body">
+		<ul>
+			<li class="interwiki-bg"><a href="//bg.wikipedia.org/wiki/%D0%A0%D0%B0%D0%B7%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B0_%D1%85%D0%B5%D1%88%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D0%B0" title="Разпределена хештаблица" lang="bg" hreflang="bg">Български</a></li>
+			<li class="interwiki-ca"><a href="//ca.wikipedia.org/wiki/Taules_de_hash_distribu%C3%AFdes" title="Taules de hash distribuïdes" lang="ca" hreflang="ca">Català</a></li>
+			<li class="interwiki-de"><a href="//de.wikipedia.org/wiki/Verteilte_Hashtabelle" title="Verteilte Hashtabelle" lang="de" hreflang="de">Deutsch</a></li>
+			<li class="interwiki-es"><a href="//es.wikipedia.org/wiki/Tabla_de_Hash_Distribuido" title="Tabla de Hash Distribuido" lang="es" hreflang="es">Español</a></li>
+			<li class="interwiki-fr"><a href="//fr.wikipedia.org/wiki/Table_de_hachage_distribu%C3%A9e" title="Table de hachage distribuée" lang="fr" hreflang="fr">Français</a></li>
+			<li class="interwiki-ko"><a href="//ko.wikipedia.org/wiki/%EB%B6%84%EC%82%B0_%ED%95%B4%EC%8B%9C_%ED%85%8C%EC%9D%B4%EB%B8%94" title="분산 해시 테이블" lang="ko" hreflang="ko">한국어</a></li>
+			<li class="interwiki-it"><a href="//it.wikipedia.org/wiki/Tabella_di_hash_distribuita" title="Tabella di hash distribuita" lang="it" hreflang="it">Italiano</a></li>
+			<li class="interwiki-nl"><a href="//nl.wikipedia.org/wiki/Distributed_hash_table" title="Distributed hash table" lang="nl" hreflang="nl">Nederlands</a></li>
+			<li class="interwiki-ja"><a href="//ja.wikipedia.org/wiki/%E5%88%86%E6%95%A3%E3%83%8F%E3%83%83%E3%82%B7%E3%83%A5%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB" title="分散ハッシュテーブル" lang="ja" hreflang="ja">日本語</a></li>
+			<li class="interwiki-no"><a href="//no.wikipedia.org/wiki/Distribuert_hashtabell" title="Distribuert hashtabell" lang="no" hreflang="no">‪norsk (bokmål)‬</a></li>
+			<li class="interwiki-pl"><a href="//pl.wikipedia.org/wiki/Rozproszona_tablica_mieszaj%C4%85ca" title="Rozproszona tablica mieszająca" lang="pl" hreflang="pl">Polski</a></li>
+			<li class="interwiki-pt"><a href="//pt.wikipedia.org/wiki/Distributed_hash_table" title="Distributed hash table" lang="pt" hreflang="pt">Português</a></li>
+			<li class="interwiki-ru"><a href="//ru.wikipedia.org/wiki/%D0%A0%D0%B0%D1%81%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D1%91%D0%BD%D0%BD%D0%B0%D1%8F_%D1%85%D0%B5%D1%88-%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D0%B0" title="Распределённая хеш-таблица" lang="ru" hreflang="ru">Русский</a></li>
+			<li class="interwiki-fi"><a href="//fi.wikipedia.org/wiki/Hajautettu_tiiviste" title="Hajautettu tiiviste" lang="fi" hreflang="fi">Suomi</a></li>
+			<li class="interwiki-sv"><a href="//sv.wikipedia.org/wiki/Distribuerad_hashtabell" title="Distribuerad hashtabell" lang="sv" hreflang="sv">Svenska</a></li>
+			<li class="interwiki-tr"><a href="//tr.wikipedia.org/wiki/Da%C4%9F%C4%B1lm%C4%B1%C5%9F_komut_%C3%A7izelgesi" title="Dağılmış komut çizelgesi" lang="tr" hreflang="tr">Türkçe</a></li>
+			<li class="interwiki-uk"><a href="//uk.wikipedia.org/wiki/%D0%A0%D0%BE%D0%B7%D0%BF%D0%BE%D0%B4%D1%96%D0%BB%D0%B5%D0%BD%D0%B0_%D1%85%D0%B5%D1%88-%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8F" title="Розподілена хеш-таблиця" lang="uk" hreflang="uk">Українська</a></li>
+			<li class="interwiki-vi"><a href="//vi.wikipedia.org/wiki/B%E1%BA%A3ng_b%C4%83m_ph%C3%A2n_t%C3%A1n" title="Bảng băm phân tán" lang="vi" hreflang="vi">Tiếng Việt</a></li>
+			<li class="interwiki-zh"><a href="//zh.wikipedia.org/wiki/%E5%88%86%E6%95%A3%E5%BC%8F%E9%9B%9C%E6%B9%8A%E8%A1%A8" title="分散式雜湊表" lang="zh" hreflang="zh">中文</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 13 July 2012 at 00:16.<br /></li>
+											<li id="footer-info-copyright">Text is available under the <a rel="license" href="//en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>;
+additional terms may apply.
+See <a href="//wikimediafoundation.org/wiki/Terms_of_use">Terms of use</a> for details.<br/>
+Wikipedia&reg; is a registered trademark of the <a href="//www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.<br /></li><li class="noprint"><a class='internal' href="//en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact us</a></li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="//wikimediafoundation.org/wiki/Privacy_policy" title="wikimedia:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+											<li id="footer-places-disclaimer"><a href="/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/w/index.php?title=Distributed_hash_table&amp;mobileaction=toggle_view_mobile" class="noprint">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="//wikimediafoundation.org/"><img src="//bits.wikimedia.org/images/wikimedia-button.png" width="88" height="31" alt="Wikimedia Foundation"/></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="//www.mediawiki.org/"><img src="//bits.wikimedia.org/static-1.20wmf6/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		<script type="text/javascript">if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script src="//bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&amp;lang=en&amp;modules=skins.vector&amp;only=scripts&amp;skin=vector&amp;*" type="text/javascript"></script>
+<script type="text/javascript">if(window.mw){
+mw.loader.load(["mediawiki.user","mediawiki.page.ready","mediawiki.legacy.mwsuggest","ext.gadget.teahouse","ext.vector.collapsibleNav","ext.vector.collapsibleTabs","ext.vector.editWarning","ext.vector.simpleSearch","ext.UserBuckets","ext.articleFeedback.startup","ext.articleFeedbackv5.startup","ext.markAsHelpful"], null, true);
+}</script>
+<script src="/w/index.php?title=Special:BannerController&amp;cache=/cn.js&amp;303-4" type="text/javascript"></script>
+<script src="//bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=vector&amp;*" type="text/javascript"></script>
+<script src="//geoiplookup.wikimedia.org/" type="text/javascript"></script><!-- Served by mw31 in 0.103 secs. -->
+	</body>
+</html>

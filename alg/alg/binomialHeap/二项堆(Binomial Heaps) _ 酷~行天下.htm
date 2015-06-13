@@ -1,0 +1,1358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>二项堆(Binomial Heaps) | 酷~行天下</title>
+<meta name="copyright" content="design by huanjue" />
+<meta name="keyword" content="酷~行天下" />
+<meta name="description" content="二项堆(Binomial Heaps)" />
+<link rel="stylesheet" href="http://mindlee.net/wp-content/themes/huanjue2.1/style.css" type="text/css" media="screen" />
+<link rel="alternate" type="application/rss+xml" title="酷~行天下 RSS Feed" href="http://mindlee.net/feed/" />
+<link rel="pingback" href="http://mindlee.net/xmlrpc.php" />
+<link rel="stylesheet" href="http://mindlee.net/wp-content/themes/huanjue2.1/pagenavi-css.css" type="text/css" media="screen" />
+	<link rel='archives' title='2012 年四月' href='http://mindlee.net/2012/04/' />
+	<link rel='archives' title='2012 年二月' href='http://mindlee.net/2012/02/' />
+	<link rel='archives' title='2012 年一月' href='http://mindlee.net/2012/01/' />
+	<link rel='archives' title='2011 年十二月' href='http://mindlee.net/2011/12/' />
+	<link rel='archives' title='2011 年十一月' href='http://mindlee.net/2011/11/' />
+	<link rel='archives' title='2011 年十月' href='http://mindlee.net/2011/10/' />
+	<link rel='archives' title='2011 年九月' href='http://mindlee.net/2011/09/' />
+	<link rel='archives' title='2011 年八月' href='http://mindlee.net/2011/08/' />
+	<link rel='archives' title='2011 年七月' href='http://mindlee.net/2011/07/' />
+	<link rel='archives' title='2011 年六月' href='http://mindlee.net/2011/06/' />
+	<link rel='archives' title='2011 年五月' href='http://mindlee.net/2011/05/' />
+	<link rel='archives' title='2011 年四月' href='http://mindlee.net/2011/04/' />
+	<link rel='archives' title='2011 年三月' href='http://mindlee.net/2011/03/' />
+	<link rel='archives' title='2011 年二月' href='http://mindlee.net/2011/02/' />
+<script type="text/javascript" src="http://mindlee.net/wp-content/themes/huanjue2.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://mindlee.net/wp-content/themes/huanjue2.1/comments-ajax.js"></script>
+<link rel="alternate" type="application/rss+xml" title="酷~行天下 &raquo; 二项堆(Binomial Heaps) 评论 feed" href="http://mindlee.net/2011/09/26/binomial-heaps/feed/" />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='http://mindlee.net/wp-content/themes/huanjue2.1/pagenavi-css.css?ver=2.70' type='text/css' media='all' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://mindlee.net/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://mindlee.net/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='B-树(B-Trees)' href='http://mindlee.net/2011/09/18/b-trees/' />
+<link rel='next' title='斐波那契堆(Fibonacci heaps)' href='http://mindlee.net/2011/09/29/fibonacci-heaps/' />
+<meta name="generator" content="WordPress 3.3.1" />
+<link rel='shortlink' href='http://mindlee.net/?p=650' />
+
+<!-- All in One SEO Pack 1.6.14.5 by Michael Torbert of Semper Fi Web Design[249,299] -->
+<meta name="description" content="二项堆（Binomial Heap）是一种类似于二叉堆(Binary Trees)的堆结构。与二叉堆相比，其优势是可以快速合并两个堆，因此它属于可合并堆（Mergeable Heap）。后边要学的斐波那契堆也是可合并堆。一个二项堆由一组二项树所构成，这里的二项树(Binomial Trees)不同于二叉树(Binary Trees)。二叉树是“左孩子，右孩子”的表示方法，而二项树是“左孩子，右兄弟”的表示方法。" />
+<meta name="keywords" content="二项堆,二叉树,二项树,有根树,算法导论,binomial heaps,堆,数据结构,笔记,算法,算法学习" />
+<link rel="canonical" href="http://mindlee.net/2011/09/26/binomial-heaps/" />
+<!-- /all in one seo pack -->
+<script type="text/javascript" src="http://mindlee.net/wp-content/plugins/audio-player/assets/audio-player.js?ver=2.0.4.1"></script>
+<script type="text/javascript">AudioPlayer.setup("http://mindlee.net/wp-content/plugins/audio-player/assets/player.swf?ver=2.0.4.1", {width:"290",animation:"yes",encode:"yes",initialvolume:"60",remaining:"yes",noinfo:"no",buffer:"5",checkpolicy:"no",rtl:"no",bg:"E5E5E5",text:"333333",leftbg:"CCCCCC",lefticon:"333333",volslider:"666666",voltrack:"FFFFFF",rightbg:"B4B4B4",rightbghover:"999999",righticon:"333333",righticonhover:"FFFFFF",track:"FFFFFF",loader:"009900",border:"CCCCCC",tracker:"DDDDDD",skip:"666666",pagebg:"FFFFFF",transparentpagebg:"yes"});</script>
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+<meta id="syntaxhighlighteranchor" name="syntaxhighlighter-version" content="3.1.3" />
+</head>
+<body>
+<div id="wrap">
+<div id="header">
+  <div class="logo">
+    <h1 ><a href="http://mindlee.net/">
+      酷~行天下      </a></h1>
+    <h2 class="description">
+      MindLee.net | 一个菜鸟的学习成长博客，记录与Code有关的人生和梦想！    </h2>
+  </div>
+  <div  class="toplink">
+    <ul>
+      <li> <a title="Home" href="http://mindlee.net/">首 页</a> </li>
+      <li class="page_item page-item-994"><a href="http://mindlee.net/my-books/">读书</a></li>
+<li class="page_item page-item-1000"><a href="http://mindlee.net/my-moives/">电影</a></li>
+<li class="page_item page-item-2"><a href="http://mindlee.net/about-me/">关于我</a></li>
+<li class="page_item page-item-69"><a href="http://mindlee.net/leave-word/">留言板</a></li>
+ 
+<!-- Feedsky FEED发布代码开始 -->
+<!-- FEED自动发现标记开始 -->
+<link title="RSS 2.0" type="application/rss+xml" href="http://feed.feedsky.com/mindlee" rel="alternate" />
+<!-- FEED自动发现标记结束 -->
+
+
+<script language="javascript"><!-- 
+main_sub="c1s17d";
+more_subs="";
+is_new="yes";
+--> </script>
+<script language="javascript" src="http://www.feedsky.com/jsout/publishlist_v2.js?burl=mindlee&out_html=true"></script>
+<!-- Feedsky FEED发布代码结束 -->
+    </ul>
+  </div>
+<div id="nav">
+<ul id="menu" class="menu"><li id="menu-item-569" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-569"><a href="http://mindlee.net/category/algorithm-learning/"><span>算法学习</span></a></li>
+<li id="menu-item-983" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-983"><a href="http://mindlee.net/category/technology-enlightenment/"><span>技术启蒙</span></a></li>
+<li id="menu-item-8" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-8"><a href="http://mindlee.net/category/lets-go-on-a-trip/"><span>出去走走</span></a></li>
+<li id="menu-item-9" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9"><a href="http://mindlee.net/category/sub-talking/"><span>闲心碎语</span></a></li>
+<li id="menu-item-72" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-72"><a href="http://mindlee.net/leave-word/"><span>留言板</span></a></li>
+</ul></div></div>
+
+<div id="main">
+
+<div id="content">
+
+<div id="home_banner">
+<div class="demo">
+<div class="num"><a class="cur">1</a><a>2</a><a>3</a></div>
+<ul>
+<li style="display:block;"><a href="#" target="_blank"><img src="http://mindlee.net/wp-content/themes/huanjue2.1/images/banner01.jpg" /></a></li><li><a href="#"  target="_blank"><img src="http://mindlee.net/wp-content/themes/huanjue2.1/images/banner02.jpg"  /></a></li><li><a href="#"  target="_blank"><img src="http://mindlee.net/wp-content/themes/huanjue2.1/images/banner03.jpg"  /></a></li>
+</ul>
+</div>
+<script type="text/javascript">
+$(function(){
+var sw = 0;
+$(".demo .num a").mouseover(function(){
+sw = $(".num a").index(this);
+myShow(sw);
+});
+function myShow(i){
+$(".demo .num a").eq(i).addClass("cur").siblings("a").removeClass("cur");
+$(".demo ul li").eq(i).stop(true,true).fadeIn(600).siblings("li").fadeOut(600);
+}
+//滑入停止动画，滑出开始动画
+$(".demo").hover(function(){
+if(myTime){
+clearInterval(myTime);
+}
+},function(){
+myTime = setInterval(function(){
+myShow(sw)
+sw++;
+if(sw==3){sw=0;}
+} , 3500);
+});
+//自动开始
+var myTime = setInterval(function(){
+myShow(sw)
+sw++;
+if(sw==3){sw=0;}
+} , 3500);
+})
+</script>
+</div>
+
+<div class="content_top"></div>
+
+<div class="content_center">
+
+ 
+<div class="post-650 post type-post status-publish format-standard hentry category-algorithm-learning tag-heap tag-data-structure tag-notes tag-algorithm tag-introduction-to-algorithms" id="post-650">
+
+<div class="content"> 
+
+<h2><a href="http://mindlee.net/2011/09/26/binomial-heaps/" rel="bookmark">二项堆(Binomial Heaps)</a></h2>
+
+<div class="meta"><span class="tag">分类：<a href="http://mindlee.net/category/algorithm-learning/" title="查看 算法学习 的全部文章" rel="category tag">算法学习</a> ｜ 作者：酷~行天下 ｜ 发表于2011/09/26</span><span class="time"> <a href="http://mindlee.net/2011/09/26/binomial-heaps/#comments" title="二项堆(Binomial Heaps) 上的评论">8条评论</a> 1,782 views </span></div>
+
+<p><font color="#000000" size="2" face="微软雅黑">二项堆（Binomial Heap）是一种类似于二叉堆(Binary Heap)的堆结构。与二叉堆相比，其优势是可以快速合并两个堆，因此它属于可合并堆（Mergeable Heap）。后边要学的斐波那契堆也是可合并堆。一个二项堆由一组二项树所构成，这里的二项树(Binomial Trees)不同于二叉树(Binary Trees)。二叉树是“左孩子，右孩子”的表示方法，而二项树是“<font color="#a43b2c"><strong>左孩子，右兄弟</strong></font>”的表示方法，在了解二项堆之前，需要先了解它的前验知识：二叉树，多叉树，二项树等数据结构，以及它们的不同。</font></p>
+<p><font color="#000000" size="2" face="微软雅黑"><img style="display: inline; float: right" align="right" src="http://mindlee.net/wp-content/uploads/2011/09/Binary_Tree.jpg" width="317" height="194" /></font></p>
+<p><span style="font-family: 微软雅黑; font-size: 14pt"><font color="#000000" size="2" face="微软雅黑"></font></span></p>
+<p><font size="2"><span style="font-family: 微软雅黑; font-size: 14pt"><font color="#000000"><font color="#a43b2c"><strong>一、二叉树</strong></font>&#160;&#160;&#160; </font></span></font></p>
+<p><font size="2"><span style="font-family: 微软雅黑; font-size: 14pt"><font color="#000000"><font size="2">二叉树的结构如<font color="#450c94"><strong>右图</strong></font>，用域p、left和right来存放指向二叉树T中的父亲、左儿子和右儿子的指针。如果P[x]=NIL，则x为根。如果left[x]=NIL，x无左儿子，右儿子也类似。整个树T的根由属性root[T]指向，如果root[T]=NIL，则树为空。二叉树中每个结点都最多有两个子女，即“左孩子，右孩子”。二项树与二叉树最大的不同是，二项树是一棵</font></font></span><font face="微软雅黑"><font color="#000000"><font color="#a43b2c"><strong>分支数无限制的有根树</strong></font>(</font><span style="font-family: 微软雅黑; font-size: 14pt"><font color="#000000" size="2">Rooted trees with unbounded branching， <font color="#450c94"><strong>下图</strong></font>图示)，而二叉树最多有两个分叉。</font></span></font></font></p>
+<p><font face="微软雅黑"><span style="font-family: 微软雅黑; font-size: 14pt"><font color="#a43b2c" size="4"><strong>二、分支树无限制的有根数</strong></font></span></font></p>
+<p><font color="#000000" size="2" face="微软雅黑"><img style="display: inline; float: left" align="left" src="http://mindlee.net/wp-content/uploads/2011/09/ordered-tree.jpg" width="372" height="219" /></font></p>
+<p><font color="#000000" size="2" face="微软雅黑">对于多叉树，也许你会想，结点的分支增多，直接用child1, child2&#8230;, childk来取代left和right域不就得了。但是如果树中结点的子女数是无限制的，那么就不行了。因为我们不知道事先要开多大的域，通常情况下，为了防止最坏情况，会开一个很大的界，这种情况下如果多数结点只有少数子女，则会浪费大量内存空间。而<font color="#450c94"><strong>左图</strong></font>这种“左孩子，有兄弟”的方法可以完美解决这个问题。它的每个结点包含域p[x](顶端)，left-child[x](指向结点x的最左孩子), right-child[x](指向x紧右边的兄弟)。也就是说，一个结点的所有孩子形成一个链表，这样中间就可以任意加入结点了，在加入结点到树中时，动态开辟空间，这样就不会浪费任何空间了。</font></p>
+<p><font color="#a43b2c" size="4" face="微软雅黑"><strong>三、二项树</strong></font></p>
+<p><img style="display: inline; float: right" align="right" src="http://mindlee.net/wp-content/uploads/2011/09/Binomial-Trees.jpg" width="360" height="325" /></p>
+<p><font color="#000000" size="2" face="微软雅黑">而二项树则是一种特殊的多分支有序树。结构如右图，(<font color="#450c94"><strong>右图</strong></font>a)二项树Bk是一种递归定义的有序树。二项树B0只包含一个结点。二项树Bk由两个子树Bk-1连接而成：其中一棵树的根是另一棵树的根的最左孩子。<font color="#a43b2c"><strong>二项树的性质</strong></font>有：</font></p>
+<p><font color="#000000" size="2" face="微软雅黑">1)共有2<sup>k</sup>个结点。 </p>
+<p>2)树的高度为k。 </p>
+<p>3)在深度i处恰有C<sub>i</sub><sup>k</sup>个结点。 </p>
+<p>4)根的度数（子女的个数）为k，它大于任何其他结点的度数；如果根的子女从左到右的编号设为k-1, k-2, …, 0，子女i是子树Bi的根。</font></p>
+<p><font color="#000000" size="2" face="微软雅黑"><font color="#450c94"><strong>右图</strong></font>中图(b)表示二项树B0至B4中示出了各结点的深度。图(c)是以另外一种方式来看二项树Bk。PS : </font><font color="#000000" size="2" face="微软雅黑">在一棵包含n个结点的二项树中，任意结点的最大度数为lgn.</font></p>
+<p><font color="#a43b2c" size="4" face="微软雅黑"><strong>四、二项堆</strong></font></p>
+<p><font color="#000000" size="2" face="微软雅黑">前边已经说过一个二项堆由一组二项树所构成，这里的二项树需要满足下列条件：</font></p>
+<p><font color="#000000" size="2" face="微软雅黑">1）H中的每个二项树遵循<font color="#a43b2c"><strong>最小堆</strong></font>的性质：结点的关键字大于等于其父结点的关键字。 </p>
+<p>2）对于任意非负整数k，在H中至多有一棵二项树的根具有度数k。</font></p>
+<p><font color="#000000" size="2" face="微软雅黑">对于性质2，任意高度最多有一棵二项树，这样就可以用二项树的集合唯一地表示任意大小的二项堆，比如13个结点的二项堆H，13的二进制表示为（1101），故H包含了最小堆有序二项树B3， B2和B0， 他们分别有8， 4， 2， 1个结点，即共有13个结点。如<strong><font color="#450c94">下图（</font></strong>另外：<font color="#000000" size="2" face="微软雅黑">二项堆中各二项树的根被组织成一个链表，称之为根表）</font></font><font color="#000000" size="2" face="微软雅黑"><img src="http://mindlee.net/wp-content/uploads/2011/09/BinHeapTree13.jpg" width="623" height="459" /></font></p>
+<p><font color="#535e76" size="3" face="微软雅黑"><strong>1）二项树ADT：</strong></font></p>
+<pre class="brush: cpp; light: false; title: + expand source(双击可全选代码); toolbar: true; notranslate" title="+ expand source(双击可全选代码)">
+typedef struct BinHeapNode BinNode;
+typedef struct BinHeapNode * BinHeap;
+typedef struct BinHeapNode * Position;
+
+//结点ADT
+struct BinHeapNode {
+	int key;
+	int degree;
+	Position parent;
+	Position leftChild;
+	Position sibling;
+};
+</pre>
+<p><font color="#535e76" size="3" face="微软雅黑"><strong>2）创建一个新二项堆</strong></font></p>
+<p><font color="#000000" size="2" face="微软雅黑">MAKE-BINOMIAL-HEAP分配并返回一个对象H，且head[H]=NIL，运行时间为O（1）</font></p>
+<pre class="brush: cpp; light: false; title: + expand source(双击可全选代码); toolbar: true; notranslate" title="+ expand source(双击可全选代码)">
+BinHeap MakeBinHeap() {
+    BinHeap heap = NULL;
+	heap = (BinHeap) malloc(sizeof(BinNode));
+	if (heap == NULL) {
+		puts(&quot;Out of the Space&quot;);
+		exit(1);
+	}
+	memset(newHeap, 0, sizeof(BinNode));
+    return heap;
+}
+</pre>
+<p><font color="#535e76" size="3" face="微软雅黑"><strong>3）寻找最小关键字</strong></font></p>
+<p><font color="#000000" size="2" face="微软雅黑">遍历根表，找出根表中关键字最小的结点。伪代码：</font></p>
+<h6>1&#160; y ← NIL </h6>
+<h6>2&#160; x ← head[H] </h6>
+<h6>3&#160; min ← ∞ </h6>
+<h6>4&#160; while x ≠ NIL </h6>
+<h6>5&#160;&#160;&#160;&#160; do if key[x] &lt; min </h6>
+<h6>6&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; then min ← key[x] </h6>
+<h6>7&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; y ← x </h6>
+<h6>8&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; x ← sibling[x] </h6>
+<h6>9&#160; return y </h6>
+<p><font color="#000000" size="2" face="微软雅黑">代码实现：</font></p>
+<pre class="brush: cpp; light: false; title: + expand source(双击可全选代码); toolbar: true; notranslate" title="+ expand source(双击可全选代码)">
+//返回最小根节点的指针
+BinHeap BinHeapMin(BinHeap heap) {
+	Position y = NULL, x = heap;
+	int min = INT_MAX;
+
+	while (x != NULL) {
+		if (x-&gt;key &lt; min) {
+			min = x-&gt;key;
+			y = x;
+		}
+		x = x-&gt;sibling;
+	}
+	return y;
+}
+</pre>
+<p><font color="#535e76" size="3" face="微软雅黑"><strong>4）合并两个二项堆</strong></font></p>
+<p><font color="#000000" size="2" face="微软雅黑">合并包含三个函数：</font></p>
+<p><font color="#000000" size="2" face="微软雅黑"><em><font color="#450c94"><u>BINOMIAL-LINK</u></font>，连接操作，即将两棵根节点度数相同的二项树B<sub>k-1</sub>连接成一棵B<sub>k</sub>。伪代码：</em></font></p>
+<h6>BINOMIAL-LINK(y, z) </h6>
+<h6>1&#160; p[y] ← z </h6>
+<h6>2&#160; sibling[y] ← child[z] </h6>
+<h6>3&#160; child[z] ← y </h6>
+<h6>4&#160; degree[z] ← degree[z] + 1 </h6>
+<p><font color="#000000" size="2" face="微软雅黑"><font color="#450c94"><u>BINOMIAL-HEAP-MERGE</u></font> ，将H1和H2的根表合并成一个按度数的单调递增次序排列的链表。</font></p>
+<p><font color="#000000" size="2" face="微软雅黑"><font color="#450c94"><u>BINOMIAL-HEAP-UNION</u></font>，反复连接根节点的度数相同的各二项树。伪代码：</font></p>
+<h6>1&#160; H ← MAKE-BINOMIAL-HEAP() </h6>
+<h6>2&#160; head[H] ← BINOMIAL-HEAP-MERGE(H1, H2) </h6>
+<h6>3&#160; free the objects H1 and H2 but not the lists they point to </h6>
+<h6>4&#160; if head[H] = NIL </h6>
+<h6>5&#160;&#160;&#160;&#160; then return H </h6>
+<h6>6&#160; prev-x ← NIL </h6>
+<h6>7&#160; x ← head[H] </h6>
+<h6>8&#160; next-x ← sibling[x] </h6>
+<h6>9&#160; while next-x ≠ NIL </h6>
+<h6>10&#160;&#160;&#160;&#160;&#160; do if (degree[x] ≠ degree[next-x]) or </h6>
+<h6>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; (sibling[next-x] ≠ NIL and degree[sibling[next-x]] = degree[x]) </h6>
+<h6>11&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; then prev-x ← x&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; ▹ Cases 1 and 2 </h6>
+<h6>12&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; x ← next-x&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; ▹ Cases 1 and 2 </h6>
+<h6>13&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; else if key[x] ≤ key[next-x] </h6>
+<h6>14&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; then sibling[x] ← sibling[next-x]&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; ▹ Case 3 </h6>
+<h6>15&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; BINOMIAL-LINK(next-x, x)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; ▹ Case 3 </h6>
+<h6>16&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; else if prev-x = NIL&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; ▹ Case 4 </h6>
+<h6>17&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; then head[H] ← next-x&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; ▹ Case 4 </h6>
+<h6>18&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; else sibling[prev-x] ← next-x&#160;&#160;&#160;&#160;&#160;&#160; ▹ Case 4 </h6>
+<h6>19&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; BINOMIAL-LINK(x, next-x)&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; ▹ Case 4 </h6>
+<h6>20&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; x ← next-x&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; ▹ Case 4 </h6>
+<h6>21&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; next-x ← sibling[x] </h6>
+<h6>22&#160; return H</h6>
+<p></p>
+<p><font color="#000000" size="2" face="微软雅黑">合并操作分为两个阶段：<br />
+    <br /><font color="#400040"><strong>第一阶段</strong></font>：执行BINOMIAL-HEAP-MERGE，将两个堆H1和H2的根表合并成一个链表H，它按度数排序成单调递增次序。MERGE的时间复杂度O(logn)。n为H1和H2的结点总数。（对于每一个度数值，可能有两个根与其对应，所以第二阶段要把这些相同的根连起来）。</font></p>
+<p><font color="#000000" size="2" face="微软雅黑"></font></p>
+<p><font color="#000000" size="2" face="微软雅黑"><font color="#400040"><strong>第二阶段</strong></font>：将相等度数的根连接起来，直到每个度数至多有一个根时为止。执行过程中，合并的堆H的根表中至多出现三个根具有相同的度数。（MERGE后H中至多出现两个根具有相同的度数，但是将两个相同度数的根的二项树连接后，可能与后面的至多两棵二项树出现相同的度数的根，因此至多出现三个根具有相同的度数） </p>
+<p>第二阶段根据当前遍历到的根表中的结点x，分四种情况考虑: </p>
+<p><font color="#a43b2c">Case1</font>：degree[x] != degree[sibling[x]]。此时，不需要做任何变化，将指针向根表后移动即可。(下图示a) </p>
+<p><font color="#a43b2c">Case2</font>：degree[x] == degree[sibling[x]] == degree[sibling[sibling[x]]]。此时，仍不做变化，将指针后移。(下图示b) </p>
+<p>Case3 &amp; Case4：degree[x] = degree[sibling[x]] != degree[sibling[sibling[x]]] (下图示c和d) </p>
+<p><font color="#a43b2c">Case3</font>：key[x] &lt;= key[sibling[x]]。此时，将sibling[x]连接到x上。 </p>
+<p><font color="#a43b2c">Case4</font>：key[x] &gt; key[sibling[x]]。此时，将x连接到sibling[x]上。 </p>
+<p>复杂度：O(logn)， 四个过程变化情况：</font><img src="http://mindlee.net/wp-content/uploads/2011/09/BinHeapUnionExplainPic.jpg" /></p>
+<p><font color="#000000" size="2" face="微软雅黑">完整的一个合并Sample：</font></p>
+<p><img src="http://mindlee.net/wp-content/uploads/2011/09/BinHeapUnionSample1.jpg" width="605" height="458" /></p>
+<p><img src="http://mindlee.net/wp-content/uploads/2011/09/BinHeapUnionSample2.jpg" width="605" height="546" /></p>
+<p><font color="#000000" size="2" face="微软雅黑">整个合并操作代码实现：</font></p>
+<pre class="brush: cpp; light: false; title: + expand source(双击可全选代码); toolbar: true; notranslate" title="+ expand source(双击可全选代码)">
+//两个堆合并
+BinHeap BinHeapUnion(BinHeap &amp;H1, BinHeap &amp;H2) {
+	Position heap = NULL, pre_x = NULL, x = NULL, next_x = NULL;
+	heap = BinHeapMerge(H1, H2);
+	if (heap == NULL) {
+		return heap;
+	}
+
+	pre_x = NULL;
+	x = heap;
+	next_x = x-&gt;sibling;
+
+	while (next_x != NULL) {
+		if ((x-&gt;degree != next_x-&gt;degree) ||//Cases 1 and 2
+			((next_x-&gt;sibling != NULL) &amp;&amp; (next_x-&gt;degree == next_x-&gt;sibling-&gt;degree))) {
+				pre_x = x;
+				x = next_x;
+		} else if (x-&gt;key &lt;= next_x-&gt;key) {//Cases 3
+			x-&gt;sibling = next_x-&gt;sibling;
+			BinLink(next_x, x);
+		} else {//Cases 4
+			if (pre_x == NULL) {
+				heap = next_x;
+			} else {
+				pre_x-&gt;sibling = next_x;
+			}
+			BinLink(x, next_x);
+			x = next_x;
+		}
+		next_x = x-&gt;sibling;
+	}
+	return heap;
+}
+
+//将H1, H2的根表合并成一个按度数的单调递增次序排列的链表
+BinHeap BinHeapMerge(BinHeap &amp;H1, BinHeap &amp;H2) {
+	//heap-&gt;堆的首地址，H3为指向新堆根结点
+	BinHeap heap = NULL, firstHeap = NULL, secondHeap = NULL,
+		pre_H3 = NULL, H3 = NULL;
+
+	if (H1 != NULL &amp;&amp; H2 != NULL){
+		firstHeap = H1;
+		secondHeap = H2;
+		//整个while，firstHeap, secondHeap, pre_H3, H3都在往后顺移
+		while (firstHeap != NULL &amp;&amp; secondHeap != NULL) {
+			if (firstHeap-&gt;degree &lt;= secondHeap-&gt;degree) {
+				H3 = firstHeap;
+				firstHeap = firstHeap-&gt;sibling;
+			} else {
+				H3 = secondHeap;
+				secondHeap = secondHeap-&gt;sibling;
+			}
+
+			if (pre_H3 == NULL) {
+				pre_H3 = H3;
+				heap = H3;
+			} else {
+				pre_H3-&gt;sibling = H3;
+				pre_H3 = H3;
+			}
+			if (firstHeap != NULL) {
+				H3-&gt;sibling = firstHeap;
+			} else {
+				H3-&gt;sibling = secondHeap;
+			}
+		}//while
+	} else if (H1 != NULL) {
+		heap = H1;
+	} else {
+		heap = H2;
+	}
+	H1 = H2 = NULL;
+	return heap;
+}
+
+//使H2成为H1的父节点
+void BinLink(BinHeap &amp;H1, BinHeap &amp;H2) {
+	H1-&gt;parent = H2;
+	H1-&gt;sibling = H2-&gt;leftChild;
+	H2-&gt;leftChild = H1;
+	H2-&gt;degree++;
+}
+</pre>
+<p><font color="#535e76" size="3" face="微软雅黑"><strong>5）插入一个结点</strong></font></p>
+<p><font face="微软雅黑"><font color="#000000" size="2">先构造一个只包含一个结点的二项堆，再将此二项堆与原二项堆合并, 伪代码：</font></font></p>
+<h6>BINOMIAL-HEAP-INSERT(H, x) </h6>
+<h6>1&#160; H′ ← MAKE-BINOMIAL-HEAP() </h6>
+<h6>2&#160; p[x] ← NIL </h6>
+<h6>3&#160; child[x] ← NIL </h6>
+<h6>4&#160; sibling[x] ← NIL </h6>
+<h6>5&#160; degree[x] ← 0 </h6>
+<h6>6&#160; head[H′] ← x </h6>
+<h6>7&#160; H ← BINOMIAL-HEAP-UNION(H, H′)</h6>
+<p></p>
+<p><font color="#000000" size="2" face="微软雅黑">代码实现(for循环内即插入过程)：</font></p>
+<pre class="brush: cpp; light: false; title: + expand source(双击可全选代码); toolbar: true; notranslate" title="+ expand source(双击可全选代码)">
+//用数组内的值建堆
+BinHeap MakeBinHeapWithArray(int keys[], int n) {
+	BinHeap heap = NULL, newHeap = NULL;
+	for (int i = 0; i &lt; n; i++) {
+		newHeap = (BinHeap) malloc(sizeof(BinNode));
+		if (newHeap == NULL) {
+			puts(&quot;Out of the Space&quot;);
+			exit(1);
+		}
+		memset(newHeap, 0, sizeof(BinNode));
+		newHeap-&gt;key = keys[i];
+		if (NULL == heap) {
+			heap = newHeap;
+		} else {
+			heap = BinHeapUnion(heap, newHeap);
+			newHeap = NULL;
+		}
+	}
+	return heap;
+}
+</pre>
+<p><font color="#535e76" size="3" face="微软雅黑"><strong>6）抽取有最小关键字的结点</strong></font></p>
+<p><font color="#000000" size="2" face="微软雅黑">从根表中找到最小关键字的结点，将以该结点为根的整棵二项树从堆取出，删除取出的二项树的根，将其剩下的子女倒序排列，组成了一个新的二项堆，再与之前的二项堆合并。</font></p>
+<p><font color="#000000" size="2" face="微软雅黑">伪代码：</font></p>
+<h6>BINOMIAL-HEAP-EXTRACT-MIN(H) </h6>
+<h6>1&#160; find the root x with the minimum key in the root list of H, </h6>
+<h6>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; and remove x from the root list of H </h6>
+<h6>2&#160; H′ ← MAKE-BINOMIAL-HEAP() </h6>
+<h6>3&#160; reverse the order of the linked list of x&#8217;s children, </h6>
+<h6>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; and set head[H′] to point to the head of the resulting list </h6>
+<h6>4&#160; H ← BINOMIAL-HEAP-UNION(H, H′) </h6>
+<h6>5&#160; return x </h6>
+<p><font color="#000000" size="2" face="微软雅黑">代码实现：</font></p>
+<pre class="brush: cpp; light: false; title: + expand source(双击可全选代码); toolbar: true; notranslate" title="+ expand source(双击可全选代码)">
+//抽取有最小关键字的结点
+BinHeap BinHeapExtractMin(BinHeap &amp;heap) {
+	BinHeap pre_y = NULL, y = NULL, x = heap;
+	int min = INT_MAX;
+	while (x != NULL) {
+		if (x-&gt;key &lt; min) {
+			min = x-&gt;key;
+			pre_y = y;
+			y = x;
+		}
+		x = x-&gt;sibling;
+	}
+
+	if (y == NULL) {
+		return NULL;
+	}
+
+	if (pre_y == NULL) {
+		heap = heap-&gt;sibling;
+	} else {
+		pre_y-&gt;sibling = y-&gt;sibling;
+	}
+
+	//将y的子结点指针reverse
+	BinHeap H2 = NULL, p = NULL;
+	x = y-&gt;leftChild;
+	while (x != NULL) {
+		p = x;
+		x = x-&gt;sibling;
+		p-&gt;sibling = H2;
+		H2 = p;
+		p-&gt;parent = NULL;
+	}
+
+	heap = BinHeapUnion(heap, H2);
+	return y;
+}
+</pre>
+<p><font color="#535e76" size="3" face="微软雅黑"><strong>7）减小关键字的值</strong></font></p>
+<p><font color="#000000" size="2" face="微软雅黑">伪代码：</font></p>
+<h6>BINOMIAL-HEAP-DECREASE-KEY(H, x, k) </h6>
+<h6>1 if k &gt; key[x] </h6>
+<h6>2&#160;&#160;&#160; then error &quot;new key is greater than current key&quot; </h6>
+<h6>3 key[x] ← k </h6>
+<h6>4 y ← x </h6>
+<h6>5 z ← p[y] </h6>
+<h6>6 while z ≠ NIL and key[y] &lt; key[z] </h6>
+<h6>7&#160;&#160;&#160;&#160; do exchange key[y] ↔ key[z] </h6>
+<h6>8&#160;&#160;&#160;&#160;&#160;&#160;&#160; ▸ If y and z have satellite fields, exchange them, too. </h6>
+<h6>9&#160;&#160;&#160;&#160;&#160;&#160;&#160; y ← z </h6>
+<h6>10&#160;&#160;&#160;&#160;&#160;&#160;&#160; z ← p[y]</h6>
+<p></p>
+<p><font color="#000000" size="2" face="微软雅黑">减小关键字的过程类似维护最小堆结构，key[y]与y的父结点z的关键字作比较。如果y为根或者key[y] &gt;= key[z],则该二项树已是最小堆有序。否则结点研究违反了最小堆有序，故将其关键字与其父节点z的关键字相交换，同时还要交换其他卫星数据。第6行的while循环这个过程。</font></p>
+<p><font color="#000000" size="2" face="微软雅黑">看看图示：</font></p>
+<p><img src="http://mindlee.net/wp-content/uploads/2011/09/BinHeapExtract.jpg" /></p>
+<p><font color="#000000" size="2" face="微软雅黑">代码实现：</font> </p>
+<pre class="brush: cpp; light: false; title: + expand source(双击可全选代码); toolbar: true; notranslate" title="+ expand source(双击可全选代码)">
+//减少关键字的值
+void BinHeapDecreaseKey(BinHeap heap, BinHeap x, int key) {
+	if(key &gt; x-&gt;key) {
+		puts(&quot;new key is greaer than current key&quot;);
+		exit(1); //不为降键
+	}
+	x-&gt;key = key;
+
+	BinHeap z = NULL, y = NULL;
+	y = x;
+	z = x-&gt;parent;
+	while(z != NULL &amp;&amp; z-&gt;key &gt; y-&gt;key) {
+		swap(z-&gt;key, y-&gt;key);
+		y = z;
+		z = y-&gt;parent;
+	}
+}
+</pre>
+<p><font color="#535e76" size="3" face="微软雅黑"><strong>8）删除一个关键字</strong></font></p>
+<p><font color="#000000"></font><font color="#000000" size="2" face="微软雅黑">伪代码：</font></p>
+<h6>BINOMIAL-HEAP-DELETE(H, x) </h6>
+<h6>1&#160; BINOMIAL-HEAP-DECREASE-KEY(H, x, -∞) </h6>
+<h6>2&#160; BINOMIAL-HEAP-EXTRACT-MIN(H) </h6>
+<p><font color="#000000" size="2" face="微软雅黑">可以看出，删除的原理非常简单，把关键字减小，让它到达根节点，然后剔除最小值即可。</font></p>
+<p><font color="#000000" size="2" face="微软雅黑">可以看看图示：</font><img src="http://mindlee.net/wp-content/uploads/2011/09/BinHeapDelete.jpg" width="620" height="578" /></p>
+<p><font color="#000000" size="2" face="微软雅黑">代码实现：</font></p>
+<pre class="brush: cpp; light: false; title: + expand source(双击可全选代码); toolbar: true; notranslate" title="+ expand source(双击可全选代码)">
+//删除一个关键字
+BinHeap BinHeapDelete(BinHeap &amp;heap, int key) {
+	BinHeap x = NULL;
+	x = BinHeapFind(heap, key);
+	if (x != NULL) {
+		BinHeapDecreaseKey(heap, x, INT_MIN);
+		return BinHeapExtractMin(heap);
+	}
+	return x;
+}
+
+//找出一个关键字
+BinHeap BinHeapFind(BinHeap &amp;heap, int key) {
+	Position p = NULL, x = NULL;
+	p = heap;
+	while (p != NULL) {
+		if (p-&gt;key == key) {
+			return p;
+		} else {
+			if((x =BinHeapFind(p-&gt;leftChild, key)) != NULL) {
+				return x;
+			}
+			p = p-&gt;sibling;
+		}
+	}
+	return NULL;
+}
+</pre>
+<p><font color="#000000" size="2" face="微软雅黑">完整代码实现：</font></p>
+<pre class="brush: cpp; light: false; title: + expand source(双击可全选代码); toolbar: true; notranslate" title="+ expand source(双击可全选代码)">
+/*
+第一个二叉堆H1:
+ (41)  (28 (33) )  (7 (15 (25) )  (12) )
+
+第二个二叉堆H2:
+ (55)  (24 (50) )  (2 (3 (8 (10 (44) )  (29) )  (6 (37) )  (18) )  (17 (32 (45)
+)  (31) )  (23 (30) )  (48) )
+
+合并H1,H2后，得到H3:
+ (41 (55) )  (7 (24 (28 (33) )  (50) )  (15 (25) )  (12) )  (2 (3 (8 (10 (44) )
+ (29) )  (6 (37) )  (18) )  (17 (32 (45) )  (31) )  (23 (30) )  (48) )
+
+用于测试提取和删除的二叉堆H4:
+ (27 (42) )  (11 (17 (38) )  (18) )  (1 (8 (14 (23 (26) )  (29) )  (12 (16) )  (
+25) )  (10 (37 (41) )  (28) )  (13 (77) )  (6) )
+
+抽取最小的值1后：
+ (6)  (13 (27 (42) )  (77) )  (8 (10 (11 (17 (38) )  (18) )  (37 (41) )  (28) )
+ (14 (23 (26) )  (29) )  (12 (16) )  (25) )
+
+抽取最小的值6后：
+ (13 (27 (42) )  (77) )  (8 (10 (11 (17 (38) )  (18) )  (37 (41) )  (28) )  (14
+(23 (26) )  (29) )  (12 (16) )  (25) )
+
+抽取最小的值8后：
+ (25)  (12 (16) )  (10 (13 (14 (23 (26) )  (29) )  (27 (42) )  (77) )  (11 (17 (
+38) )  (18) )  (37 (41) )  (28) )
+
+删除12后：
+ (16 (25) )  (10 (13 (14 (23 (26) )  (29) )  (27 (42) )  (77) )  (11 (17 (38) )
+ (18) )  (37 (41) )  (28) )
+ */
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;cstdlib&gt;
+#include&lt;climits&gt;
+using namespace std;
+
+typedef struct BinHeapNode BinNode;
+typedef struct BinHeapNode * BinHeap;
+typedef struct BinHeapNode * Position;
+
+//结点ADT
+struct BinHeapNode {
+	int key;
+	int degree;
+	Position parent;
+	Position leftChild;
+	Position sibling;
+};
+
+//用数组内的值建堆
+BinHeap MakeBinHeapWithArray(int keys[], int n);
+
+//两个堆合并
+BinHeap BinHeapUnion(BinHeap &amp;H1, BinHeap &amp;H2);
+
+//将H1, H2的根表合并成一个按度数的单调递增次序排列的链表
+BinHeap BinHeapMerge(BinHeap &amp;H1, BinHeap &amp;H2);
+
+//使H2成为H1的父节点
+void BinLink(BinHeap &amp;H1, BinHeap &amp;H2);
+
+//返回最小根节点的指针
+BinHeap BinHeapMin(BinHeap heap);
+
+//减少关键字的值
+void BinHeapDecreaseKey(BinHeap heap, BinHeap x, int key);
+
+//删除一个关键字
+BinHeap BinHeapDelete(BinHeap &amp;heap, int key);
+
+//找出一个关键字
+BinHeap BinHeapFind(BinHeap &amp;heap, int key);
+
+//打印输出堆结构
+void PrintBinHeap(BinHeap heap);
+
+//销毁堆
+void DestroyBinHeap(BinHeap &amp;heap);
+
+//用数组内的值建堆
+BinHeap MakeBinHeapWithArray(int keys[], int n) {
+	BinHeap heap = NULL, newHeap = NULL;
+	for (int i = 0; i &lt; n; i++) {
+		newHeap = (BinHeap) malloc(sizeof(BinNode));
+		if (newHeap == NULL) {
+			puts(&quot;Out of the Space&quot;);
+			exit(1);
+		}
+		memset(newHeap, 0, sizeof(BinNode));
+		newHeap-&gt;key = keys[i];
+		if (NULL == heap) {
+			heap = newHeap;
+		} else {
+			heap = BinHeapUnion(heap, newHeap);
+			newHeap = NULL;
+		}
+	}
+	return heap;
+}
+
+//两个堆合并
+BinHeap BinHeapUnion(BinHeap &amp;H1, BinHeap &amp;H2) {
+	Position heap = NULL, pre_x = NULL, x = NULL, next_x = NULL;
+	heap = BinHeapMerge(H1, H2);
+	if (heap == NULL) {
+		return heap;
+	}
+
+	pre_x = NULL;
+	x = heap;
+	next_x = x-&gt;sibling;
+
+	while (next_x != NULL) {
+		if ((x-&gt;degree != next_x-&gt;degree) ||//Cases 1 and 2
+			((next_x-&gt;sibling != NULL) &amp;&amp; (next_x-&gt;degree == next_x-&gt;sibling-&gt;degree))) {
+				pre_x = x;
+				x = next_x;
+		} else if (x-&gt;key &lt;= next_x-&gt;key) {//Cases 3
+			x-&gt;sibling = next_x-&gt;sibling;
+			BinLink(next_x, x);
+		} else {//Cases 4
+			if (pre_x == NULL) {
+				heap = next_x;
+			} else {
+				pre_x-&gt;sibling = next_x;
+			}
+			BinLink(x, next_x);
+			x = next_x;
+		}
+		next_x = x-&gt;sibling;
+	}
+	return heap;
+}
+
+//将H1, H2的根表合并成一个按度数的单调递增次序排列的链表
+BinHeap BinHeapMerge(BinHeap &amp;H1, BinHeap &amp;H2) {
+	//heap-&gt;堆的首地址，H3为指向新堆根结点
+	BinHeap heap = NULL, firstHeap = NULL, secondHeap = NULL,
+		pre_H3 = NULL, H3 = NULL;
+
+	if (H1 != NULL &amp;&amp; H2 != NULL){
+		firstHeap = H1;
+		secondHeap = H2;
+		//整个while，firstHeap, secondHeap, pre_H3, H3都在往后顺移
+		while (firstHeap != NULL &amp;&amp; secondHeap != NULL) {
+			if (firstHeap-&gt;degree &lt;= secondHeap-&gt;degree) {
+				H3 = firstHeap;
+				firstHeap = firstHeap-&gt;sibling;
+			} else {
+				H3 = secondHeap;
+				secondHeap = secondHeap-&gt;sibling;
+			}
+
+			if (pre_H3 == NULL) {
+				pre_H3 = H3;
+				heap = H3;
+			} else {
+				pre_H3-&gt;sibling = H3;
+				pre_H3 = H3;
+			}
+			if (firstHeap != NULL) {
+				H3-&gt;sibling = firstHeap;
+			} else {
+				H3-&gt;sibling = secondHeap;
+			}
+		}//while
+	} else if (H1 != NULL) {
+		heap = H1;
+	} else {
+		heap = H2;
+	}
+	H1 = H2 = NULL;
+	return heap;
+}
+
+//使H2成为H1的父节点
+void BinLink(BinHeap &amp;H1, BinHeap &amp;H2) {
+	H1-&gt;parent = H2;
+	H1-&gt;sibling = H2-&gt;leftChild;
+	H2-&gt;leftChild = H1;
+	H2-&gt;degree++;
+}
+
+//返回最小根节点的指针
+BinHeap BinHeapMin(BinHeap heap) {
+	Position y = NULL, x = heap;
+	int min = INT_MAX;
+
+	while (x != NULL) {
+		if (x-&gt;key &lt; min) {
+			min = x-&gt;key;
+			y = x;
+		}
+		x = x-&gt;sibling;
+	}
+	return y;
+}
+
+//抽取有最小关键字的结点
+BinHeap BinHeapExtractMin(BinHeap &amp;heap) {
+	BinHeap pre_y = NULL, y = NULL, x = heap;
+	int min = INT_MAX;
+	while (x != NULL) {
+		if (x-&gt;key &lt; min) {
+			min = x-&gt;key;
+			pre_y = y;
+			y = x;
+		}
+		x = x-&gt;sibling;
+	}
+
+	if (y == NULL) {
+		return NULL;
+	}
+
+	if (pre_y == NULL) {
+		heap = heap-&gt;sibling;
+	} else {
+		pre_y-&gt;sibling = y-&gt;sibling;
+	}
+
+	//将y的子结点指针reverse
+	BinHeap H2 = NULL, p = NULL;
+	x = y-&gt;leftChild;
+	while (x != NULL) {
+		p = x;
+		x = x-&gt;sibling;
+		p-&gt;sibling = H2;
+		H2 = p;
+		p-&gt;parent = NULL;
+	}
+
+	heap = BinHeapUnion(heap, H2);
+	return y;
+}
+
+//减少关键字的值
+void BinHeapDecreaseKey(BinHeap heap, BinHeap x, int key) {
+	if(key &gt; x-&gt;key) {
+		puts(&quot;new key is greaer than current key&quot;);
+		exit(1); //不为降键
+	}
+	x-&gt;key = key;
+
+	BinHeap z = NULL, y = NULL;
+	y = x;
+	z = x-&gt;parent;
+	while(z != NULL &amp;&amp; z-&gt;key &gt; y-&gt;key) {
+		swap(z-&gt;key, y-&gt;key);
+		y = z;
+		z = y-&gt;parent;
+	}
+}
+
+//删除一个关键字
+BinHeap BinHeapDelete(BinHeap &amp;heap, int key) {
+	BinHeap x = NULL;
+	x = BinHeapFind(heap, key);
+	if (x != NULL) {
+		BinHeapDecreaseKey(heap, x, INT_MIN);
+		return BinHeapExtractMin(heap);
+	}
+	return x;
+}
+
+//找出一个关键字
+BinHeap BinHeapFind(BinHeap &amp;heap, int key) {
+	Position p = NULL, x = NULL;
+	p = heap;
+	while (p != NULL) {
+		if (p-&gt;key == key) {
+			return p;
+		} else {
+			if((x =BinHeapFind(p-&gt;leftChild, key)) != NULL) {
+				return x;
+			}
+			p = p-&gt;sibling;
+		}
+	}
+	return NULL;
+}
+
+//打印输出堆结构
+void PrintBinHeap(BinHeap heap) {
+	if (NULL == heap) {
+		return ;
+	}
+	Position p = heap;
+
+	while (p != NULL) {
+		printf(&quot; (&quot;);
+		printf(&quot;%d&quot;, p-&gt;key);
+		//显示其孩子
+		if(NULL != p-&gt;leftChild) {
+			PrintBinHeap(p-&gt;leftChild);
+		}
+		printf(&quot;) &quot;);
+
+		p = p-&gt;sibling;
+	}
+}		
+
+int kp1[8] = {12,
+			   7, 25,
+			  15, 28, 33, 41};
+
+int kp2[20] = {18,
+				3, 37,
+				6, 8, 29, 10, 44, 30, 23, 2, 48, 31, 17, 45, 32, 24, 50, 55};
+
+int kp4[23] = {37, 41,
+	           10, 28, 13, 77,
+			   1, 6, 16, 12, 25, 8, 14, 29, 26, 23, 18, 11, 17, 38, 42, 27};
+int main() {
+	BinHeap H1 = NULL;
+	H1 = MakeBinHeapWithArray(kp1, 7);
+	puts(&quot;第一个二叉堆H1:&quot;);
+	PrintBinHeap(H1);
+
+	BinHeap H2 = NULL;
+	H2 = MakeBinHeapWithArray(kp2, 19);
+	puts(&quot;\n\n第二个二叉堆H2:&quot;);
+	PrintBinHeap(H2);
+
+	BinHeap H3 = NULL;
+	H3 = BinHeapUnion(H1, H2);
+	puts(&quot;\n\n合并H1,H2后，得到H3:&quot;);
+	PrintBinHeap(H3);
+
+	BinHeap H4 = NULL;
+	H4 = MakeBinHeapWithArray(kp4, 22);
+	puts(&quot;\n\n用于测试提取和删除的二叉堆H4:&quot;);
+	PrintBinHeap(H4);
+
+	BinHeap extractNode = BinHeapExtractMin(H4);
+	if (extractNode != NULL) {
+		printf(&quot;\n\n抽取最小的值%d后：\n&quot;, extractNode-&gt;key);
+		PrintBinHeap(H4);
+	}
+
+	extractNode = BinHeapExtractMin(H4);
+	if (extractNode != NULL) {
+		printf(&quot;\n\n抽取最小的值%d后：\n&quot;, extractNode-&gt;key);
+		PrintBinHeap(H4);
+	}
+
+	extractNode = BinHeapExtractMin(H4);
+	if (extractNode != NULL) {
+		printf(&quot;\n\n抽取最小的值%d后：\n&quot;, extractNode-&gt;key);
+		PrintBinHeap(H4);
+	}
+
+	BinHeapDelete(H4, 12);
+	puts(&quot;\n\n删除12后：&quot;);
+	PrintBinHeap(H4);
+	return 0;
+}
+</pre>
+<p><font color="#000000" size="2" face="微软雅黑">wiki里提供了两个二项堆实现的代码，不妨去看看：</font></p>
+<p><font color="#000000" size="2" face="微软雅黑"><font color="#450c94"><u><a href="http://www.cs.unc.edu/~bbb/#binomial_heaps" target="_blank">C语言实现版</a></u></font>， <a href="http://code.activestate.com/recipes/511508/" target="_blank">Python语言实现版</a></font></p>
+<div style="clear:both; margin-top:5px; margin-bottom:5px;"></div><div style="float:left"><!-- JiaThis Button BEGIN -->
+<div id="jiathis_style_32x32">
+<a class="jiathis_button_qzone"></a>
+<a class="jiathis_button_tsina"></a>
+<a class="jiathis_button_tqq"></a>
+<a class="jiathis_button_renren"></a>
+<a class="jiathis_button_42qu"></a>
+<a class="jiathis_button_douban"></a>
+<a class="jiathis_button_douban9dian"></a>
+<a class="jiathis_button_evernote"></a>
+<a class="jiathis_button_google"></a>
+<a class="jiathis_button_email"></a>
+<a class="jiathis_button_delicious"></a>
+<a class="jiathis_button_googleplus"></a>
+<a class="jiathis_button_fb"></a>
+<a href="http://www.jiathis.com/share?uid=1519757" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+	data_track_clickback:true,
+	summary:"",
+	hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1519757" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+</div><div style="clear:both; margin-top:5px; margin-bottom:5px;"></div><h2  class="related_post_title">相关日志</h2><ul class="related_post"><li>2011/09/29 -- <a href="http://mindlee.net/2011/09/29/fibonacci-heaps/" title="斐波那契堆(Fibonacci heaps)">斐波那契堆(Fibonacci heaps)</a> (9)</li><li>2011/07/27 -- <a href="http://mindlee.net/2011/07/27/heap-sort-and-priority-queue/" title="堆排序和优先级队列">堆排序和优先级队列</a> (1)</li><li>2011/11/27 -- <a href="http://mindlee.net/2011/11/27/computational-geometry/" title="计算几何学(Computational Geometry)">计算几何学(Computational Geometry)</a> (1)</li><li>2011/11/25 -- <a href="http://mindlee.net/2011/11/25/string-matching/" title="字符串匹配(String Matching)">字符串匹配(String Matching)</a> (5)</li><li>2011/11/21 -- <a href="http://mindlee.net/2011/11/21/matrix-multiply/" title="矩阵乘法(Matrix Multiply)">矩阵乘法(Matrix Multiply)</a> (4)</li></ul> 
+
+<div class="thetag">Tag： <a href="http://mindlee.net/tag/heap/" rel="tag">堆</a> <a href="http://mindlee.net/tag/data-structure/" rel="tag">数据结构</a> <a href="http://mindlee.net/tag/notes/" rel="tag">笔记</a> <a href="http://mindlee.net/tag/algorithm/" rel="tag">算法</a> <a href="http://mindlee.net/tag/introduction-to-algorithms/" rel="tag">算法导论</a> </div>
+
+</div>
+
+</div>
+
+
+
+<div id="post_metadata">
+
+<h3>日志信息 &raquo;</h3>
+
+<div class="content">
+
+该日志于2011-09-26 08:41由 酷~行天下 发表在<a href="http://mindlee.net/category/algorithm-learning/" title="查看 算法学习 的全部文章" rel="category tag">算法学习</a>分类下，
+
+
+你可以<a href="#respond">发表评论</a>。除了可以将这个日志以保留<a href="http://mindlee.net/2011/09/26/binomial-heaps/" rel="bookmark">源地址</a>及作者的情况下<a href="http://mindlee.net/2011/09/26/binomial-heaps/trackback/" rel="trackback">引用</a>到你的网站或博客，还可以通过
+<!-- Feedsky FEED发布代码开始 -->
+<!-- FEED自动发现标记开始 -->
+<link title="RSS 2.0" type="application/rss+xml" href="http://feed.feedsky.com/mindlee" rel="alternate" />
+<!-- FEED自动发现标记结束 -->
+<script language="javascript"><!-- 
+main_sub="c1s17d";
+more_subs="";
+is_new="yes";
+--> </script>
+<script language="javascript" src="http://www.feedsky.com/jsout/publishlist_v2.js?burl=mindlee&out_html=true"></script>
+<!-- Feedsky FEED发布代码结束 -->
+订阅本站。
+
+
+</div>
+
+</div>
+
+<div id="comments">
+       目前盖楼 (8)层：</div>
+	<ol class="comment_list">
+				<li class="comment even thread-even depth-1 parent" id="comment-366">
+				<div id="div-comment-366" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/?d=identicon&amp;s=48' class='avatar avatar-48 photo avatar-default' height='48' width='48' />		<cite class="fn">xkey</cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://mindlee.net/2011/09/26/binomial-heaps/comment-page-1/#comment-366">
+			2011/11/09 于 12:30</a>		</div>
+
+		<p>你的merge部分有点小问题，当H1或H2=NULL的时候就应该把H1或H2后面的节点全部给H3，那么while循环里面最后的if和else应该放到while循环的外面.<br />
+请问下，查找某个节点的时间复杂度是O(n)？</p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/2011/09/26/binomial-heaps/?replytocom=366#respond' onclick='return addComment.moveForm("div-comment-366", "366", "respond", "650")'>回复</a>		</div>
+				</div>
+		<ul class='children'>
+		<li class="comment byuser comment-author-welon bypostauthor odd alt depth-2" id="comment-696">
+				<div id="div-comment-696" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/5e176552e6eebb8e67d9cd3ff22c2dda?s=48&amp;d=identicon&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />		<cite class="fn"><a href='http://mindlee.net' rel='external nofollow' class='url'>酷~行天下</a></cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://mindlee.net/2011/09/26/binomial-heaps/comment-page-1/#comment-696">
+			2012/06/23 于 15:25</a>		</div>
+
+		<p>最坏情况下确实是O(n).</p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/2011/09/26/binomial-heaps/?replytocom=696#respond' onclick='return addComment.moveForm("div-comment-696", "696", "respond", "650")'>回复</a>		</div>
+				</div>
+		</li>
+</ul>
+</li>
+		<li class="comment even thread-odd thread-alt depth-1 parent" id="comment-657">
+				<div id="div-comment-657" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/e080ce321506e0ca7df700b741e38d71?s=48&amp;d=identicon&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />		<cite class="fn">whui</cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://mindlee.net/2011/09/26/binomial-heaps/comment-page-1/#comment-657">
+			2012/05/21 于 22:32</a>		</div>
+
+		<p>博主， 麻烦帮我解答个问题行吗？CLRS二项堆中提到：二叉堆在合并两个堆时的劣势是时间复杂度O(n)，这点我没有想明白，可以帮解释下吗？</p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/2011/09/26/binomial-heaps/?replytocom=657#respond' onclick='return addComment.moveForm("div-comment-657", "657", "respond", "650")'>回复</a>		</div>
+				</div>
+		<ul class='children'>
+		<li class="comment byuser comment-author-welon bypostauthor odd alt depth-2 parent" id="comment-662">
+				<div id="div-comment-662" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/5e176552e6eebb8e67d9cd3ff22c2dda?s=48&amp;d=identicon&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />		<cite class="fn"><a href='http://mindlee.net' rel='external nofollow' class='url'>酷~行天下</a></cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://mindlee.net/2011/09/26/binomial-heaps/comment-page-1/#comment-662">
+			2012/05/21 于 23:26</a>		</div>
+
+		<p>十九章的时候，“见练习6.2-2”，去第六章的时候，“根据主定理的情况2（定理4.1）”，又跳到第四章了，去第四章的时候，“在2.3.2节我们已经知道……”， <img src='http://mindlee.net/wp-includes/images/smilies/038.gif' alt='[M:038]' class='wp-smiley' /> 。</p>
+<p>PS：差不多都忘了，看过后回你。</p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/2011/09/26/binomial-heaps/?replytocom=662#respond' onclick='return addComment.moveForm("div-comment-662", "662", "respond", "650")'>回复</a>		</div>
+				</div>
+		<ul class='children'>
+		<li class="comment even depth-3" id="comment-663">
+				<div id="div-comment-663" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/e080ce321506e0ca7df700b741e38d71?s=48&amp;d=identicon&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />		<cite class="fn">whui</cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://mindlee.net/2011/09/26/binomial-heaps/comment-page-1/#comment-663">
+			2012/05/22 于 08:33</a>		</div>
+
+		<p>好的， <img src='http://mindlee.net/wp-includes/images/smilies/8.gif' alt='[M:54]' class='wp-smiley' /> </p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/2011/09/26/binomial-heaps/?replytocom=663#respond' onclick='return addComment.moveForm("div-comment-663", "663", "respond", "650")'>回复</a>		</div>
+				</div>
+		</li>
+		<li class="comment byuser comment-author-welon bypostauthor odd alt depth-3" id="comment-695">
+				<div id="div-comment-695" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/5e176552e6eebb8e67d9cd3ff22c2dda?s=48&amp;d=identicon&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />		<cite class="fn"><a href='http://mindlee.net' rel='external nofollow' class='url'>酷~行天下</a></cite> <span class="says">说：</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://mindlee.net/2011/09/26/binomial-heaps/comment-page-1/#comment-695">
+			2012/06/23 于 15:16</a>		</div>
+
+		<p>非常抱歉，现在才回你。<br />
+二叉堆的UNION包括将合并的堆的数组并置，然后运行MIN-HEAPIFY(维护最小堆性质)，它的本质是，利用原来两个堆的所有n个结点，重新建立一个最小堆，《算法导论》第二版78页有证明，建立一个最小堆最大时间界是O(n)。</p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/2011/09/26/binomial-heaps/?replytocom=695#respond' onclick='return addComment.moveForm("div-comment-695", "695", "respond", "650")'>回复</a>		</div>
+				</div>
+		</li>
+</ul>
+</li>
+</ul>
+</li>
+	</ol>
+	<div class="navigation">
+        <span class="alignleft"></span>
+        <span class="alignright"></span>
+        <div class="clear"></div>
+    </div>
+		<div id="respond">
+		<h3 id="post_comment" name="post_comment">发表评论 &raquo;</h3>
+		<div id="cancel_comment_reply"><a rel="nofollow" id="cancel-comment-reply-link" href="/2011/09/26/binomial-heaps/#respond" style="display:none;">点击这里取消回复。</a></div>
+				<form action="http://mindlee.net/wp-comments-post.php" method="post" id="commentform" name="commentform">
+			<p><textarea name="comment" id="comment" rows="5" tabindex="4"></textarea></p>
+						<p><input type="text" name="author" id="author" value="" size="22" tabindex="1" />
+			<label for="author">名称 (必填)</label></p>
+			<p><input type="text" name="email" id="email" value="" size="22" tabindex="2" />
+			<label for="email">电子邮件 (不会被公开) (必填)</label></p>
+			<p><input type="text" name="url" id="url" value="" size="22" tabindex="3" />
+			<label for="url">网站</label></p>
+						<p><input type="submit" id="submit" tabindex="5" value="发表评论(Ctrl+Enter)" /></p>
+			<input type='hidden' name='comment_post_ID' value='650' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+			<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="990fe70276" /></p>
+	<!-- Custom Smilies - Version 2.9.1 -->
+	<style type="text/css">
+	img.wp-smiley-select {cursor: pointer;}
+	</style>
+    <script type="text/javascript">
+    function grin(tag) {
+    	if (typeof tinyMCE != 'undefined') {
+    		grin_tinymcecomments(tag);
+    	} else {
+    		grin_plain(tag);
+    	}
+    }
+    function grin_tinymcecomments(tag) {
+    	tinyMCE.execCommand('mceInsertContent', false, ' ' + tag + ' ');
+    }
+    
+    function grin_plain(tag) {
+    	var myField;
+    	var myCommentTextarea = "comment";
+    	tag = ' ' + tag + ' ';
+        if (document.getElementById(myCommentTextarea) && document.getElementById(myCommentTextarea).type == 'textarea') {
+    		myField = document.getElementById(myCommentTextarea);
+    	} else {
+    		return false;
+    	}
+    	if (document.selection) {
+    		myField.focus();
+    		sel = document.selection.createRange();
+    		sel.text = tag;
+    		myField.focus();
+    	}
+    	else if (myField.selectionStart || myField.selectionStart == '0') {
+    		var startPos = myField.selectionStart;
+    		var endPos = myField.selectionEnd;
+    		var cursorPos = endPos;
+    		myField.value = myField.value.substring(0, startPos)
+    					  + tag
+    					  + myField.value.substring(endPos, myField.value.length);
+    		cursorPos += tag.length;
+    		myField.focus();
+    		myField.selectionStart = cursorPos;
+    		myField.selectionEnd = cursorPos;
+    	}
+    	else {
+    		myField.value += tag;
+    		myField.focus();
+    	}
+    }
+    
+    function moreSmilies() {
+    	document.getElementById('wp-smiley-more').style.display = 'inline';
+    	document.getElementById('wp-smiley-toggle').innerHTML = '<a href="javascript:lessSmilies()">&laquo;&nbsp;less</a></span>';
+    }
+    
+    function lessSmilies() {
+    	document.getElementById('wp-smiley-more').style.display = 'none';
+    	document.getElementById('wp-smiley-toggle').innerHTML = '<a href="javascript:moreSmilies()">more&nbsp;&raquo;</a>';
+    }
+    </script>
+<img src='http://mindlee.net/wp-includes/images/smilies/1.gif' alt='[M:01]' onclick='grin("[M:01]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/10.gif' alt='[M:02]' onclick='grin("[M:02]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/11.gif' alt='[M:03]' onclick='grin("[M:03]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/12.gif' alt='[M:04]' onclick='grin("[M:04]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/13.gif' alt='[M:05]' onclick='grin("[M:05]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/14.gif' alt='[M:06]' onclick='grin("[M:06]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/15.gif' alt='[M:07]' onclick='grin("[M:07]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/16.gif' alt='[M:08]' onclick='grin("[M:08]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/17.gif' alt='[M:09]' onclick='grin("[M:09]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/18.gif' alt='[M:10]' onclick='grin("[M:10]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/19.gif' alt='[M:11]' onclick='grin("[M:11]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/2.gif' alt='[M:12]' onclick='grin("[M:12]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/20.gif' alt='[M:13]' onclick='grin("[M:13]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/21.gif' alt='[M:14]' onclick='grin("[M:14]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/22.gif' alt='[M:15]' onclick='grin("[M:15]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/23.gif' alt='[M:16]' onclick='grin("[M:16]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/24.gif' alt='[M:17]' onclick='grin("[M:17]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/25.gif' alt='[M:18]' onclick='grin("[M:18]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/26.gif' alt='[M:19]' onclick='grin("[M:19]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/27.gif' alt='[M:20]' onclick='grin("[M:20]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/28.gif' alt='[M:21]' onclick='grin("[M:21]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/29.gif' alt='[M:22]' onclick='grin("[M:22]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/3.gif' alt='[M:23]' onclick='grin("[M:23]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/30.gif' alt='[M:24]' onclick='grin("[M:24]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/31.gif' alt='[M:25]' onclick='grin("[M:25]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/32.gif' alt='[M:26]' onclick='grin("[M:26]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/33.gif' alt='[M:27]' onclick='grin("[M:27]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/34.gif' alt='[M:28]' onclick='grin("[M:28]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/35.gif' alt='[M:29]' onclick='grin("[M:29]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/36.gif' alt='[M:30]' onclick='grin("[M:30]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/37.gif' alt='[M:31]' onclick='grin("[M:31]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/38.gif' alt='[M:32]' onclick='grin("[M:32]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/39.gif' alt='[M:33]' onclick='grin("[M:33]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/4.gif' alt='[M:34]' onclick='grin("[M:34]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/40.gif' alt='[M:35]' onclick='grin("[M:35]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/41.gif' alt='[M:36]' onclick='grin("[M:36]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/42.gif' alt='[M:37]' onclick='grin("[M:37]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/43.gif' alt='[M:38]' onclick='grin("[M:38]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/44.gif' alt='[M:39]' onclick='grin("[M:39]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/45.gif' alt='[M:40]' onclick='grin("[M:40]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/46.gif' alt='[M:41]' onclick='grin("[M:41]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/47.gif' alt='[M:42]' onclick='grin("[M:42]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/48.gif' alt='[M:43]' onclick='grin("[M:43]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/49.gif' alt='[M:44]' onclick='grin("[M:44]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/5.gif' alt='[M:45]' onclick='grin("[M:45]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/50.gif' alt='[M:46]' onclick='grin("[M:46]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/51.gif' alt='[M:47]' onclick='grin("[M:47]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/52.gif' alt='[M:48]' onclick='grin("[M:48]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/53.gif' alt='[M:49]' onclick='grin("[M:49]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/54.gif' alt='[M:50]' onclick='grin("[M:50]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/55.gif' alt='[M:51]' onclick='grin("[M:51]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/6.gif' alt='[M:52]' onclick='grin("[M:52]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/7.gif' alt='[M:53]' onclick='grin("[M:53]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/8.gif' alt='[M:54]' onclick='grin("[M:54]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/9.gif' alt='[M:55]' onclick='grin("[M:55]")' class='wp-smiley-select' /> <span id="wp-smiley-more" style="display:none"><img src='http://mindlee.net/wp-includes/images/smilies/056.gif' alt='[M:056]' onclick='grin("[M:056]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/055.gif' alt='[M:055]' onclick='grin("[M:055]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/054.gif' alt='[M:054]' onclick='grin("[M:054]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/053.gif' alt='[M:053]' onclick='grin("[M:053]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/052.gif' alt='[M:052]' onclick='grin("[M:052]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/051.gif' alt='[M:051]' onclick='grin("[M:051]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/050.gif' alt='[M:050]' onclick='grin("[M:050]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/049.gif' alt='[M:049]' onclick='grin("[M:049]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/048.gif' alt='[M:048]' onclick='grin("[M:048]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/047.gif' alt='[M:047]' onclick='grin("[M:047]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/046.gif' alt='[M:046]' onclick='grin("[M:046]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/045.gif' alt='[M:045]' onclick='grin("[M:045]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/044.gif' alt='[M:044]' onclick='grin("[M:044]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/043.gif' alt='[M:043]' onclick='grin("[M:043]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/042.gif' alt='[M:042]' onclick='grin("[M:042]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/041.gif' alt='[M:041]' onclick='grin("[M:041]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/040.gif' alt='[M:040]' onclick='grin("[M:040]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/039.gif' alt='[M:039]' onclick='grin("[M:039]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/038.gif' alt='[M:038]' onclick='grin("[M:038]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/037.gif' alt='[M:037]' onclick='grin("[M:037]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/036.gif' alt='[M:036]' onclick='grin("[M:036]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/035.gif' alt='[M:035]' onclick='grin("[M:035]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/034.gif' alt='[M:034]' onclick='grin("[M:034]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/033.gif' alt='[M:033]' onclick='grin("[M:033]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/032.gif' alt='[M:032]' onclick='grin("[M:032]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/031.gif' alt='[M:031]' onclick='grin("[M:031]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/030.gif' alt='[M:030]' onclick='grin("[M:030]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/029.gif' alt='[M:029]' onclick='grin("[M:029]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/028.gif' alt='[M:028]' onclick='grin("[M:028]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/027.gif' alt='[M:027]' onclick='grin("[M:027]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/026.gif' alt='[M:026]' onclick='grin("[M:026]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/025.gif' alt='[M:025]' onclick='grin("[M:025]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/024.gif' alt='[M:024]' onclick='grin("[M:024]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/023.gif' alt='[M:023]' onclick='grin("[M:023]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/022.gif' alt='[M:022]' onclick='grin("[M:022]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/021.gif' alt='[M:021]' onclick='grin("[M:021]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/020.gif' alt='[M:020]' onclick='grin("[M:020]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/019.gif' alt='[M:019]' onclick='grin("[M:019]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/018.gif' alt='[M:018]' onclick='grin("[M:018]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/017.gif' alt='[M:017]' onclick='grin("[M:017]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/016.gif' alt='[M:016]' onclick='grin("[M:016]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/015.gif' alt='[M:015]' onclick='grin("[M:015]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/014.gif' alt='[M:014]' onclick='grin("[M:014]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/013.gif' alt='[M:013]' onclick='grin("[M:013]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/012.gif' alt='[M:012]' onclick='grin("[M:012]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/011.gif' alt='[M:011]' onclick='grin("[M:011]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/010.gif' alt='[M:010]' onclick='grin("[M:010]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/009.gif' alt='[M:009]' onclick='grin("[M:009]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/008.gif' alt='[M:008]' onclick='grin("[M:008]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/007.gif' alt='[M:007]' onclick='grin("[M:007]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/006.gif' alt='[M:006]' onclick='grin("[M:006]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/005.gif' alt='[M:005]' onclick='grin("[M:005]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/004.gif' alt='[M:004]' onclick='grin("[M:004]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/003.gif' alt='[M:003]' onclick='grin("[M:003]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/002.gif' alt='[M:002]' onclick='grin("[M:002]")' class='wp-smiley-select' /> <img src='http://mindlee.net/wp-includes/images/smilies/001.gif' alt='[M:001]' onclick='grin("[M:001]")' class='wp-smiley-select' /> </span> <span id="wp-smiley-toggle"><a href="javascript:moreSmilies()">more&nbsp;&raquo;</a></span><p><input type="checkbox" name="comment_mail_notify" id="comment_mail_notify" value="comment_mail_notify" checked="checked" style="width: auto;" /><label for="comment_mail_notify">有人回复时邮件通知我</label></p>		</form>
+				<script type="text/javascript">
+			<!--//--><![CDATA[//><!--
+			var commenttextarea = document.getElementById('comment');
+			commenttextarea.onkeydown = function quickSubmit(e) {
+			if (!e) var e = window.event;
+			if (e.ctrlKey && e.keyCode == 13){
+			document.getElementById('submit').click();
+			}
+			};
+			//--><!]]>
+		</script>
+	</div>
+    
+
+<div class="post_nav">
+
+<span class="alignleft">&laquo; <a href="http://mindlee.net/2011/09/18/b-trees/" rel="prev">B-树(B-Trees)</a></span>
+
+<span class="alignright"><a href="http://mindlee.net/2011/09/29/fibonacci-heaps/" rel="next">斐波那契堆(Fibonacci heaps)</a> &raquo;</span>
+
+<div class="clear"></div>
+
+</div>
+
+
+
+</div>
+
+<div class="content_bot"></div>
+
+
+
+<div class="navigation">
+
+
+
+
+<div class="clear"></div>
+
+</div>
+
+
+
+</div>
+
+
+
+ <div id="sidebar">
+<ul>
+
+<li id=”search-3”><form method="get" id="searchform" action="http://mindlee.net/">
+<div>
+	<input type="text" value="" name="s" id="s" size="25" />
+	<input type="submit" id="searchsubmit" value="搜查" />
+</div>
+</form></li><li id=”text-3”><h2>关于我</h2>			<div class="textwidget"><p><font size="2" face="微软雅黑">&#160; <font color="#fabf14">&#160; </font><font color="#51a5dc"><strong>&#160;</strong></font></font><font color="#51a5dc" size="2" face="微软雅黑"><strong>HDU大三学生，不合格程序员，立志用Code改变世界，正在学习算法，Python，PyQt，Linux, Andorid等。对所在世界越来越感到好奇，正在为实现梦想而努力……</strong></font></p>
+<p><font color="#e69d00" size="2" face="微软雅黑"><strong>QQ</strong> <font color="#000000">：</font></font><font size="2" face="微软雅黑"><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=625570113&amp;site=qq&amp;menu=yes" target="_blank"><img title="点击这里给我发消息" border="0" alt="点击这里给我发消息" src="http://wpa.qq.com/pa?p=2:625570113:44" /></a></font></p>
+<p><font color="#e69d00" face="微软雅黑"><font size="2"><strong>Mail</strong><font color="#000000">：</font></font></font><img src="http://services.nexodyne.com/email/icon/6GKcBm4HRXlhBw%3D%3D/fK5K9Co%3D/R01haWw%3D/0/image.png" /></p>
+<p><a href="http://zhihu.com/people/mindlee" target="_blank"><strong><font color="#2e963d">发现世界@知乎</font></strong></a>&#160; <a href="https://github.com/welon" target="_blank"><strong><font color="#2e963d">代码仓库@GitHub</font></strong></a></p>
+<p><a href="http://www.douban.com/people/mindlee/" target="_blank"><strong><font color="#2e963d">读书电影@豆瓣</font></strong></a></font></font>&#160; <a href="http://delicious.com/welon" target="_blank"><strong><font color="#2e963d">好文分享@Delicious</font></strong></a> </p>
+<p><a href="http://weibo.com/mindlee" target="_blank"><strong><font color="#2e963d">偶尔抽风@微博</font></strong></a>&#160; <a href="http://statigr.am/welon" target="_blank"><strong><font color="#2e963d">也拍照片@Instagram</font></strong></a></p>
+</div>
+		</li><li id=”text-4”><h2>时间在流逝</h2>			<div class="textwidget"><script charset="Shift_JIS" src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.js"></script> </div>
+		</li><li id=”categories-3”><h2>分类目录</h2>		<ul>
+	<li class="cat-item cat-item-1"><a href="http://mindlee.net/category/acm-algorithm/" title="学习算法，每天A题……">ACM历程</a> (7)
+</li>
+	<li class="cat-item cat-item-50"><a href="http://mindlee.net/category/android/" title="除了APP，还是APP……">Android</a> (4)
+</li>
+	<li class="cat-item cat-item-45"><a href="http://mindlee.net/category/c-c-plus-plus/" title="记录学习C和C++的过程……">C/C++</a> (3)
+</li>
+	<li class="cat-item cat-item-32"><a href="http://mindlee.net/category/learn-java/" title="记录学习JAVA的过程……">JAVA</a> (6)
+</li>
+	<li class="cat-item cat-item-6"><a href="http://mindlee.net/category/lets-go-on-a-trip/" title="不只是旅行，包括生命体验">出去走走</a> (2)
+</li>
+	<li class="cat-item cat-item-75"><a href="http://mindlee.net/category/technology-enlightenment/" title="还在学">技术启蒙</a> (10)
+</li>
+	<li class="cat-item cat-item-43"><a href="http://mindlee.net/category/algorithm-learning/" title="算法学习笔记">算法学习</a> (26)
+</li>
+	<li class="cat-item cat-item-8"><a href="http://mindlee.net/category/sub-talking/" title="平常日子……">闲心碎语</a> (12)
+</li>
+		</ul>
+</li><li id=”recent-comments-2”><h2>近期评论</h2><ul id="recentcomments"><li class="recentcomments"><a href='http://mindlee.net' rel='external nofollow' class='url'>酷~行天下</a> 在 <a href="http://mindlee.net/2011/09/26/binomial-heaps/comment-page-1/#comment-696">二项堆(Binomial Heaps)</a> 上的评论</li><li class="recentcomments"><a href='http://mindlee.net' rel='external nofollow' class='url'>酷~行天下</a> 在 <a href="http://mindlee.net/2011/09/26/binomial-heaps/comment-page-1/#comment-695">二项堆(Binomial Heaps)</a> 上的评论</li><li class="recentcomments"><a href='http://mindlee.net' rel='external nofollow' class='url'>酷~行天下</a> 在 <a href="http://mindlee.net/2011/09/29/fibonacci-heaps/comment-page-1/#comment-694">斐波那契堆(Fibonacci heaps)</a> 上的评论</li><li class="recentcomments"><a href='http://mindlee.net' rel='external nofollow' class='url'>酷~行天下</a> 在 <a href="http://mindlee.net/2011/11/19/network-flow/comment-page-1/#comment-693">网络流(Network Flow)</a> 上的评论</li><li class="recentcomments">wangyu 在 <a href="http://mindlee.net/2011/11/19/network-flow/comment-page-1/#comment-692">网络流(Network Flow)</a> 上的评论</li><li class="recentcomments">wangyu 在 <a href="http://mindlee.net/2011/11/19/network-flow/comment-page-1/#comment-691">网络流(Network Flow)</a> 上的评论</li><li class="recentcomments"><a href='http://mindlee.net' rel='external nofollow' class='url'>酷~行天下</a> 在 <a href="http://mindlee.net/2011/11/19/network-flow/comment-page-1/#comment-690">网络流(Network Flow)</a> 上的评论</li><li class="recentcomments">wangyu 在 <a href="http://mindlee.net/2011/11/19/network-flow/comment-page-1/#comment-689">网络流(Network Flow)</a> 上的评论</li></ul></li><li id=”views-3”><h2>Most Viewed</h2><ul>
+<li><a href="http://mindlee.net/2011/06/22/dream/"  title="15年内要实现的（梦想）">15年内要实现的（梦想）</a> - 4,475 views</li><li><a href="http://mindlee.net/2011/08/21/study-notes-directory/"  title="《算法导论》笔记汇总">《算法导论》笔记汇总</a> - 4,219 views</li><li><a href="http://mindlee.net/2012/02/05/kindle-dxg/"  title="入手了Kindle DXG">入手了Kindle DXG</a> - 2,822 views</li><li><a href="http://mindlee.net/2011/02/15/the-first-blog-talking/"  title="开博碎碎念">开博碎碎念</a> - 2,530 views</li><li><a href="http://mindlee.net/2011/06/23/hackers-and-painters/"  title="《黑客与画家》简单读书笔记">《黑客与画家》简单读书笔记</a> - 2,340 views</li><li><a href="http://mindlee.net/2011/04/19/first-time-to-acm-provincial-competition/"  title="第一次ACM省赛">第一次ACM省赛</a> - 2,193 views</li><li><a href="http://mindlee.net/2011/08/01/c-traps-and-pitfalls/"  title="《C陷进与缺陷》读书笔记">《C陷进与缺陷》读书笔记</a> - 2,191 views</li><li><a href="http://mindlee.net/2011/08/01/change-july/"  title="七月：跌宕起伏，波澜不惊">七月：跌宕起伏，波澜不惊</a> - 2,091 views</li><li><a href="http://mindlee.net/2011/07/24/java-little-calculator/"  title="JAVA之小型计算器">JAVA之小型计算器</a> - 2,065 views</li><li><a href="http://mindlee.net/2011/07/29/quick-sort-optimization/"  title="快速排序优化">快速排序优化</a> - 2,048 views</li></ul>
+</li>		<li id=”recent-posts-2”>		<h2>最近文章</h2>		<ul>
+				<li><a href="http://mindlee.net/2012/04/27/learning-git/" title="Git学习笔记">Git学习笔记</a></li>
+				<li><a href="http://mindlee.net/2012/04/11/devil-language-study/" title="魔王语言小窥">魔王语言小窥</a></li>
+				<li><a href="http://mindlee.net/2012/04/05/hurriedly/" title="匆匆">匆匆</a></li>
+				<li><a href="http://mindlee.net/2012/02/05/kindle-dxg/" title="入手了Kindle DXG">入手了Kindle DXG</a></li>
+				<li><a href="http://mindlee.net/2012/01/06/my-2011/" title="2011年终总结">2011年终总结</a></li>
+				<li><a href="http://mindlee.net/2011/12/23/just-for-fun-hdu-navigater/" title="Just For Fun，HDU Navigater">Just For Fun，HDU Navigater</a></li>
+				<li><a href="http://mindlee.net/2011/12/02/thanks-god%ef%bc%8cits-friday/" title="Thanks God，It&#8217;s Friday">Thanks God，It&#8217;s Friday</a></li>
+				<li><a href="http://mindlee.net/2011/11/27/computational-geometry/" title="计算几何学(Computational Geometry)">计算几何学(Computational Geometry)</a></li>
+				</ul>
+		</li><li id=”tag_cloud-3”><h2>标签</h2><div class="tagcloud"><a href='http://mindlee.net/tag/acm/' class='tag-link-17' title='9 个话题' style='font-size: 16.2352941176pt;'>ACM</a>
+<a href='http://mindlee.net/tag/android-2/' class='tag-link-51' title='3 个话题' style='font-size: 11.5294117647pt;'>Android</a>
+<a href='http://mindlee.net/tag/cc-plus-plus/' class='tag-link-65' title='3 个话题' style='font-size: 11.5294117647pt;'>C/C++</a>
+<a href='http://mindlee.net/tag/git/' class='tag-link-80' title='1 个话题' style='font-size: 8pt;'>git</a>
+<a href='http://mindlee.net/tag/java/' class='tag-link-34' title='5 个话题' style='font-size: 13.6470588235pt;'>JAVA</a>
+<a href='http://mindlee.net/tag/kindle-dxg/' class='tag-link-78' title='1 个话题' style='font-size: 8pt;'>kindle dxg</a>
+<a href='http://mindlee.net/tag/median/' class='tag-link-71' title='1 个话题' style='font-size: 8pt;'>中位数</a>
+<a href='http://mindlee.net/tag/binary-matching/' class='tag-link-30' title='1 个话题' style='font-size: 8pt;'>二分匹配</a>
+<a href='http://mindlee.net/tag/graph-algorithms/' class='tag-link-73' title='4 个话题' style='font-size: 12.7058823529pt;'>图论</a>
+<a href='http://mindlee.net/tag/heap/' class='tag-link-66' title='3 个话题' style='font-size: 11.5294117647pt;'>堆</a>
+<a href='http://mindlee.net/tag/string-matching/' class='tag-link-74' title='1 个话题' style='font-size: 8pt;'>字符串匹配</a>
+<a href='http://mindlee.net/tag/yearend-summary/' class='tag-link-77' title='1 个话题' style='font-size: 8pt;'>年终总结</a>
+<a href='http://mindlee.net/tag/sort/' class='tag-link-60' title='4 个话题' style='font-size: 12.7058823529pt;'>排序</a>
+<a href='http://mindlee.net/tag/hash/' class='tag-link-70' title='2 个话题' style='font-size: 10.1176470588pt;'>散列</a>
+<a href='http://mindlee.net/tag/data-structure/' class='tag-link-79' title='23 个话题' style='font-size: 20.7058823529pt;'>数据结构</a>
+<a href='http://mindlee.net/tag/travel/' class='tag-link-59' title='2 个话题' style='font-size: 10.1176470588pt;'>旅行</a>
+<a href='http://mindlee.net/tag/tree/' class='tag-link-67' title='5 个话题' style='font-size: 13.6470588235pt;'>树</a>
+<a href='http://mindlee.net/tag/binary-indexed-tree/' class='tag-link-29' title='1 个话题' style='font-size: 8pt;'>树状数组</a>
+<a href='http://mindlee.net/tag/dream/' class='tag-link-25' title='2 个话题' style='font-size: 10.1176470588pt;'>梦想</a>
+<a href='http://mindlee.net/tag/life/' class='tag-link-24' title='12 个话题' style='font-size: 17.5294117647pt;'>生活</a>
+<a href='http://mindlee.net/tag/matrix-multiplication/' class='tag-link-28' title='2 个话题' style='font-size: 10.1176470588pt;'>矩阵乘法</a>
+<a href='http://mindlee.net/tag/notes/' class='tag-link-62' title='24 个话题' style='font-size: 20.9411764706pt;'>笔记</a>
+<a href='http://mindlee.net/tag/algorithm/' class='tag-link-10' title='30 个话题' style='font-size: 22pt;'>算法</a>
+<a href='http://mindlee.net/tag/introduction-to-algorithms/' class='tag-link-37' title='23 个话题' style='font-size: 20.7058823529pt;'>算法导论</a>
+<a href='http://mindlee.net/tag/reading/' class='tag-link-61' title='4 个话题' style='font-size: 12.7058823529pt;'>读书</a>
+<a href='http://mindlee.net/tag/software/' class='tag-link-52' title='3 个话题' style='font-size: 11.5294117647pt;'>软件</a>
+<a href='http://mindlee.net/tag/sports/' class='tag-link-72' title='2 个话题' style='font-size: 10.1176470588pt;'>运动</a></div>
+</li><li id=”archives-2”><h2>文章归档</h2>		<ul>
+			<li><a href='http://mindlee.net/2012/04/' title='2012 年四月'>2012 年四月</a>&nbsp;(3)</li>
+	<li><a href='http://mindlee.net/2012/02/' title='2012 年二月'>2012 年二月</a>&nbsp;(1)</li>
+	<li><a href='http://mindlee.net/2012/01/' title='2012 年一月'>2012 年一月</a>&nbsp;(1)</li>
+	<li><a href='http://mindlee.net/2011/12/' title='2011 年十二月'>2011 年十二月</a>&nbsp;(2)</li>
+	<li><a href='http://mindlee.net/2011/11/' title='2011 年十一月'>2011 年十一月</a>&nbsp;(8)</li>
+	<li><a href='http://mindlee.net/2011/10/' title='2011 年十月'>2011 年十月</a>&nbsp;(5)</li>
+	<li><a href='http://mindlee.net/2011/09/' title='2011 年九月'>2011 年九月</a>&nbsp;(7)</li>
+	<li><a href='http://mindlee.net/2011/08/' title='2011 年八月'>2011 年八月</a>&nbsp;(8)</li>
+	<li><a href='http://mindlee.net/2011/07/' title='2011 年七月'>2011 年七月</a>&nbsp;(7)</li>
+	<li><a href='http://mindlee.net/2011/06/' title='2011 年六月'>2011 年六月</a>&nbsp;(3)</li>
+	<li><a href='http://mindlee.net/2011/05/' title='2011 年五月'>2011 年五月</a>&nbsp;(4)</li>
+	<li><a href='http://mindlee.net/2011/04/' title='2011 年四月'>2011 年四月</a>&nbsp;(1)</li>
+	<li><a href='http://mindlee.net/2011/03/' title='2011 年三月'>2011 年三月</a>&nbsp;(2)</li>
+	<li><a href='http://mindlee.net/2011/02/' title='2011 年二月'>2011 年二月</a>&nbsp;(1)</li>
+		</ul>
+</li>
+ 
+		<li id=”links-3”><h2>My Hero</h2>
+	<ul class='xoxo blogroll'>
+<li><a href="http://alexmaccaw.co.uk/" rel="friend" title="需翻墙" target="_blank">Alex MacCaw</a></li>
+<li><a href="http://markbao.com/" title="精神偶像" target="_blank">MarkBao</a></li>
+<li><a href="http://www.matrix67.com/blog/about" title="对这样的广博很是羡慕" target="_blank">Matrix67</a></li>
+<li><a href="http://www.paulgraham.com/index.html" title="保罗·格雷厄姆" target="_blank">Paul Graham</a></li>
+<li><a href="http://mindhacks.cn/" target="_blank">刘未鹏</a></li>
+<li><a href="http://blog.youxu.info/" target="_blank">徐宥</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/" target="_blank">阮一峰</a></li>
+
+	</ul>
+</li>
+<li id=”links-4”><h2>Spirit of Water</h2>
+	<ul class='xoxo blogroll'>
+<li><a href="http://calmrey.diandian.com/" target="_blank">CalmRey</a></li>
+<li><a href="http://blog.sina.com.cn/purofhap" rel="friend" target="_blank">Pursuit Of Happiness</a></li>
+<li><a href="http://tikiet.blog.163.com/" rel="friend" title="基友" target="_blank">东东</a></li>
+<li><a href="http://cindywise.blog.163.com/" rel="friend" target="_blank">丝绒</a></li>
+<li><a href="http://weiweihe.com/" rel="friend" target="_blank">左岸</a></li>
+<li><a href="http://zhaqiang.com/" rel="friend" target="_blank">揸枪</a></li>
+
+	</ul>
+</li>
+<li id=”links-2”><h2>Code Fighter</h2>
+	<ul class='xoxo blogroll'>
+<li><a href="http://www.roading.org/" target="_blank">Adoo</a></li>
+<li><a href="http://www.cnblogs.com/ambition/" title="Amb教主" target="_blank">Amb</a></li>
+<li><a href="http://blog.163.com/zheng_feng_hi/" title="HDOJ管理员" target="_blank">Black KniGht</a></li>
+<li><a href="http://www.flyingcat.me/" title="大神" target="_blank">FlyingCat</a></li>
+<li><a href="http://www.geekermx.com/" rel="friend" target="_blank">SAI_佐為</a></li>
+<li><a href="http://starfall512.com" rel="friend" title="队友+ 师傅" target="_blank">Starfall</a></li>
+<li><a href="http://www.wutianqi.com/" title="北化的大牛" target="_blank">Tanky Woo</a></li>
+<li><a href="http://haipo.me/" title="腾讯的大牛" target="_blank">杨海坡</a></li>
+<li><a href="http://www.keepsimply.org/" target="_blank">独酌逸醉</a></li>
+
+	</ul>
+</li>
+<li id=”meta-3”><h2>功能</h2>			<ul>
+			<li><a href="http://mindlee.net/wp-login.php?action=register">注册</a></li>			<li><a href="http://mindlee.net/wp-login.php">登录</a></li>
+			<li><a href="http://mindlee.net/feed/" title="使用 RSS 2.0 同步站点内容">文章 <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://mindlee.net/comments/feed/" title="使用 RSS 同步站点的近期评论">评论 <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://wordpress.org/" title="基于 WordPress，优美的个人信息发布平台。">WordPress.org</a></li>
+						</ul>
+</li>		<!-- #secondary .widget-area -->
+
+
+</ul>
+</div>
+<div class="clear"></div>
+
+</div>
+
+ <div id="foot">
+Except where otherwise noted, this site is licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/2.5/">a Creative Commons License</a>. <br /> 
+&copy;2010-2011 酷~行天下 All Rights Reservied (Designed by <a href="http://www.liudaiquan.com" target="_blank">huanjue</a>). 
+</div>
+ <script type='text/javascript' src='http://mindlee.net/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shCore.js?ver=3.0.83c'></script>
+<script type='text/javascript' src='http://mindlee.net/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCpp.js?ver=3.0.83c'></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://mindlee.net/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.83c";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://mindlee.net/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.83c";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '帮助';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = '无法找到Brush：';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush不能设置 html-script选项';
+	SyntaxHighlighter.defaults['collapse'] = true;
+	SyntaxHighlighter.defaults['light'] = true;
+	SyntaxHighlighter.defaults['pad-line-numbers'] = true;
+	SyntaxHighlighter.all();
+</script>
+</div>
+<script src="http://www.clicki.cn/boot/42838"></script>
+<div id="clicki_group_203" title="clicki"></div>
+</body>
+</html>

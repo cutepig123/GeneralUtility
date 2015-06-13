@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-TW" lang="zh-TW" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="generator" content="MediaWiki 1.19.1" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="MoztwWiki (zh-tw)" />
+<link rel="EditURI" type="application/rsd+xml" href="http://wiki.moztw.org/api.php?action=rsd" />
+<link rel="copyright" href="/MoztwWiki" />
+<link rel="alternate" type="application/atom+xml" title="訂閱 MoztwWiki 的 Atom 資料來源" href="/index.php?title=%E7%89%B9%E6%AE%8A:%E8%BF%91%E6%9C%9F%E8%AE%8A%E5%8B%95&amp;feed=atom" />    <title>AJAX 上手篇 - MoztwWiki</title>
+    <style type="text/css" media="screen,projection">/*<![CDATA[*/ @import "/skins/moztw/main.css"; /*]]>*/</style>
+    <link rel="stylesheet" type="text/css" media="print" href="/skins/common/commonPrint.css" />
+    <!--[if lt IE 5.5000]><style type="text/css">@import "/skins/moztw/IE50Fixes.css";</style><![endif]-->
+    <!--[if IE 5.5000]><style type="text/css">@import "/skins/moztw/IE55Fixes.css";</style><![endif]-->
+    <!--[if IE 6]><style type="text/css">@import "/skins/moztw/IE60Fixes.css";</style><![endif]-->
+    <!--[if IE]><script type="text/javascript" src="/skins/common/IEFixes.js"></script>
+    <meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+        <script type="text/javascript" src="/skins/common/wikibits.js"></script>
+            	<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-1035080-1";
+urchinTracker();
+</script>
+  </head>
+
+  <body         >
+<div id="header">
+<h1><a href="http://moztw.org/" title="Return to home page, moztw.org" accesskey="1">Mozilla Taiwan (MozTW)</a></h1>
+ <ul>
+  <li id="menu_aboutus"><a href="http://moztw.org/about" title="About this website">關於本站</a></li>
+  <li id="menu_contribute"><a title="了解我們正在做什麼，看看您能幫上什麼忙！" href="http://moztw.org/contribute">參與我們</a></li>
+  <li id="menu_planet"><a title="MozTW 社群成員閒聊區" href="http://planet.moztw.org/">摩茲工寮</a></li>
+  <li id="menu_wiki"><a href="http://wiki.moztw.org/" title="Mozilla Taiwan 共筆系統">共筆系統</a></li>
+  <li id="menu_forum"><a href="http://forum.moztw.org/" title="Mozilla 華語社群討論區">討論區</a></li>
+  <li id="menu_products"><a href="http://moztw.org/dl" title="Moztw.org 提供的中文化軟體一覽">下載</a></li>
+ </ul>
+</div>
+<div class="key-point" style="background:#FCF4C4;margin:1em 3em;padding:5px 30px;">
+<h2>舊文件</h2>
+<p>此處文件僅供參考，請自行考量時效性與適用程度，其他庫藏文件請參考<a href="http://moztw.org/docs/" title="更舊的文件">文件頁面</a>；<br>我們亟需您的協助，進行共筆系統搬移、及文件整理工作，詳情請查閱<a title="了解我們正在做什麼，看看您能幫上什麼忙！" href="http://moztw.org/contribute">參與我們</a>。</p>
+</div>
+  <div id="globalWrapper">
+      <div id="column-content">
+	<div id="content">
+	<div id="p-cactions" class="portlet">
+	<h5>Views</h5>
+	<ul>
+	<li id="ca-nstab-main"
+	    class="selected"	    ><a href="/AJAX_%E4%B8%8A%E6%89%8B%E7%AF%87">頁面內容</a></li><li id="ca-talk"
+	    	    ><a href="/%E8%A8%8E%E8%AB%96:AJAX_%E4%B8%8A%E6%89%8B%E7%AF%87">討論</a></li><li id="ca-viewsource"
+	    	    ><a href="/index.php?title=AJAX_%E4%B8%8A%E6%89%8B%E7%AF%87&amp;action=edit">查看原始碼</a></li><li id="ca-history"
+	    	    ><a href="/index.php?title=AJAX_%E4%B8%8A%E6%89%8B%E7%AF%87&amp;action=history">歷史記錄</a></li>	    </ul>
+	    </div>
+	  <a name="top" id="contentTop"></a>
+	  	  <h1 class="firstHeading">AJAX 上手篇</h1>
+	  <div id="bodyContent">
+	    <h3 id="siteSub">出自MoztwWiki</h3>
+	    <div id="contentSub"></div>
+	    	    	    <!-- start content -->
+	    <div id="mw-content-text" lang="zh-TW" dir="ltr" class="mw-content-ltr"><div style="text-align: center; border: 5px solid yellow; font-size: 110%; padding: .3em;margin-bottom: 1em;">本文已經移往 Mozilla 開發者中心，請前往<a rel="nofollow" class="external text" href="http://developer.mozilla.org/zh_tw/docs/AJAX:上手篇">目前網址</a>參考最新資訊。</div>
+<p>這篇文章說明 AJAX 相關技術的基礎，並提供實例供您上手。
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>內容大綱</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E7.AC.AC.E4.B8.80.E6.AD.A5_.E2.80.93_.E8.AA.AA.E8.81.B2.E3.80.8C.E8.AB.8B.E3.80.8D_.EF.BC.88.E5.8F.88.E7.A8.B1.E7.82.BA.E3.80.8C.E6.80.8E.E9.BA.BC.E7.99.BC.E5.87.BA_XMLHttpRequest.E3.80.8D.EF.BC.89"><span class="tocnumber">1</span> <span class="toctext">第一步 – 說聲「請」 （又稱為「<b>怎麼發出 XMLHttpRequest</b>」）</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E7.AC.AC.E4.BA.8C.E6.AD.A5_.E2.80.93_.E3.80.8C.E5.B0.B1.E4.B8.8A.E5.92.A9.EF.BC.81.E3.80.8D.EF.BC.88.E5.8F.88.E7.A8.B1.E7.82.BA.E3.80.8C.E8.99.95.E7.90.86.E4.BC.BA.E6.9C.8D.E5.99.A8.E5.82.B3.E5.9B.9E.E7.9A.84.E8.B3.87.E6.96.99.E3.80.8D.EF.BC.89"><span class="tocnumber">2</span> <span class="toctext">第二步 – 「就上咩！」（又稱為「處理伺服器傳回的資料」）</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E7.AC.AC.E4.B8.89.E6.AD.A5_-_.E8.90.AC.E4.BA.8B.E4.BF.B1.E5.82.99_-_.E7.B0.A1.E5.96.AE.E7.AF.84.E4.BE.8B"><span class="tocnumber">3</span> <span class="toctext">第三步 - 萬事俱備 - 簡單範例</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#.E7.AC.AC.E5.9B.9B.E6.AD.A5_.E2.80.93_.E3.80.8CX_.E6.AA.94.E6.A1.88.E3.80.8D.EF.BC.88.E5.8F.88.E7.A8.B1.E7.82.BA.E3.80.8C.E8.99.95.E7.90.86_XML_.E5.9B.9E.E6.87.89.E5.80.BC.E3.80.8D.EF.BC.89"><span class="tocnumber">4</span> <span class="toctext">第四步 – 「X 檔案」（又稱為「處理 XML 回應值」）</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id=".E7.AC.AC.E4.B8.80.E6.AD.A5_.E2.80.93_.E8.AA.AA.E8.81.B2.E3.80.8C.E8.AB.8B.E3.80.8D_.EF.BC.88.E5.8F.88.E7.A8.B1.E7.82.BA.E3.80.8C.E6.80.8E.E9.BA.BC.E7.99.BC.E5.87.BA_XMLHttpRequest.E3.80.8D.EF.BC.89"> 第一步 – 說聲「請」 （又稱為「<b>怎麼發出 XMLHttpRequest</b>」） </span></h2>
+<p>為了用 JavaScript 對伺服器發送 HTTP 要求，必須先以相關的類別（class）製出實體（instance）。Internet Explorer 首先以 ActiveX 物件方式提供 <code>XMLHTTP</code> 類別，而 Mozilla、Safari 及其他瀏覽器則隨後以 <code>XMLHttpRequest</code> 類別支援此 ActiveX 物件中的類別及屬性。
+</p><p>因此，如果想跨瀏覽器，那麼可以這麼寫：
+</p>
+<pre>
+if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+    http_request = new XMLHttpRequest();
+} else if (window.ActiveXObject) { // IE
+    http_request = new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);
+}
+</pre>
+<p>(由於這段程式僅供說明，所以是採最簡方式寫出。本文第三步中有另一種我們比較常用的寫法。)
+</p><p>有些版本的 Mozilla 瀏覽器在伺服器送回的資料未含 XML mime-type 檔頭（header）時會出錯。為了避免這個問題，你可以用下列方法覆寫伺服器傳回的檔頭，以免傳回的不是 <code>text/xml</code>。
+</p>
+<pre>
+http_request = new XMLHttpRequest();
+http_request.overrideMimeType('text/xml');
+</pre>
+<p>接下來是要決定伺服器傳回資料後的處理方式，此時你只要以 <code>onreadystatechange</code> 這個屬性指明要處理傳回值的 JavaScript 函式名稱即可，例如：
+</p><p><code>http_request.onreadystatechange = nameOfTheFunction;</code>
+</p><p>注意，指定的函式名稱後不加括號也沒有參數。除了指定函式名稱外，你也能用 Javascript 即時定義函式的方法來定一個新的處理函式，如下：
+</p>
+<pre>
+http_request.onreadystatechange = function(){
+    // 做些事
+};
+</pre>
+<p>決定處理方式之後你得確實發出 request，此時需叫用 HTTP request 類別的 <code>open()</code> 及 <code>send()</code> 方法，如下：
+</p>
+<pre>
+http_request.open('GET', 'http://www.example.org/some.file', true);
+http_request.send(null);
+</pre>
+<ul><li> <code>open()</code> 的第一個參數是 HTTP request 的方法，也就是從 GET、POST、HEAD 中擇一使用，亦可用你主機上支援的方式。為遵循 HTTP 標準，請記得這些方法都是大寫，不然有的瀏覽器（如 Firefox）或許不會理你。其他 HTTP request 可以支援的方法列表請參考 <a rel="nofollow" class="external text" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">W3C 規格書</a>。 
+</li><li> 第二個參數是目標 URL。基於安全考量，你不能叫用同網域以外的網頁。如果網域不同，則叫用 <code>open()</code> 時會出現「權限不足，拒絕存取」那類的錯誤。通常大夥會犯的錯誤多為在 domain.tld 網的網站下呼叫 www.domain.tld 中的網頁，僅是一點點差別都不行。
+</li><li> 第三個參數決定此 request 是否不同步進行，如果設定為 <code>TRUE</code> 則即使伺服器尚未傳回資料也會繼續執行其餘的程式，這也就是 AJAX 中第一個 A 代表的意義。
+</li></ul>
+<p><code>send()</code> 的參數在以 POST 發出 request 時可以是任何想傳給伺服器的東西，而資料則以查詢字串的方式列出，例如：
+</p><p><code>name=value&amp;anothername=othervalue&amp;so=on</code>
+</p><p>不過如果你想要以 POST 方式傳送資料，則必須先將 MIME 型態改好，如下：
+</p>
+<pre>
+http_request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+</pre>
+<p>否則伺服器就不會理你傳過來的資料了。
+</p>
+<h2> <span class="mw-headline" id=".E7.AC.AC.E4.BA.8C.E6.AD.A5_.E2.80.93_.E3.80.8C.E5.B0.B1.E4.B8.8A.E5.92.A9.EF.BC.81.E3.80.8D.EF.BC.88.E5.8F.88.E7.A8.B1.E7.82.BA.E3.80.8C.E8.99.95.E7.90.86.E4.BC.BA.E6.9C.8D.E5.99.A8.E5.82.B3.E5.9B.9E.E7.9A.84.E8.B3.87.E6.96.99.E3.80.8D.EF.BC.89"> 第二步 – 「就上咩！」（又稱為「處理伺服器傳回的資料」） </span></h2>
+<p>傳出 request 時必須提供處理傳回值的函式名稱。
+</p><p><code>http_request.onreadystatechange = nameOfTheFunction;</code>
+</p><p>那麼來看看這個函式該做些什麼。首先，它必須檢查 request 目前的狀態：如果狀態值為 4 代表伺服器已經傳回所有資訊了，便可以開始解析所得資訊。
+</p>
+<pre>
+if (http_request.readyState == 4) {
+    // 一切 ok, 繼續解析
+} else {
+    // 還沒完成
+}
+</pre>
+<p><code>readyState</code> 所有可能的值如下：
+</p>
+<ul><li> 0 (還沒開始)
+</li><li> 1 (讀取中)
+</li><li> 2 (已讀取)
+</li><li> 3 (資訊交換中)
+</li><li> 4 (一切完成)
+</li></ul>
+<p>(<a rel="nofollow" class="external text" href="http://msdn.microsoft.com/workshop/author/dhtml/reference/properties/readystate_1.asp">資料來源: MSDN</a>)
+</p><p>接下來要檢查伺服器傳回的 HTTP 狀態碼。所有狀態碼列表可於 <a rel="nofollow" class="external text" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">W3C 網站</a>上查到，但我們要管的是 <code>200 OK</code> 這種狀態。
+</p>
+<pre>
+if (http_request.status == 200) {
+    // 萬事具備
+} else {
+    // 似乎有點問題，或許伺服器傳回了 404 (查無此頁) 或者 500 (內部錯誤) 什麼的
+}
+</pre>
+<p>檢查傳回的 HTTP 狀態碼後，要怎麼處理傳回的資料就由你決定了。有兩種存取資料的方式：
+</p>
+<ul><li> <code>http_request.responseText</code> – 這樣會把傳回值當字串用
+</li><li> <code>http_request.responseXML</code> – 這樣會把傳回值視為 <code>XMLDocument</code> 物件，而後可用 JavaScript DOM 相關函式處理
+</li></ul>
+<h2> <span class="mw-headline" id=".E7.AC.AC.E4.B8.89.E6.AD.A5_-_.E8.90.AC.E4.BA.8B.E4.BF.B1.E5.82.99_-_.E7.B0.A1.E5.96.AE.E7.AF.84.E4.BE.8B"> 第三步 - 萬事俱備 - 簡單範例 </span></h2>
+<p>好，接著就做一次簡單的 HTTP 範例，演示方才的各項技巧。這段 JavaScript 會向伺服器要一份裡頭有「I'm a test.」字樣的 HTML 文件(<code>test.html</code>)，而後以 <code>alert()</code> 將文件內容列出。
+</p>
+<pre>
+&lt;script type=&quot;text/javascript&quot; language=&quot;javascript&quot;&gt;
+
+    var http_request = false;
+
+    function makeRequest(url) {
+
+        http_request = false;
+
+        if (window.XMLHttpRequest) { // Mozilla, Safari,...
+            http_request = new XMLHttpRequest();
+            if (http_request.overrideMimeType) {
+                http_request.overrideMimeType('text/xml');
+            }
+        } else if (window.ActiveXObject) { // IE
+            try {
+                http_request = new ActiveXObject(&quot;Msxml2.XMLHTTP&quot;);
+            } catch (e) {
+                try {
+                    http_request = new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);
+                } catch (e) {}
+            }
+        }
+
+        if (!http_request) {
+            alert('Giving up&#160;:( Cannot create an XMLHTTP instance');
+            return false;
+        }
+        http_request.onreadystatechange = alertContents;
+        http_request.open('GET', url, true);
+        http_request.send(null);
+
+    }
+
+    function alertContents() {
+
+        if (http_request.readyState == 4) {
+            if (http_request.status == 200) {
+                alert(http_request.responseText);
+            } else {
+                alert('There was a problem with the request.');
+            }
+        }
+
+    }
+&lt;/script&gt;
+&lt;span
+    style=&quot;cursor: pointer; text-decoration: underline&quot;
+    onclick=&quot;makeRequest('test.html')&quot;&gt;
+        Make a request
+&lt;/span&gt;
+</pre>
+<p>在此範例中：
+</p>
+<ul><li> 首先使用者按下「Make a request」
+</li><li> 這麼一來就會呼叫 <code>makeRequest()</code> 函式，亦傳入參數值 <code>test.html</code> (也就是那份 HTML 檔的名稱，放在同目錄下)
+</li><li> 接著發出 request，而後會將主導權交給 <code>onreadystatechange</code> 指定的  <code>alertContents()</code> 函式
+</li><li> <code>alertContents()</code> 檢查回應是否正常，而後以 <code>alert()</code> 將 <code>test.html</code> 的內容列出
+</li></ul>
+<p>你可以<a rel="nofollow" class="external text" href="http://www.w3clubs.com/mozdev/httprequest_test.html">由此測試本例</a>，也可以參考<a rel="nofollow" class="external text" href="http://www.w3clubs.com/mozdev/test.html">測試檔案</a>。
+</p>
+<h2> <span class="mw-headline" id=".E7.AC.AC.E5.9B.9B.E6.AD.A5_.E2.80.93_.E3.80.8CX_.E6.AA.94.E6.A1.88.E3.80.8D.EF.BC.88.E5.8F.88.E7.A8.B1.E7.82.BA.E3.80.8C.E8.99.95.E7.90.86_XML_.E5.9B.9E.E6.87.89.E5.80.BC.E3.80.8D.EF.BC.89"> 第四步 – 「X 檔案」（又稱為「處理 XML 回應值」） </span></h2>
+<p>前面的例子中，在收到 HTTP 傳回值後我們以物件的 <code>reponseText</code> 屬性使用 <code>test.html</code> 檔案的內容，接著來試試 <code>responseXML</code> 屬性的方法。
+</p><p>首先，我們得做個格式正確的 XML 文件，以便稍後取用。此檔名喚 <code>test.xml</code>，內容如下：
+</p>
+<pre>
+&lt;?xml version=&quot;1.0&quot;&#160;?&gt;
+&lt;root&gt;
+    I'm a test.
+&lt;/root&gt;
+</pre>
+<p>在程式中，我們叫用檔案的地方只須略事修改如下：
+</p>
+<pre>
+...
+onclick=&quot;makeRequest('test.xml')&quot;&gt;
+...
+</pre>
+<p>接著在 <code>alertContents()</code> 中，我們必須將 <code>alert(http_request.responseText);</code> 改成這樣：
+</p>
+<pre>
+var xmldoc = http_request.responseXML;
+var root_node = xmldoc.getElementsByTagName('root').item(0);
+alert(root_node.firstChild.data);
+</pre>
+<p>這樣一來我們便可取得 <code>responseXML</code> 所傳回的 <code>XMLDocument</code> 物件，而後以 DOM 相關的方法取用 XML 文件內容。你可以參考 <a rel="nofollow" class="external text" href="http://www.w3clubs.com/mozdev/test.xml"><code>test.xml</code> 的原始碼</a> 以及修改過後的<a rel="nofollow" class="external text" href="http://www.w3clubs.com/mozdev/httprequest_test_xml.html">測試程式</a>。
+</p><p>其他與 DOM 相關的方法，請參考 <a rel="nofollow" class="external text" href="http://www.mozilla.org/docs/dom/">Mozilla DOM</a> 文件。
+</p>
+<div style="display:none;">[[Category:{{{4}}}|AJAX 上手篇]]
+<p>[[Category:{{{5}}}|AJAX 上手篇]]
+[[Category:{{{6}}}|AJAX 上手篇]]
+</p>
+</div>
+<div class="page-nav"><b>‧返回上一頁: </b><a href="/%E9%96%8B%E7%99%BC%E4%BA%BA%E5%93%A1%E6%96%87%E4%BB%B6%E4%B8%BB%E9%A0%81" title="開發人員文件主頁">開發人員文件主頁</a></div>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 165/1000000
+Post-expand include size: 441/2097152 bytes
+Template argument size: 139/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key wikidb:pcache:idhash:3001-0!*!0!!zh-tw!*!* and timestamp 20120712055047 -->
+</div><div class="printfooter">
+取自「<a href="http://wiki.moztw.org/index.php?title=AJAX_%E4%B8%8A%E6%89%8B%E7%AF%87&amp;oldid=23941">http://wiki.moztw.org/index.php?title=AJAX_%E4%B8%8A%E6%89%8B%E7%AF%87&amp;oldid=23941</a>」</div>
+	    <div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/%E7%89%B9%E6%AE%8A:%E9%A0%81%E9%9D%A2%E5%88%86%E9%A1%9E" title="特殊:頁面分類">1個分類</a>: <ul><li><a href="/%E5%88%86%E9%A1%9E:%E6%96%87%E4%BB%B6%E5%B0%88%E6%A1%88" title="分類:文件專案">文件專案</a></li></ul></div></div>	    <!-- end content -->
+	    <div class="visualClear"></div>
+	  </div>
+	</div>
+      </div>
+      <div id="column-one">
+	<div class="portlet" id="p-personal">
+	  <h5>個人工具</h5>
+	  <div class="pBody">
+	    <ul>
+	    <li id="pt-login"><a href="/index.php?title=%E7%89%B9%E6%AE%8A:%E7%94%A8%E6%88%B6%E7%99%BB%E9%8C%84&amp;returnto=AJAX+%E4%B8%8A%E6%89%8B%E7%AF%87">登入</a></li>	    </ul>
+	  </div>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class="portlet" id="p-nav">
+	  <h5>本站導覽：</h5>
+	  <div class="pBody">
+	    <ul>
+	      	      <li id="n-mainpage-description"><a href="/%E9%A6%96%E9%A0%81">首頁</a></li>	      <li id="n-portal"><a href="/%E7%A4%BE%E7%BE%A4%E5%B7%A5%E4%BD%9C%E5%AE%A4">社群工作室</a></li>	      <li id="n-currentevents"><a href="/MoztwWiki:%E6%96%B0%E8%81%9E%E5%8B%95%E6%85%8B">新聞</a></li>	      <li id="n-recentchanges"><a href="/%E7%89%B9%E6%AE%8A:%E8%BF%91%E6%9C%9F%E8%AE%8A%E5%8B%95">頁面近期變動</a></li>	      <li id="n-randompage"><a href="/%E7%89%B9%E6%AE%8A:%E9%9A%A8%E6%A9%9F%E9%A0%81%E9%9D%A2">隨機頁面</a></li>	      <li id="n-help"><a href="/%E5%B9%AB%E5%8A%A9:Contents">幫助</a></li>	    </ul>
+	  </div>
+	</div>
+	<div id="p-search" class="portlet">
+	  <h5><label for="searchInput">搜尋</label></h5>
+	  <div class="pBody">
+	    <form name="searchform" action="http://wiki.moztw.org/index.php" id="searchform">
+	      <input id="searchInput" name="search" type="text"
+	        accesskey="f" value="" />
+	      <input type='submit' name="go" class="searchButton" id="searchGoButton"
+	        value="衝"
+	        />&nbsp;<input type='submit' name="fulltext"
+	        class="searchButton"
+	        value="搜尋" />
+	    </form>
+	  </div>
+	</div>
+	<div class="portlet" id="p-tb">
+	  <h5>工具:</h5>
+	  <div class="pBody">
+	    <ul>
+		  		  <li id="t-whatlinkshere"><a href="/%E7%89%B9%E6%AE%8A:%E9%8F%88%E5%85%A5%E9%A0%81%E9%9D%A2/AJAX_%E4%B8%8A%E6%89%8B%E7%AF%87">連向本頁的頁面</a></li>
+		  		  <li id="t-recentchangeslinked"><a href="/%E7%89%B9%E6%AE%8A:%E9%8F%88%E5%87%BA%E6%9B%B4%E6%94%B9/AJAX_%E4%B8%8A%E6%89%8B%E7%AF%87">連出的頁面變動</a></li>
+		  	      	      	      	      	      	      	      	      	      <li id="t-specialpages"><a href="/%E7%89%B9%E6%AE%8A:%E7%89%B9%E6%AE%8A%E9%A0%81%E9%9D%A2">特殊頁面</a></li>	      	    </ul>
+	  </div>
+	</div>
+	      </div><!-- end of the left (by default at least) column -->
+      <div class="visualClear"></div>
+      <div id="footer">
+    <div id="f-poweredbyico"><a href="//www.mediawiki.org/"><img src="/skins/common/images/poweredby_mediawiki_88x31.png" height="31" width="88" alt="Powered by MediaWiki" /></a></div>	<div id="f-copyrightico"><a href="http://creativecommons.org/licenses/by-sa/2.5/"><img src="http://creativecommons.org/images/public/somerights20.gif" alt="姓名標示-相同方式分享" width="88" height="31" /></a></div>	<ul id="f-list">
+	  <li id="f-lastmod"> 本頁最後更動時間在 2009年11月25日 (星期三) 13:12。</li>	  <li id="f-viewcount">這個頁面已經被瀏覽了 217,760 次。</li>	  	  <li id="f-copyright">本頁使用<a href="/MoztwWiki" title="MoztwWiki">姓名標示-相同方式分享</a>授權。</li>	  <li id="f-about"><a href="/MoztwWiki:%E9%97%9C%E6%96%BC" title="MoztwWiki:關於">關於 MoztwWiki</a></li>	  <li id="f-disclaimer"><a href="/MoztwWiki:%E5%85%8D%E8%B2%AC%E8%81%B2%E6%98%8E" title="MoztwWiki:免責聲明">免責聲明</a></li>	</ul>
+	</div></div>
+      </div></div>
+    </div>
+    <!-- Served in 0.241 secs. -->  </body>
+</html>

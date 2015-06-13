@@ -1,0 +1,357 @@
+
+Active Connections
+
+  Proto  Local Address          Foreign Address        State           PID
+  TCP    0.0.0.0:135            0.0.0.0:0              LISTENING       1388
+  c:\windows\system32\WS2_32.dll
+  C:\WINDOWS\system32\RPCRT4.dll
+  c:\windows\system32\rpcss.dll
+  C:\WINDOWS\system32\svchost.exe
+  C:\WINDOWS\system32\ADVAPI32.dll
+  [svchost.exe]
+
+  TCP    0.0.0.0:445            0.0.0.0:0              LISTENING       4
+  [System]
+
+  TCP    0.0.0.0:1080           0.0.0.0:0              LISTENING       4804
+  [javaw.exe]
+
+  TCP    0.0.0.0:17500          0.0.0.0:0              LISTENING       1272
+  [Dropbox.exe]
+
+  TCP    0.0.0.0:44080          0.0.0.0:0              LISTENING       3284
+  [AVWEBGRD.EXE]
+
+  TCP    0.0.0.0:44081          0.0.0.0:0              LISTENING       3284
+  [AVWEBGRD.EXE]
+
+  TCP    127.0.0.1:5152         0.0.0.0:0              LISTENING       568
+  [jqs.exe]
+
+  TCP    192.168.221.1:139      0.0.0.0:0              LISTENING       4
+  [System]
+
+  TCP    192.168.0.1:139        0.0.0.0:0              LISTENING       4
+  [System]
+
+  TCP    192.168.1.100:139      0.0.0.0:0              LISTENING       4
+  [System]
+
+  TCP    192.168.1.104:139      0.0.0.0:0              LISTENING       4
+  [System]
+
+  TCP    192.168.1.100:4381     74.125.71.139:80       SYN_SENT        1592
+  [firefox.exe]
+
+  TCP    127.0.0.1:1036         127.0.0.1:19872        ESTABLISHED     1272
+  [Dropbox.exe]
+
+  TCP    127.0.0.1:1295         127.0.0.1:1296         ESTABLISHED     4932
+  [sunbird.exe]
+
+  TCP    127.0.0.1:1296         127.0.0.1:1295         ESTABLISHED     4932
+  [sunbird.exe]
+
+  TCP    127.0.0.1:1297         127.0.0.1:1298         ESTABLISHED     4932
+  [sunbird.exe]
+
+  TCP    127.0.0.1:1298         127.0.0.1:1297         ESTABLISHED     4932
+  [sunbird.exe]
+
+  TCP    127.0.0.1:1369         127.0.0.1:1370         ESTABLISHED     1592
+  [firefox.exe]
+
+  TCP    127.0.0.1:1370         127.0.0.1:1369         ESTABLISHED     1592
+  [firefox.exe]
+
+  TCP    127.0.0.1:19872        127.0.0.1:1036         ESTABLISHED     1272
+  [Dropbox.exe]
+
+  TCP    192.168.1.100:1958     199.47.216.144:80      ESTABLISHED     1272
+  [Dropbox.exe]
+
+  TCP    192.168.1.100:4369     74.125.71.102:443      ESTABLISHED     2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4370     74.125.71.102:443      ESTABLISHED     2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4372     74.125.71.102:443      ESTABLISHED     2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4374     74.125.71.102:443      ESTABLISHED     2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4375     74.125.71.102:443      ESTABLISHED     2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4376     74.125.71.147:443      ESTABLISHED     1592
+  [firefox.exe]
+
+  TCP    192.168.1.100:4377     74.125.71.113:443      ESTABLISHED     2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4378     74.125.71.113:443      ESTABLISHED     2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4379     74.125.71.113:443      ESTABLISHED     2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4380     74.125.71.138:80       ESTABLISHED     1592
+  [firefox.exe]
+
+  TCP    192.168.1.100:4736     210.0.235.37:80        FIN_WAIT_2      1592
+  [firefox.exe]
+
+  TCP    192.168.1.100:4737     210.0.235.37:80        FIN_WAIT_2      1592
+  [firefox.exe]
+
+  TCP    192.168.1.100:1979     199.47.219.159:443     CLOSE_WAIT      1272
+  [Dropbox.exe]
+
+  TCP    192.168.1.100:1991     199.47.217.177:443     CLOSE_WAIT      1272
+  [Dropbox.exe]
+
+  TCP    192.168.1.100:2920     74.125.71.139:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:3506     74.125.71.113:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:3866     74.125.71.138:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:3997     74.125.71.138:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:3998     74.125.71.138:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4040     74.125.71.138:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4066     74.125.71.138:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4067     74.125.71.138:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4068     74.125.71.138:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4161     74.125.71.138:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4164     74.125.71.138:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4165     74.125.71.138:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4168     74.125.71.138:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4169     74.125.71.113:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4176     74.125.71.113:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4223     74.125.71.113:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4228     74.125.71.113:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4229     74.125.71.113:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4230     74.125.71.113:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4245     74.125.71.138:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4246     74.125.71.138:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4248     74.125.71.138:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4249     74.125.71.101:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4251     74.125.71.101:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4252     74.125.71.101:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4253     74.125.71.101:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4254     74.125.71.101:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4255     74.125.71.113:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4256     74.125.71.113:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4259     74.125.71.113:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4261     74.125.71.113:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4262     74.125.71.113:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4263     74.125.71.100:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4264     74.125.71.100:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4265     74.125.71.100:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4267     74.125.71.100:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4268     74.125.71.100:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4269     74.125.71.113:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4270     74.125.71.113:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4271     74.125.71.113:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4289     74.125.71.113:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4310     74.125.71.100:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4311     74.125.71.100:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4312     74.125.71.100:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4327     74.125.71.100:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4332     74.125.71.100:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4333     74.125.71.138:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4334     74.125.71.138:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4335     74.125.71.138:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  TCP    192.168.1.100:4336     74.125.71.138:443      CLOSE_WAIT      2668
+  [googledrivesync.exe]
+
+  UDP    0.0.0.0:4012           *:*                                    380
+  [QQ.exe]
+
+  UDP    0.0.0.0:17500          *:*                                    1272
+  [Dropbox.exe]
+
+  UDP    0.0.0.0:445            *:*                                    4
+  [System]
+
+  UDP    0.0.0.0:500            *:*                                    1092
+  [lsass.exe]
+
+  UDP    0.0.0.0:4001           *:*                                    380
+  [QQ.exe]
+
+  UDP    0.0.0.0:4005           *:*                                    380
+  [QQ.exe]
+
+  UDP    0.0.0.0:4009           *:*                                    380
+  [QQ.exe]
+
+  UDP    0.0.0.0:1749           *:*                                    380
+  [QQ.exe]
+
+  UDP    0.0.0.0:4004           *:*                                    380
+  [QQ.exe]
+
+  UDP    0.0.0.0:1757           *:*                                    380
+  [QQ.exe]
+
+  UDP    0.0.0.0:1800           *:*                                    380
+  [QQ.exe]
+
+  UDP    0.0.0.0:4002           *:*                                    380
+  [QQ.exe]
+
+  UDP    0.0.0.0:4006           *:*                                    380
+  [QQ.exe]
+
+  UDP    0.0.0.0:1773           *:*                                    380
+  [QQ.exe]
+
+  UDP    0.0.0.0:4010           *:*                                    380
+  [QQ.exe]
+
+  UDP    0.0.0.0:4008           *:*                                    380
+  [QQ.exe]
+
+  UDP    0.0.0.0:4003           *:*                                    380
+  [QQ.exe]
+
+  UDP    0.0.0.0:4000           *:*                                    380
+  [QQ.exe]
+
+  UDP    0.0.0.0:2875           *:*                                    380
+  [QQ.exe]
+
+  UDP    0.0.0.0:4007           *:*                                    380
+  [QQ.exe]
+
+  UDP    0.0.0.0:4011           *:*                                    380
+  [QQ.exe]
+
+  UDP    0.0.0.0:4500           *:*                                    1092
+  [lsass.exe]
+
+  UDP    127.0.0.1:1929         *:*                                    380
+  [QQ.exe]
+
+  UDP    192.168.1.104:137      *:*                                    4
+  [System]
+
+  UDP    192.168.1.100:137      *:*                                    4
+  [System]
+
+  UDP    192.168.0.1:138        *:*                                    4
+  [System]
+
+  UDP    192.168.221.1:138      *:*                                    4
+  [System]
+
+  UDP    192.168.1.100:138      *:*                                    4
+  [System]
+
+  UDP    192.168.0.1:137        *:*                                    4
+  [System]
+
+  UDP    192.168.221.1:137      *:*                                    4
+  [System]
+
+  UDP    192.168.1.104:138      *:*                                    4
+  [System]
+

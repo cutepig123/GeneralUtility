@@ -1,0 +1,1409 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-HK" dir="ltr" class="client-nojs" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>AJAX - 維基百科，自由的百科全書</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="generator" content="MediaWiki 1.20wmf6" />
+<link rel="alternate" type="application/x-wiki" title="編輯本頁" href="/w/index.php?title=AJAX&amp;action=edit" />
+<link rel="edit" title="編輯本頁" href="/w/index.php?title=AJAX&amp;action=edit" />
+<link rel="apple-touch-icon" href="//zh.wikipedia.org/apple-touch-icon.png" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/w/opensearch_desc.php" title="Wikipedia (zh)" />
+<link rel="EditURI" type="application/rsd+xml" href="//zh.wikipedia.org/w/api.php?action=rsd" />
+<link rel="canonical" href="http://zh.wikipedia.org/wiki/AJAX" />
+<link rel="copyright" href="//creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="Wikipedia的Atom訂閱" href="/w/index.php?title=Special:%E6%9C%80%E8%BF%91%E6%9B%B4%E6%94%B9&amp;feed=atom" />
+<link rel="stylesheet" href="//bits.wikimedia.org/zh.wikipedia.org/load.php?debug=false&amp;lang=zh-hk&amp;modules=ext.gadget.AdvancedSiteNotices%2CWikiMiniAtlas%2ChideConversionTab%2Clarge-font%7Cext.geshi.local%7Cext.wikihiero%7Cmediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=vector&amp;*" type="text/css" media="all" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="//bits.wikimedia.org/zh.wikipedia.org/load.php?debug=false&amp;lang=zh-hk&amp;modules=site&amp;only=styles&amp;skin=vector&amp;*" type="text/css" media="all" />
+<style type="text/css" media="all">a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+
+/* cache key: zhwiki:resourceloader:filter:minify-css:7:e401fbb362e5d134b49146503659decb */</style>
+
+<script src="//bits.wikimedia.org/zh.wikipedia.org/load.php?debug=false&amp;lang=zh-hk&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*" type="text/javascript"></script>
+<script type="text/javascript">if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"AJAX","wgTitle":"AJAX","wgCurRevisionId":21868519,"wgArticleId":124128,"wgIsArticle":true,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["中立性有争议的作品","自2010年11月有未列明来源语句的条目","網頁技術","AJAX","Java","XML","Web 2.0新詞","进程间通信"],"wgBreakFrames":false,"wgPageContentLanguage":"zh","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgRelevantPageName":"AJAX","wgUserVariant":"zh-hk","wgRestrictionEdit":[],"wgRestrictionMove":[],"wgSearchNamespaces":[0],"wgVectorEnabledModules":{"collapsiblenav":true,"collapsibletabs":true,"editwarning":true,"expandablesearch":false,"footercleanup":false,"sectioneditlinks":false,"simplesearch":true,"experiments":true},"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":false,"previewDialog":false,"publish":false,"toc":false},"wgTrackingToken":"c2bd903bc68a520abdee85f61df49215","wikilove-recipient":"","wikilove-edittoken":"+\\","wikilove-anon":0,"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","Geo":{"city":"","country":""},"wgNoticeProject":"wikipedia"});
+}</script><script type="text/javascript">if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":false,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3
+,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"vector-simplesearch":1,"useeditwarning":1,"vector-collapsiblenav":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikilove-enabled":1,"variant":"zh-hk","language":"zh-hk","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"searchNs100":false,"searchNs101":false,"gadget-AdvancedSiteNotices":1,"gadget-hideConversionTab":1,"gadget-large-font":1,"gadget-WikiMiniAtlas":1});;},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","watchToken":false});;},{},{});
+
+/* cache key: zhwiki:resourceloader:filter:minify-js:7:1b7b32c88553b33757235745bf73b9c2 */
+}</script>
+<script type="text/javascript">if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-javascript {line-height: normal;}
+.source-javascript li, .source-javascript pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for javascript
+ * CSS class: source-javascript, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.javascript.source-javascript .de1, .javascript.source-javascript .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.javascript.source-javascript  {font-family:monospace;}
+.javascript.source-javascript .imp {font-weight: bold; color: red;}
+.javascript.source-javascript li, .javascript.source-javascript .li1 {font-weight: normal; vertical-align:top;}
+.javascript.source-javascript .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.javascript.source-javascript .li2 {font-weight: bold; vertical-align:top;}
+.javascript.source-javascript .kw1 {color: #000066; font-weight: bold;}
+.javascript.source-javascript .kw2 {color: #003366; font-weight: bold;}
+.javascript.source-javascript .kw3 {color: #000066;}
+.javascript.source-javascript .co1 {color: #006600; font-style: italic;}
+.javascript.source-javascript .co2 {color: #009966; font-style: italic;}
+.javascript.source-javascript .coMULTI {color: #006600; font-style: italic;}
+.javascript.source-javascript .es0 {color: #000099; font-weight: bold;}
+.javascript.source-javascript .br0 {color: #009900;}
+.javascript.source-javascript .sy0 {color: #339933;}
+.javascript.source-javascript .st0 {color: #3366CC;}
+.javascript.source-javascript .nu0 {color: #CC0000;}
+.javascript.source-javascript .me1 {color: #660066;}
+.javascript.source-javascript .ln-xtra, .javascript.source-javascript li.ln-xtra, .javascript.source-javascript div.ln-xtra {background-color: #ffc;}
+.javascript.source-javascript span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/skins-1.20wmf6/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-AJAX skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content" class="mw-body">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;" lang="zh-HK" dir="ltr"></div>
+						<!-- sitenotice -->
+			<div id="siteNotice"><!-- centralNotice loads here --><script type="text/javascript">
+/* <![CDATA[ */
+document.writeln("\x3cdiv id=\"localNotice\" lang=\"zh\" dir=\"ltr\"\x3e\x3c/div\x3e");
+/* ]]> */
+</script></div>
+			<!-- /sitenotice -->
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading"><span dir="auto">AJAX</span></h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+								<!-- tagline -->
+				<div id="siteSub">維基百科，自由的百科全書</div>
+				<!-- /tagline -->
+								<!-- subtitle -->
+				<div id="contentSub" lang="zh-HK" dir="ltr"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav" class="mw-jump">
+					跳到： <a href="#mw-head">導覽</a>,
+					<a href="#p-search">搜尋</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodycontent -->
+				<div id="mw-content-text" lang="zh" dir="ltr" class="mw-content-ltr"><div class="notice metadata dablink" style="font-size: small;">
+<div>「<b>Ajax</b>」重定向至此。關於與其同名的其他主題，詳見「<b><a href="/wiki/Ajax_(%E6%B6%88%E6%AD%A7%E4%B9%89)" title="Ajax (消歧義)" class="mw-redirect">Ajax (消歧義)</a></b>」。</div>
+</div>
+<div class="nomobile"><span style="display: none;"><a href="#_skip_noteTA">跳過字詞轉換說明</a></span>
+<div class="NavFrame collapsed noprint nohandheld metadata" style="z-index: 1; margin: 0 0.5em 0.5em auto; top: -1.2em; position: relative; background-color: transparent; border: none;">
+<div class="uncollapse toggleHotspot" style="position: absolute; right:0; background-color: transparent; padding: 0; width: 4em;" title="本頁使用了標題或全文手工轉換，單擊檢視"><span style="font-family:微軟正黑體,Arial Unicode MS,黑体;"><span style="padding:1px 3px; background: slategray; color:white;">汉</span><span style="padding:1px 3px; background: sienna; color:white;">漢</span></span><span class="toggleShow" style="color:black;">▼</span><span class="toggleHide" style="color:black;">▲</span></div>
+<div class="NavContent" style="position: absolute; display: none; right: 0; top: 1.5em; border: 1px gray solid; background-color: lightyellow; padding: 0.3em; z-index: 100; width: 650px; font-size: 90%; z-index: 100; background-color: #f0f2f0; color: black;">
+<div style="background: #FFEA88; background-color: #4d4d4d; color: #ffffff;">為了閱讀方便，本文使用<a href="/wiki/Help:%E4%B8%AD%E6%96%87%E7%BB%B4%E5%9F%BA%E7%99%BE%E7%A7%91%E7%9A%84%E7%B9%81%E7%AE%80%E5%A4%84%E7%90%86#.E6.8E.A7.E5.88.B6.E8.87.AA.E5.8A.A8.E8.BD.AC.E6.8D.A2.E7.9A.84.E4.BB.A3.E7.A2.BC" title="Help:中文維基百科的繁簡處理" class="mw-redirect"><span style="color:#ffffff; font-weight:bold;">全文手工轉換</span></a>。轉換內容：</div>
+<div style="padding: 3px">
+<p>下面採用<a href="/wiki/Portal:%E7%94%B5%E8%84%91%E5%92%8C%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF" title="Portal:電腦和信息技術" class="mw-redirect"><span style="color: #333333; font-weight: bold;">電腦和信息技術</span></a>組全文轉換 [<span class="editlink noprint plainlinksneverexpand"><a class="external text" href="//zh.wikipedia.org/w/index.php?title=Template:CGroup/IT/temp&amp;action=edit">編輯</a></span>]</p>
+<ul>
+<li>原文：A.I.；大陆：人工智能；香港：人工智能；台灣：人工智慧；</li>
+<li>原文：access；大陆：访问；台灣：存取；</li>
+<li>原文：Access control list；大陆：访问控制表；台灣：存取控制串列；</li>
+<li>原文：activation；大陆：激活；台灣：啟用；</li>
+<li>原文：adapter；大陆：适配器；台灣：介面卡；</li>
+<li>原文：add-on；大陆：附加组件；台灣：附加元件；</li>
+<li>原文：add-on；大陆：扩展；台灣：擴充套件；</li>
+<li>原文：address bar；大陆：地址栏；台灣：位址列；</li>
+<li>原文：address bar；大陆：地址栏；台灣：網址列；</li>
+<li>原文：address；大陆：地址；台灣：位址；</li>
+<li>原文：advanced；高端⇒台灣：進階；高端⇒香港：進階；</li>
+<li>原文：advanced；進階⇒大陆：高级；進階⇒新加坡：高级；</li>
+<li>原文：Advertising Area；大陆：广告位；台灣：廣告區；</li>
+<li>原文：Album (online)；大陆：相册；台灣：相簿；</li>
+<li>原文：algorithm；演算法⇒台灣：演算法；演算法⇒香港：演算法；</li>
+<li>原文：analog；類比⇒大陆：模拟；類比⇒香港：模擬；</li>
+<li>原文：analog；大陆：模拟；台灣：類比；香港：模擬；</li>
+<li>原文：Antivirus；大陆：杀毒；台灣：防毒；香港：防毒；</li>
+<li>原文：Antivirus software；大陆：杀毒软件；台灣：防毒軟體；香港：防毒軟件；</li>
+<li>原文：Antivirus software；反病毒软件⇒台灣：防毒軟體；反病毒软件⇒香港：防毒軟件；</li>
+<li>原文：application；大陆：应用程序；台灣：應用程式；</li>
+<li>原文：Application Programming Interface；简体：应用程序接口；繁體：應用程式介面；</li>
+<li>原文：array (RAID)；大陆：服务器阵列；台灣：伺服器陣列；香港：伺服器陣列；新加坡：伺服器阵列；</li>
+<li>原文：array (RAID)；大陆：硬盘阵列；台灣：硬碟陣列；</li>
+<li>原文：array (RAID)；大陆：磁盘阵列；台灣：磁碟陣列；</li>
+<li>原文：array (RAID)；大陆：阵列服务器；台灣：陣列伺服器；香港：陣列伺服器；新加坡：阵列伺服器；</li>
+<li>原文：array (RAID)；大陆：阵列硬盘；台灣：陣列硬碟；</li>
+<li>原文：array (RAID)；大陆：aid阵列；台灣：aid陣列；</li>
+<li>原文：array (RAID)；大陆：RAID阵列；台灣：RAID陣列；</li>
+<li>原文：array；大陆：数组；台灣：陣列；</li>
+<li>原文：assembler；大陆：汇编；台灣：組譯；</li>
+<li>原文：Assembly language；简体：汇编语言；繁體：組合語言；</li>
+<li>原文：assembly mnemonic；大陆：助记符；台灣：助憶碼；</li>
+<li>原文：assignment operator；大陆：赋值运算符；台灣：設定運算子；</li>
+<li>原文：average bitarte；大陆：平均码率；台灣：平均位元速率；</li>
+<li>原文：AOL；大陆：美国在线；台灣：美國線上；</li>
+<li>原文：asynchronous；异步⇒台灣：非同步；</li>
+<li>原文：audio；大陆：音频；台灣：音訊；香港：音頻；</li>
+<li>原文：audit；大陆：审核；台灣：稽核；</li>
+<li>原文：backward compatible；台灣：向下相容；大陆：向下兼容；</li>
+<li>原文：backward compatible；台灣：回溯相容；大陆：向后兼容；</li>
+<li>原文：band width；台灣：頻寬；大陆：带宽；</li>
+<li>原文：base class；台灣：基礎類別；大陆：基类；</li>
+<li>原文：base name；台灣：主檔名；大陆：文件主名；</li>
+<li>原文：basename；台灣：主檔名；大陆：文件主名；</li>
+<li>原文：batch；大陆：批量；台灣：批次；</li>
+<li>原文：batch file；台灣：批次檔；大陆：批处理文件；</li>
+<li>原文：binary function；台灣：二元函式；大陆：双参函数；</li>
+<li>原文：binary tree；台灣：二元樹；大陆：二叉树；</li>
+<li>原文：binding；台灣：繫結；大陆：绑定；</li>
+<li>原文：BitComet；台灣：比特彗星；大陆：比特彗星；</li>
+<li>原文：Bitmap；點陣圖⇒大陆：位图；</li>
+<li>原文：bitrate；台灣：位元率；大陆：比特率；</li>
+<li>原文：BitSpirit；台灣：比特精靈；大陆：比特精灵；</li>
+<li>原文：bit；位元⇒大陆：位；位元⇒新加坡：位；</li>
+<li>原文：bit；台灣：位元；大陆：比特；</li>
+<li>原文：bit - 4-bit；大陆：4位；台灣：4位元；</li>
+<li>原文：bit - 8-bit；大陆：8位；台灣：8位元；</li>
+<li>原文：bit - 12-bit；大陆：12位；台灣：12位元；</li>
+<li>原文：bit - 16-bit；大陆：16位；台灣：16位元；</li>
+<li>原文：bit - 18-bit；大陆：18位；台灣：18位元；</li>
+<li>原文：bit - 24-bit；大陆：24位；台灣：24位元；</li>
+<li>原文：bit - 31-bit；大陆：31位；台灣：31位元；</li>
+<li>原文：bit - 32-bit；大陆：32位；台灣：32位元；</li>
+<li>原文：bit - 36-bit；大陆：36位；台灣：36位元；</li>
+<li>原文：bit - 48-bit；大陆：48位；台灣：48位元；</li>
+<li>原文：bit - 60-bit；大陆：60位；台灣：60位元；</li>
+<li>原文：bit - 64-bit；大陆：64位；台灣：64位元；</li>
+<li>原文：bit - 128-bit；大陆：128位；台灣：128位元；</li>
+<li>原文：bit - 4-bit；大陆：4 位；台灣：4 位元；</li>
+<li>原文：bit - 8-bit；大陆：8 位；台灣：8 位元；</li>
+<li>原文：bit - 12-bit；大陆：12 位；台灣：12 位元；</li>
+<li>原文：bit - 16-bit；大陆：16 位；台灣：16 位元；</li>
+<li>原文：bit - 18-bit；大陆：18 位；台灣：18 位元；</li>
+<li>原文：bit - 24-bit；大陆：24 位；台灣：24 位元；</li>
+<li>原文：bit - 31-bit；大陆：31 位；台灣：31 位元；</li>
+<li>原文：bit - 32-bit；大陆：32 位；台灣：32 位元；</li>
+<li>原文：bit - 36-bit；大陆：36 位；台灣：36 位元；</li>
+<li>原文：bit - 48-bit；大陆：48 位；台灣：48 位元；</li>
+<li>原文：bit - 60-bit；大陆：60 位；台灣：60 位元；</li>
+<li>原文：bit - 64-bit；大陆：64 位；台灣：64 位元；</li>
+<li>原文：bit - 128-bit；大陆：128 位；台灣：128 位元；</li>
+<li>原文：Blade Server；台灣：刀鋒伺服器；香港：刀锋伺服器；大陆：刀片服务器；</li>
+<li>原文：block；台灣：遮蔽；大陆：屏蔽；香港：遮蔽；新加坡：屏蔽；</li>
+<li>原文：blog；台灣：部落格；大陆：博客；香港：網誌；新加坡：博客；</li>
+<li>原文：Blue Screen of Death；台灣：藍白當機；大陆：蓝屏死机；香港：BSoD；</li>
+<li>原文：Bluetooth；台灣：藍芽；大陆：蓝牙；香港：藍芽；</li>
+<li>原文：boot disk；台灣：啟動碟；大陆：启动盘；</li>
+<li>原文：boot loader；大陆：启动引导程序；台灣：啟動載入程式；</li>
+<li>原文：Boyce-Codd normal form；台灣：BC正規化；大陆：BC范式；</li>
+<li>原文：Broadband；大陆：宽带；台灣：寬頻；香港：寬頻；</li>
+<li>原文：Bubble sort；台灣：氣泡排序；大陆：冒泡排序；</li>
+<li>原文：buffer overflow；台灣：緩衝區溢位；大陆：缓存溢出；</li>
+<li>原文：buffer；台灣：緩衝區；大陆：缓冲器；香港：緩衝區；</li>
+<li>原文：build-in；台灣：內建；大陆：内置；</li>
+<li>原文：Built-in；台灣：內建；大陆：自带；</li>
+<li>原文：burn；台灣：燒錄；大陆：刻录；</li>
+<li>原文：Business Model；台灣：營運模式；大陆：商业模型；</li>
+<li>原文：Bus；台灣：匯流排；香港：總線；大陆：总线；</li>
+<li>原文：byte；大陆：字节；台灣：位元組；</li>
+<li>原文：cache memory；快取記憶體⇒大陆：高速缓存；快取記憶體⇒新加坡：高速缓存；</li>
+<li>原文：cache memory；缓存器⇒台灣：快取記憶體；缓存器⇒香港：快取記憶體；</li>
+<li>原文：cache；缓存⇒台灣：快取；缓存⇒香港：快取；</li>
+<li>原文：cache；台灣：快取；快取⇒大陆：高速缓存；</li>
+<li>原文：cached webpage；大陆：网页快照；台灣：頁庫存檔；</li>
+<li>原文：calculator；計算機⇒香港：計數機；计算器⇒台灣：計算機；</li>
+<li>原文：calculator；计算器⇒香港：計數機；计算器⇒台灣：計算機；</li>
+<li>原文：call；大陆：调用；台灣：呼叫；</li>
+<li>原文：call；撥號⇒大陆：调用；撥號⇒新加坡：调用；</li>
+<li>原文：Call Level Interface(CLI)；大陆：调用层接口；台灣：呼叫層級介面；</li>
+<li>原文：callback；大陆：回调；台灣：回撥；</li>
+<li>原文：camcorder；台灣：攝錄影機；香港：攝像放像機；</li>
+<li>原文：Campus Area Network；大陆：校园网；台灣：校園網路；</li>
+<li>原文：component；大陆：组件；台灣：元件；</li>
+<li>原文：chain；串鏈⇒大陆：链；串鏈⇒新加坡：链；</li>
+<li>原文：check button；大陆：复选按钮；台灣：核取按鈕；</li>
+<li>原文：checkbox；大陆：复选框；台灣：核取方塊；</li>
+<li>原文：Chief Executive Officer(CEO)；大陆：首席执行官；台灣：執行長；香港：行政總裁；</li>
+<li>原文：Chief Information Officer(CIO)；大陆：首席信息官；台灣：資訊長；香港：資訊總監；</li>
+<li>原文：Chief Operating Officer(COO)；大陆：首席运营官；台灣：營運長；香港：營運總監；</li>
+<li>原文：Chief Technology Officer(CTO)；大陆：首席技术官；台灣：技術長；</li>
+<li>原文：child class；大陆：子类；台灣：子類別；</li>
+<li>原文：class；類別⇒大陆：类；類別⇒新加坡：类；</li>
+<li>原文：class declaration；大陆：类声明；台灣：類別宣告；</li>
+<li>原文：class definition；大陆：类定义；台灣：類別定義；</li>
+<li>原文：class library；大陆：类库；台灣：類別庫；</li>
+<li>原文：class template；大陆：类模板；台灣：類別範本；</li>
+<li>原文：click；大陆：点击；台灣：點選；</li>
+<li>原文：client；用戶端⇒大陆：客户端；</li>
+<li>原文：clipboard；大陆：剪贴板；台灣：剪貼簿；</li>
+<li>原文：clock rate；大陆：时钟频率；台灣：時脈；</li>
+<li>原文：clock rate；時脈頻率⇒大陆：时钟频率；時脈頻率⇒新加坡：时钟频率；</li>
+<li>原文：clock rate；時鐘率⇒大陆：时钟频率；時鐘率⇒新加坡：时钟频率；</li>
+<li>原文：cloud；大陆：云；台灣：雲端；</li>
+<li>原文：cloud computing；大陆：云计算；台灣：雲端運算；</li>
+<li>原文：cloud computing storage；大陆：云存储；台灣：雲端儲存；</li>
+<li>原文：Cluster；叢集⇒大陆：簇；</li>
+<li>原文：code；程式碼⇒大陆：代码；程式碼⇒新加坡：代码；</li>
+<li>原文：code file；程式檔⇒大陆：代码文件；程式檔⇒新加坡：代码文件；</li>
+<li>原文：code page；大陆：代码页；台灣：內碼表；</li>
+<li>原文：combobox；大陆：组合框；台灣：下拉式方塊；</li>
+<li>原文：command line；大陆：命令行；台灣：命令列；</li>
+<li>原文：communication；大陆：通信；台灣：通訊；</li>
+<li>原文：community；大陆：社区；台灣：社群；</li>
+<li>原文：compact disc；大陆：光盘；台灣：光碟；</li>
+<li>原文：compact disc；光碟片⇒大陆：光盘；光碟片⇒新加坡：光盘；</li>
+<li>原文：CD driver；大陆：光盘驱动器；台灣：光碟機；</li>
+<li>原文：compatible；大陆：兼容；台灣：相容；</li>
+<li>原文：computer；计算机⇒台灣：電腦；计算机⇒香港：電腦；计算机⇒新加坡：电脑；</li>
+<li>原文：computer monitor；大陆：显示屏；台灣：顯示器；</li>
+<li>原文：computer science；大陆：计算机科学；台灣：電腦科學；</li>
+<li>原文：computer security；大陆：计算机安全；台灣：電腦保安；</li>
+<li>原文：concurrency；大陆：并发；台灣：並行；</li>
+<li>原文：concurrency-oriented；大陆：面向并发；台灣：平行導向；</li>
+<li>原文：connection；大陆：连接；台灣：連線；</li>
+<li>原文：constant bitrate；大陆：固定码率；台灣：固定位元速率；</li>
+<li>原文：constructor；大陆：构造函数；台灣：建構函式；</li>
+<li>原文：content-addressable memory；大陆：内容可寻址存储器；台灣：可定址內容記憶體；</li>
+<li>原文：control；大陆：控件；台灣：控制項；</li>
+<li>原文：cost-effective；大陆：性价比；台灣：價效比；香港：性價比；</li>
+<li>原文：crash；死机⇒台灣：當機；</li>
+<li>原文：create；大陆：创建；台灣：建立；</li>
+<li>原文：CRT；大陆：显像管；台灣：映像管；香港：顯像管；</li>
+<li>原文：current version；大陆：当前版本；台灣：目前版本；香港：當前版本；</li>
+<li>原文：custom；大陆：自定义；台灣：自訂；</li>
+<li>原文：customization；大陆：定制；台灣：客製；</li>
+<li>原文：cut；大陆：剪切；台灣：剪下；</li>
+<li>原文：daemon；大陆：守护进程；台灣：守護行程；</li>
+<li>原文：data；大陆：数据；台灣：資料；</li>
+<li>原文：data compression；大陆：数据压缩；台灣：資料壓縮；</li>
+<li>原文：data dredging；大陆：数据捕捞；台灣：資料挖泥；</li>
+<li>原文：data execution protection；大陆：数据执行保护；台灣：系統記憶體保護；</li>
+<li>原文：data member；大陆：数据成员；台灣：成員變數；</li>
+<li>原文：data warehouse；大陆：数据仓库；台灣：資料倉儲；香港：資料倉儲；</li>
+<li>原文：data mining；大陆：数据挖掘；台灣：資料探勘；</li>
+<li>原文：Data Source；大陆：数据源；台灣：資料來源；</li>
+<li>原文：data warehouse；大陆：数据仓库；台灣：資料倉儲；</li>
+<li>原文：database；大陆：数据库；台灣：資料庫；香港：數據庫；</li>
+<li>原文：database normalization；大陆：数据库规范化；台灣：資料庫正規化；香港：數據庫規範化；</li>
+<li>原文：datagram；大陆：数据报文；台灣：資料包；</li>
+<li>原文：DDoS；大陆：分布式拒绝服务攻击；台灣：分散式阻斷服務攻擊；</li>
+<li>原文：deadlock；大陆：死锁；台灣：死結；</li>
+<li>原文：debug；大陆：调试；台灣：偵錯；</li>
+<li>原文：debugger；大陆：调试器；台灣：偵錯程式；</li>
+<li>原文：declaration；声明语句⇒台灣：宣告；声明语句⇒香港：宣告；</li>
+<li>原文：declare；大陆：声明；台灣：宣告；</li>
+<li>原文：decode；译码⇒台灣：解碼；</li>
+<li>原文：default；大陆：默认；台灣：預設；</li>
+<li>原文：default；缺省⇒台灣：預設；</li>
+<li>原文：defragmentation program；大陆：磁盘碎片整理程序；台灣：磁碟重組工具；</li>
+<li>原文：Denormalization；大陆：反规范化；台灣：反正規化；</li>
+<li>原文：derivation list；大陆：继承列表；台灣：衍化列；</li>
+<li>原文：derive；大陆：派生；台灣：衍生；</li>
+<li>原文：derived class；大陆：派生类；台灣：衍生類別；</li>
+<li>原文：desktop computer；大陆：台式机；台灣：桌上型電腦；</li>
+<li>原文：desktop computer；大陆：桌面型；台灣：桌上型；</li>
+<li>原文：destructor；大陆：析构函数；台灣：解構函式；</li>
+<li>原文：device；大陆：设备；台灣：裝置；</li>
+<li>原文：dialog；大陆：对话框；台灣：對話方塊；</li>
+<li>原文：digital；大陆：数字；台灣：數位；香港：數碼；</li>
+<li>原文：Digital Camera；數碼相機⇒大陆：数码相机；</li>
+<li>原文：distribution；大陆：发布；台灣：發行；</li>
+<li>原文：disk file system；大陆：磁盘文件系统；香港：磁碟檔案系統；台灣：磁碟檔案系統；</li>
+<li>原文：Diskette Drive；大陆：软盘驱动器；台灣：軟碟機；</li>
+<li>原文：document；文档⇒台灣：文件；文档⇒香港：文件；</li>
+<li>原文：document file；大陆：文档文件；台灣：文件檔案；</li>
+<li>原文：Document Object Model，DOM；大陆：文档对象模型；台灣：文件物件模型；</li>
+<li>原文：dot operator；大陆：点运算符；台灣：點運算子；</li>
+<li>原文：domain/key normal form；大陆：DK范式；台灣：DK正規化；</li>
+<li>原文：domain name system；大陆：域名系统；台灣：網域名稱系統；</li>
+<li>原文：drive；大陆：磁盘驱动器；台灣：磁碟機；</li>
+<li>原文：drive - A drive；大陆：A盘；台灣：A槽；香港：A磁碟機；</li>
+<li>原文：drive - B drive；大陆：B盘；台灣：B槽；香港：B磁碟機；</li>
+<li>原文：drive - C drive；大陆：C盘；台灣：C槽；香港：C磁碟機；</li>
+<li>原文：drive - D drive；大陆：D盘；台灣：D槽；香港：D磁碟機；</li>
+<li>原文：drive - E drive；大陆：E盘；台灣：E槽；香港：E磁碟機；</li>
+<li>原文：drive - F drive；大陆：F盘；台灣：F槽；香港：F磁碟機；</li>
+<li>原文：drive - G drive；大陆：G盘；台灣：G槽；香港：G磁碟機；</li>
+<li>原文：drive - H drive；大陆：H盘；台灣：H槽；香港：H磁碟機；</li>
+<li>原文：drive - I drive；大陆：I盘；台灣：I槽；香港：I磁碟機；</li>
+<li>原文：drive - J drive；大陆：J盘；台灣：J槽；香港：J磁碟機；</li>
+<li>原文：drive - K drive；大陆：K盘；台灣：K槽；香港：K磁碟機；</li>
+<li>原文：drive - L drive；大陆：L盘；台灣：L槽；香港：L磁碟機；</li>
+<li>原文：drive - M drive；大陆：M盘；台灣：M槽；香港：M磁碟機；</li>
+<li>原文：drive - N drive；大陆：N盘；台灣：N槽；香港：N磁碟機；</li>
+<li>原文：drive - O drive；大陆：O盘；台灣：O槽；香港：O磁碟機；</li>
+<li>原文：drive - P drive；大陆：P盘；台灣：P槽；香港：P磁碟機；</li>
+<li>原文：drive - Q drive；大陆：Q盘；台灣：Q槽；香港：Q磁碟機；</li>
+<li>原文：drive - R drive；大陆：R盘；台灣：R槽；香港：R磁碟機；</li>
+<li>原文：drive - S drive；大陆：S盘；台灣：S槽；香港：S磁碟機；</li>
+<li>原文：drive - T drive；大陆：T盘；台灣：T槽；香港：T磁碟機；</li>
+<li>原文：drive - U drive；U磁碟機⇒大陆：U盘；U磁碟機⇒台灣：U槽；</li>
+<li>原文：drive - U drive；U槽⇒大陆：U盘；U槽⇒香港：U磁碟機；</li>
+<li>原文：drive - V drive；大陆：V盘；台灣：V槽；香港：V磁碟機；</li>
+<li>原文：drive - W drive；大陆：W盘；台灣：W槽；香港：W磁碟機；</li>
+<li>原文：drive - X drive；大陆：X盘；台灣：X槽；香港：X磁碟機；</li>
+<li>原文：drive - Y drive；大陆：Y盘；台灣：Y槽；香港：Y磁碟機；</li>
+<li>原文：drive - Z drive；大陆：Z盘；台灣：Z槽；香港：Z磁碟機；</li>
+<li>原文：drive - system drive；大陆：系统盘；台灣：系統槽；香港：系統磁碟機；</li>
+<li>原文：drive letter；大陆：盘符；台灣：碟符；</li>
+<li>原文：driver；大陆：驱动程序；台灣：驅動程式；</li>
+<li>原文：dynamic binding；大陆：动态绑定；台灣：動態繫結；</li>
+<li>原文：edit bar；大陆：编辑栏；台灣：編輯列；</li>
+<li>原文：end user；大陆：最终用户；台灣：終端使用者；</li>
+<li>原文：engineering - computer engineering；大陆：计算机工程；台灣：計算機工程；</li>
+<li>原文：engineering - electrical engineering；大陆：电力工程；台灣：電力工程；</li>
+<li>原文：engineering - electronic engineering；大陆：电子工程；台灣：電子工程；</li>
+<li>原文：engineering - reverse engineering；大陆：电机工程；台灣：電機工程；</li>
+<li>原文：engineering - reverse engineering；大陆：逆向工程；台灣：逆向工程；</li>
+<li>原文：engineering；大陆：工程学；台灣：工程學；</li>
+<li>原文：engineer；大陆：工程师；台灣：工程師；</li>
+<li>原文：Enter；回车⇒台灣：Enter；回车⇒香港：Enter；</li>
+<li>原文：enumeration；大陆：枚举；台灣：列舉；</li>
+<li>原文：enumerators；大陆：枚举器；台灣：列舉元；</li>
+<li>原文：enumerators；大陆：枚举成员；台灣：列舉元；</li>
+<li>原文：Ericsson；大陆：爱立信；台灣：愛立信；香港：愛立信；</li>
+<li>原文：Ethernet；乙太網⇒大陆：以太网；</li>
+<li>原文：ethernet；大陆：以太网；台灣：乙太網路；</li>
+<li>原文：exception handling；大陆：异常处理；台灣：例外處理；</li>
+<li>原文：executable file；大陆：可执行文件；台灣：可執行檔；</li>
+<li>原文：executable file；大陆：可执行文件；台灣：執行檔；</li>
+<li>原文：exit；大陆：退出；台灣：結束；</li>
+<li>原文：export；大陆：导出；台灣：匯出；</li>
+<li>原文：expression；大陆：表达式；台灣：運算式；</li>
+<li>原文：extensible business reporting language；大陆：可扩展商业报告语言；台灣：可延伸商用報告語言；</li>
+<li>原文：extensible firmware interface；大陆：可扩展固件接口；台灣：可延伸韌體介面；</li>
+<li>原文：extensible markup language；大陆：可扩展置标语言；台灣：可延伸標示語言；</li>
+<li>原文：extensible；大陆：可扩展；台灣：可延伸；</li>
+<li>原文：extension name；大陆：扩展名；台灣：副檔名；</li>
+<li>原文：extension；擴充套件⇒大陆：扩展；擴充套件⇒新加坡：扩展；擴充套件⇒香港：擴充功能；</li>
+<li>原文：extension；大陆：扩展；台灣：擴充功能；香港：擴充功能；</li>
+<li>原文：external link；外链⇒台灣：外連；外链⇒香港：外連；</li>
+<li>原文：fairchild semiconductor；大陆：仙童半导体；台灣：快捷半導體；</li>
+<li>原文：fiber distributed data interface；大陆：光纤分布式数据接口；台灣：光纖分散式數據介面；</li>
+<li>原文：field；大陆：字段；台灣：欄位；</li>
+<li>原文：fifth normal form；大陆：第五范式；台灣：第五正規化；</li>
+<li>原文：file；大陆：文件；台灣：檔案；</li>
+<li>原文：file name；大陆：文件名；台灣：檔名；</li>
+<li>原文：filename extension；大陆：文件扩展名；台灣：副檔名；</li>
+<li>原文：filename extension；大陆：扩展名；台灣：副檔名；</li>
+<li>原文：find；大陆：查找；台灣：尋找；</li>
+<li>原文：first normal form；大陆：第一范式；台灣：第一正規化；</li>
+<li>原文：flash；大陆：快闪；台灣：快閃；</li>
+<li>原文：flash drive；大陆：闪存盘；台灣：隨身碟；香港：USB記憶體；</li>
+<li>原文：flash memory；大陆：闪存；台灣：快閃記憶體；</li>
+<li>原文：floppy disk；大陆：软盘；台灣：軟碟；香港：磁碟；</li>
+<li>原文：folder；大陆：文件夹；台灣：資料夾；</li>
+<li>原文：font；大陆：字体；台灣：字型；</li>
+<li>原文：footnotes；大陆：脚注；台灣：註腳；</li>
+<li>原文：footnotes；大陆：尾注；台灣：章節附註；</li>
+<li>原文：foreign key；大陆：外键；台灣：外來鍵；</li>
+<li>原文：form；大陆：窗体；台灣：表單；</li>
+<li>原文：forward error correction；大陆：前向纠错；台灣：前向錯誤更正；</li>
+<li>原文：fourth normal form；大陆：第四范式；台灣：第四正規化；</li>
+<li>原文：frame；台灣：影格；大陆：帧；香港：幀；</li>
+<li>原文：full screen；大陆：全屏；台灣：全螢幕；</li>
+<li>原文：fullwidth；大陆：全角；台灣：全形；</li>
+<li>原文：function；大陆：函数；台灣：函式；香港：函數；</li>
+<li>原文：functional；大陆：函数式；台灣：函數式；香港：函數式；</li>
+<li>原文：function library；大陆：函数库；台灣：函式庫；香港：函數庫；</li>
+<li>原文：functional programming；大陆：函数式编程；台灣：函數語言程式設計；</li>
+<li>原文：functional programming language；函數程式語言⇒大陆：函数编程语言；函數程式語言⇒新加坡：函数编程语言；</li>
+<li>原文：functional programming language；大陆：函数编程语言；台灣：函數程式語言；</li>
+<li>原文：garbage；大陆：无用信息；台灣：廢料；</li>
+<li>原文：gateway；大陆：网关；台灣：閘道器；</li>
+<li>原文：Gateway, Inc.；大陆：捷威；台灣：桀威；</li>
+<li>原文：gigabit ethernet；大陆：吉比特以太网；台灣：千兆乙太網；</li>
+<li>原文：global；大陆：全局；台灣：全域；</li>
+<li>原文：Google Docs；大陆：Google 文件；台灣：Google 文件；</li>
+<li>原文：graphing calculator；大陆：图形计算器；台灣：繪圖計算機；</li>
+<li>原文：gridlines；大陆：网格线；台灣：格線；</li>
+<li>原文：group；大陆：组群；台灣：群組；</li>
+<li>原文：GUID Partition Table；大陆：全局唯一标识分区表；台灣：GUID 磁碟分割表；</li>
+<li>原文：Bill Gates；大陆：盖茨；台灣：蓋茲；香港：蓋茨；</li>
+<li>原文：Chrome；大陆：Chrome浏览器；台灣：Google Chrome；香港：Google瀏覽器；</li>
+</ul>
+<ul>
+<li>原文：halfwidth；大陆：半角；台灣：半形；</li>
+<li>原文：handler；大陆：处理函数；台灣：處理常式；</li>
+<li>原文：handler；大陆：处理程序；台灣：處理常式；</li>
+<li>原文：handle；大陆：句柄；台灣：控制代碼；</li>
+<li>原文：hard disk；大陆：硬盘；香港：硬碟；台灣：硬碟；</li>
+<li>原文：hard-coded；大陆：硬编码；台灣：寫死；</li>
+<li>原文：hardware；大陆：硬件；台灣：硬體；香港：硬件；</li>
+<li>原文：hash；哈希⇒台灣：雜湊；哈希⇒香港：雜湊；</li>
+<li>原文：hash；大陆：散列；台灣：雜湊；</li>
+<li>原文：HDD；大陆：硬盘驱动器；台灣：硬碟機；</li>
+<li>原文：HDMI；大陆：高清多媒体界面；台灣：高畫質多媒體介面；香港：高清多媒體介面；</li>
+<li>原文：Header and Footer；大陆：页眉；台灣：頁首；</li>
+<li>原文：Header and Footer；大陆：页脚；台灣：頁尾；</li>
+<li>原文：header file；標頭檔案⇒大陆：头文件；標頭檔案⇒新加坡：头文件；</li>
+<li>原文：header file；標頭檔⇒大陆：头文件；標頭檔⇒新加坡：头文件；</li>
+<li>原文：hearts；大陆：红心大战；台灣：傷心小棧；</li>
+<li>原文：header file；表頭檔案⇒大陆：头文件；表頭檔案⇒新加坡：头文件；</li>
+<li>原文：header file；大陆：头文件；台灣：表頭檔；</li>
+<li>原文：Help and Support；大陆：帮助与支持；台灣：説明與支援；</li>
+<li>原文：Hierarchical View；大陆：分层视图；台灣：多層次樹狀介面；</li>
+<li>原文：Hierarchical View；大陆：分层树形视图；台灣：多層次樹狀介面；</li>
+<li>原文：hierarchy；大陆：层次结构；台灣：階層；</li>
+<li>原文：high-definition；大陆：高清；台灣：高畫質；香港：高清；</li>
+<li>原文：high level；大陆：高级；台灣：高階；</li>
+<li>原文：home page；主页⇒台灣：首頁；</li>
+<li>原文：home page；主頁⇒台灣：首頁；</li>
+<li>原文：hook；大陆：钩子；台灣：勾點；</li>
+<li>原文：HyperText Markup Language；大陆：超文本标记语言；台灣：超文件標示語言；</li>
+<li>原文：HyperText Markup Language；大陆：超文本置标语言；台灣：超文件標示語言；</li>
+<li>原文：HyperText Transfer Protocol；大陆：超文本传输协议；台灣：超文件傳輸協定；</li>
+<li>原文：HyperText Transfer Protocol；大陆：超文本传输协议；台灣：超文本傳輸協定；</li>
+<li>原文：hyperthreading；大陆：超线程；台灣：超執行緒；</li>
+<li>原文：icon；大陆：图标；台灣：圖示；香港：圖示；</li>
+<li>原文：Integrated Development Environment (IDE)；大陆：集成开发环境；台灣：整合式開發環境；</li>
+<li>原文：Integrated Device Electronics (IDE)；大陆：集成设备电路；台灣：整合裝置電路；</li>
+<li>原文：identifier；大陆：标识符；台灣：識別元；</li>
+<li>原文：if and only if；大陆：当且仅当；台灣：若且唯若；</li>
+<li>原文：image；大陆：图像；台灣：影像；</li>
+<li>原文：image；大陆：镜像；台灣：映像；</li>
+<li>原文：image file；大陆：镜像文件；台灣：映像檔案；</li>
+<li>原文：image file；大陆：镜像文件；台灣：映像檔；</li>
+<li>原文：image；映象⇒大陆：镜像；映象⇒新加坡：镜像；</li>
+<li>原文：image；大陆：镜像；台灣：映像；</li>
+<li>原文：image file；映象檔案⇒大陆：镜像文件；映象檔案⇒新加坡：镜像文件；</li>
+<li>原文：image file；映像檔案⇒大陆：镜像文件；映像檔案⇒新加坡：镜像文件；</li>
+<li>原文：image file；映象檔⇒大陆：镜像文件；映象檔⇒新加坡：镜像文件；</li>
+<li>原文：image file；大陆：镜像文件；台灣：映像檔；</li>
+<li>原文：image file；大陆：图像文件；台灣：圖檔；</li>
+<li>原文：implement；大陆：实现；台灣：實作；</li>
+<li>原文：imperative programming；大陆：命令式编程；台灣：指令式編程；</li>
+<li>原文：import；大陆：导入；台灣：匯入；</li>
+<li>原文：indent；大陆：缩进；台灣：縮排；</li>
+<li>原文：info (information)；大陆：信息；台灣：資訊；</li>
+<li>原文：Information and Communication Technology；大陆：信息及通信技术；台灣：資訊及通訊科技；</li>
+<li>原文：Information Management；大陆：信息管理；台灣：資訊管理；</li>
+<li>原文：information security；大陆：信息安全；台灣：資訊保安；</li>
+<li>原文：Information Technology；大陆：信息技术；台灣：資訊科技；</li>
+<li>原文：inline；大陆：内联；台灣：行內；</li>
+<li>原文：installer；大陆：安装程序；台灣：安裝程式；</li>
+<li>原文：instance；大陆：实例；台灣：例項；</li>
+<li>原文：integrate；大陆：集成；台灣：整合；</li>
+<li>原文：integrated circuit；大陆：集成电路；台灣：積體電路；香港：集成電路；</li>
+<li>原文：intellectual property；大陆：知识产权；台灣：智慧財產權；香港：知識產權；</li>
+<li>原文：intelligence；大陆：智能；台灣：智慧；</li>
+<li>原文：intelligence；大陆：智能型；台灣：智慧型；</li>
+<li>原文：interacts；大陆：交互；台灣：互動；</li>
+<li>原文：interface (frontstage)；界面⇒台灣：介面；界面⇒香港：介面；</li>
+<li>原文：interface (backstage)；大陆：接口；台灣：介面；</li>
+<li>原文：Internet；英特网⇒台灣：網際網路；英特网⇒香港：互聯網；</li>
+<li>原文：Internet；因特网⇒台灣：網際網路；因特网⇒香港：互聯網；</li>
+<li>原文：Internet；互联网⇒台灣：網際網路；互联网⇒香港：互聯網；</li>
+<li>原文：Internet；国际互联网⇒台灣：網際網路；国际互联网⇒香港：互聯網；</li>
+<li>原文：Internet bar；大陆：网吧；台灣：網咖；香港：網吧；</li>
+<li>原文：Internet Service Provider(ISP)；大陆：互联网服务提供商；台灣：網際網路服務提供者；香港：互聯網服務供應商；</li>
+<li>原文：interpreter；大陆：解释器；台灣：直譯器；</li>
+<li>原文：Intranet；大陆：内部网；台灣：企業網路；香港：內聯網；</li>
+<li>原文：invoke；叫用⇒大陆：调用；叫用⇒新加坡：调用；</li>
+<li>原文：keygen；大陆：注册机；台灣：序號產生器；</li>
+<li>原文：landscape；大陆：横屏幕；台灣：橫螢幕；</li>
+<li>原文：landscape；大陆：横屏；台灣：橫螢幕；</li>
+<li>原文：laser；大陆：激光；香港：激光；台灣：雷射；新加坡：镭射；</li>
+<li>原文：linked list；大陆：链表；台灣：連結串列；</li>
+<li>原文：linker；大陆：连接器；台灣：連結器；</li>
+<li>原文：links；大陆：链接；台灣：鏈結；</li>
+<li>原文：load；大陆：加载；台灣：載入；</li>
+<li>原文：Local Area Network；大陆：局域网；台灣：區域網路；</li>
+<li>原文：localization；大陆：本地化；台灣：在地化；香港：本地化；</li>
+<li>原文：log in；大陆：登录；台灣：登入；</li>
+<li>原文：log out；大陆：注销；台灣：登出；</li>
+<li>原文：logic device；大陆：逻辑器件；台灣：邏輯裝置；</li>
+<li>原文：logic gate；大陆：逻辑门；香港：邏輯門；台灣：邏輯閘；</li>
+<li>原文：loop；大陆：循环；台灣：迴圈；</li>
+<li>原文：lossless；大陆：无损；台灣：無失真；</li>
+<li>原文：lossless compression；大陆：无损压缩；台灣：無失真壓縮；香港：無損壓縮；</li>
+<li>原文：lossy；大陆：有损；台灣：失真；</li>
+<li>原文：lossy compression；大陆：有损压缩；台灣：失真壓縮；</li>
+<li>原文：lost；大陆：丢失；台灣：遺失；</li>
+<li>原文：low level；大陆：低级；台灣：低階；</li>
+<li>原文：Laptop；大陆：笔记本电脑；台灣：膝上型電腦；香港：筆記電腦；</li>
+<li>原文：library；函式庫⇒大陆：库；</li>
+<li>原文：machine code；大陆：机器代码；台灣：機器碼；香港：機械碼；</li>
+<li>原文：machine code；大陆：机器码；台灣：機器碼；香港：機械碼；</li>
+<li>原文：managed code；大陆：托管代码；繁體：受控代碼；</li>
+<li>原文：macro；巨集⇒大陆：宏；巨集⇒新加坡：宏；</li>
+<li>原文：macro virus；大陆：宏病毒；台灣：巨集病毒；</li>
+<li>原文：macroblock；大陆：宏塊；台灣：大區塊；</li>
+<li>原文：main memory；大陆：主存储器；台灣：主記憶體；</li>
+<li>原文：main memory；大陆：主存；台灣：主記憶體；</li>
+<li>原文：main memory；大陆：内存；台灣：內部記憶體；</li>
+<li>原文：main memory；大陆：内部存储器；台灣：內部記憶體；</li>
+<li>原文：mainframe；大陆：大型机；台灣：大型電腦；</li>
+<li>原文：mapping；大陆：映射；台灣：對映；</li>
+<li>原文：marketing；大陆：营销；台灣：行銷；</li>
+<li>原文：Markup Language；大陆：置标语言；台灣：標示語言；</li>
+<li>原文：Markup Language；大陆：标记语言；台灣：標示語言；</li>
+<li>原文：Markup Language；大陆：标记语言；台灣：標記式語言；</li>
+<li>原文：Master Boot Record；大陆：主引导记录；台灣：主開機紀錄；</li>
+<li>原文：media streamming；大陆：流媒体；台灣：串流媒體；</li>
+<li>原文：memory；大陆：存储器；台灣：記憶體；</li>
+<li>原文：memory card；大陆：存储卡；台灣：記憶卡；</li>
+<li>原文：menu；大陆：菜单；台灣：選單；</li>
+<li>原文：message；大陆：消息；台灣：訊息；</li>
+<li>原文：message box；大陆：信息框；台灣：訊息方塊；</li>
+<li>原文：meta-programming；大陆：元编程；台灣：超編程；</li>
+<li>原文：metadata；大陆：元数据；台灣：後設資料；</li>
+<li>原文：Metal Oxide Semiconductor；大陆：金属氧化物半导体；台灣：金氧半導體；</li>
+<li>原文：Metropolitan Area Network；大陆：城域网；台灣：都會網路；</li>
+<li>原文：Micro-blog(ging)；大陆：微博客；台灣：微網誌；香港：微博客；</li>
+<li>原文：Micro-blog(ging)；大陆：微型博客；台灣：微型網誌；香港：微型博客；</li>
+<li>原文：microcontroller；大陆：单片机；台灣：微控制器；</li>
+<li>原文：middleware；大陆：中间件；台灣：中介軟體；</li>
+<li>原文：MIDP；大陆：移动信息设备描述；台灣：移動資訊設備簡表；</li>
+<li>原文：minesweeper；大陆：扫雷；台灣：踩地雷；</li>
+<li>原文：mobile app；大陆：移动软件；台灣：行動軟體；香港：流動軟件；</li>
+<li>原文：mobile browser；大陆：移动浏览器；台灣：行動瀏覽器；香港：流動瀏覽器；</li>
+<li>原文：mobile communication；大陆：移动通信；台灣：行動通訊；香港：流動通訊；</li>
+<li>原文：mobile device；大陆：移动设备；台灣：流動裝置；</li>
+<li>原文：mobile device；移动装置⇒台灣：行動裝置；移动装置⇒香港：流動裝置；</li>
+<li>原文：mobile platform；大陆：移动平台；台灣：行動平台；香港：流動平台；</li>
+<li>原文：mobile product；大陆：移动产品；台灣：流動產品；</li>
+<li>原文：mobility；大陆：便携式；台灣：行動式；香港：流動式；</li>
+<li>原文：modem；調變解調器⇒大陆：调制解调器；調變解調器⇒新加坡：调制解调器；</li>
+<li>原文：modifier；大陆：修饰符；台灣：修飾詞；</li>
+<li>原文：module；大陆：模块；台灣：模組；</li>
+<li>原文：modulation；大陆：调制；台灣：調制；</li>
+<li>原文：monolithic kernel；大陆：宏内核；香港：整塊性核心；台灣：單核心；</li>
+<li>原文：most derived class；大陆：最底层派生类；台灣：最末層衍生類別；</li>
+<li>原文：motherboard；大陆：主板；台灣：主機板；</li>
+<li>原文：mouse；大陆：鼠标；台灣：滑鼠；</li>
+<li>原文：mousepad；大陆：鼠标垫；台灣：滑鼠墊；</li>
+<li>原文：multi-tasking；大陆：多任务；台灣：多工；</li>
+<li>原文：multithreading；大陆：多线程；台灣：多執行緒；</li>
+<li>原文：multithreading；多緒⇒大陆：多线程；多緒⇒新加坡：多线程；</li>
+<li>原文：My Document；大陆：我的文档；台灣：我的文件；</li>
+<li>原文：namespace；大陆：命名空间；台灣：名稱空間；</li>
+<li>原文：native；固有⇒香港：原生；固有⇒台灣：原生；</li>
+<li>原文：native；大陆：本地的；台灣：原生的；</li>
+<li>原文：navigation bar；大陆：导航条；台灣：導覽列；</li>
+<li>原文：neste(d)；大陆：嵌套；台灣：巢狀；</li>
+<li>原文：Netbook；大陆：上网本；台灣：小筆電；香港：NetBook；</li>
+<li>原文：Netscape Navigator；大陆：网景导航者；台灣：網景領航員；</li>
+<li>原文：Network；大陆：网络；台灣：網路；香港：網絡；</li>
+<li>原文：network card；網路卡⇒大陆：网卡；網路卡⇒新加坡：网卡；</li>
+<li>原文：network database；大陆：网状数据库；台灣：網狀式資料庫；香港：網絡數據庫；</li>
+<li>原文：Network Neighbourhood；大陆：网上邻居；台灣：網路上的芳鄰；</li>
+<li>原文：notebook computer；大陆：笔记本电脑；台灣：筆記型電腦；香港：手提電腦；</li>
+<li>原文：Norton Ghost；大陆：诺顿克隆精灵；台灣：諾頓魅影系統；</li>
+<li>原文：object code；大陆：目标代码；台灣：目的碼；香港：目標碼；</li>
+<li>原文：object file；目的檔案⇒大陆：目标文件；目的檔案⇒新加坡：目标文件；</li>
+<li>原文：object file；大陆：目标文件；台灣：目的檔；香港：目標文件；</li>
+<li>原文：Object-oriented；大陆：面向对象；台灣：物件導向；</li>
+<li>原文：object；大陆：对象；台灣：物件；</li>
+<li>原文：Office Shortcut Bar；大陆：快捷工具栏；台灣：快捷列；</li>
+<li>原文：offline；大陆：脱机；台灣：離線；</li>
+<li>原文：online；線上⇒大陆：在线；</li>
+<li>原文：online；大陆：联机；台灣：線上；</li>
+<li>原文：online hard drive；大陆：网络硬盘；台灣：網路硬碟；香港：網絡硬碟；</li>
+<li>原文：On-Line Transaction Processing；大陆：联机交易处理；台灣：線上交易處理；</li>
+<li>原文：On-Line Analytical Processing；大陆：联机分析处理；台灣：線上分析處理；</li>
+<li>原文：open；大陆：打开；台灣：開啟；</li>
+<li>原文：open source；大陆：开放源码；台灣：開放原始碼；香港：開放源碼；</li>
+<li>原文：open source；大陆：开放源代码；台灣：開放原始碼；香港：開放源碼；</li>
+<li>原文：Open Handset Alliance；大陆：开放手持设备联盟；台灣：開放手機聯盟；</li>
+<li>原文：Open Mobile Alliance；大陆：开放移动联盟；台灣：開放行動聯盟；</li>
+<li>原文：Open Mobile Alliance；大陆：開放移動聯盟；台灣：開放行動聯盟；</li>
+<li>原文：operand；大陆：操作数；台灣：運算元；</li>
+<li>原文：operand；大陆：运算对象；台灣：運算元；</li>
+<li>原文：operating system；大陆：操作系统；台灣：作業系統；香港：作業系統；</li>
+<li>原文：operating system；操作系統⇒台灣：作業系統；</li>
+<li>原文：operator；大陆：运算符；台灣：運算子；</li>
+<li>原文：optimization；大陆：优化；台灣：最佳化；</li>
+<li>原文：outport；大陆：导出；台灣：匯出；</li>
+<li>原文：overflow；上限溢位⇒大陆：溢出；上限溢位⇒新加坡：溢出；</li>
+<li>原文：overflow；大陆：溢出；台灣：溢位；</li>
+<li>原文：overload；大陆：重载；台灣：多載；</li>
+<li>原文：overload；大陆：重载；台灣：過載；</li>
+<li>原文：override；大陆：改写；台灣：覆寫；</li>
+<li>原文：package；套件⇒大陆：包；套件⇒新加坡：包；</li>
+<li>原文：packet；大陆：分组；台灣：封包；</li>
+<li>原文：paint；小畫家⇒大陆：画图；</li>
+<li>原文：palette；大陆：调色板；台灣：調色盤；</li>
+<li>原文：paradigm (programming)；大陆：范型；台灣：典範；</li>
+<li>原文：parallel；大陆：并行；台灣：並列；</li>
+<li>原文：parallel port；大陆：并行端口；台灣：並列埠；</li>
+<li>原文：parallel port；并口⇒台灣：並列埠；并口⇒香港：並列埠；</li>
+<li>原文：parallel port；并行接口⇒台灣：並列埠；并行接口⇒香港：並列埠；</li>
+<li>原文：parameter list；大陆：参数列表；台灣：參數列；</li>
+<li>原文：parameter list；大陆：参数表；台灣：參數列；</li>
+<li>原文：parenthesis；大陆：括号；台灣：括弧；</li>
+<li>原文：partition；大陆：分区；台灣：分割；香港：分割；</li>
+<li>原文：paste；大陆：粘贴；台灣：貼上；</li>
+<li>原文：patch；大陆：补丁；台灣：修補程式；</li>
+<li>原文：performance；大陆：性能；台灣：效能；</li>
+<li>原文：permission；大陆：权限；台灣：許可權；</li>
+<li>原文：persistence；大陆：持久性；台灣：永續性；</li>
+<li>原文：Personal Area Network；大陆：个人网；台灣：個人區域網絡；</li>
+<li>原文：personal digital assistant；大陆：个人数码助理；台灣：個人數位助理；香港：個人數碼助理；</li>
+<li>原文：photocopy；大陆：复印；台灣：影印；</li>
+<li>原文：physics；大陆：物理学；台灣：物理學；</li>
+<li>原文：physical address；大陆：物理地址；台灣：實體位址；</li>
+<li>原文：physical memory；大陆：物理内存；台灣：實體記憶體；</li>
+<li>原文：picture viewer；大陆：图像检视器；台灣：圖片檢視器；</li>
+<li>原文：picture viewer；图像浏览器⇒台灣：圖片檢視器；图像浏览器⇒香港：圖片檢視器；</li>
+<li>原文：pixel；畫素⇒大陆：像素；畫素⇒香港：像素；</li>
+<li>原文：Pluging；台灣：外掛程式；大陆：插件；</li>
+<li>原文：pointer；大陆：指针；台灣：指標；</li>
+<li>原文：polymorphism；大陆：多态；台灣：多型；</li>
+<li>原文：port；大陆：端口；台灣：埠；</li>
+<li>原文：portable edition；大陆：便携版；台灣：可攜版；</li>
+<li>原文：portable hard drive；大陆：移动硬盘；台灣：行動硬碟；香港：流動硬碟；</li>
+<li>原文：portable device；大陆：移动设备；台灣：行動裝置；香港：流動裝置；</li>
+<li>原文：portal；大陆：门户系统；台灣：入口系統；</li>
+<li>原文：portal；大陆：门户网站；台灣：入口網站；</li>
+<li>原文：post；大陆：帖子；台灣：貼文；</li>
+<li>原文：preference；大陆：预置；台灣：偏好設定；</li>
+<li>原文：preference；大陆：首选项；台灣：偏好設定；香港：參數設定；</li>
+<li>原文：prefix；大陆：前缀；台灣：字首；</li>
+<li>原文：presentation；大陆：演示稿；台灣：簡報；</li>
+<li>原文：primary filename；台灣：主檔名；大陆：文件主名；</li>
+<li>原文：printer preview；大陆：打印机；台灣：印表機；</li>
+<li>原文：print preview；大陆：打印预览；台灣：預覽列印；</li>
+<li>原文：procedural programming；大陆：过程式；台灣：程序式；</li>
+<li>原文：procedural programming；大陆：过程化；台灣：程序化；</li>
+<li>原文：procedural programming；大陆：面向过程；台灣：程序導向；</li>
+<li>原文：process；連作⇒大陆：进程；連作⇒新加坡：进程；</li>
+<li>原文：process；大陆：进程；台灣：行程；</li>
+<li>原文：Process Control Block；大陆：进程控制块；台灣：行程控制表；</li>
+<li>原文：product key；大陆：产品密钥；台灣：產品金鑰；</li>
+<li>原文：program；大陆：程序；台灣：程式；香港：程式；</li>
+<li>原文：programmer；大陆：程序编写员；台灣：程式設計師；</li>
+<li>原文：programmer；大陆：程序员；台灣：程式設計師；</li>
+<li>原文：program -- avoid；大陆：方程式；台灣：方程式；</li>
+<li>原文：program -- avoid；大陆：行程序；台灣：行程式；</li>
+<li>原文：programmable；可規化⇒大陆：可编程；</li>
+<li>原文：programmable；大陆：可编程；台灣：可編程；</li>
+<li>原文：programmable logic device；大陆：可编程逻辑器件；台灣：可程式邏輯裝置；</li>
+<li>原文：programming language；大陆：编程语言；台灣：程式語言；</li>
+<li>原文：Pseudocode；大陆：伪代码；台灣：虛擬碼；香港：偽代碼；</li>
+<li>原文：pull-down lists；大陆：下拉列表；台灣：下拉選單；</li>
+<li>原文：queue；大陆：队列；台灣：佇列；</li>
+<li>原文：Quick Launch bar；大陆：快速启动栏；台灣：快速啟動列；</li>
+<li>原文：radio button；大陆：单选按钮；台灣：圓鈕；</li>
+<li>原文：random-access；大陆：随机存取；台灣：隨機存取；</li>
+<li>原文：random-access memory；大陆：随机存取存储器；台灣：隨機存取記憶體；</li>
+<li>原文：random-access memory；随机存储器⇒台灣：隨機存取記憶體；随机存储器⇒香港：隨機存取記憶體；</li>
+<li>原文：readme；大陆：自述文件；台灣：讀我檔案；</li>
+<li>原文：read-only；大陆：只读；台灣：唯讀；</li>
+<li>原文：read-only memory；只读内存⇒台灣：唯讀記憶體；只读内存⇒香港：唯讀記憶體；</li>
+<li>原文：real-time (computing)；大陆：实时；台灣：即時；</li>
+<li>原文：real mode；大陆：实模式；台灣：真實模式；</li>
+<li>原文：reboot；大陆：重启；台灣：重新開機；</li>
+<li>原文：recovery disc；大陆：恢复光盘；台灣：還原光碟；香港：還原光碟；</li>
+<li>原文：recursion；大陆：递归；台灣：遞迴；</li>
+<li>原文：Recycle Bin；大陆：回收站；台灣：資源回收桶；</li>
+<li>原文：reference；大陆：参考资料；台灣：參考資料；</li>
+<li>原文：reference；大陆：引用；台灣：參照；</li>
+<li>原文：refresh；大陆：刷新；台灣：重新整理；</li>
+<li>原文：registry；大陆：注册表；台灣：登錄檔；</li>
+<li>原文：regular expression；正規表示式⇒大陆：正则表达式；正規表示式⇒新加坡：正则表达式；</li>
+<li>原文：regular expression；大陆：正则表达式；台灣：正規表式；</li>
+<li>原文：relational；大陆：关系；台灣：關聯；</li>
+<li>原文：relational database；大陆：关系数据库；台灣：關聯式資料庫；</li>
+<li>原文：release；釋出⇒大陆：发布；</li>
+<li>原文：remote；大陆：远程；台灣：遠端；</li>
+<li>原文：remote procedure call；大陆：远程过程调用；台灣：遠端程序呼叫；</li>
+<li>原文：rename；大陆：重命名；台灣：重新命名；</li>
+<li>原文：repeating groups；大陆：重复组；台灣：重複群；</li>
+<li>原文：repeating groups；大陆：重复群组；台灣：重複群组；</li>
+<li>原文：repeating groups；大陆：重复组群；台灣：重複组群；</li>
+<li>原文：review；简体：复核；繁體：覆核；</li>
+<li>原文：Rich Internet application；大陆：丰富互联网应用程序；台灣：多樣化網際網路應用程式；香港：多樣化網際網路應用程式；</li>
+<li>原文：routine；大陆：例程；台灣：常式；</li>
+<li>原文：run；大陆：运行；台灣：執行；香港：運行；</li>
+<li>原文：sample；大陆：示例；台灣：範例；</li>
+<li>原文：sampling rate；大陆：采样率；台灣：取樣率；香港：取樣率；</li>
+<li>原文：sampling rate；大陆：采样率；台灣：取樣頻率；香港：取樣率；</li>
+<li>原文：SanDisk；大陆：闪迪；台灣：新帝；香港：SanDisk；</li>
+<li>原文：scanner；大陆：扫描仪；台灣：掃描器；</li>
+<li>原文：scheduler；大陆：调度程序；台灣：排程器；</li>
+<li>原文：schedule；大陆：调度；台灣：排程；</li>
+<li>原文：script；大陆：脚本；台灣：指令碼；</li>
+<li>原文：script kiddie；大陆：脚本小子；台灣：腳本小子；</li>
+<li>原文：scroll bar；大陆：滚动条；台灣：捲軸；</li>
+<li>原文：scroll bar；大陆：滚动栏；台灣：捲軸；</li>
+<li>原文：scroll box；大陆：滚动框；台灣：捲動方塊；</li>
+<li>原文：scroll；大陆：滚动；台灣：捲動；</li>
+<li>原文：SDK；大陆：软件开发工具包；台灣：軟體開發套件；</li>
+<li>原文：search key；大陆：搜索关键字；台灣：搜尋鍵碼；</li>
+<li>原文：search；大陆：搜索；台灣：搜尋；</li>
+<li>原文：second normal form；大陆：第二范式；台灣：第二正規化；</li>
+<li>原文：sector；大陆：扇区；台灣：磁區；香港：磁區；</li>
+<li>原文：security software；保安軟體⇒大陆：安全软件；保安軟體⇒香港：保安軟件；</li>
+<li>原文：security software；台灣：安全軟體；大陆：安全软件；香港：保安軟件；</li>
+<li>原文：Semantic Web；大陆：语义网；台灣：語意網；</li>
+<li>原文：semantics；大陆：语义；台灣：語意；</li>
+<li>原文：semaphore；大陆：信号量；台灣：信號標；</li>
+<li>原文：send；大陆：提交；台灣：送出；</li>
+<li>原文：Serial；大陆：串行；台灣：序列；</li>
+<li>原文：Serial port；大陆：串行接口；台灣：串列埠；</li>
+<li>原文：Serial port；串口⇒台灣：串列埠；串口⇒香港：串列埠；</li>
+<li>原文：Serial port；串行端口⇒台灣：串列埠；串行端口⇒香港：串列埠；</li>
+<li>原文：server；大陆：服务端；台灣：伺服端；</li>
+<li>原文：session hijacking；大陆：会话劫持；台灣：連線劫持；</li>
+<li>原文：setting；大陆：设置；台灣：設定；</li>
+<li>原文：shared folder；分享資料夾⇒大陆：共享文件夹；</li>
+<li>原文：shared folder；大陆：共享文件夹；台灣：共用資料夾；</li>
+<li>原文：signal；大陆：信号；台灣：訊號；</li>
+<li>原文：silicon wafer；大陆：硅片；台灣：矽片；</li>
+<li>原文：site；大陆：站点；台灣：網站；</li>
+<li>原文：sixth normal form；大陆：第六范式；台灣：第六正規化；</li>
+<li>原文：skin；大陆：皮肤；台灣：面板；香港：面板；</li>
+<li>原文：slider；大陆：滑块；台灣：滾軸；</li>
+<li>原文：smartphone；大陆：智能手机；台灣：智慧型手機；香港：智能手機；</li>
+<li>原文：SMS；大陆：短信；繁體：簡訊；香港：短訊；新加坡：简讯；</li>
+<li>原文：snapshot；大陆：截图；香港：截圖；台灣：截圖；</li>
+<li>原文：social network；大陆：社交网络；台灣：社群網路；香港：社交網絡；</li>
+<li>原文：social site；大陆：社交网站；台灣：社群網站；香港：社交網站；</li>
+<li>原文：software engineering；大陆：软件工程；台灣：軟體工程；香港：軟件工程；</li>
+<li>原文：software process；大陆：软件过程；台灣：軟體流程；</li>
+<li>原文：Sony Ericsson；台灣：索尼益立信；大陆：索尼爱立信；香港：索尼愛立信；</li>
+<li>原文：Sony；原文：新力；台灣：索尼；大陆：索尼；香港：索尼；</li>
+<li>原文：Sound card；大陆：声卡；台灣：音效卡；</li>
+<li>原文：source code；大陆：源代码；台灣：原始碼；</li>
+<li>原文：source file；大陆：源文件；台灣：原始檔；</li>
+<li>原文：spreadsheet；大陆：电子表格；台灣：電子試算表；</li>
+<li>原文：spider solitaire；大陆：蜘蛛纸牌；台灣：連環新接龍；</li>
+<li>原文：SQL injection；資料隱碼⇒大陆：注入；資料隱碼⇒新加坡：注入；</li>
+<li>原文：SQL injection；大陆：注入攻击；台灣：隱碼攻擊；</li>
+<li>原文：SQL injection；大陆：SQL注入攻击；台灣：SQL資料隱碼攻擊；</li>
+<li>原文：stack；大陆：堆栈；台灣：堆疊；</li>
+<li>原文：status bar；大陆：状态栏；台灣：狀態列；</li>
+<li>原文：storage；大陆：存储；台灣：儲存；</li>
+<li>原文：stream；串流⇒大陆：流；串流⇒新加坡：流；</li>
+<li>原文：stream；流式⇒台灣：串流；流式⇒香港：串流；</li>
+<li>原文：string；大陆：字符串；台灣：字串；</li>
+<li>原文：suffix；大陆：后缀；台灣：字尾；</li>
+<li>原文：support；大陆：支持；台灣：支援；</li>
+<li>原文：supporter；大陆：支持者；台灣：支持者；</li>
+<li>原文：Sun Microsystems；台灣：昇陽電腦；大陆：太阳微系统；香港：太陽電腦；</li>
+<li>原文：tab；大陆：标签页；台灣：分頁；香港：分頁；</li>
+<li>原文：tab；大陆：选项卡；台灣：索引標籤；</li>
+<li>原文：tablet computer；大陆：平板电脑；台灣：平板電腦；香港：平板電腦；</li>
+<li>原文：tail recursion；大陆：尾部递归；台灣：尾端遞迴；</li>
+<li>原文：target；大陆：目标；台灣：標的；</li>
+<li>原文：target（防止過度轉換）；大陆：目标软件；台灣：目標軟件；香港：目標軟件；</li>
+<li>原文：task bar；大陆：任务栏；台灣：工作列；</li>
+<li>原文：task manager；大陆：任务管理器；台灣：工作管理員；</li>
+<li>原文：task switch；大陆：任务切换；台灣：工作切換；</li>
+<li>原文：terminator；大陆：终结器；台灣：終端子；</li>
+<li>原文：text；文本⇒台灣：文字；文本⇒香港：文字；</li>
+<li>原文：textbox；大陆：文本框；台灣：文字域；香港：文本框；</li>
+<li>原文：text editor；大陆：文本编辑器；台灣：文字編輯器；</li>
+<li>原文：text file；大陆：文本文件；台灣：文字檔案；</li>
+<li>原文：third normal form；大陆：第三范式；台灣：第三正規化；</li>
+<li>原文：thread；大陆：线程；台灣：緒程；</li>
+<li>原文：thread safe；大陆：多线程安全；台灣：多緒安全；</li>
+<li>原文：through；大陆：通过；台灣：透過；</li>
+<li>原文：throw；大陆：抛出；台灣：丟擲；</li>
+<li>原文：thumbnail；大陆：缩略图；台灣：縮圖；</li>
+<li>原文：title bar；大陆：标题栏；台灣：標題列；</li>
+<li>原文：toolbar；大陆：工具栏；台灣：工具列；</li>
+<li>原文：touch panel；大陆：触摸屏；台灣：觸控式螢幕；</li>
+<li>原文：track；大陆：磁道；台灣：磁軌；</li>
+<li>原文：Trinitron；大陆：特丽珑；台灣：特麗霓虹；</li>
+<li>原文：troubleshooting；大陆：疑难解答；台灣：疑難排解；</li>
+<li>原文：type；大陆：类型；台灣：型別；香港：類別；</li>
+<li>原文：unary function；大陆：单参函数；台灣：一元函式；</li>
+<li>原文：underflow；大陆：下溢；台灣：下限溢位；</li>
+<li>原文：underline；大陆：下划线；台灣：底線；</li>
+<li>原文：undo；大陆：撤消；台灣：復原；</li>
+<li>原文：uninstall；卸载⇒台灣：移除；</li>
+<li>原文：Universal Serial Bus；大陆：通用串行总线；台灣：通用序列匯流排；</li>
+<li>原文：UPS；大陆：电源保护；台灣：不斷電系統；</li>
+<li>原文：USB flash drive；大陆：U盘；台灣：USB隨身碟；香港：USB記憶體；</li>
+<li>原文：user；大陆：用户；台灣：使用者；</li>
+<li>原文：user interface；大陆：用户界面；台灣：使用者介面；香港：使用者介面；</li>
+<li>原文：user interface；大陆：人机界面；台灣：人機介面；香港：人機介面；</li>
+<li>原文：variable bitrate；大陆：可变码率；台灣：可變位元速率；</li>
+<li>原文：vector；大陆：矢量；台灣：向量；</li>
+<li>原文：video memory；大陆：显存；台灣：視訊記憶體；</li>
+<li>原文：video；大陆：视频；新加坡：视频；台灣：視訊；香港：視頻；</li>
+<li>原文：View；大陆：视图；台灣：檢視；</li>
+<li>原文：view；大陆：查看；台灣：檢視；</li>
+<li>原文：virtual function；大陆：虚函数；台灣：虛擬函式；</li>
+<li>原文：virtual machine；大陆：虚拟机；台灣：虛擬機器；</li>
+<li>原文：virtual memory；大陆：虚拟内存；台灣：虛擬記憶體；</li>
+<li>原文：Virtualization Technology；大陆：虚拟化技术；台灣：虛擬化技術；</li>
+<li>原文：visual；大陆：可视化；台灣：視覺化；</li>
+<li>原文：volatile (memory)；大陆：易失性；台灣：揮發性；</li>
+<li>原文：von Neumann；台灣：馮·紐曼；大陆：冯·诺伊曼；</li>
+<li>原文：wallpaper；大陆：壁纸；台灣：桌布；</li>
+<li>原文：watermark；大陆：水印；台灣：浮水印；</li>
+<li>原文：webcam；大陆：摄像头；台灣：網路攝影機；香港：網絡攝影機；</li>
+<li>原文：Wide Area Network；大陆：广域网；台灣：廣域網路；</li>
+<li>原文：window manager；大陆：窗口管理器；台灣：視窗管理員；</li>
+<li>原文：Western Digital；大陆：西部数据；台灣：威騰電子；</li>
+<li>原文：Windows Explorer；大陆：资源管理器；台灣：檔案總管；</li>
+<li>原文：wireless；大陆：无线；台灣：無線；香港：無綫；</li>
+<li>原文：wizard；大陆：向导；台灣：精靈；</li>
+<li>原文：word process；大陆：文字处理；台灣：文書處理；</li>
+<li>原文：word processor；大陆：文字处理器；台灣：文書處理器；</li>
+<li>原文：workgroup；大陆：工作组；台灣：工作群組；</li>
+<li>原文：World Wide Web；大陆：万维网；台灣：全球資訊網；香港：萬維網；</li>
+<li>原文：World Wide Web Consortium；大陆：万维网联盟；台灣：全球資訊網協會；香港：萬維網聯盟；</li>
+<li>原文：write protection；大陆：写保护；台灣：防寫；</li>
+<li>原文：Xerox；大陆：施乐；台灣：全錄；香港：施樂；</li>
+<li>原文：X window system；大陆：X窗口系统；台灣：X視窗系統；香港：X Window系統；</li>
+<li>大陆：浏览框；台灣：瀏覽域；</li>
+<li>大陆：定位框；台灣：定位域；</li>
+<li>擷⇒简体：截；擷⇒大陆：截；擷⇒新加坡：截；</li>
+<li>大陆：乔布斯；台灣：賈伯斯；香港：喬布斯；</li>
+</ul>
+<p><br /></p>
+<p><br /></p>
+</div>
+<div class="toccolours mw-collapsible mw-collapsed" style="background-color: transparent; border: none; margin:0; padding:0;">
+<div style="background-color: #FFEA88; font-weight: normal; height: 1.5em; text-align: left; background-color: #4d4d4d; color: #ffffff;"><a href="/wiki/Help:%E4%B8%AD%E6%96%87%E7%BB%B4%E5%9F%BA%E7%99%BE%E7%A7%91%E7%9A%84%E7%B9%81%E7%AE%80%E3%80%81%E5%9C%B0%E5%8C%BA%E8%AF%8D%E5%A4%84%E7%90%86" title="Help:中文維基百科的繁簡、地區詞處理"><span style="color: #333333; font-weight: bold;">字詞轉換</span></a>說明</div>
+<div class="mw-collapsible-content">
+<p>字詞轉換是中文維基的一項自動轉換，目的是通過電腦程式自動消除繁簡、地區詞等不同<b>用字模式</b>的差異，以達到閱讀方便。字詞轉換包括全局轉換和手動轉換，本說明所使用的標題轉換和全文轉換技術，都屬於手動轉換。</p>
+<p>如果您想對我們的字詞轉換系統提出一些改進建議，或者提交應用面更廣的轉換（<a href="/wiki/%E4%B8%AD%E6%96%87%E7%BB%B4%E5%9F%BA%E7%99%BE%E7%A7%91" title="中文維基百科">中文維基百科</a>全站乃至<a href="/wiki/MediaWiki" title="MediaWiki">MediaWiki</a>軟件），或者報告轉換系統的錯誤，請前往<a href="/wiki/Wikipedia:%E5%AD%97%E8%AF%8D%E8%BD%AC%E6%8D%A2%E8%AF%B7%E6%B1%82%E6%88%96%E5%80%99%E9%80%89" title="Wikipedia:字詞轉換請求或候選">Wikipedia:字詞轉換請求或候選</a>發表您的意見。</p>
+</div>
+</div>
+</div>
+</div>
+<span id="_skip_noteTA"></span></div>
+<p><b>AJAX</b>為「<b>Asynchronous JavaScript and XML</b>」（非同步的<a href="/wiki/JavaScript" title="JavaScript">JavaScript</a>與<a href="/wiki/XML" title="XML">XML</a>技術），是一種廣泛應用在瀏覽器的<a href="/w/index.php?title=%E7%B6%B2%E9%A0%81%E9%96%8B%E7%99%BC&amp;action=edit&amp;redlink=1" class="new" title="網頁開發 (頁面不存在)">網頁開發</a>技術。Ajax是多項技術的綜合應用，Ajax概念由 Jesse James Garrett 所提出<sup id="cite_ref-0" class="reference"><a href="#cite_note-0">[1]</a></sup>，AJAX：</p>
+<ul>
+<li>運用<a href="/wiki/XHTML" title="XHTML">XHTML</a>+<a href="/wiki/CSS" title="CSS" class="mw-redirect">CSS</a>來表達資訊；</li>
+<li>運用<a href="/wiki/JavaScript" title="JavaScript">JavaScript</a>操作<a href="/wiki/%E6%96%87%E4%BB%B6%E7%89%A9%E4%BB%B6%E6%A8%A1%E5%9E%8B" title="文件物件模型" class="mw-redirect">DOM</a>（Document Object Model）執行動態效果；</li>
+<li>運用<a href="/wiki/XML" title="XML">XML</a>和<a href="/wiki/XSLT" title="XSLT">XSLT</a>進行資料交換及操作；</li>
+<li>運用<a href="/wiki/XMLHttpRequest" title="XMLHttpRequest" class="mw-redirect">XMLHttpRequest</a>為Agent與<a href="/wiki/%E7%B6%B2%E9%A0%81%E4%BC%BA%E6%9C%8D%E5%99%A8" title="網頁伺服器">網頁伺服器</a>進行非同步資料交換；</li>
+<li>運用<a href="/wiki/JavaScript" title="JavaScript">JavaScript</a>技術實現。</li>
+<li>注意與<a href="/wiki/Flash" title="Flash">Flash</a>、<a href="/wiki/Silverlight" title="Silverlight" class="mw-redirect">Silverlight</a>和<a href="/wiki/Java_Applet" title="Java Applet" class="mw-redirect">Java Applet</a>等<a href="/wiki/RIA" title="RIA" class="mw-redirect">RIA</a>技術區分。</li>
+</ul>
+<p>類似於<a href="/wiki/DHTML" title="DHTML" class="mw-redirect">DHTML</a>或<a href="/wiki/LAMP" title="LAMP">LAMP</a>，AJAX不是指一種單一的技術，而是有機地利用了一系列相關的技術。事實上，一些基於AJAX的「派生／合成」式（derivative/composite）的技術正在出現，如<a href="/wiki/AFLAX" title="AFLAX">AFLAX</a>。</p>
+<p>AJAX的應用使用支持以上技術的Web<a href="/wiki/%E6%B5%8F%E8%A7%88%E5%99%A8" title="瀏覽器" class="mw-redirect">瀏覽器</a>作為運行平台。這些瀏覽器目前包括：<a href="/wiki/Internet_Explorer" title="Internet Explorer">Internet Explorer</a>、<a href="/wiki/Mozilla" title="Mozilla">Mozilla</a>、<a href="/wiki/Firefox" title="Firefox">Firefox</a>、<a href="/wiki/Opera" title="Opera">Opera</a>、<a href="/wiki/Konqueror" title="Konqueror">Konqueror</a>及Mac OS的<a href="/wiki/Safari" title="Safari">Safari</a>。但是<a href="/wiki/Opera" title="Opera">Opera</a>不支持<a href="/wiki/XSL-FO" title="XSL-FO">XSL格式對象</a>，也不支持<a href="/wiki/XSLT" title="XSLT">XSLT</a><sup id="cite_ref-1" class="reference"><a href="#cite_note-1">[2]</a></sup>。</p>
+<table id="toc" class="toc">
+<tr>
+<td>
+<div id="toctitle">
+<h2>目錄</h2>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E4.B8.8E.E4.BC.A0.E7.BB.9F.E7.9A.84Web.E5.BA.94.E7.94.A8.E6.AF.94.E8.BE.83"><span class="tocnumber">1</span> <span class="toctext">與傳統的Web應用比較</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E5.8F.91.E5.B1.95.E5.8F.B2"><span class="tocnumber">2</span> <span class="toctext">發展史</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E4.BC.98.E7.82.B9.E5.92.8C.E6.89.B9.E8.AF.84"><span class="tocnumber">3</span> <span class="toctext">優點和批評</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#.E6.A0.B8.E5.BF.83"><span class="tocnumber">4</span> <span class="toctext">核心</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#.E6.B5.8F.E8.A7.88.E5.99.A8.E5.85.BC.E5.AE.B9.E6.80.A7.E9.97.AE.E9.A2.98"><span class="tocnumber">5</span> <span class="toctext">瀏覽器兼容性問題</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#.E5.BC.80.E5.8F.91Ajax.E5.BA.94.E7.94.A8.E9.9D.A2.E4.B8.B4.E7.9A.84.E6.8C.91.E6.88.98.E5.8F.8A.E8.A7.A3.E5.86.B3.E6.96.B9.E6.A1.88"><span class="tocnumber">6</span> <span class="toctext">開發Ajax應用面臨的挑戰及解決方案</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#.E5.8F.83.E8.80.83.E8.B3.87.E6.96.99"><span class="tocnumber">7</span> <span class="toctext">參考資料</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#.E5.8F.83.E8.A6.8B"><span class="tocnumber">8</span> <span class="toctext">參見</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#.E5.A4.96.E9.83.A8.E8.BF.9E.E6.8E.A5"><span class="tocnumber">9</span> <span class="toctext">外部連接</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#.E5.B7.A5.E5.85.B7"><span class="tocnumber">9.1</span> <span class="toctext">工具</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#.E9.97.A8.E6.88.B7"><span class="tocnumber">9.2</span> <span class="toctext">門戶</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#.E5.9B.BE.E4.B9.A6"><span class="tocnumber">9.3</span> <span class="toctext">圖書</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#.E5.85.B6.E4.BB.96.E8.B5.84.E6.BA.90"><span class="tocnumber">9.4</span> <span class="toctext">其他資源</span></a></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+</table>
+<h2><span class="editsection">[<a href="/w/index.php?title=AJAX&amp;action=edit&amp;section=1" title="編輯段落：與傳統的Web應用比較">編輯</a>]</span> <span class="mw-headline" id=".E4.B8.8E.E4.BC.A0.E7.BB.9F.E7.9A.84Web.E5.BA.94.E7.94.A8.E6.AF.94.E8.BE.83">與傳統的Web應用比較</span></h2>
+<p>傳統的Web應用允許用戶端填寫表單（form），當送出表單時就向Web伺服器發送一個請求。伺服器接收並處理傳來的表單，然後送回一個新的網頁，但這個做法浪費了許多頻寬，因為在前後兩個頁面中的大部分HTML碼往往是相同的。由於每次應用的溝通都需要向伺服器發送請求，應用的回應時間就依賴於伺服器的回應時間。這導致了用戶界面的回應比本機應用慢得多。</p>
+<p>與此不同，AJAX應用可以僅向伺服器發送並取回必需的數據，它使用<a href="/wiki/SOAP" title="SOAP">SOAP</a>或其它一些基於XML的頁面服務接口（介面），並在客戶端採用JavaScript處理來自伺服器的回應。因為在伺服器和瀏覽器之間交換的數據大量減少（大約只有原來的5%），結果我們就能看到回應（伺服器回應）更快的應用（結果）。同時很多的處理工作可以在發出請求的客戶端機器上完成，所以Web伺服器的處理時間也減少了。</p>
+<h2><span class="editsection">[<a href="/w/index.php?title=AJAX&amp;action=edit&amp;section=2" title="編輯段落：發展史">編輯</a>]</span> <span class="mw-headline" id=".E5.8F.91.E5.B1.95.E5.8F.B2">發展史</span></h2>
+<p>上個世紀90年代，幾乎所有的網站都由HTML頁面實現，服務器處理每一個用戶請求都需要重新加載網頁。這樣的處理方式效率不高，因為用戶體驗反應：所有頁面都會消失後再重新載入，即使一部分頁面元素改變也要重新載入整個頁面，不僅要刷新改變的部分，連沒有變化的部分也要刷新。這會加重服務器的負擔。異步加載能夠解決這個問題。1995年JAVA語言的第一版發佈，隨之發佈的的 Java applets(JAVA小程序)首次實現了異步加載。瀏覽器通過運行嵌入網頁中的Java applets與服務器交換數據，不必刷新網頁。1996年，Internet Explorer將iframe元素加入到HTML，支持局部刷新網頁。 1998年前後，允許<a href="/w/index.php?title=%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%84%9A%E6%9C%AC&amp;action=edit&amp;redlink=1" class="new" title="客戶端腳本 (頁面不存在)">客戶端腳本</a>發送HTTP請求（<a href="/wiki/XMLHTTP" title="XMLHTTP">XMLHTTP</a>）的第一個組件由Outlook Web Access小組寫成。該組件原屬於微軟Exchange Server，並且迅速地成為了Internet Explorer 4.0<sup id="cite_ref-2" class="reference"><a href="#cite_note-2">[3]</a></sup>的一部分。部分觀察家認為，Outlook Web Access是第一個應用了Ajax技術的成功的商業應用程序，並成為包括Oddpost的網絡郵件產品在內的許多產品的領頭羊。但是，<a href="/wiki/2005%E5%B9%B4" title="2005年">2005年</a>初，許多事件使得Ajax被大眾所接受。<a href="/wiki/Google" title="Google">Google</a>在它著名的交互應用程序中使用了異步通訊，如<a href="/w/index.php?title=Google%E8%AE%A8%E8%AE%BA%E7%BB%84&amp;action=edit&amp;redlink=1" class="new" title="Google討論組 (頁面不存在)">Google討論組</a>、<a href="/wiki/Google%E5%9C%B0%E5%9B%BE" title="Google地圖">Google地圖</a>、<a href="/w/index.php?title=Google%E6%90%9C%E7%B4%A2%E5%BB%BA%E8%AE%AE&amp;action=edit&amp;redlink=1" class="new" title="Google搜索建議 (頁面不存在)">Google搜索建議</a>、<a href="/wiki/Gmail" title="Gmail">Gmail</a>等。Ajax這個詞由《<i><a rel="nofollow" class="external text" href="http://www.adaptivepath.com/publications/essays/archives/000385.php">Ajax: A New Approach to Web Applications</a></i>》一文所創，該文的迅速流傳提高了人們使用該項技術的意識。另外，對Mozilla/Gecko的支持使得該技術走向成熟，變得更為簡單易用。</p>
+<h2><span class="editsection">[<a href="/w/index.php?title=AJAX&amp;action=edit&amp;section=3" title="編輯段落：優點和批評">編輯</a>]</span> <span class="mw-headline" id=".E4.BC.98.E7.82.B9.E5.92.8C.E6.89.B9.E8.AF.84">優點和批評</span></h2>
+<p>使用Ajax的最大優點，就是能在不更新整個頁面的前提下維護數據。這使得Web應用程序更為迅捷地回應用戶動作，並避免了在網絡上發送那些沒有改變過的信息。</p>
+<p>Ajax不需要任何瀏覽器外掛程式，但需要用戶允許<a href="/wiki/JavaScript" title="JavaScript">JavaScript</a>在瀏覽器上執行。就像<a href="/wiki/DHTML" title="DHTML" class="mw-redirect">DHTML</a>應用程序那樣，Ajax應用程序必須在眾多不同的瀏覽器和平台上經過嚴格的測試。隨着Ajax的成熟，一些簡化Ajax使用方法的程序庫也相繼問世。同樣，也出現了另一種輔助程序設計的技術，為那些不支持<a href="/wiki/JavaScript" title="JavaScript">JavaScript</a>的用戶提供替代功能。</p>
+<p>對應用Ajax最主要的批評就是，它可能破壞瀏覽器後退按鈕的正常行為<sup id="cite_ref-3" class="reference"><a href="#cite_note-3">[4]</a></sup>。在動態更新頁面的情況下，用戶無法回到前一個頁面狀態，這是因為瀏覽器僅能記下歷史記錄中的靜態頁面。一個被完整讀入的頁面與一個已經被動態修改過的頁面之間的差別非常微妙；用戶通常都希望單擊後退按鈕，就能夠取消他們的前一次操作，但是在Ajax應用程序中，卻無法這樣做。不過開發者已想出了種種辦法來解決這個問題，當中大多數都是在用戶單擊後退按鈕訪問歷史記錄時，通過建立或使用一個隱藏的IFRAME來重現頁面上的變更。（例如，當用戶在Google Maps中單擊後退時，它在一個隱藏的<a href="/w/index.php?title=IFRAME&amp;action=edit&amp;redlink=1" class="new" title="IFRAME (頁面不存在)">IFRAME</a>中進行搜索，然後將搜索結果反映到Ajax元素上，以便將應用程序狀態恢復到當時的狀態。）</p>
+<p>一個相關的觀點認為，使用動態頁面更新使得用戶難於將某個特定的狀態保存到收藏夾中。該問題的解決方案也已出現，大部分都使用<a href="/wiki/URL" title="URL" class="mw-redirect">URL</a>片斷標識符（通常被稱為錨點，即URL中#後面的部分）來保持追蹤，允許用戶回到指定的某個應用程序狀態。（許多瀏覽器允許JavaScript動態更新錨點，這使得Ajax應用程序能夠在更新顯示內容的同時更新錨點。）這些解決方案也同時解決了許多關於不支持後退按鈕的爭論。</p>
+<p>進行Ajax開發時，網絡延遲——即用戶發出請求到服務器發出響應之間的間隔——需要慎重考慮。不給予用戶明確的回應 <sup id="cite_ref-4" class="reference"><a href="#cite_note-4">[5]</a></sup>，沒有恰當的預讀數據 <sup id="cite_ref-5" class="reference"><a href="#cite_note-5">[6]</a></sup>，或者對XMLHttpRequest的不恰當處理<sup id="cite_ref-6" class="reference"><a href="#cite_note-6">[7]</a></sup>，都會使用戶感到延遲，這是用戶不想看到的，也是他們無法理解的<sup id="cite_ref-7" class="reference"><a href="#cite_note-7">[8]</a></sup>。通常的解決方案是，使用一個可視化的組件來告訴用戶系統正在進行後台操作並且正在讀取數據和內容。</p>
+<ul>
+<li>一些手持設備（如手機、PDA等）現在還不能很好的支持Ajax;</li>
+<li>用JavaScript作的Ajax引擎，JavaScript的兼容性和DeBug都是讓人頭痛的事；</li>
+<li>Ajax的無刷新重載，由於頁面的變化沒有刷新重載那麼明顯，所以容易給用戶帶來困擾——用戶不太清楚現在的數據是新的還是已經更新過的；現有的解決有：在相關位置提示、數據更新的區域設計得比較明顯、數據更新後給用戶提示等；</li>
+<li>對串流媒體的支持沒有FLASH、Java Applet好。</li>
+</ul>
+<h2><span class="editsection">[<a href="/w/index.php?title=AJAX&amp;action=edit&amp;section=4" title="編輯段落：核心">編輯</a>]</span> <span class="mw-headline" id=".E6.A0.B8.E5.BF.83">核心</span></h2>
+<h2><span class="editsection">[<a href="/w/index.php?title=AJAX&amp;action=edit&amp;section=5" title="編輯段落：瀏覽器兼容性問題">編輯</a>]</span> <span class="mw-headline" id=".E6.B5.8F.E8.A7.88.E5.99.A8.E5.85.BC.E5.AE.B9.E6.80.A7.E9.97.AE.E9.A2.98">瀏覽器兼容性問題</span></h2>
+<p>JavaScript編程的最大問題來自不同的瀏覽器對各種技術和標準的支持。</p>
+<p>XmlHttpRequest對象在不同瀏覽器中不同的創建方法，以下是跨瀏覽器的通用方法：</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="javascript source-javascript">
+<pre class="de1">
+<span class="co1">// Provide the XMLHttpRequest class for IE 5.x-6.x:</span>
+<span class="co1">// Other browsers (including IE 7.x-8.x) ignore this</span>
+<span class="co1">//   when XMLHttpRequest is predefined</span>
+<span class="kw2">var</span> xmlHttp<span class="sy0">;</span>
+<span class="kw1">if</span> <span class="br0">(</span><span class="kw1">typeof</span> XMLHttpRequest <span class="sy0">!=</span> <span class="st0">"undefined"</span><span class="br0">)</span> <span class="br0">{</span>
+    xmlHttp <span class="sy0">=</span> <span class="kw2">new</span> XMLHttpRequest<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span> <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span>window.<span class="me1">ActiveXObject</span><span class="br0">)</span> <span class="br0">{</span>
+    <span class="kw2">var</span> aVersions <span class="sy0">=</span> <span class="br0">[</span><span class="st0">"Msxml2.XMLHttp.5.0"</span><span class="sy0">,</span> <span class="st0">"Msxml2.XMLHttp.4.0"</span><span class="sy0">,</span> <span class="st0">"Msxml2.XMLHttp.3.0"</span><span class="sy0">,</span> <span class="st0">"Msxml2.XMLHttp"</span><span class="sy0">,</span> <span class="st0">"Microsoft.XMLHttp"</span><span class="br0">]</span><span class="sy0">;</span>
+    <span class="kw1">for</span> <span class="br0">(</span><span class="kw2">var</span> i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> aVersions.<span class="me1">length</span><span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">)</span> <span class="br0">{</span>
+        <span class="kw1">try</span> <span class="br0">{</span>
+            xmlHttp <span class="sy0">=</span> <span class="kw2">new</span> ActiveXObject<span class="br0">(</span>aVersions<span class="br0">[</span>i<span class="br0">]</span><span class="br0">)</span><span class="sy0">;</span>
+            <span class="kw1">break</span><span class="sy0">;</span>
+        <span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span>e<span class="br0">)</span> <span class="br0">{</span><span class="br0">}</span>
+    <span class="br0">}</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<h2><span class="editsection">[<a href="/w/index.php?title=AJAX&amp;action=edit&amp;section=6" title="編輯段落：開發Ajax應用面臨的挑戰及解決方案">編輯</a>]</span> <span class="mw-headline" id=".E5.BC.80.E5.8F.91Ajax.E5.BA.94.E7.94.A8.E9.9D.A2.E4.B8.B4.E7.9A.84.E6.8C.91.E6.88.98.E5.8F.8A.E8.A7.A3.E5.86.B3.E6.96.B9.E6.A1.88">開發Ajax應用面臨的挑戰及解決方案</span></h2>
+<table class="metadata plainlinks ambox ambox-content" style="">
+<tr>
+<td class="mbox-image">
+<div style="width: 52px;"><a href="/wiki/File:Emblem-scales.svg" class="image"><img alt="Emblem-scales.svg" src="//upload.wikimedia.org/wikipedia/commons/thumb/2/29/Emblem-scales.svg/40px-Emblem-scales.svg.png" width="40" height="40" /></a></div>
+</td>
+<td class="mbox-text" style=""><b>此章節的<a href="/wiki/Wikipedia:%E4%B8%AD%E6%80%A7%E7%9A%84%E8%A7%82%E7%82%B9" title="Wikipedia:中性的觀點" class="mw-redirect">中立性</a>有爭議。內容、語調可能帶有明顯的個人觀點或<a href="/wiki/Wikipedia:%E9%81%BF%E5%85%8D%E5%9C%B0%E5%9F%9F%E4%B8%AD%E5%BF%83" title="Wikipedia:避免地域中心">地方色彩</a>。</b><br />
+<small>加上此模板的編輯者需在<a href="/wiki/Talk:AJAX" title="Talk:AJAX">討論頁</a>說明此節中立性有爭議的原因，以便讓各編輯者討論和改善。<br />
+在編輯之前請務必察看討論頁。</small></td>
+</tr>
+</table>
+<p>對程序員而言，開發Ajax應用最頭痛的問題莫過於以下幾點：</p>
+<ol>
+<li>Ajax在本質上是一個瀏覽器端的技術，首先面臨無可避免的第一個問題即是瀏覽器的兼容性問題。各家瀏覽器對於<a href="/wiki/JavaScript" title="JavaScript">JavaScript</a>／<a href="/wiki/DOM" title="DOM">DOM</a>／<a href="/wiki/CSS" title="CSS" class="mw-redirect">CSS</a>的支持總有部分不太相同或是有Bug，甚至同一瀏覽器的各個版本間對於<a href="/wiki/JavaScript" title="JavaScript">JavaScript</a>／<a href="/wiki/DOM" title="DOM">DOM</a>／<a href="/wiki/CSS" title="CSS" class="mw-redirect">CSS</a>的支持也有可能部分不一樣。這導致程序員在寫Ajax應用時花大部分的時間在<a href="/wiki/%E8%B0%83%E8%AF%95" title="調試">調試</a>瀏覽器的兼容性而非在應用程序本身。因此，目前大部分的Ajax鏈接庫或開發框架大多以js鏈接庫的形式存在，以定義更高階的JavaScript API 、JavaScript對象（模板）、或者JavaScript Widgets來解決此問題。如prototype.js。</li>
+<li>Ajax技術之主要目的在於局部交換客戶端及服務器之間的數據。如同傳統之主從架構，無可避免的會有部分的業務邏輯會實現在客戶端，或部分在客戶端部分在服務器。由於業務邏輯可能分散在客戶端及服務器，且以不同之程序語言實現，這導致Ajax應用程序極難維護。如有使用者接口或業務邏輯之更動需求，再加上前一個JavaScript/DOM/CSS之兼容性問題，Ajax應用往往變成程序員的夢魘。針對業務邏輯分散的問題，Ajax開發框架大致可分為兩類：
+<ul>
+<li>將業務邏輯及表現層放在瀏覽器，數據層放在服務器：因為所有的程序以JavaScript執行在客戶端，只有需要數據時才向服務器要求服務，此法又稱為胖客戶端（fat client）架構。服務器在此架構下通常僅用於提供及儲存數據。此法的好處在於程序員可以充分利用JavaScript搭配業務邏輯來做出特殊的使用者接口，以符合終端使用者的要求。但是問題也不少，主因在第一，JavaScript語言本身之能力可能不足以處理複雜的業務邏輯。第二，JavaScript的執行效能一向不好。第三，JavaScript存取服務器數據，仍需適當的服務器端程序之配合。第四，瀏覽器兼容性的問題又出現。有些Ajax開發框架如DWR企圖以自動生成JavaScript之方式來避免兼容的問題，並開立通道使得JavaScript可以直接叫用服務器端的Java程序來簡化數據的存取。但是前述第一及第二兩個問題仍然存在，程序員必須費相當的力氣才能達到應用程序之規格要求，或可能根本無法達到要求。</li>
+<li>將表現層、業務邏輯、及數據層放在服務器，瀏覽器僅有使用者接口引擎（User Interface engine）；此法又稱為瘦客戶端（thin client）架構，或中心服務器（server-centric）架構。瀏覽器的使用者接口引擎僅用於反映服務器的表現層以及傳達使用者的輸入回到服務器的表現層。由瀏覽器所觸發之事件亦送回服務器處理，根據業務邏輯來更新表現層，然後反映回瀏覽器。因為所有應用程序完全在服務器執行，數據及表現層皆可直接存取，程序員只需使用服務器端相對較成熟之程序語言（如Java語言）即可，不需再學習JavaScript/DOM/CSS，在開發應用程序時相對容易。缺點在於使用者接口引擎以及表現層通常以標準組件的形式存在，如需要特殊組件（使用者接口）時，往往須待原框架之開發者提供，緩不濟急。如開源碼Ajax開發框架<a href="/wiki/ZK" title="ZK">ZK</a>目前支持XUL及XHTML組件，尚無XAML之支持。</li>
+</ul>
+</li>
+<li>Ajax是以異步的方式向服務器提交需求。對服務器而言，其與傳統的提交窗體需求並無不同，而且由於是以異步之方式提交，如果同時有多個Ajax需求及窗體提交需求，將無法保證哪一個需求先獲得服務器的響應。這會造成應用程序典型的多進程（process）或多線程（thread）的競爭（racing）問題。程序員因此必須自行處理或在JavaScript裡面動手腳以避免這類競爭問題的發生（如Ajax需求未響應之前，先disable送出按鈕），這又不必要的增加了程序員的負擔。<span class="template-facttext" title="需要提供文獻來源">目前已知有自動處理此問題之開發框架似乎只有<a href="/wiki/ZK" title="ZK">ZK</a>。</span><sup class="noprint Template-Fact"><a href="/wiki/Wikipedia:%E5%88%97%E6%98%8E%E6%9D%A5%E6%BA%90" title="Wikipedia:列明來源"><span style="white-space: nowrap;" title="來源請求開始於2010年11月12日。">[來源請求]</span></a></sup></li>
+</ol>
+<h2><span class="editsection">[<a href="/w/index.php?title=AJAX&amp;action=edit&amp;section=7" title="編輯段落：參考資料">編輯</a>]</span> <span class="mw-headline" id=".E5.8F.83.E8.80.83.E8.B3.87.E6.96.99">參考資料</span></h2>
+<ol class="references">
+<li id="cite_note-0"><b><a href="#cite_ref-0">^</a></b> <span class="reference-text"><span style="font-family: sans-serif; cursor: default; color:#555; font-size: 0.8em; bottom: 0.1em; font-weight: bold;" title="連接到英文網頁">（英文）</span><a rel="nofollow" class="external text" href="http://www.adaptivepath.com/publications/essays/archives/000385.php">Ajax: 網頁應用程式的新方法</a> — Jesse James Garrett，最近存取日2007年11月7日</span></li>
+<li id="cite_note-1"><b><a href="#cite_ref-1">^</a></b> <span class="reference-text"><span style="font-family: sans-serif; cursor: default; color:#555; font-size: 0.8em; bottom: 0.1em; font-weight: bold;" title="連接到英文網頁">（英文）</span><a rel="nofollow" class="external text" href="http://www.opera.com/docs/specs/">Opera 9 支援的網頁規格</a> — XSLT, XPath, and XSL-FO 部分論及不支持 XSL-FO 與 XSLT，最近存取日2007年11月7日</span></li>
+<li id="cite_note-2"><b><a href="#cite_ref-2">^</a></b> <span class="reference-text"><span style="font-family: sans-serif; cursor: default; color:#555; font-size: 0.8em; bottom: 0.1em; font-weight: bold;" title="連接到英文網頁">（英文）</span><a rel="nofollow" class="external text" href="http://support.microsoft.com/default.aspx?scid=kb;en-us;269238#XSLTH3131121122120121120120">微軟 XML Parser (MSXML) 版本列表</a>，最近存取日2007年11月7日</span></li>
+<li id="cite_note-3"><b><a href="#cite_ref-3">^</a></b> <span class="reference-text"><span style="font-family: sans-serif; cursor: default; color:#555; font-size: 0.8em; bottom: 0.1em; font-weight: bold;" title="連接到英文網頁">（英文）</span><a rel="nofollow" class="external text" href="http://www.useit.com/alertbox/990530.html">Web設計10大錯誤(1999年)</a> — Jakob Nielsen 著</span></li>
+<li id="cite_note-4"><b><a href="#cite_ref-4">^</a></b> <span class="reference-text"><span style="font-family: sans-serif; cursor: default; color:#555; font-size: 0.8em; bottom: 0.1em; font-weight: bold;" title="連接到英文網頁">（英文）</span><a rel="nofollow" class="external text" href="http://www.xml.com/pub/a/2005/08/22/ajax.html">Remote Scripting with AJAX, Part 2</a></span></li>
+<li id="cite_note-5"><b><a href="#cite_ref-5">^</a></b> <span class="reference-text"><span style="font-family: sans-serif; cursor: default; color:#555; font-size: 0.8em; bottom: 0.1em; font-weight: bold;" title="連接到英文網頁">（英文）</span><a rel="nofollow" class="external text" href="http://www.jonathanboutelle.com/mt/archives/2004/08/latency_must_di.html">延遲必死：預讀資料以降低延遲</a> — JonathanBoutelle.com</span></li>
+<li id="cite_note-6"><b><a href="#cite_ref-6">^</a></b> <span class="reference-text"><span style="font-family: sans-serif; cursor: default; color:#555; font-size: 0.8em; bottom: 0.1em; font-weight: bold;" title="連接到英文網頁">（英文）</span><a rel="nofollow" class="external text" href="http://ajaxblog.com/archives/2005/06/01/async-requests-over-an-unreliable-network">不可靠網絡下的非同步要求</a> — Harry Fuecks 著，2005年2月</span></li>
+<li id="cite_note-7"><b><a href="#cite_ref-7">^</a></b> <span class="reference-text"><span style="font-family: sans-serif; cursor: default; color:#555; font-size: 0.8em; bottom: 0.1em; font-weight: bold;" title="連接到英文網頁">（英文）</span><a rel="nofollow" class="external text" href="http://www.lastcraft.com/blog/index.php?p=19">小朋友們聽着, AJAX 不怎麼酷</a> — Marcus Baker 著，2005年6月3日</span></li>
+</ol>
+<p>9.(英文) <a rel="nofollow" class="external text" href="http://www.robertspahr.com/courses/web1/ajax_web_applications.pdf">Ajax: A new approach to web applications</a> --JJ Garrett - 2005年</p>
+<h2><span class="editsection">[<a href="/w/index.php?title=AJAX&amp;action=edit&amp;section=8" title="編輯段落：參見">編輯</a>]</span> <span class="mw-headline" id=".E5.8F.83.E8.A6.8B">參見</span></h2>
+<ul>
+<li><a href="/wiki/Google_Web_Toolkit" title="Google Web Toolkit">Google Web Toolkit</a> 是一個前端使用JavaScript，後端使用<a href="/wiki/Java" title="Java">Java</a>的AJAX framework，提供<a href="/wiki/WYSIWYG" title="WYSIWYG" class="mw-redirect">WYSIWYG</a>設計介面。</li>
+<li><a href="/wiki/JQuery" title="JQuery">jQuery</a> 用於簡化AJAX開發的Javascript函式庫。</li>
+<li><a href="/wiki/Prototype_javascript" title="Prototype javascript" class="mw-redirect">Prototype</a> AJAX函式庫。</li>
+<li><a href="/wiki/Yahoo!_UI_Library" title="Yahoo! UI Library" class="mw-redirect">Yahoo! UI Library</a> is a set of utilities and controls, written in JavaScript, for building richly interactive web applications using techniques such as DOM scripting, DHTML and AJAX.</li>
+<li><a href="/wiki/Xajax" title="Xajax">Xajax</a> 知名的開源碼開發AJAX用PHP函式庫。</li>
+<li><a href="/wiki/ZK" title="ZK">ZK</a>，開放原始碼AJAX/XUL框架，<a href="/wiki/JAVA" title="JAVA" class="mw-redirect">JAVA</a>專用。</li>
+<li><a href="/wiki/ASP.NET_AJAX" title="ASP.NET AJAX">ASP.NET AJAX</a>，由微軟專為 ASP.NET 應用程式所開發的 AJAX 基礎架構。</li>
+<li><a href="/wiki/Web_2.0" title="Web 2.0">web 2.0</a>，一種新的互聯網概念</li>
+</ul>
+<h2><span class="editsection">[<a href="/w/index.php?title=AJAX&amp;action=edit&amp;section=9" title="編輯段落：外部連接">編輯</a>]</span> <span class="mw-headline" id=".E5.A4.96.E9.83.A8.E8.BF.9E.E6.8E.A5">外部連接</span></h2>
+<h3><span class="editsection">[<a href="/w/index.php?title=AJAX&amp;action=edit&amp;section=10" title="編輯段落：工具">編輯</a>]</span> <span class="mw-headline" id=".E5.B7.A5.E5.85.B7">工具</span></h3>
+<ul>
+<li><a rel="nofollow" class="external text" href="http://ajax.asp.net/">ASP.NET AJAX Extension（開發階段時代號 Atlas）</a>，<a href="/wiki/%E5%BE%AE%E8%BB%9F" title="微軟" class="mw-redirect">微軟</a>AJAX工具箱。</li>
+<li><a rel="nofollow" class="external text" href="http://www.jquery.com/">jQuery</a>，開源JS框架，寫得更少，做得更多。</li>
+<li><a rel="nofollow" class="external text" href="http://dojotoolkit.org/">Dojo工具箱</a>，AJAX/DHTML工具箱。</li>
+<li><a rel="nofollow" class="external text" href="http://prototype.conio.net/">Prototype</a>，開放源代碼框架。</li>
+<li><a href="/w/index.php?title=Buffalo&amp;action=edit&amp;redlink=1" class="new" title="Buffalo (頁面不存在)">Buffalo</a> Web Remoting (based on prototype)</li>
+<li><a href="/w/index.php?title=Openrico&amp;action=edit&amp;redlink=1" class="new" title="Openrico (頁面不存在)">openrico</a> JS UI component (based on prototype)</li>
+<li><a rel="nofollow" class="external text" href="http://www.phprpc.org/">PHPRPC</a>，開放源代碼多語言支持的跨平台的安全的 Web 遠程過程調用框架，讓 Ajax 編程更容易。</li>
+<li><a rel="nofollow" class="external text" href="http://www.modernmethod.com/sajax/">Sajax</a>，簡單AJAX工具箱</li>
+<li><a rel="nofollow" class="external text" href="http://rialto.application-servers.com">Rialto</a>，Rich Internet AppLication TOolkit.</li>
+<li><a rel="nofollow" class="external text" href="http://mochikit.com/">MochiKit</a> 一個自稱AJAX的輕量級js庫，支持<a href="/wiki/Json" title="Json" class="mw-redirect">Json</a>。</li>
+<li><a rel="nofollow" class="external text" href="http://www.openlaszlo.org/">OpenLaszlo</a> 原本專注在<a href="/wiki/Flash" title="Flash">Flash</a> 作為表現層的<a href="/w/index.php?title=Laszlo&amp;action=edit&amp;redlink=1" class="new" title="Laszlo (頁面不存在)">Laszlo</a> 將方向轉至AJAX。</li>
+<li><a rel="nofollow" class="external text" href="http://script.aculo.us/">script.aculo.us</a> 為<a href="/wiki/Ruby_on_Rails" title="Ruby on Rails">Ruby on Rails</a>量身打造的AJAX函式庫，跨平台支援。</li>
+<li><a rel="nofollow" class="external text" href="http://openrico.org/">Rico</a> 知名的開源碼的AJAX函式庫，跨平台支援。</li>
+<li><a rel="nofollow" class="external text" href="http://getahead.org/">DWR</a> Web Remoting</li>
+<li><a rel="nofollow" class="external text" href="http://qooxdoo.org/">qooxdoo</a> JS UI component (C/S Style)</li>
+<li><a rel="nofollow" class="external text" href="http://www.linb.net">jsLINB</a> 完全OOP，帶有線程模擬的ajax RIA框架。</li>
+<li><a rel="nofollow" class="external text" href="http://code.google.com/webtoolkit/">GWT</a> Google 開源框架。</li>
+<li><a rel="nofollow" class="external text" href="http://www.myquicknet.com/">Quicknet</a> 一個能提供安全資料傳輸的 AJAX 系統架構。</li>
+</ul>
+<h3><span class="editsection">[<a href="/w/index.php?title=AJAX&amp;action=edit&amp;section=11" title="編輯段落：門戶">編輯</a>]</span> <span class="mw-headline" id=".E9.97.A8.E6.88.B7">門戶</span></h3>
+<ul>
+<li><a rel="nofollow" class="external text" href="http://www.ajaxcn.org">Ajax中國</a>。</li>
+</ul>
+<h3><span class="editsection">[<a href="/w/index.php?title=AJAX&amp;action=edit&amp;section=12" title="編輯段落：圖書">編輯</a>]</span> <span class="mw-headline" id=".E5.9B.BE.E4.B9.A6">圖書</span></h3>
+<ul>
+<li>《Ajax基礎教程》，<i>Foundations Of Ajax</i> 中文版，人民郵電出版社圖靈公司出版。<a href="/wiki/Special:%E7%BD%91%E7%BB%9C%E4%B9%A6%E6%BA%90/7115144818" class="internal mw-magiclink-isbn">ISBN 7-115-14481-8</a></li>
+<li>《Ajax實戰》，<i>Ajax in Action</i> 中文版，人民郵電出版社圖靈公司出版。<a href="/wiki/Special:%E7%BD%91%E7%BB%9C%E4%B9%A6%E6%BA%90/7115147175" class="internal mw-magiclink-isbn">ISBN 7-115-14717-5</a></li>
+<li>《Ajax高級程序設計》（第二版），<i>Professional Ajax</i>，人民郵電出版社圖靈公司出版。</li>
+<li>《Head First Ajax》O'Reilly出版社</li>
+<li>《Ajax 實戰手冊》碁峰 <a href="/wiki/Special:%E7%BD%91%E7%BB%9C%E4%B9%A6%E6%BA%90/9861810366" class="internal mw-magiclink-isbn">ISBN 986-181-036-6</a></li>
+<li>《Ajax技術手冊》碁峰 <a href="/wiki/Special:%E7%BD%91%E7%BB%9C%E4%B9%A6%E6%BA%90/9861810196" class="internal mw-magiclink-isbn">ISBN 986-181-019-6</a></li>
+</ul>
+<h3><span class="editsection">[<a href="/w/index.php?title=AJAX&amp;action=edit&amp;section=13" title="編輯段落：其他資源">編輯</a>]</span> <span class="mw-headline" id=".E5.85.B6.E4.BB.96.E8.B5.84.E6.BA.90">其他資源</span></h3>
+<ul>
+<li><a rel="nofollow" class="external text" href="http://wiki.moztw.org/index.php/AJAX_%E4%B8%8A%E6%89%8B%E7%AF%87">AJAX 上手篇</a>，AJAX 上手篇</li>
+<li><a rel="nofollow" class="external text" href="http://www-128.ibm.com/developerworks/tw/library/wa-ajaxintro1.html">掌握 Ajax</a>，掌握 Ajax</li>
+<li><a rel="nofollow" class="external text" href="http://www.hotajax.org">Ajax外掛程式（英文）</a>，Hot!Ajax</li>
+<li><a rel="nofollow" class="external autonumber" href="http://www.gbin1.com/technology/jquery/20120307ajaxforjquerypart1/">[1]</a>，jQuery類庫新手使用指南之AJAX方法- 第一部分</li>
+<li><a rel="nofollow" class="external autonumber" href="http://www.gbin1.com/technology/jquery/20120308ajaxforjquerypart2/">[2]</a>，jQuery類庫新手使用指南之AJAX方法- 第二部分</li>
+<li><a rel="nofollow" class="external autonumber" href="http://www.gbin1.com/technology/jquery/20120309ajaxforjquerypart3/">[3]</a>，jQuery類庫新手使用指南之AJAX方法- 第三部分</li>
+<li><a rel="nofollow" class="external autonumber" href="http://www.gbin1.com/technology/jquery/20120313ajaxforjquerypart4/">[4]</a>，jQuery類庫新手使用指南之AJAX方法- 第四部分</li>
+</ul>
+<table cellspacing="0" class="navbox" style="border-spacing:0;;">
+<tr>
+<td style="padding:2px;">
+<table cellspacing="0" class="nowraplinks collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit;;">
+<tr>
+<th scope="col" style=";" class="navbox-title" colspan="2">
+<div class="noprint plainlinks hlist navbar" style=""><a href="/wiki/Template:%E7%B6%B2%E9%A0%81%E6%8A%80%E8%A1%93%E8%88%87%E6%A8%99%E6%BA%96" title="Template:網頁技術與標準"><span style=";;background:none transparent;border:none;" title="檢視這個模板">檢</span></a><span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/Template_talk:%E7%B6%B2%E9%A0%81%E6%8A%80%E8%A1%93%E8%88%87%E6%A8%99%E6%BA%96" title="Template talk:網頁技術與標準"><span style=";;background:none transparent;border:none;" title="關於這個模板的討論頁面">論</span></a><span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a class="external text" href="//zh.wikipedia.org/w/index.php?title=Template:%E7%B6%B2%E9%A0%81%E6%8A%80%E8%A1%93%E8%88%87%E6%A8%99%E6%BA%96&amp;action=edit"><span style=";;background:none transparent;border:none;" title="您可以編輯這個模板。請在儲存變更之前先預覽">編</span></a></div>
+<div class="" style="font-size:110%;">網頁技術與標準</div>
+</th>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group" style=";;">文檔呈現語言</th>
+<td style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;;;" class="navbox-list navbox-odd">
+<div style="padding:0em 0.25em"><a href="/wiki/HTML" title="HTML">HTML</a>*（<a href="/wiki/HTML5" title="HTML5">HTML5</a>*）<span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/XHTML" title="XHTML">XHTML</a>*<span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/XML" title="XML">XML</a>*<span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/XForms" title="XForms">XForms</a>*<span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/%E5%8B%95%E6%85%8BHTML" title="動態HTML">DHTML</a>*</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group" style=";;">樣式格式描述語言</th>
+<td style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;;;" class="navbox-list navbox-even">
+<div style="padding:0em 0.25em"><a href="/wiki/%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8" title="層疊樣式表">層疊樣式表</a>*<span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/XSL" title="XSL" class="mw-redirect">XSL</a>*</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group" style=";;">動態網頁技術</th>
+<td style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;;;" class="navbox-list navbox-odd">
+<div style="padding:0em 0.25em"><a href="/wiki/%E9%80%9A%E7%94%A8%E7%BD%91%E5%85%B3%E6%8E%A5%E5%8F%A3" title="通用網關接口">CGI</a><span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/FastCGI" title="FastCGI">FastCGI</a><span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/Active_Server_Pages" title="Active Server Pages">ASP</a><span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/ASP.NET" title="ASP.NET">ASP.NET</a><span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/ColdFusion" title="ColdFusion" class="mw-redirect">ColdFusion</a><span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/JSP" title="JSP">JSP</a><span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/PHP" title="PHP">PHP</a></div>
+</td>
+</tr>
+<tr style="height:2px">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group" style=";;">客戶端交互技術</th>
+<td style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;;;" class="navbox-list navbox-even">
+<div style="padding:0em 0.25em"><a href="/wiki/ActiveX" title="ActiveX">ActiveX</a><span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/Java_Applet" title="Java Applet" class="mw-redirect">Java Applet</a><span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/JavaFX" title="JavaFX">JavaFX</a><span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <strong class="selflink">AJAX</strong>（<a href="/wiki/XMLHTTP" title="XMLHTTP">XMLHTTP</a>*）<span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/Microsoft_Silverlight" title="Microsoft Silverlight">Silverlight</a><span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/ActionScript" title="ActionScript">ActionScript</a>（<a href="/wiki/Adobe_Flash" title="Adobe Flash">Flash</a><span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/Adobe_Flex" title="Adobe Flex">Flex</a><span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/Adobe_Integrated_Runtime" title="Adobe Integrated Runtime" class="mw-redirect">AIR</a>）</div>
+</td>
+</tr>
+<tr style="height:2px">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group" style=";;">客戶端腳本語言</th>
+<td style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;;;" class="navbox-list navbox-odd">
+<div style="padding:0em 0.25em"><a href="/wiki/JavaScript" title="JavaScript">JavaScript</a><span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/JScript" title="JScript">JScript</a><span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/VBScript" title="VBScript">VBScript</a><span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/ECMAScript" title="ECMAScript">ECMAScript</a></div>
+</td>
+</tr>
+<tr style="height:2px">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group" style=";;">標識定位語言</th>
+<td style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;;;" class="navbox-list navbox-even">
+<div style="padding:0em 0.25em"><a href="/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E5%AE%9A%E4%BD%8D%E7%AC%A6" title="統一資源定位符">URL</a><span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6" title="統一資源標誌符">URI</a><span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/XPath" title="XPath">XPath</a><span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/URL%E9%87%8D%E5%AF%AB" title="URL重寫">URL重寫</a></div>
+</td>
+</tr>
+<tr style="height:2px">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group" style=";;">文檔綱要語言</th>
+<td style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;;;" class="navbox-list navbox-odd">
+<div style="padding:0em 0.25em"><a href="/wiki/%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B%E6%8F%8F%E8%BF%B0" title="文件類型描述">DTD</a>*<span style="white-space:nowrap; font-weight:bold;">&#160;·</span> <a href="/wiki/XML_Schema" title="XML Schema">XML Schema</a>*</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<td class="navbox-abovebelow" style=";" colspan="2">
+<div>* 代表由<a href="/wiki/W3C" title="W3C" class="mw-redirect">W3C</a>制定和維護的標準與規範</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<p><span id="interwiki-de-ga"></span></p>
+
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 10110/1000000
+Post-expand include size: 381156/2048000 bytes
+Template argument size: 56885/2048000 bytes
+Highest expansion depth: 12/40
+Expensive parser function count: 11/500
+-->
+
+<!-- Saved in parser cache with key zhwiki:pcache:idhash:124128-0!*!0!!zh-hk!4!zh-hk!* and timestamp 20120709042802 -->
+</div>				<!-- /bodycontent -->
+								<!-- printfooter -->
+				<div class="printfooter">
+				取自「<a href="http://zh.wikipedia.org/w/index.php?title=AJAX&amp;oldid=21868519">http://zh.wikipedia.org/w/index.php?title=AJAX&amp;oldid=21868519</a>」				</div>
+				<!-- /printfooter -->
+												<!-- catlinks -->
+				<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/wiki/Special:%E9%A1%B5%E9%9D%A2%E5%88%86%E7%B1%BB" title="Special:页面分类">6個分類</a>：<ul><li><a href="/wiki/Category:%E7%B6%B2%E9%A0%81%E6%8A%80%E8%A1%93" title="Category:網頁技術">網頁技術</a></li><li><a href="/wiki/Category:AJAX" title="Category:AJAX">AJAX</a></li><li><a href="/wiki/Category:Java" title="Category:Java">Java</a></li><li><a href="/wiki/Category:XML" title="Category:XML">XML</a></li><li><a href="/wiki/Category:Web_2.0%E6%96%B0%E8%A9%9E" title="Category:Web 2.0新詞">Web 2.0新詞</a></li><li><a href="/wiki/Category:%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1" title="Category:进程间通信">進程間通信</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">2個隱藏分類：<ul><li><a href="/wiki/Category:%E4%B8%AD%E7%AB%8B%E6%80%A7%E6%9C%89%E4%BA%89%E8%AE%AE%E7%9A%84%E4%BD%9C%E5%93%81" title="Category:中立性有争议的作品">中立性有爭議的作品</a></li><li><a href="/wiki/Category:%E8%87%AA2010%E5%B9%B411%E6%9C%88%E6%9C%89%E6%9C%AA%E5%88%97%E6%98%8E%E6%9D%A5%E6%BA%90%E8%AF%AD%E5%8F%A5%E7%9A%84%E6%9D%A1%E7%9B%AE" title="Category:自2010年11月有未列明来源语句的条目">自2010年11月有未列明來源語句的條目</a></li></ul></div></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+				<!-- debughtml -->
+								<!-- /debughtml -->
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>個人工具</h5>
+	<ul lang="zh-HK" dir="ltr">
+		<li id="pt-createaccount"><a href="/w/index.php?title=Special:%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95&amp;returnto=AJAX&amp;returntoquery=variant%3Dzh-hk&amp;type=signup">創建新帳號</a></li>
+		<li id="pt-login"><a href="/w/index.php?title=Special:%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95&amp;returnto=AJAX&amp;returntoquery=variant%3Dzh-hk" title="建議您登入，儘管並非必須。 [o]" accesskey="o">登入</a></li>
+	</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>名字空間</h5>
+	<ul lang="zh-HK" dir="ltr">
+					<li  id="ca-nstab-main" class="selected"><span><a href="/wiki/AJAX"  title="查看頁面內容 [c]" accesskey="c">條目</a></span></li>
+					<li  id="ca-talk"><span><a href="/wiki/Talk:AJAX"  title="關於此頁面的討論 [t]" accesskey="t">討論</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu">
+	<h4>
+																		港澳繁體										</h4>
+	<h5><span>變換</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+							<li id="ca-varlang-0"><a href="/zh/AJAX" lang="zh" hreflang="zh" >不转换</a></li>
+							<li id="ca-varlang-1"><a href="/zh-hans/AJAX" lang="zh-hans" hreflang="zh-hans" >简体</a></li>
+							<li id="ca-varlang-2"><a href="/zh-hant/AJAX" lang="zh-hant" hreflang="zh-hant" >繁體</a></li>
+							<li id="ca-varlang-3"><a href="/zh-cn/AJAX" lang="zh-cn" hreflang="zh-cn" >大陆简体</a></li>
+							<li id="ca-varlang-4" class="selected"><a href="/zh-hk/AJAX" lang="zh-hk" hreflang="zh-hk" >港澳繁體</a></li>
+							<li id="ca-varlang-5"><a href="/zh-sg/AJAX" lang="zh-sg" hreflang="zh-sg" >马新简体</a></li>
+							<li id="ca-varlang-6"><a href="/zh-tw/AJAX" lang="zh-tw" hreflang="zh-tw" >台灣正體</a></li>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>檢視</h5>
+	<ul lang="zh-HK" dir="ltr">
+					<li id="ca-view" class="selected"><span><a href="/wiki/AJAX" >閱讀</a></span></li>
+					<li id="ca-edit"><span><a href="/w/index.php?title=AJAX&amp;action=edit"  title="您可以編輯此頁，請在保存之前先預覽一下。 [e]" accesskey="e">編輯</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/w/index.php?title=AJAX&amp;action=history"  title="本頁面的早前版本。 [h]" accesskey="h">檢視歷史</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>動作</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul lang="zh-HK" dir="ltr">
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5 lang="zh-HK" dir="ltr"><label for="searchInput">搜尋</label></h5>
+	<form action="/w/index.php" id="searchform">
+				<div id="simpleSearch">
+						<input type="text" name="search" value="" title="搜尋維基百科 [f]" accesskey="f" id="searchInput" />						<button type="submit" name="button" title="在此頁面內搜尋此文字" id="searchButton" width="12" height="13"><img src="//bits.wikimedia.org/static-1.20wmf6/skins/vector/images/search-ltr.png?303-4" alt="搜尋" /></button>								<input type='hidden' name="title" value="Special:搜索"/>
+		</div>
+	</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(//upload.wikimedia.org/wikipedia/zh/b/bc/Wiki.png);" href="/wiki/Wikipedia:%E9%A6%96%E9%A1%B5"  title="首頁"></a></div>
+				<!-- /logo -->
+				
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5 lang="zh-HK" dir="ltr">導航</h5>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/wiki/Wikipedia:%E9%A6%96%E9%A1%B5" title="回到首頁 [z]" accesskey="z">首頁</a></li>
+			<li id="n-indexpage"><a href="/wiki/Wikipedia:%E5%88%86%E9%A1%9E%E7%B4%A2%E5%BC%95" title="以分類索引搜尋中文維基百科">分類索引</a></li>
+			<li id="n-Featured_content"><a href="/wiki/Portal:%E7%89%B9%E8%89%B2%E5%85%A7%E5%AE%B9" title="查看中文維基百科的特色內容">特色內容</a></li>
+			<li id="n-currentevents"><a href="/wiki/Portal:%E6%96%B0%E8%81%9E%E5%8B%95%E6%85%8B" title="提供當前新聞事件的背景資料">新聞動態</a></li>
+			<li id="n-recentchanges"><a href="/wiki/Special:%E6%9C%80%E8%BF%91%E6%9B%B4%E6%94%B9" title="列出維基百科中的最近修改 [r]" accesskey="r">近期變動</a></li>
+			<li id="n-randompage"><a href="/wiki/Special:%E9%9A%8F%E6%9C%BA%E9%A1%B5%E9%9D%A2" title="隨機載入一個頁面 [x]" accesskey="x">隨機條目</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- help -->
+<div class="portal" id='p-help'>
+	<h5 lang="zh-HK" dir="ltr">幫助</h5>
+	<div class="body">
+		<ul>
+			<li id="n-help"><a href="/wiki/Help:%E7%9B%AE%E5%BD%95" title="尋求幫助">幫助</a></li>
+			<li id="n-portal"><a href="/wiki/Wikipedia:%E7%A4%BE%E5%8C%BA%E4%B8%BB%E9%A1%B5" title="關於本計畫、你可以做什麼、應該如何做">社區首頁</a></li>
+			<li id="n-policy"><a href="/wiki/Wikipedia:%E6%96%B9%E9%87%9D%E8%88%87%E6%8C%87%E5%BC%95" title="查看維基百科的方針和指引">方針與指引</a></li>
+			<li id="n-villagepump"><a href="/wiki/Wikipedia:%E4%BA%92%E5%8A%A9%E5%AE%A2%E6%A0%88" title="參與維基百科社群的討論">互助客棧</a></li>
+			<li id="n-Information_desk"><a href="/wiki/Wikipedia:%E8%A9%A2%E5%95%8F%E8%99%95" title="解答任何與維基百科無關的問題的地方">詢問處</a></li>
+			<li id="n-conversion"><a href="/wiki/Wikipedia:%E5%AD%97%E8%AF%8D%E8%BD%AC%E6%8D%A2%E8%AF%B7%E6%B1%82%E6%88%96%E5%80%99%E9%80%89" title="提出字詞轉換請求">字詞轉換</a></li>
+			<li id="n-IRC"><a href="/wiki/Wikipedia:IRC%E8%81%8A%E5%A4%A9%E9%A2%91%E9%81%93">IRC即時聊天</a></li>
+			<li id="n-contact"><a href="/wiki/Wikipedia:%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC" title="如何聯絡維基百科">聯絡我們</a></li>
+			<li id="n-about"><a href="/wiki/Wikipedia:%E5%85%B3%E4%BA%8E" title="查看維基百科的簡介">關於維基百科</a></li>
+			<li id="n-sitesupport"><a href="//donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=20120521SB001&amp;uselang=zh" title="如果您在維基百科受益良多，您可以考慮贊助我們">資助維基百科</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /help -->
+
+<!-- TOOLBOX -->
+<div class="portal" id='p-tb'>
+	<h5 lang="zh-HK" dir="ltr">工具箱</h5>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/wiki/Special:%E9%93%BE%E5%85%A5%E9%A1%B5%E9%9D%A2/AJAX" title="列出所有與本頁相連的頁面 [j]" accesskey="j">連入頁面</a></li>
+			<li id="t-recentchangeslinked"><a href="/wiki/Special:%E9%93%BE%E5%87%BA%E6%9B%B4%E6%94%B9/AJAX" title="頁面連出所有頁面的更改 [k]" accesskey="k">相關更改</a></li>
+			<li id="t-upload"><a href="/wiki/Project:%E4%B8%8A%E4%BC%A0" title="上傳圖像或多媒體檔 [u]" accesskey="u">上傳檔案</a></li>
+			<li id="t-specialpages"><a href="/wiki/Special:%E7%89%B9%E6%AE%8A%E9%A1%B5%E9%9D%A2" title="全部特殊頁面的列表 [q]" accesskey="q">特殊頁面</a></li>
+			<li><a href="/w/index.php?title=AJAX&amp;variant=zh-hk&amp;printable=yes" rel="alternate">可打印版</a></li>
+			<li id="t-permalink"><a href="/w/index.php?title=AJAX&amp;oldid=21868519" title="這個頁面修訂版本的永久連結">永久連接</a></li>
+<li id="t-cite"><a href="/w/index.php?title=Special:%E5%BC%95%E7%94%A8&amp;page=AJAX&amp;id=21868519" title="關於如何引用此頁的資訊">引用此文</a></li>		</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+<div class="portal" id='p-lang'>
+	<h5 lang="zh-HK" dir="ltr">其他語言</h5>
+	<div class="body">
+		<ul>
+			<li class="interwiki-af"><a href="//af.wikipedia.org/wiki/AJAX" title="AJAX" lang="af" hreflang="af">Afrikaans</a></li>
+			<li class="interwiki-ar"><a href="//ar.wikipedia.org/wiki/%D8%A3%D8%AC%D8%A7%D9%83%D8%B3" title="أجاكس" lang="ar" hreflang="ar">العربية</a></li>
+			<li class="interwiki-az"><a href="//az.wikipedia.org/wiki/AJAX" title="AJAX" lang="az" hreflang="az">Azərbaycanca</a></li>
+			<li class="interwiki-bg"><a href="//bg.wikipedia.org/wiki/Ajax" title="Ajax" lang="bg" hreflang="bg">Български</a></li>
+			<li class="interwiki-bn"><a href="//bn.wikipedia.org/wiki/%E0%A6%8F%E0%A6%9C%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%95%E0%A7%8D%E0%A6%B8_(%E0%A6%93%E0%A6%AF%E0%A6%BC%E0%A7%87%E0%A6%AC_%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A7%8B%E0%A6%97%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%AE%E0%A6%BF%E0%A6%82_%E0%A6%95%E0%A7%8C%E0%A6%B6%E0%A6%B2)" title="এজ্যাক্স (ওয়েব প্রোগ্রামিং কৌশল)" lang="bn" hreflang="bn">বাংলা</a></li>
+			<li class="interwiki-ca"><a href="//ca.wikipedia.org/wiki/Ajax_(programaci%C3%B3)" title="Ajax (programació)" lang="ca" hreflang="ca">Català</a></li>
+			<li class="interwiki-cs"><a href="//cs.wikipedia.org/wiki/AJAX" title="AJAX" lang="cs" hreflang="cs">Česky</a></li>
+			<li class="interwiki-da"><a href="//da.wikipedia.org/wiki/Ajax_(programmering)" title="Ajax (programmering)" lang="da" hreflang="da">Dansk</a></li>
+			<li class="interwiki-de"><a href="//de.wikipedia.org/wiki/Ajax_(Programmierung)" title="Ajax (Programmierung)" lang="de" hreflang="de">Deutsch</a></li>
+			<li class="interwiki-en"><a href="//en.wikipedia.org/wiki/Ajax_(programming)" title="Ajax (programming)" lang="en" hreflang="en">English</a></li>
+			<li class="interwiki-es"><a href="//es.wikipedia.org/wiki/AJAX" title="AJAX" lang="es" hreflang="es">Español</a></li>
+			<li class="interwiki-et"><a href="//et.wikipedia.org/wiki/Ajax" title="Ajax" lang="et" hreflang="et">Eesti</a></li>
+			<li class="interwiki-eu"><a href="//eu.wikipedia.org/wiki/Ajax_(programazioa)" title="Ajax (programazioa)" lang="eu" hreflang="eu">Euskara</a></li>
+			<li class="interwiki-fa"><a href="//fa.wikipedia.org/wiki/%D8%A7%DB%8C%E2%80%8C%D8%AC%DA%A9%D8%B3" title="ای‌جکس" lang="fa" hreflang="fa">فارسی</a></li>
+			<li class="interwiki-fi"><a href="//fi.wikipedia.org/wiki/Ajax_(ohjelmointi)" title="Ajax (ohjelmointi)" lang="fi" hreflang="fi">Suomi</a></li>
+			<li class="interwiki-fr"><a href="//fr.wikipedia.org/wiki/Ajax_(informatique)" title="Ajax (informatique)" lang="fr" hreflang="fr">Français</a></li>
+			<li class="interwiki-ga"><a href="//ga.wikipedia.org/wiki/AJAX" title="AJAX" lang="ga" hreflang="ga">Gaeilge</a></li>
+			<li class="interwiki-gl"><a href="//gl.wikipedia.org/wiki/AJAX" title="AJAX" lang="gl" hreflang="gl">Galego</a></li>
+			<li class="interwiki-he"><a href="//he.wikipedia.org/wiki/AJAX_(%D7%AA%D7%9B%D7%A0%D7%95%D7%AA)" title="AJAX (תכנות)" lang="he" hreflang="he">עברית</a></li>
+			<li class="interwiki-hi"><a href="//hi.wikipedia.org/wiki/%E0%A4%85%E0%A4%9C%E0%A4%BE%E0%A4%95%E0%A5%8D%E0%A4%B8_(%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A5%8B%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%BE%E0%A4%AE%E0%A4%BF%E0%A4%82%E0%A4%97)" title="अजाक्स (प्रोग्रामिंग)" lang="hi" hreflang="hi">हिन्दी</a></li>
+			<li class="interwiki-hu"><a href="//hu.wikipedia.org/wiki/Ajax_(programoz%C3%A1s)" title="Ajax (programozás)" lang="hu" hreflang="hu">Magyar</a></li>
+			<li class="interwiki-hy"><a href="//hy.wikipedia.org/wiki/AJAX" title="AJAX" lang="hy" hreflang="hy">Հայերեն</a></li>
+			<li class="interwiki-id"><a href="//id.wikipedia.org/wiki/AJAX" title="AJAX" lang="id" hreflang="id">Bahasa Indonesia</a></li>
+			<li class="interwiki-it"><a href="//it.wikipedia.org/wiki/AJAX" title="AJAX" lang="it" hreflang="it">Italiano</a></li>
+			<li class="interwiki-ja"><a href="//ja.wikipedia.org/wiki/Ajax" title="Ajax" lang="ja" hreflang="ja">日本語</a></li>
+			<li class="interwiki-ka"><a href="//ka.wikipedia.org/wiki/Ajax" title="Ajax" lang="ka" hreflang="ka">ქართული</a></li>
+			<li class="interwiki-ko"><a href="//ko.wikipedia.org/wiki/Ajax" title="Ajax" lang="ko" hreflang="ko">한국어</a></li>
+			<li class="interwiki-lt"><a href="//lt.wikipedia.org/wiki/AJAX" title="AJAX" lang="lt" hreflang="lt">Lietuvių</a></li>
+			<li class="interwiki-mk"><a href="//mk.wikipedia.org/wiki/AJAX" title="AJAX" lang="mk" hreflang="mk">Македонски</a></li>
+			<li class="interwiki-ml"><a href="//ml.wikipedia.org/wiki/%E0%B4%85%E0%B4%9C%E0%B4%BE%E0%B4%95%E0%B5%8D%E0%B4%B8%E0%B5%8D_(%E0%B4%95%E0%B4%82%E0%B4%AA%E0%B5%8D%E0%B4%AF%E0%B5%82%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B5%BC_%E0%B4%AA%E0%B5%8D%E0%B4%B0%E0%B5%8B%E0%B4%97%E0%B5%8D%E0%B4%B0%E0%B4%BE%E0%B4%AE%E0%B4%BF%E0%B4%99%E0%B5%8D%E0%B4%99%E0%B5%8D)" title="അജാക്സ് (കംപ്യൂട്ടർ പ്രോഗ്രാമിങ്ങ്)" lang="ml" hreflang="ml">മലയാളം</a></li>
+			<li class="interwiki-mn"><a href="//mn.wikipedia.org/wiki/AJAX" title="AJAX" lang="mn" hreflang="mn">Монгол</a></li>
+			<li class="interwiki-ms"><a href="//ms.wikipedia.org/wiki/Ajax" title="Ajax" lang="ms" hreflang="ms">Bahasa Melayu</a></li>
+			<li class="interwiki-nl"><a href="//nl.wikipedia.org/wiki/Asynchronous_JavaScript_and_XML" title="Asynchronous JavaScript and XML" lang="nl" hreflang="nl">Nederlands</a></li>
+			<li class="interwiki-nn"><a href="//nn.wikipedia.org/wiki/AJAX" title="AJAX" lang="nn" hreflang="nn">‪norsk (nynorsk)‬</a></li>
+			<li class="interwiki-no"><a href="//no.wikipedia.org/wiki/Ajax_(programmering)" title="Ajax (programmering)" lang="no" hreflang="no">‪norsk (bokmål)‬</a></li>
+			<li class="interwiki-pl"><a href="//pl.wikipedia.org/wiki/AJAX" title="AJAX" lang="pl" hreflang="pl">Polski</a></li>
+			<li class="interwiki-pms"><a href="//pms.wikipedia.org/wiki/AJAX" title="AJAX" lang="pms" hreflang="pms">Piemontèis</a></li>
+			<li class="interwiki-pt"><a href="//pt.wikipedia.org/wiki/AJAX_(programa%C3%A7%C3%A3o)" title="AJAX (programação)" lang="pt" hreflang="pt">Português</a></li>
+			<li class="interwiki-ro"><a href="//ro.wikipedia.org/wiki/Ajax_(programare)" title="Ajax (programare)" lang="ro" hreflang="ro">Română</a></li>
+			<li class="interwiki-ru"><a href="//ru.wikipedia.org/wiki/AJAX" title="AJAX" lang="ru" hreflang="ru">Русский</a></li>
+			<li class="interwiki-simple"><a href="//simple.wikipedia.org/wiki/Ajax_(programming)" title="Ajax (programming)" lang="simple" hreflang="simple">Simple English</a></li>
+			<li class="interwiki-sk"><a href="//sk.wikipedia.org/wiki/Ajax_(informatika)" title="Ajax (informatika)" lang="sk" hreflang="sk">Slovenčina</a></li>
+			<li class="interwiki-sl"><a href="//sl.wikipedia.org/wiki/Ajax_(programiranje)" title="Ajax (programiranje)" lang="sl" hreflang="sl">Slovenščina</a></li>
+			<li class="interwiki-sq"><a href="//sq.wikipedia.org/wiki/Ajax_(programim)" title="Ajax (programim)" lang="sq" hreflang="sq">Shqip</a></li>
+			<li class="interwiki-sv"><a href="//sv.wikipedia.org/wiki/AJAX" title="AJAX" lang="sv" hreflang="sv">Svenska</a></li>
+			<li class="interwiki-ta"><a href="//ta.wikipedia.org/wiki/%E0%AE%8F%E0%AE%9C%E0%AE%BE%E0%AE%95%E0%AF%8D%E0%AE%B8%E0%AF%8D" title="ஏஜாக்ஸ்" lang="ta" hreflang="ta">தமிழ்</a></li>
+			<li class="interwiki-te"><a href="//te.wikipedia.org/wiki/%E0%B0%85%E0%B0%9C%E0%B0%BE%E0%B0%95%E0%B1%8D%E0%B0%B8%E0%B1%8D_(%E0%B0%AA%E0%B1%8D%E0%B0%B0%E0%B1%8B%E0%B0%97%E0%B1%8D%E0%B0%B0%E0%B0%BE%E0%B0%AE%E0%B0%BF%E0%B0%82%E0%B0%97%E0%B1%8D)" title="అజాక్స్ (ప్రోగ్రామింగ్)" lang="te" hreflang="te">తెలుగు</a></li>
+			<li class="interwiki-th"><a href="//th.wikipedia.org/wiki/%E0%B9%80%E0%B8%AD%E0%B9%81%E0%B8%88%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C" title="เอแจ็กซ์" lang="th" hreflang="th">ไทย</a></li>
+			<li class="interwiki-tk"><a href="//tk.wikipedia.org/wiki/Ajax_(programmirleme)" title="Ajax (programmirleme)" lang="tk" hreflang="tk">Türkmençe</a></li>
+			<li class="interwiki-tr"><a href="//tr.wikipedia.org/wiki/AJAX_(programlama)" title="AJAX (programlama)" lang="tr" hreflang="tr">Türkçe</a></li>
+			<li class="interwiki-uk"><a href="//uk.wikipedia.org/wiki/AJAX" title="AJAX" lang="uk" hreflang="uk">Українська</a></li>
+			<li class="interwiki-vi"><a href="//vi.wikipedia.org/wiki/Ajax_(l%E1%BA%ADp_tr%C3%ACnh)" title="Ajax (lập trình)" lang="vi" hreflang="vi">Tiếng Việt</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer" lang="zh-HK" dir="ltr">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> 本頁面最後修訂於2012年7月9日 (星期一) 04:13。<br /></li>
+											<li id="footer-info-copyright">本站的全部文字在<a href="//zh.wikipedia.org/zh-hk/Wikipedia%3ACC-by-sa-3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" title="Wikipedia:CC-by-sa-3.0协议文本">共享創意 姓名標示-相同方式分享 3.0 協議</a><a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.zh_HK" style="display:none;"></a>之條款下提供，附加條款亦可能應用。（請參閱<a href="//wikimediafoundation.org/wiki/%E4%BD%BF%E7%94%A8%E6%A2%9D%E6%AC%BE">使用條款</a>）<br />
+Wikipedia&reg;和維基百科標誌是<a href="//wikimediafoundation.org">維基媒體基金會</a>的註冊商標；維基&trade;是維基媒體基金會的商標。<br />
+維基媒體基金會是在美國佛羅里達州登記的501(c)(3)<a href="//wikimediafoundation.org/wiki/%E8%B5%84%E5%8A%A9%E7%9A%84%E5%85%8D%E7%A8%8E%E6%94%BF%E7%AD%96">免稅</a>、非營利、慈善機構。<br /></li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="//wikimediafoundation.org/wiki/%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96" title="wikimedia:隐私政策">隱私政策</a></li>
+											<li id="footer-places-about"><a href="/wiki/Wikipedia:%E5%85%B3%E4%BA%8E" title="Wikipedia:关于">關於維基百科</a></li>
+											<li id="footer-places-disclaimer"><a href="/wiki/Wikipedia:%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E" title="Wikipedia:免责声明">免責聲明</a></li>
+											<li id="footer-places-mobileview"><a href="http://zh.m.wikipedia.org/w/index.php?title=AJAX&amp;variant=zh-hk&amp;mobileaction=toggle_view_mobile" class="noprint">流動瀏覽</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="//wikimediafoundation.org/"><img src="//bits.wikimedia.org/images/wikimedia-button.png" width="88" height="31" alt="Wikimedia Foundation"/></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="//www.mediawiki.org/"><img src="//bits.wikimedia.org/static-1.20wmf6/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		<script type="text/javascript">if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script src="//bits.wikimedia.org/zh.wikipedia.org/load.php?debug=false&amp;lang=zh-hk&amp;modules=skins.vector&amp;only=scripts&amp;skin=vector&amp;*" type="text/javascript"></script>
+<script type="text/javascript">if(window.mw){
+mw.loader.load(["mediawiki.user","mediawiki.page.ready","mediawiki.legacy.mwsuggest","ext.gadget.AdvancedSiteNotices","ext.gadget.hideConversionTab","ext.gadget.large-font","ext.gadget.WikiMiniAtlas","ext.vector.collapsibleNav","ext.vector.collapsibleTabs","ext.vector.editWarning","ext.vector.simpleSearch","ext.UserBuckets","ext.articleFeedback.startup"], null, true);
+}</script>
+<script src="/w/index.php?title=Special:%E6%A8%AA%E5%B9%85%E6%8E%A7%E5%88%B6%E5%99%A8&amp;cache=/cn.js&amp;303-4" type="text/javascript"></script>
+<script src="//bits.wikimedia.org/zh.wikipedia.org/load.php?debug=false&amp;lang=zh-hk&amp;modules=site&amp;only=scripts&amp;skin=vector&amp;*" type="text/javascript"></script>
+<script src="//geoiplookup.wikimedia.org/" type="text/javascript"></script><!-- Served by mw58 in 0.281 secs. -->
+	</body>
+</html>

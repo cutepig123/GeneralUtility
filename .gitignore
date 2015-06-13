@@ -1,7 +1,7 @@
 #################
 ## Eclipse
 #################
-
+vislib
 *.pydevproject
 .project
 .metadata

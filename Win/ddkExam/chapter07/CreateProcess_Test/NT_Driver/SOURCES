@@ -1,0 +1,12 @@
+# Auto-generated sources-file for the "ndis" driver by MSDev_DriverHelper v1.0:
+
+TARGETNAME=HelloDDK
+TARGETPATH=Release
+TARGETTYPE=DRIVER
+
+
+TARGETLIBS=$(DDK_LIB_PATH)\wdm.lib
+##INCLUDES=..\
+
+SOURCES=Process.c Driver.cpp
+

@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Vczh Library++">
+      <UniqueIdentifier>{510300c4-4c43-4483-b2de-692e19fdafdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vczh Library++\Data">
+      <UniqueIdentifier>{41264a50-de59-4418-b119-efe78b441ece}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vczh Library++\Data\Header Files">
+      <UniqueIdentifier>{51379d0a-44ab-4749-b557-e37a23bb6e01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vczh Library++\Data\Source Files">
+      <UniqueIdentifier>{06c1e7d9-f37d-4e4f-b471-088b1890cc99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vczh Library++\Data\Data">
+      <UniqueIdentifier>{dcb4b00b-09f4-49e1-b1f6-3aae30b5f707}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vczh Library++\Data\Data\Header Files">
+      <UniqueIdentifier>{77e11ec3-0b56-46a4-9f4c-ff3a05c2ac4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vczh Library++\Data\Data\Source Files">
+      <UniqueIdentifier>{40b00d18-82c6-44a4-8790-c3394252824a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vczh Library++\Data\Grammar">
+      <UniqueIdentifier>{a22fa30f-2558-4c36-bf6b-5c6fd135bee3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vczh Library++\Data\Grammar\Header Files">
+      <UniqueIdentifier>{72c0c696-8e30-45aa-b6e3-c67a2622126c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vczh Library++\Data\Grammar\Source Files">
+      <UniqueIdentifier>{3e1e7f8c-e19d-479b-bb34-09887e7794ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vczh Library++\Windows">
+      <UniqueIdentifier>{d9ca8f94-1e30-4ee1-8096-c87a04a8943a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vczh Library++\Windows\Header Files">
+      <UniqueIdentifier>{6f2bffe2-2c09-46d1-b974-95256188238c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vczh Library++\Windows\Source Files">
+      <UniqueIdentifier>{83b1e858-6792-47f5-85cf-cfa48771134a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vczh Library++\Windows\Commctrl">
+      <UniqueIdentifier>{bb673f7b-906a-434a-9d6a-3a61cad9bd3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vczh Library++\Windows\Commctrl\Header Files">
+      <UniqueIdentifier>{f62a6ec2-8772-434f-b13d-b0ccfea6ef51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vczh Library++\Windows\Commctrl\Source Files">
+      <UniqueIdentifier>{417f1635-844b-4f48-8ddf-f8ffbd092a92}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GeneralRegex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Program.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RegexHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Library\Data\VL_Data.cpp">
+      <Filter>Vczh Library++\Data\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Library\Data\VL_Stream.cpp">
+      <Filter>Vczh Library++\Data\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Library\Data\VL_System.cpp">
+      <Filter>Vczh Library++\Data\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Library\Data\VL_Uniop.cpp">
+      <Filter>Vczh Library++\Data\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Library\Data\Data\VL_Data_Basic.cpp">
+      <Filter>Vczh Library++\Data\Data\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Library\Data\Data\VL_Data_Iterator.cpp">
+      <Filter>Vczh Library++\Data\Data\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Library\Data\Data\VL_Data_String.cpp">
+      <Filter>Vczh Library++\Data\Data\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Library\Data\Grammar2\VL_Regexp.cpp">
+      <Filter>Vczh Library++\Data\Grammar\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Library\Data\Grammar2\VL_RegFA.cpp">
+      <Filter>Vczh Library++\Data\Grammar\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Library\Data\Grammar2\VL_RegSim.cpp">
+      <Filter>Vczh Library++\Data\Grammar\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Library\Data\Grammar2\VL_RegTools.cpp">
+      <Filter>Vczh Library++\Data\Grammar\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Library\Windows\VL_WinClass.cpp">
+      <Filter>Vczh Library++\Windows\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Library\Windows\VL_WinCommDlg.cpp">
+      <Filter>Vczh Library++\Windows\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Library\Windows\VL_WinGDI.cpp">
+      <Filter>Vczh Library++\Windows\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Library\Windows\VL_WinMain.cpp">
+      <Filter>Vczh Library++\Windows\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Library\Windows\Commctrl\VL_WinButton.cpp">
+      <Filter>Vczh Library++\Windows\Commctrl\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Library\Windows\Commctrl\VL_WinContainers.cpp">
+      <Filter>Vczh Library++\Windows\Commctrl\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Library\Windows\Commctrl\VL_WinRatio.cpp">
+      <Filter>Vczh Library++\Windows\Commctrl\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Library\Windows\Commctrl\VL_WinText.cpp">
+      <Filter>Vczh Library++\Windows\Commctrl\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Library\Windows\Commctrl\VL_WinView.cpp">
+      <Filter>Vczh Library++\Windows\Commctrl\Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GeneralRegex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RegexHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\VL_Data.h">
+      <Filter>Vczh Library++\Data\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\VL_Stream.h">
+      <Filter>Vczh Library++\Data\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\VL_System.h">
+      <Filter>Vczh Library++\Data\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\VL_Uniop.h">
+      <Filter>Vczh Library++\Data\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\Data\VL_Data_BalanceTree.h">
+      <Filter>Vczh Library++\Data\Data\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\Data\VL_Data_Basic.h">
+      <Filter>Vczh Library++\Data\Data\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\Data\VL_Data_Bintree.h">
+      <Filter>Vczh Library++\Data\Data\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\Data\VL_Data_Chain.h">
+      <Filter>Vczh Library++\Data\Data\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\Data\VL_Data_CustomBintree.h">
+      <Filter>Vczh Library++\Data\Data\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\Data\VL_Data_Event.h">
+      <Filter>Vczh Library++\Data\Data\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\Data\VL_Data_Iterator.h">
+      <Filter>Vczh Library++\Data\Data\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\Data\VL_Data_List.h">
+      <Filter>Vczh Library++\Data\Data\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\Data\VL_Data_Map.h">
+      <Filter>Vczh Library++\Data\Data\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\Data\VL_Data_Pool.h">
+      <Filter>Vczh Library++\Data\Data\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\Data\VL_Data_SearchTree.h">
+      <Filter>Vczh Library++\Data\Data\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\Data\VL_Data_String.h">
+      <Filter>Vczh Library++\Data\Data\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\Grammar2\VL_Automaton.h">
+      <Filter>Vczh Library++\Data\Grammar\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\Grammar2\VL_Regexp.h">
+      <Filter>Vczh Library++\Data\Grammar\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\Grammar2\VL_RegFA.h">
+      <Filter>Vczh Library++\Data\Grammar\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\Grammar2\VL_RegSim.h">
+      <Filter>Vczh Library++\Data\Grammar\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Data\Grammar2\VL_RegTools.h">
+      <Filter>Vczh Library++\Data\Grammar\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Windows\VL_WinClass.h">
+      <Filter>Vczh Library++\Windows\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Windows\VL_WinCommDlg.h">
+      <Filter>Vczh Library++\Windows\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Windows\VL_WinGDI.h">
+      <Filter>Vczh Library++\Windows\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Windows\VL_WinGUI.h">
+      <Filter>Vczh Library++\Windows\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Windows\VL_WinMain.h">
+      <Filter>Vczh Library++\Windows\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Windows\Commctrl\VL_WinButton.h">
+      <Filter>Vczh Library++\Windows\Commctrl\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Windows\Commctrl\VL_WinContainers.h">
+      <Filter>Vczh Library++\Windows\Commctrl\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Windows\Commctrl\VL_WinRatio.h">
+      <Filter>Vczh Library++\Windows\Commctrl\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Windows\Commctrl\VL_WinText.h">
+      <Filter>Vczh Library++\Windows\Commctrl\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Library\Windows\Commctrl\VL_WinView.h">
+      <Filter>Vczh Library++\Windows\Commctrl\Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

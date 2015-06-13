@@ -1,0 +1,10 @@
+; myAddin.def : Declares the module parameters for the DLL.
+
+LIBRARY      "myAddin"
+
+EXPORTS
+    ; Explicit exports can go here
+	addArrays
+	readTiff
+	Pow2
+	tiffSize

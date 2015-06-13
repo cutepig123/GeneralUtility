@@ -1,0 +1,1390 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>［译］How browsers work - zzzaquarius的专栏 - 博客频道 - CSDN.NET</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="原文：http://taligarsiel.com/Projects/howbrowserswork1.htm有点长，前面介绍的比较细，但是到后面就越写越糊了，两年了 &#160;都没有继续写下去，据说是没有时间写了。。。翻完了之后 想找些 这个作者的资料 无意发现三个多月前已经有人翻过了 也留下来http://blog.zhangguoqiang.name/index.php/category/j" />
+<script src="http://static.blog.csdn.net/Scripts/jquery.js" type="text/javascript"></script>
+<script src="http://static.blog.csdn.net/scripts/plugins.js" type="text/javascript"></script>
+<script src="http://static.blog.csdn.net/scripts/common.js" type="text/javascript"></script>
+<link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/default/css/style.css" />
+<link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/zzzaquarius/rss/list" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+</head>
+<body>
+<script src="http://csdnimg.cn/pubnav/js/pub_topnav_2011.js"type="text/javascript"></script>
+<div id="container">
+<div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h1><a href="/zzzaquarius">zzzaquarius的专栏</a></h1>
+            <h2></h2>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg"></div>
+    <div class="navigator">
+        <ul>
+            <li id="btnContents"><a href="/zzzaquarius?viewmode=contents"><span><img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+            <li id="btnView"><a href="/zzzaquarius?viewmode=list"><span><img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+            <li id="btnRss"><a href="/zzzaquarius/rss/list"><span><img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>
+</ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "zzzaquarius";
+    var blog_address = "http://blog.csdn.net/zzzaquarius";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";
+</script>
+        
+<div id="body">
+<div id="main">
+<div class="main">
+<div class="notice"> 
+
+
+<a href="http://cloud.csdn.net/a/20120620/2806805.html" target="_blank"><font color=red>用开源IaaS构建自己的云——OpenStack征稿启事
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://topic.csdn.net/u/20120709/15/2e6511e3-e34f-41d7-9f71-a47bb4f8c9fa.html" target="_blank"><font color=red>CSDN社区7月"畅谈加班 赢程序员杂志"活动火爆上线！！</font></a>
+<br>
+<a href="http://blog.csdn.net/blogdevteam/article/details/7712568" target="_blank"><font color=blue>
+2012年7月当选微软MVP的CSDN会员名单揭晓！ </font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://topic.csdn.net/u/20120704/14/c98b3641-359f-4bea-b111-21c409db8819.html" target="_blank"><font color=red>CSDN账号全站整合公告
+</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://adclk.thinkmedia.cn/clk/pid=2000/media=CSDN.CN/place=1Clt1/size=760x90" target="_blank"><font color=blue>不用买彩票，就有408万！</font></a>
+
+
+</div><script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js"></script>
+
+<div id="article_details" class="details">
+    <div class="article_title">
+    <span class="ico ico_type_Translated"></span>
+    <h3>
+        <span class="link_title"><a href="/zzzaquarius/article/details/6532299">
+        ［译］How browsers work
+        </a></span>
+    </h3>
+</div>
+
+        
+    <div class="article_manage">
+        <span class="link_categories">
+        分类：
+            <a href="/zzzaquarius/article/category/725618">web</a> 
+        </span>
+    <span class="link_postdate">2011-06-08 17:33</span>
+    <span class="link_view" title="阅读次数">16045人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="#comments">评论</a>(13)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:collectArticle('［译］How browsers work','6532299');return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="#report"  onclick="javascript:report(6532299,2);return false;" title="举报">举报</a></span>
+    
+</div>
+
+    
+<div id="article_content" class="article_content">
+    <p>原文：http://taligarsiel.com/Projects/howbrowserswork1.htm</p>
+<p>有点长，前面介绍的比较细，但是到后面就越写越糊了，两年了 &nbsp;都没有继续写下去，据说是没有时间写了。。。</p>
+<p>翻完了之后 想找些 这个作者的资料 无意发现三个多月前已经有人翻过了 也留下来<a href="http://blog.zhangguoqiang.name/index.php/category/javascript/">http://blog.zhangguoqiang.name/index.php/category/javascript/</a></p>
+<p><!--StartFragment-->
+</p>
+<div>
+<p class="MsoTitle"><span lang="EN-US">How browsers work</span></p>
+</div>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<h1><span>简</span><span>介</span></h1>
+<p class="MsoNormal"><span>浏览</span><span>器可以被</span><span>认为</span><span>是使用最</span><span>广</span><span>泛</span><span>的软</span><span>件，本文</span><span>将</span><span>介</span><span>绍浏览</span><span>器的工
+
+作原理，我</span><span>们将</span><span>看到，</span><span>从</span><span>你在地址</span><span>栏输</span><span>入<span lang="EN-US">google.com</span>到你看到<span lang="EN-US">google</span>主</span><span>页过</span><span>程中都</span><span>发</span><span>生了什么。</span></p>
+<h2><span>将</span><span>讨论</span><span>的</span><span>浏览</span><span>器</span></h2>
+<p class="MsoNormal"><span>今天，有五种主流浏览器&mdash;&mdash;<span lang="EN-US">IE</span>、<span lang="EN-US">Firefox</span>、<span lang="EN-US">Safari</span>、<span lang="EN-US">Chrome</span>及<span lang="EN-US">Opera</span>。</span></p>
+<p class="MsoNormal"><span>本文将基于一些开源浏览器的例子&mdash;&mdash;<span lang="EN-US">Firefox</span>、<span lang="EN-US"> Chrome</span>及<span lang="EN-US">Safari</span>，<span lang="EN-US">Safari</span>是部分开源的。</span></p>
+<p class="MsoNormal"><span>根据<span lang="EN-US">W3C</span>（<span lang="EN-US">World Wide Web Consortium </span>万维网联盟）的浏览器统计数据，当前（<span lang="EN-US">2011</span>年<span lang="EN-US">5</span>月），<span lang="EN-US">Firefox</span>、<span lang="EN-US">Safari</span>及<span lang="EN-US">Chrome</span>的市场占有率综合已接近<span lang="EN-US">60</span>％。（原文为<span lang="EN-US">2009</span>年<span lang="EN-US">10</span>月，数据没有太大变化）因此，可以说开源浏览器已经占据了浏览器市场的半壁江山。</span></p>
+<h2><span>浏览</span><span>器的主要功能</span></h2>
+<p class="MsoNormal"><span>浏览器的主要功能是将用户选择得<span lang="EN-US">web</span>资源呈现出来，它需要从服务器请求资源，并将其显示在浏览器窗口中，资源的格式通常是<span lang="EN-US">HTML</span>，也包括<span lang="EN-US">PDF</span>、<span lang="EN-US">image</span>及其他格式。用户用<span lang="EN-US">URI</span>（<span lang="EN-US">Uniform Resource Identifier </span>统一资源标识符）来指定所请求资源的位置，在网络一章有更多讨论。</span></p>
+<p class="MsoNormal"><span lang="EN-US">HTML</span><span>和<span lang="EN-US">CSS</span>规范中规定了浏览器解释<span lang="EN-US">html</span>文档的方式，由<span lang="EN-US"> W3C</span>组织对这些规范进行维护，<span lang="EN-US">W3C</span>是负责制定<span lang="EN-US">web</span>标准的组织。</span></p>
+<p class="MsoNormal"><span lang="EN-US">HTML</span><span>规范的最新版本是<span lang="EN-US">HTML4(http://www.w3.org/TR/html401/)</span>，<span lang="EN-US">HTML5</span>还在制定中（译注：两年前），最新的<span lang="EN-US">CSS</span>规范版本是<span lang="EN-US">2</span>（<span lang="EN-US">http://www.w3.org/TR/CSS2</span>），<span lang="EN-US">CSS3</span>也还正在制定中（译注：同样两年前）。</span></p>
+<p class="MsoNormal"><span>这些年来，浏览器厂商纷纷开发自己的扩展，对规范的遵循并不完善，这为<span lang="EN-US">web</span>开发者带来了严重的兼容性问题。</span></p>
+<p class="MsoNormal"><span>但是，浏览</span><span>器的用</span><span>户</span><span>界面</span><span>则</span><span>差不多，常</span><span>见</span><span>的用户界面元素包括：</span></p>
+<p class="MsoListParagraphCxSpFirst"><span lang="EN-US"><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span>用来输入<span lang="EN-US">URI</span>的地址栏</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span>前进、后退按钮</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span>书签选项</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span>用于刷新及暂停当前加载文档的刷新、暂停按钮</span></p>
+<p class="MsoListParagraphCxSpLast"><span lang="EN-US"><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span>用于到达主页的主页按钮</span></p>
+<p class="MsoNormal"><span>奇怪的是，并没有哪个正式公布的规范对用户界面做出规定，这些是多年来各浏览器厂商之间相互模仿和不断改进得结果。</span></p>
+<p class="MsoNormal"><span lang="EN-US">HTML5</span><span>并没有规定浏览器必须具有的<span lang="EN-US">UI</span>元素，但列出了一些常用元素，包括地址栏、状态栏及工具栏。还有一些浏览器有自己专有得功能，比如<span lang="EN-US">Firefox</span>得下载管理。更多相关内容将在后面讨论用户界面时介绍。</span></p>
+<h2><span>浏览</span><span>器的主要构成</span><span lang="EN-US">High Level Structure </span></h2>
+<p class="MsoNormal"><span>浏览器的主要组件包括：</span></p>
+<p class="MsoListParagraphCxSpFirst"><span lang="EN-US"><span>1.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>用户界面－
+包括地址栏、后退<span lang="EN-US">/</span>前进按钮、书签目录等，也就是你所看到的除了用来显示你所请求页面的主窗口之外的其他部分</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>2.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>浏览器引擎－
+用来查询及操作渲染引擎的接口</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>3.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>渲染引擎－
+用来显示请求的内容，例如，如果请求内容为<span lang="EN-US">html</span>，它负责解析<span lang="EN-US">html</span>及<span lang="EN-US">css</span>，并将解析后的结果显示出来</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>4.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>网络－
+用来完成网络调用，例如<span lang="EN-US">http</span>请求，它具有平台无关的接口，可以在不同平台上工作</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>5.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="EN-US">UI
+</span><span>后端－
+用来绘制类似组合选择框及对话框等基本组件，具有不特定于某个平台的通用接口，底层使用操作系统的用户接口</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>6.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="EN-US">JS</span><span>解释器－
+用来解释执行<span lang="EN-US">JS</span>代码</span></p>
+<p class="MsoListParagraphCxSpLast"><span lang="EN-US"><span>7.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>数据存储－
+属于持久层，浏览器需要在硬盘中保存类似<span lang="EN-US">cookie</span>的各种数据，<span lang="EN-US">HTML5</span>定义了<span lang="EN-US">web database</span>技术，这是一种轻量级完整的客户端存储技术</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shapetype id="_x0000_t75"
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"
+ filled="f" stroked="f">
+ <v:stroke joinstyle="miter" />
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0" />
+  <v:f eqn="sum @0 1 0" />
+  <v:f eqn="sum 0 0 @1" />
+  <v:f eqn="prod @2 1 2" />
+  <v:f eqn="prod @3 21600 pixelWidth" />
+  <v:f eqn="prod @3 21600 pixelHeight" />
+  <v:f eqn="sum @0 0 1" />
+  <v:f eqn="prod @6 1 2" />
+  <v:f eqn="prod @7 21600 pixelWidth" />
+  <v:f eqn="sum @8 21600 0" />
+  <v:f eqn="prod @7 21600 pixelHeight" />
+  <v:f eqn="sum @10 21600 0" />
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect" />
+ <o:lock v:ext="edit" aspectratio="t" />
+</v:shapetype><v:shape id="_x0000_i1050" type="#_x0000_t75" style='width:415pt;
+ height:281pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image001.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image001.png"
+  o:title="" />
+</v:shape><![endif]--><img src="http://hi.csdn.net/attachment/201106/8/2143330_1307526705wVJ1.png" alt="" width="500" height="339" /></span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span>图<span lang="EN-US">1</span>：浏览器主要组件</span></p>
+<p class="MsoNormal"><span>需要注意的是，不同于大部分浏览器，<span lang="EN-US">Chrome</span>为每个<span lang="EN-US">Tab</span>分配了各自的渲染引擎实例，每个<span lang="EN-US">Tab</span>就是一个独立的进程。</span></p>
+<p class="MsoNormal"><span>对于构成浏览器的这些组件，后面会逐一详细讨论。</span></p>
+<h2><span>组</span><span>件</span><span>间</span><span>的通信</span><span lang="EN-US"> Communication between the components</span></h2>
+<p class="MsoNormal"><span lang="EN-US">Firefox</span><span>和<span lang="EN-US">Chrome</span>都开发了一个特殊的通信结构，后面将有专门的一章进行讨论。</span></p>
+<h1><span>渲染引擎</span><span lang="EN-US"> The rendering engine</span></h1>
+<p class="MsoNormal"><span>渲染引擎的职责就是渲染，即在浏览器窗口中显示所请求的内容。</span></p>
+<p class="MsoNormal"><span>默认情况下，渲染引擎可以显示<span lang="EN-US">html</span>、<span lang="EN-US">xml</span>文档及图片，它也可以借助插件（一种浏览器扩展）显示其他类型数据，例如使用<span lang="EN-US">PDF</span>阅读器插件，可以显示<span lang="EN-US">PDF</span>格式，将由专门一章讲解插件及扩展，这里只讨论渲染引擎最主要的用途&mdash;&mdash;显示应用了<span lang="EN-US">CSS</span>之后的<span lang="EN-US">html</span>及图片。</span></p>
+<h2><span>渲染引擎</span><span lang="EN-US"> Rendering engines</span></h2>
+<p class="MsoNormal"><span>本文所讨论得浏览器&mdash;&mdash;<span lang="EN-US">Firefox</span>、<span lang="EN-US">Chrome</span>和<span lang="EN-US">Safari</span>是基于两种渲染引擎构建的，<span lang="EN-US">Firefox</span>使用<span lang="EN-US">Geoko</span>&mdash;&mdash;<span lang="EN-US">Mozilla</span>自主研发的渲染引擎，<span lang="EN-US">Safari</span>和<span lang="EN-US">Chrome</span>都使用<span lang="EN-US">webkit</span>。</span></p>
+<p class="MsoNormal"><span lang="EN-US">Webkit</span><span>是一款开源渲染引擎，它本来是为<span lang="EN-US">linux</span>平台研发的，后来由<span lang="EN-US">Apple</span>移植到<span lang="EN-US">Mac</span>及<span lang="EN-US">Windows</span>上，相关内容请参考</span><span lang="EN-US"><a href="http://webkit.org"><span>http://webkit.org</span></a></span><span>。</span></p>
+<h2><span>主流程</span><span lang="EN-US"> The main flow</span></h2>
+<p class="MsoNormal"><span>渲染引擎首先通过网络获得所请求文档的内容，通常以<span lang="EN-US">8K</span>分块的方式完成。</span></p>
+<p class="MsoNormal"><span>下面是渲染引擎在取得内容之后的基本流程：</span></p>
+<p class="MsoNormal"><span>解析<span lang="EN-US">html</span>以构建<span lang="EN-US">dom</span>树-&gt;</span><span>构建<span lang="EN-US">render</span>树-&gt;</span><span>布局<span lang="EN-US">render</span>树-&gt;</span><span>绘制<span lang="EN-US">render</span>树</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="_x0000_i1049" type="#_x0000_t75" style='width:415pt;height:46pt;
+ visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image003.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image003.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_1307526491g1JS.png" alt="" width="600" height="66" /></span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span>图<span lang="EN-US">2</span>：渲染引擎基本流程</span></p>
+<p class="MsoNormal"><span>渲染引擎开始解析<span lang="EN-US">html</span>，并将标签转化为内容树中的<span lang="EN-US">dom</span>节点。接着，它解析外部<span lang="EN-US">CSS</span>文件及<span lang="EN-US">style</span>标签中的样式信息。这些样式信息以及<span lang="EN-US">html</span>中的可见性指令将被用来构建另一棵树&mdash;&mdash;<span lang="EN-US">render</span>树。</span></p>
+<p class="MsoNormal"><span lang="EN-US">Render</span><span>树由一些包含有颜色和大小等属性的矩形组成，它们将被按照正确的顺序显示到屏幕上。</span></p>
+<p class="MsoNormal"><span lang="EN-US">Render</span><span>树构建好了之后，将会执行布局过程，它将确定每个节点在屏幕上的确切坐标。再下一步就是绘制，即遍历<span lang="EN-US">render</span>树，并使用<span lang="EN-US">UI</span>后端层绘制每个节点。</span></p>
+<p class="MsoNormal"><span>值得注意的是，这个过程是逐步完成的，为了更好的用户体验，渲染引擎将会尽可能早的将内容呈现到屏幕上，并不会等到所有的<span lang="EN-US">html</span>都解析完成之后再去构建和布局<span lang="EN-US">render</span>树。它是解析完一部分内容就显示一部分内容，同时，可能还在通过网络下载其余内容。</span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="_x0000_i1048" type="#_x0000_t75" style='width:415pt;height:192pt;
+ visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image005.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image005.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_1307526707Obp2.png" alt="" width="624" height="289" /></span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span>图<span lang="EN-US">3</span>：<span lang="EN-US">webkit</span>主流程</span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="_x0000_i1047" type="#_x0000_t75" style='width:415pt;height:193pt;
+ visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image007.jpg" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image007.jpg"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_13075264960IDT.jpg" alt="" width="624" height="290" /></span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span>图<span lang="EN-US">4</span>：<span lang="EN-US">Mozilla</span>的<span lang="EN-US">Geoko </span>渲染引擎主流程</span></p>
+<p class="MsoNormal"><span>从图<span lang="EN-US">3</span>和<span lang="EN-US">4</span>中可以看出，尽管<span lang="EN-US">webkit</span>和<span lang="EN-US">Gecko</span>使用的术语稍有不同，他们的主要流程基本相同。<span lang="EN-US">Gecko</span>称可见的格式化元素组成的树为<span lang="EN-US">frame</span>树，每个元素都是一个<span lang="EN-US">frame</span>，<span lang="EN-US">webkit</span>则使用<span lang="EN-US">render</span>树这个名词来命名由渲染对象组成的树。<span lang="EN-US">Webkit</span>中元素的定位称为布局，而<span lang="EN-US">Gecko</span>中称为回流。<span lang="EN-US">Webkit</span>称利用<span lang="EN-US">dom</span>节点及样式信息去构建<span lang="EN-US">render</span>树的过程为<span lang="EN-US">attachment</span>，<span lang="EN-US">Gecko</span>在<span lang="EN-US">html</span>和<span lang="EN-US">dom</span>树之间附加了一层，这层称为内容接收器，相当制造<span lang="EN-US">dom</span>元素的工厂。下面将讨论流程中的各个阶段。</span></p>
+<h3><span>解析</span><span lang="EN-US"> Parsing</span><span>－</span><span lang="EN-US">general</span></h3>
+<p class="MsoNormal"><span>既然解析是渲染引擎中一个非常重要的过程，我们将稍微深入的研究它。首先简要介绍一下解析。</span></p>
+<p class="MsoNormal"><span>解析一个文档即将其转换为具有一定意义的结构&mdash;&mdash;编码可以理解和使用的东西。解析的结果通常是表达文档结构的节点树，称为解析树或语法树。</span></p>
+<p class="MsoNormal"><span>例如，解析&ldquo;<span lang="EN-US">2</span>＋<span lang="EN-US">3</span>－<span lang="EN-US">1</span>&rdquo;这个表达式，可能返回这样一棵树。</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US"><!--[if gte vml 1]><v:shape id="_x0000_i1046" type="#_x0000_t75"
+ style='width:192pt;height:75pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image009.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image009.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_1307526497kBN0.png" alt="" width="400" height="155" /></span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span>图<span lang="EN-US">5</span>：数学表达式树节点</span></p>
+<h4><span>文法</span><span lang="EN-US"> Grammars</span></h4>
+<p class="MsoNormal"><span>解析基于文档依据的语法规则&mdash;&mdash;文档的语言或格式。每种可被解析的格式必须具有由词汇及语法规则组成的特定的文法，称为上下文无关文法。人类语言不具有这一特性，因此不能被一般的解析技术所解析。</span></p>
+<h4><span>解析器－</span><span>词</span><span>法分析器</span><span lang="EN-US"> Parser</span><span>－</span><span lang="EN-US">Lexer combination</span></h4>
+<p class="MsoNormal"><span>解析可以分为两个子过程&mdash;&mdash;语法分析及词法分析</span></p>
+<p class="MsoNormal"><span>词法分析就是将输入分解为符号，符号是语言的词汇表&mdash;&mdash;基本有效单元的集合。对于人类语言来说，它相当于我们字典中出现的所有单词。</span></p>
+<p class="MsoNormal"><span>语法分析指对语言应用语法规则。</span></p>
+<p class="MsoNormal"><span>解析器一般将工作分配给两个组件&mdash;&mdash;词法分析器（有时也叫分词器）负责将输入分解为合法的符号，解析器则根据语言的语法规则分析文档结构，从而构建解析树，词法分析器知道怎么跳过空白和换行之类的无关字符。</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="_x0000_i1045" type="#_x0000_t75" style='width:49pt;height:2in;
+ visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image011.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image011.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_1307526497CWg1.png" alt="" width="101" height="300" /></span></p>
+<p class="MsoNormal"><span>图<span lang="EN-US">6</span>：从源文档到解析树</span></p>
+<p class="MsoNormal"><span>解析过程是迭代的，解析器从词法分析器处取道一个新的符号，并试着用这个符号匹配一条语法规则，如果匹配了一条规则，这个符号对应的节点将被添加到解析树上，然后解析器请求另一个符号。如果没有匹配到规则，解析器将在内部保存该符号，并从词法分析器取下一个符号，直到所有内部保存的符号能够匹配一项语法规则。如果最终没有找到匹配的规则，解析器将抛出一个异常，这意味着文档无效或是包含语法错误。</span></p>
+<h4><span>转换</span><span lang="EN-US"> Translation</span></h4>
+<p class="MsoNormal"><span>很多时候，解析树并不是最终结果。解析一般在转换中使用&mdash;&mdash;将输入文档转换为另一种格式。编译就是个例子，编译器在将一段源码编译为机器码的时候，先将源码解析为解析树，然后将该树转换为一个机器码文档。</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="Picture_x0020_18" o:spid="_x0000_i1044" type="#_x0000_t75" style='width:50pt;
+ height:192pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image013.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image013.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_13075264977aZm.png" alt="" width="104" height="400" /></span></p>
+<p class="MsoNormal"><span>图<span lang="EN-US">7</span>：编译流程</span></p>
+<h4><span>解析</span><span>实</span><span>例</span><span lang="EN-US"> Parsing example</span></h4>
+<p class="MsoNormal"><span>图<span lang="EN-US">5</span>中，我们从一个数学表达式构建了一个解析树，这里定义一个简单的数学语言来看下解析过程。</span></p>
+<p class="MsoNormal"><span>词汇表：我们的语言包括整数、加号及减号。</span></p>
+<p class="MsoNormal"><span>语法：</span></p>
+<p class="MsoListParagraphCxSpFirst"><span lang="EN-US"><span>1.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>该语言的语法基本单元包括表达式、<span lang="EN-US">term</span>及操作符</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>2.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>该语言可以包括多个表达式</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>3.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>一个表达式定义为两个<span lang="EN-US">term</span>通过一个操作符连接</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>4.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>操作符可以是加号或减号</span></p>
+<p class="MsoListParagraphCxSpLast"><span lang="EN-US"><span>5.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="EN-US">term</span><span>可以是一个整数或一个表达式</span></p>
+<p class="MsoNormal"><span>现在来分析一下&ldquo;<span lang="EN-US">2</span>＋<span lang="EN-US">3</span>－<span lang="EN-US">1</span>&rdquo;这个输入</span></p>
+<p class="MsoNormal"><span>第一个匹配规则的子字符串是&ldquo;<span lang="EN-US">2</span>&rdquo;，根据规则<span lang="EN-US">5</span>，它是一个<span lang="EN-US">term</span>，第二个匹配的是&ldquo;<span lang="EN-US">2</span>＋<span lang="EN-US">3</span>&rdquo;，它符合第<span lang="EN-US">2</span>条规则&mdash;&mdash;一个操作符连接两个<span lang="EN-US">term</span>，下一次匹配发生在输入的结束处。&ldquo;<span lang="EN-US">2</span>＋<span lang="EN-US">3</span>－<span lang="EN-US">1</span>&rdquo;是一个表达式，因为我们已经知道&ldquo;<span lang="EN-US">2</span>＋<span lang="EN-US">3</span>&rdquo;是一个<span lang="EN-US">term</span>，所以我们有了一个<span lang="EN-US">term</span>紧跟着一个操作符及另一个<span lang="EN-US">term</span>。&ldquo;<span lang="EN-US">2</span>＋＋&rdquo;将不会匹配任何规则，因此是一个无效输入。</span></p>
+<h4><span>词汇</span><span>表及</span><span>语</span><span>法的定</span><span>义</span></h4>
+<p class="MsoNormal"><span>词汇表通常利用正则表达式来定义。</span></p>
+<p class="MsoNormal"><span>例如上面的语言可以定义为：</span></p>
+<p class="MsoNormal"><span lang="EN-US">INTEGER</span><span>：<span lang="EN-US">0</span>｜［<span lang="EN-US">1</span>－<span lang="EN-US">9</span>］［<span lang="EN-US">0</span>－<span lang="EN-US">9</span>］＊</span></p>
+<p class="MsoNormal"><span lang="EN-US">PLUS</span><span>：＋</span></p>
+<p class="MsoNormal"><span lang="EN-US">MINUS</span><span>：－</span></p>
+<p class="MsoNormal"><span>正如看到的，这里用正则表达式定义整数。</span></p>
+<p class="MsoNormal"><span>语法通常用<span lang="EN-US">BNF</span>格式定义，我们的语言可以定义为：</span></p>
+<p class="MsoNormal"><span lang="EN-US">expression :</span><span>＝<span lang="EN-US"> term operation term</span></span></p>
+<p class="MsoNormal"><span lang="EN-US">operation := PLUS | MINUS</span></p>
+<p class="MsoNormal"><span lang="EN-US">term := INTEGER | expression</span></p>
+<p class="MsoNormal"><span>如果一个语言的文法是上下文无关的，则它可以用正则解析器来解析。对上下文无关文法的一个直观的定义是，该文法可以用<span lang="EN-US">BNF</span>来完整的表达。可查看</span><span lang="EN-US"><a href="http://en.wikipedia.org/wiki/Context-free_grammar"><span>http://en.wikipedia.org/wiki/Context-free_grammar</span></a></span><span>。</span></p>
+<h4><span>解析器</span><span>类</span><span>型</span><span lang="EN-US"> Types of parsers</span></h4>
+<p class="MsoNormal"><span>有两种基本的解析器&mdash;&mdash;自顶向下解析及自底向上解析。比较直观的解释是，自顶向下解析，查看语法的最高层结构并试着匹配其中一个；自底向上解析则从输入开始，逐步将其转换为语法规则，从底层规则开始直到匹配高层规则。</span></p>
+<p class="MsoNormal"><span>来看一下这两种解析器如何解析上面的例子：</span></p>
+<p class="MsoNormal"><span>自顶向下解析器从最高层规则开始&mdash;&mdash;它先识别出&ldquo;<span lang="EN-US">2</span>＋<span lang="EN-US">3</span>&ldquo;，将其视为一个表达式，然后识别出&rdquo;<span lang="EN-US">2</span>＋<span lang="EN-US">3</span>－<span lang="EN-US">1</span>&ldquo;为一个表达式（识别表达式的过程中匹配了其他规则，但出发点是最高层规则）。</span></p>
+<p class="MsoNormal"><span>自底向上解析会扫描输入直到匹配了一条规则，然后用该规则取代匹配的输入，直到解析完所有输入。部分匹配的表达式被放置在解析堆栈中。</span></p>
+<table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td width="147">
+<p class="MsoNormal" align="center"><strong><span lang="EN-US">Stack</span></strong></p>
+</td>
+<td width="65">
+<p class="MsoNormal" align="center"><strong><span lang="EN-US">Input</span></strong></p>
+</td>
+</tr>
+<tr>
+<td width="147">
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+</td>
+<td width="65">
+<p class="MsoNormal"><span lang="EN-US">2 + 3 &ndash; 1</span></p>
+</td>
+</tr>
+<tr>
+<td width="147">
+<p class="MsoNormal"><span lang="EN-US">term</span></p>
+</td>
+<td width="65">
+<p class="MsoNormal"><span lang="EN-US">+ 3 - 1</span></p>
+</td>
+</tr>
+<tr>
+<td width="147">
+<p class="MsoNormal"><span lang="EN-US">term operation</span></p>
+</td>
+<td width="65">
+<p class="MsoNormal"><span lang="EN-US">3 &ndash; 1</span></p>
+</td>
+</tr>
+<tr>
+<td width="147">
+<p class="MsoNormal"><span lang="EN-US">expression</span></p>
+</td>
+<td width="65">
+<p class="MsoNormal"><span lang="EN-US">- 1</span></p>
+</td>
+</tr>
+<tr>
+<td width="147">
+<p class="MsoNormal"><span lang="EN-US">expression operation</span></p>
+</td>
+<td width="65">
+<p class="MsoNormal"><span lang="EN-US">1</span></p>
+</td>
+</tr>
+<tr>
+<td width="147">
+<p class="MsoNormal"><span lang="EN-US">expression</span></p>
+</td>
+<td width="65">
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="MsoNormal"><span>自底向上解析器称为<span lang="EN-US">shift reduce </span>解析器，因为输入向右移动（想象一个指针首先指向输入开始处，并向右移动），并逐渐简化为语法规则。</span></p>
+<h4><span>自</span><span>动</span><span>化解析</span><span lang="EN-US"> Generating parsers automatically</span></h4>
+<p class="MsoNormal"><span>解析器生成器这个工具可以自动生成解析器，只需要指定语言的文法&mdash;&mdash;词汇表及语法规则，它就可以生成一个解析器。创建一个解析器需要对解析有深入的理解，而且手动的创建一个由较好性能的解析器并不容易，所以解析生成器很有用。<span lang="EN-US">Webkit</span>使用两个知名的解析生成器&mdash;&mdash;用于创建语法分析器的<span lang="EN-US">Flex</span>及创建解析器的<span lang="EN-US">Bison</span>（你可能接触过<span lang="EN-US">Lex</span>和<span lang="EN-US">Yacc</span>）。<span lang="EN-US">Flex</span>的输入是一个包含了符号定义的正则表达式，<span lang="EN-US">Bison</span>的输入是用<span lang="EN-US">BNF</span>格式表示的语法规则。</span></p>
+<h3><span lang="EN-US">HTML</span><span>解析器</span><span lang="EN-US"> HTML Parser</span></h3>
+<p class="MsoNormal"><span lang="EN-US">HTML</span><span>解析器的工作是将<span lang="EN-US">html</span>标识解析为解析树。</span></p>
+<h4><span lang="EN-US">HTML</span><span>文法定</span><span>义</span><span lang="EN-US"> The HTML grammar definition</span></h4>
+<p class="MsoNormal"><span lang="EN-US">W3C</span><span>组织制定规范定义了<span lang="EN-US">HTML</span>的词汇表和语法。</span></p>
+<h4><span>非上下文无关文法</span><span lang="EN-US"> Not a context free grammar</span></h4>
+<p class="MsoNormal"><span>正如在解析简介中提到的，上下文无关文法的语法可以用类似<span lang="EN-US">BNF</span>的格式来定义。</span></p>
+<p class="MsoNormal"><span>不幸的是，所有的传统解析方式都不适用于<span lang="EN-US">html</span>（当然我提出它们并不只是因为好玩，它们将用来解析<span lang="EN-US">css</span>和<span lang="EN-US">js</span>），<span lang="EN-US">html</span>不能简单的用解析所需的上下文无关文法来定义。</span></p>
+<p class="MsoNormal"><span lang="EN-US">Html </span><span>有一个正式的格式定义&mdash;&mdash;<span lang="EN-US">DTD</span>（<span lang="EN-US">Document Type Definition </span>文档类型定义）&mdash;&mdash;但它并不是上下文无关文法，<span lang="EN-US">html</span>更接近于<span lang="EN-US">xml</span>，现在有很多可用的<span lang="EN-US">xml</span>解析器，<span lang="EN-US">html</span>有个<span lang="EN-US">xml</span>的变体&mdash;&mdash;<span lang="EN-US">xhtml</span>，它们间的不同在于，<span lang="EN-US">html</span>更宽容，它允许忽略一些特定标签，有时可以省略开始或结束标签。总的来说，它是一种<span lang="EN-US">soft</span>语法，不像<span lang="EN-US">xml</span>呆板、固执。</span></p>
+<p class="MsoNormal"><span>显然，这个看起来很小的差异却带来了很大的不同。一方面，这是<span lang="EN-US">html</span>流行的原因&mdash;&mdash;它的宽容使<span lang="EN-US">web</span>开发人员的工作更加轻松，但另一方面，这也使很难去写一个格式化的文法。所以，<span lang="EN-US">html</span>的解析并不简单，它既不能用传统的解析器解析，也不能用<span lang="EN-US">xml</span>解析器解析。</span></p>
+<h4><span lang="EN-US">HTML DTD</span></h4>
+<p class="MsoNormal"><span lang="EN-US">Html</span><span>适用<span lang="EN-US">DTD</span>格式进行定义，这一格式是用于定义<span lang="EN-US">SGML</span>家族的语言，包括了对所有允许元素及它们的属性和层次关系的定义。正如前面提到的，<span lang="EN-US">html
+DTD</span>并没有生成一种上下文无关文法。</span></p>
+<p class="MsoNormal"><span lang="EN-US">DTD</span><span>有一些变种，标准模式只遵守规范，而其他模式则包含了对浏览器过去所使用标签的支持，这么做是为了兼容以前内容。最新的标准<span lang="EN-US">DTD</span>在</span><span lang="EN-US"><a href="http://www.w3.org/TR/html4/strict.dtd"><span>http://www.w3.org/TR/html4/strict.dtd</span></a></span></p>
+<h4><span lang="EN-US">DOM</span></h4>
+<p class="MsoNormal"><span>输出的树，也就是解析树，是由<span lang="EN-US">DOM</span>元素及属性节点组成的。<span lang="EN-US">DOM</span>是文档对象模型的缩写，它是<span lang="EN-US">html</span>文档的对象表示，作为<span lang="EN-US">html</span>元素的外部接口供<span lang="EN-US">js</span>等调用。</span></p>
+<p class="MsoNormal"><span>树的根是&ldquo;<span lang="EN-US">document</span>&rdquo;对象。</span></p>
+<p class="MsoNormal"><span lang="EN-US">DOM</span><span>和标签基本是一一对应的关系，例如，如下的标签：</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;html&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;
+</span>&lt;body&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>&lt;p&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Hello DOM</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>&lt;/p&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>&lt;div&gt;&lt;img src=&rdquo;example.png&rdquo; /&gt;&lt;/div&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;
+</span>&lt;/body&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;/html&gt;</span></p>
+<p class="MsoNormal"><span>将会被转换为下面的<span lang="EN-US">DOM</span>树：</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="_x0000_i1043" type="#_x0000_t75" style='width:192pt;height:105pt;
+ visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image015.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image015.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_13075264989o5o.png" alt="" width="400" height="219" /></span></p>
+<p class="MsoNormal"><span>图<span lang="EN-US">8</span>：示例标签对应的<span lang="EN-US">DOM</span>树</span></p>
+<p class="MsoNormal"><span>和<span lang="EN-US">html</span>一样，<span lang="EN-US">DOM</span>的规范也是由<span lang="EN-US">W3C</span>组织制定的。访问</span><span lang="EN-US"><a href="http://www.w3.org/DOM/DOMTR"><span>http://www.w3.org/DOM/DOMTR</span></a></span><span>，这是使用文档的一般规范。一个模型描述一种特定的<span lang="EN-US">html</span>元素，可以在</span><span lang="EN-US"><a href="http://www.w3.org/TR/2003/REC-DOM-Level-2-HTML-20030109/idl-definitions.htm"><span>http://www.w3.org/TR/2003/REC-DOM-Level-2-HTML-20030109/idl-definitions.htm</span></a></span><span class="MsoHyperlink"><span lang="EN-US"> </span></span><span>查看<span lang="EN-US">html</span>定义。</span></p>
+<p class="MsoNormal"><span>这里所谓的树包含了<span lang="EN-US">DOM</span>节点是说树是由实现了<span lang="EN-US">DOM</span>接口的元素构建而成的，浏览器使用已被浏览器内部使用的其他属性的具体实现。</span></p>
+<h4><span>解析算法</span><span lang="EN-US"> The parsing algorithm</span></h4>
+<p class="MsoNormal"><span>正如前面章节中讨论的，<span lang="EN-US">hmtl</span>不能被一般的自顶向下或自底向上的解析器所解析。</span></p>
+<p class="MsoNormal"><span>原因是：</span></p>
+<p class="MsoListParagraphCxSpFirst"><span lang="EN-US"><span>1.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>这门语</span><span>言本身的宽容特性</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>2.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>浏览器对一些常见的非法<span lang="EN-US">html</span>有容错机制</span></p>
+<p class="MsoListParagraphCxSpLast"><span lang="EN-US"><span>3.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>解析过程是往复的，通常源码不会在解析过程中发生改变，但在<span lang="EN-US">html</span>中，脚本标签包含的&ldquo;<span lang="EN-US">document.write </span>&rdquo;可能添加标签，这说明在解析过程中实际上修改了输入</span></p>
+<p class="MsoNormal"><span>不能使用正则解析技术，浏览器为<span lang="EN-US">html</span>定制了专属的解析器。</span></p>
+<p class="MsoNormal"><span lang="EN-US">Html5</span><span>规范中描述了这个解析算法，算法包括两个阶段&mdash;&mdash;符号化及构建树。</span></p>
+<p class="MsoNormal"><span>符号化是词法分析的过程，将输入解析为符号，<span lang="EN-US">html</span>的符号包括开始标签、结束标签、属性名及属性值。</span></p>
+<p class="MsoNormal"><span>符号识别器识别出符号后，将其传递给树构建器，并读取下一个字符，以识别下一个符号，这样直到处理完所有输入。</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="_x0000_i1042" type="#_x0000_t75" style='width:308pt;height:400pt;
+ visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image017.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image017.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_130752649950Fq.png" alt="" width="308" height="400" /></span></p>
+<p class="MsoNormal"><span>图<span lang="EN-US">9</span>：<span lang="EN-US">HTML</span>解析流程</span></p>
+<h4><span>符号</span><span>识别</span><span>算法</span><span lang="EN-US"> The tokenization algorithm</span></h4>
+<p class="MsoNormal"><span>算法输出<span lang="EN-US">html</span>符号，该算法用状态机表示。每次读取输入流中的一个或多个字符，并根据这些字符转移到下一个状态，当前的符号状态及构建树状态共同影响结果，这意味着，读取同样的字符，可能因为当前状态的不同，得到不同的结果以进入下一个正确的状态。</span></p>
+<p class="MsoNormal"><span>这个算法很复杂，这里用一个简单的例子来解释这个原理。</span></p>
+<p class="MsoNormal"><span>基本示例&mdash;&mdash;符号化下面的<span lang="EN-US">html</span>：</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;html&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;body&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Hello
+world</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;/body&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;/html&gt;</span></p>
+<p class="MsoNormal"><span>初始状态为&ldquo;<span lang="EN-US">Data State</span>&rdquo;，当遇到&ldquo;<span lang="EN-US">&lt;</span>&rdquo;字符，状态变为&ldquo;<span lang="EN-US">Tag open state</span>&rdquo;，读取一个<span lang="EN-US">a</span>－<span lang="EN-US">z</span>的字符将产生一个开始标签符号，状态相应变为&ldquo;<span lang="EN-US">Tag name state</span>&rdquo;，一直保持这个状态直到读取到&ldquo;<span lang="EN-US">&gt;</span>&rdquo;，每个字符都附加到这个符号名上，例子中创建的是一个<span lang="EN-US">html</span>符号。</span></p>
+<p class="MsoNormal"><span>当读取到&ldquo;<span lang="EN-US">&gt;</span>&rdquo;，当前的符号就完成了，此时，状态回到&ldquo;<span lang="EN-US">Data state</span>&rdquo;，&ldquo;<span lang="EN-US">&lt;body&gt;</span>&rdquo;重复这一处理过程。到这里，<span lang="EN-US">html</span>和<span lang="EN-US">body</span>标签都识别出来了。现在，回到&ldquo;<span lang="EN-US">Data state</span>&rdquo;，读取&ldquo;<span lang="EN-US">Hello world</span>&rdquo;中的字符&ldquo;<span lang="EN-US">H</span>&rdquo;将创建并识别出一个字符符号，这里会为&ldquo;<span lang="EN-US">Hello world</span>&rdquo;中的每个字符生成一个字符符号。</span></p>
+<p class="MsoNormal"><span>这样直到遇到&ldquo;<span lang="EN-US">&lt;/body&gt;</span>&rdquo;中的&ldquo;<span lang="EN-US">&lt;</span>&rdquo;。现在，又回到了&ldquo;<span lang="EN-US">Tag open state</span>&rdquo;，读取下一个字符&ldquo;<span lang="EN-US">/</span>&rdquo;将创建一个闭合标签符号，并且状态转移到&ldquo;<span lang="EN-US">Tag name state</span>&rdquo;，还是保持这一状态，直到遇到&ldquo;<span lang="EN-US">&gt;</span>&rdquo;。然后，产生一个新的标签符号并回到&ldquo;<span lang="EN-US">Data state</span>&rdquo;。后面的&ldquo;<span lang="EN-US">&lt;/html&gt;</span>&rdquo;将和&ldquo;<span lang="EN-US">&lt;/body&gt;</span>&rdquo;一样处理。</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="_x0000_i1041" type="#_x0000_t75" style='width:415pt;height:256pt;
+ visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image019.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image019.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_1307526499KgGc.png" alt="" width="627" height="387" /></span></p>
+<p class="MsoNormal"><span>图<span lang="EN-US">10</span>：符号化示例输入</span></p>
+<h4><span>树</span><span>的构建算法</span><span lang="EN-US"> Tree construction algorithm</span></h4>
+<p class="MsoNormal"><span>在树的构建阶段，将修改以<span lang="EN-US">Document</span>为根的<span lang="EN-US">DOM</span>树，将元素附加到树上。每个由符号识别器识别生成的节点将会被树构造器进行处理，规范中定义了每个符号相对应的<span lang="EN-US">Dom</span>元素，对应的<span lang="EN-US">Dom</span>元素将会被创建。这些元素除了会被添加到<span lang="EN-US">Dom</span>树上，还将被添加到开放元素堆栈中。这个堆栈用来纠正嵌套的未匹配和未闭合标签，这个算法也是用状态机来描述，所有的状态采用插入模式。</span></p>
+<p class="MsoNormal"><span>来看一下示例中树的创建过程：</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;html&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;body&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Hello
+world</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;/body&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;/html&gt;</span></p>
+<p class="MsoNormal"><span>构建树这一阶段的输入是符号识别阶段生成的符号序列。</span></p>
+<p class="MsoNormal"><span>首先是&ldquo;<span lang="EN-US">initial mode</span>&rdquo;，接收到<span lang="EN-US">html</span>符号后将转换为&ldquo;<span lang="EN-US">before html</span>&rdquo;模式，在这个模式中对这个符号进行再处理。此时，创建了一个<span lang="EN-US">HTMLHtmlElement</span>元素，并将其附加到根<span lang="EN-US">Document</span>对象上。</span></p>
+<p class="MsoNormal"><span>状态此时变为&ldquo;<span lang="EN-US">before head</span>&rdquo;，接收到<span lang="EN-US">body</span>符号时，即使这里没有<span lang="EN-US">head</span>符号，也将自动创建一个<span lang="EN-US">HTMLHeadElement</span>元素并附加到树上。</span></p>
+<p class="MsoNormal"><span>现在，转到&ldquo;<span lang="EN-US">in head</span>&rdquo;模式，然后是&ldquo;<span lang="EN-US">after head</span>&rdquo;。到这里，<span lang="EN-US">body</span>符号会被再次处理，将创建一个<span lang="EN-US">HTMLBodyElement</span>并插入到树中，同时，转移到&ldquo;<span lang="EN-US">in body</span>&rdquo;模式。</span></p>
+<p class="MsoNormal"><span>然后，接收到字符串&ldquo;<span lang="EN-US">Hello world</span>&rdquo;的字符符号，第一个字符将导致创建并插入一个<span lang="EN-US">text</span>节点，其他字符将附加到该节点。</span></p>
+<p class="MsoNormal"><span>接收到<span lang="EN-US">body</span>结束符号时，转移到&ldquo;<span lang="EN-US">after
+body</span>&rdquo;模式，接着接收到<span lang="EN-US">html</span>结束符号，这个符号意味着转移到了&ldquo;<span lang="EN-US">after after body</span>&rdquo;模式，当接收到文件结束符时，整个解析过程结束。</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="_x0000_i1040" type="#_x0000_t75" style='width:415pt;height:600pt;
+ visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image021.gif" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image021.gif"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_1307526500FF6O.gif" alt="" width="532" height="769" /></span></p>
+<p class="MsoNormal"><span>图<span lang="EN-US">11</span>：示例<span lang="EN-US">html</span>树的构建过程</span></p>
+<h4><span>解析</span><span>结</span><span>束</span><span>时</span><span>的</span><span>处</span><span>理</span><span lang="EN-US"> Action when the parsing is finished</span></h4>
+<p class="MsoNormal"><span>在这个阶段，浏览器将文档标记为可交互的，并开始解析处于延时模式中的脚本&mdash;&mdash;这些脚本在文档解析后执行。</span></p>
+<p class="MsoNormal"><span>文档状态将被设置为完成，同时触发一个<span lang="EN-US">load</span>事件。</span></p>
+<p class="MsoNormal"><span lang="EN-US">Html5</span><span>规范中有符号化及构建树的完整算法<span lang="EN-US">(http://www.w3.org/TR/html5/syntax.html#html-parser)</span>。</span></p>
+<h4><span>浏览</span><span>器容</span><span>错</span><span lang="EN-US"> Browsers error tolerance</span></h4>
+<p class="MsoNormal"><span>你从来不会在一个<span lang="EN-US">html</span>页面上看到&ldquo;无效语法&rdquo;这样的错误，浏览器修复了无效内容并继续工作。</span></p>
+<p class="MsoNormal"><span>以下面这段<span lang="EN-US">html</span>为例：</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;html&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;
+</span>&lt;mytag&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;
+</span>&lt;/mytag&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;
+</span>&lt;div&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span>&lt;p&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;
+</span>&lt;/div&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span><span>&nbsp;&nbsp; </span>Really lousy HTML</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;
+</span>&lt;/p&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;/html&gt;</span></p>
+<p class="MsoNormal"><span>这段<span lang="EN-US">html</span>违反了很多规则（<span lang="EN-US">mytag</span>不是合法的标签，<span lang="EN-US">p</span>及<span lang="EN-US">div</span>错误的嵌套等等），但是浏览器仍然可以没有任何怨言的继续显示，它在解析的过程中修复了<span lang="EN-US">html</span>作者的错误。</span></p>
+<p class="MsoNormal"><span>浏览器都具有错误处理的能力，但是，另人惊讶的是，这并不是<span lang="EN-US">html</span>最新规范的内容，就像书签及前进后退按钮一样，它只是浏览器长期发展的结果。一些比较知名的非法<span lang="EN-US">html</span>结构，在许多站点中出现过，浏览器都试着以一种和其他浏览器一致的方式去修复。</span></p>
+<p class="MsoNormal"><span lang="EN-US">Html5</span><span>规范定义了这方面的需求，<span lang="EN-US">webkit</span>在<span lang="EN-US">html</span>解析类开始部分的注释中做了很好的总结。</span></p>
+<p class="MsoNormal"><span>解析器将符号化的输入解析为文档并创建文档，但不幸的是，我们必须处理很多没有很好格式化的<span lang="EN-US">html</span>文档，至少要小心下面几种错误情况。</span></p>
+<p class="MsoListParagraphCxSpFirst"><span lang="EN-US"><span>1.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>在未闭合的标签中添加明确禁止的元素。</span><span>这</span><span>种情况下，</span><span>应该</span><span>先将前一</span><span>标签闭</span><span>合</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>2.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>不能直接添加元素。有些人在写文档的时候会忘了中间一些标签（或者中间标签是可选的），比如<span lang="EN-US">HTML HEAD BODY TR TD LI</span>等</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>3.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>想在一个行内元素中添加块状元素。</span><span>关闭所有的行内元素，直到下一个更高的块状元素</span></p>
+<p class="MsoListParagraphCxSpLast"><span lang="EN-US"><span>4.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>如果这些都不行，就闭合当前标签直到可以添加该元素。</span></p>
+<p class="MsoNormal"><span>下面来看一些<span lang="EN-US">webkit</span>容错的例子：</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;/br&gt;</span><span>替代<span lang="EN-US">&lt;br&gt;</span></span></p>
+<p class="MsoNormal"><span>一些网站使用<span lang="EN-US">&lt;/br&gt;</span>替代<span lang="EN-US">&lt;br&gt;</span>，为了兼容<span lang="EN-US">IE</span>和<span lang="EN-US">Firefox</span>，<span lang="EN-US">webkit</span>将其看作<span lang="EN-US">&lt;br&gt;</span>。</span></p>
+<p class="MsoNormal"><span>代码：</span></p>
+<p class="MsoNormal"><span lang="EN-US">if (t-&gt;isCloseTag(brTag) &amp;&amp;
+m_document-&gt;inCompatMode()) {</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>reportError(MalformedBRError);</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>t-&gt;beginTag = true;</span></p>
+<p class="MsoNormal"><span lang="EN-US">}</span></p>
+<p class="MsoNormal"><span lang="EN-US">Note</span><span>－这里的错误处理在内部进行，用户看不到。</span></p>
+<p class="MsoNormal"><span>迷路的表格</span></p>
+<p class="MsoNormal"><span>这指一个表格嵌套在另一个表格中，但不在它的某个单元格内。</span></p>
+<p class="MsoNormal"><span>比如下面这个例子：</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;table&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;table&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;tr&gt;&lt;td&gt;inner
+table&lt;/td&gt;&lt;/tr&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>&lt;/table&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;tr&gt;&lt;td&gt;outer
+table&lt;/td&gt;&lt;/tr&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;/table&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US">webkit</span><span>将会将嵌套的表格变为两个兄弟表格：</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;table&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;tr&gt;&lt;td&gt;outer
+table&lt;/td&gt;&lt;/tr&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;/table&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;table&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;tr&gt;&lt;td&gt;inner
+table&lt;/td&gt;&lt;/tr&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;</span>&lt;/table&gt;</span></p>
+<p class="MsoNormal"><span>代码：</span></p>
+<p class="MsoNormal"><span lang="EN-US">if (m_inStrayTableContent &amp;&amp; localName ==
+tableTag)</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>popBlock(tableTag);</span></p>
+<p class="MsoNormal"><span lang="EN-US">webkit</span><span>使用堆栈存放当前的元素内容，它将从外部表格的堆栈中弹出内部的表格，则它们变为了兄弟表格。</span></p>
+<p class="MsoNormal"><span>嵌套的表单元素</span></p>
+<p class="MsoNormal"><span>用户将一个表单嵌套到另一个表单中，则第二个表单将被忽略。</span></p>
+<p class="MsoNormal"><span>代码：</span></p>
+<p class="MsoNormal"><span lang="EN-US">if (!m_currentFormElement) {</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>m_currentFormElement = new HTMLFormElement(formTag,<span>&nbsp;&nbsp;&nbsp; </span>m_document);</span></p>
+<p class="MsoNormal"><span lang="EN-US">}</span></p>
+<p class="MsoNormal"><span>太深的标签继承</span></p>
+<p class="MsoNormal"><span lang="EN-US"><a href="http://www.liceo.edu.mx"><span>www.liceo.edu.mx</span></a></span><span>是一个由嵌套层次的站点的例子，最多只允许<span lang="EN-US">20</span>个相同类型的标签嵌套，多出来的将被忽略。</span></p>
+<p class="MsoNormal"><span>代码：</span></p>
+<p class="MsoNormal"><span lang="EN-US">bool HTMLParser::allowNestedRedundantTag(const AtomicString&amp;
+tagName)</span></p>
+<p class="MsoNormal"><span lang="EN-US">{</span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<p class="MsoNormal"><span lang="EN-US">unsigned i = 0;</span></p>
+<p class="MsoNormal"><span lang="EN-US">for (HTMLStackElem* curr = m_blockStack;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>i
+&lt; cMaxRedundantTagDepth &amp;&amp; curr &amp;&amp; curr-&gt;tagName ==
+tagName;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>curr =
+curr-&gt;next, i++) { }</span></p>
+<p class="MsoNormal"><span lang="EN-US">return i != cMaxRedundantTagDepth;</span></p>
+<p class="MsoNormal"><span lang="EN-US">}</span></p>
+<p class="MsoNormal"><span>放错了地方的<span lang="EN-US">html</span>、<span lang="EN-US">body</span>闭合标签</span></p>
+<p class="MsoNormal"><span>又一次不言自明。</span></p>
+<p class="MsoNormal"><span>支持不完整的<span lang="EN-US">html</span>。我们从来不闭合<span lang="EN-US">body</span>，因为一些愚蠢的网页总是在还未真正结束时就闭合它。我们依赖调用<span lang="EN-US">end</span>方法去执行关闭的处理。</span></p>
+<p class="MsoNormal"><span>代码：</span></p>
+<p class="MsoNormal"><span lang="EN-US">if (t-&gt;tagName == htmlTag || t-&gt;tagName ==
+bodyTag )</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>return;</span></p>
+<p class="MsoNormal"><span>所以，<span lang="EN-US">web</span>开发者要小心了，除非你想成为<span lang="EN-US">webkit</span>容错代码的范例，否则还是写格式良好的<span lang="EN-US">html</span>吧。</span></p>
+<h3><span lang="EN-US">CSS</span><span>解析</span><span lang="EN-US"> CSS parsing</span></h3>
+<p class="MsoNormal"><span>还记得简介中提到的解析的概念吗，不同于<span lang="EN-US">html</span>，<span lang="EN-US">css</span>属于上下文无关文法，可以用前面所描述的解析器来解析。<span lang="EN-US">Css</span>规范定义了<span lang="EN-US">css</span>的词法及语法文法。</span></p>
+<p class="MsoNormal"><span>看一些例子：</span></p>
+<p class="MsoNormal"><span>每个符号都由正则表达式定义了词法文法（词汇表）：</span></p>
+<p class="MsoNormal"><span lang="EN-US">comment<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>///*[^*]*/*+([^/*][^*]*/*+)*//</span></p>
+<p class="MsoNormal"><span lang="EN-US">num<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>[0-9]+|[0-9]*"."[0-9]+</span></p>
+<p class="MsoNormal"><span lang="EN-US">nonascii<span> </span>[/200-/377]</span></p>
+<p class="MsoNormal"><span lang="EN-US">nmstart<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>[_a-z]|{nonascii}|{escape}</span></p>
+<p class="MsoNormal"><span lang="EN-US">nmchar<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>[_a-z0-9-]|{nonascii}|{escape}</span></p>
+<p class="MsoNormal"><span lang="EN-US">name<span>&nbsp;&nbsp;&nbsp;&nbsp; </span>{nmchar}+</span></p>
+<p class="MsoNormal"><span lang="EN-US">ident<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>{nmstart}{nmchar}*</span></p>
+<p class="MsoNormal"><span>&ldquo;<span lang="EN-US">ident</span>&rdquo;是识别器的缩写，相当于一个<span lang="EN-US">class</span>名，&ldquo;<span lang="EN-US">name</span>&rdquo;是一个元素<span lang="EN-US">id</span>（用&ldquo;＃&rdquo;引用）。</span></p>
+<p class="MsoNormal"><span>语法用<span lang="EN-US">BNF</span>进行描述：</span></p>
+<p class="MsoNormal"><span lang="EN-US">ruleset</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span>:
+selector [ ',' S* selector ]*</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp; </span>'{' S*
+declaration [ ';' S* declaration ]* '}' S*</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span>;</span></p>
+<p class="MsoNormal"><span lang="EN-US">selector</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span>:
+simple_selector [ combinator selector | S+ [ combinator selector ] ]</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span>;</span></p>
+<p class="MsoNormal"><span lang="EN-US">simple_selector</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span>:
+element_name [ HASH | class | attrib | pseudo ]*</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span>| [ HASH
+| class | attrib | pseudo ]+</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span>;</span></p>
+<p class="MsoNormal"><span lang="EN-US">class</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span>: '.'
+IDENT</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span>;</span></p>
+<p class="MsoNormal"><span lang="EN-US">element_name</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span>: IDENT |
+'*'</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span>;</span></p>
+<p class="MsoNormal"><span lang="EN-US">attrib</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span>: '[' S*
+IDENT S* [ [ '=' | INCLUDES | DASHMATCH ] S*</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp; </span>[ IDENT
+| STRING ] S* ] ']'</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span>;</span></p>
+<p class="MsoNormal"><span lang="EN-US">pseudo</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span>: ':' [
+IDENT | FUNCTION S* [IDENT S*] ')' ]</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span>;</span></p>
+<p class="MsoNormal"><span>说明：一个规则集合有这样的结构</span></p>
+<p class="MsoNormal"><span lang="EN-US">div.error , a.error {</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>color:red;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>font-weight:bold;</span></p>
+<p class="MsoNormal"><span lang="EN-US">}</span></p>
+<p class="MsoNormal"><span lang="EN-US">div.error</span><span>和<span lang="EN-US">a.error</span>时选择器，大括号中的内容包含了这条规则集合中的规则，这个结构在下面的定义中正式的定义了：</span></p>
+<p class="MsoNormal"><span lang="EN-US">ruleset</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span>:
+selector [ ',' S* selector ]*</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp; </span>'{' S*
+declaration [ ';' S* declaration ]* '}' S*</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span>;</span></p>
+<p class="MsoNormal"><span>这说明，一个规则集合具有一个或是可选个数的多个选择器，这些选择器以逗号和空格（<span lang="EN-US">S</span>表示空格）进行分隔。每个规则集合包含大括号及大括号中的一条或多条以分号隔开的声明。声明和选择器在后面进行定义。</span></p>
+<h4><span lang="EN-US">Webkit CSS </span><span>解析器</span><span lang="EN-US"> Webkit CSS parser</span></h4>
+<p class="MsoNormal"><span lang="EN-US">Webkit</span><span>使用<span lang="EN-US">Flex</span>和<span lang="EN-US">Bison</span>解析生成器从<span lang="EN-US">CSS</span>语法文件中自动生成解析器。回忆一下解析器的介绍，<span lang="EN-US">Bison</span>创建一个自底向上的解析器，<span lang="EN-US">Firefox</span>使用自顶向下解析器。它们都是将每个<span lang="EN-US">css</span>文件解析为样式表对象，每个对象包含<span lang="EN-US">css</span>规则，<span lang="EN-US">css</span>规则对象包含选择器和声明对象，以及其他一些符合<span lang="EN-US">css</span>语法的对象。</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="_x0000_i1039" type="#_x0000_t75" style='width:240pt;height:189pt;
+ visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image023.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image023.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_1307526506ZEHQ.png" alt="" width="500" height="393" /></span></p>
+<p class="MsoNormal"><span>图<span lang="EN-US">12</span>：解析<span lang="EN-US">css</span></span></p>
+<h3><span>脚本解析</span><span lang="EN-US"> Parsing scripts</span></h3>
+<p class="MsoNormal"><span>本章将介绍<span lang="EN-US">Javascript</span>。</span></p>
+<p class="MsoNormal"><span>处理脚本及样式表的顺序<span lang="EN-US"> The
+order of processing scripts and style sheets</span></span></p>
+<h4><span>脚本</span></h4>
+<p class="MsoNormal"><span lang="EN-US">web</span><span>的模式是同步的，开发者希望解析到一个<span lang="EN-US">script</span>标签时立即解析执行脚本，并阻塞文档的解析直到脚本执行完。如果脚本是外引的，则网络必须先请求到这个资源&mdash;&mdash;这个过程也是同步的，会阻塞文档的解析直到资源被请求到。这个模式保持了很多年，并且在<span lang="EN-US">html4</span>及<span lang="EN-US">html5</span>中都特别指定了。开发者可以将脚本标识为<span lang="EN-US">defer</span>，以使其不阻塞文档解析，并在文档解析结束后执行。<span lang="EN-US">Html5</span>增加了标记脚本为异步的选项，以使脚本的解析执行使用另一个线程。</span></p>
+<h4><span>预</span><span>解析</span>
+<span lang="EN-US">Speculative parsing</span></h4>
+<p class="MsoNormal"><span lang="EN-US">Webkit</span><span>和<span lang="EN-US">Firefox</span>都做了这个优化，当执行脚本时，另一个线程解析剩下的文档，并加载后面需要通过网络加载的资源。这种方式可以使资源并行加载从而使整体速度更快。需要注意的是，预解析并不改变<span lang="EN-US">Dom</span>树，它将这个工作留给主解析过程，自己只解析外部资源的引用，比如外部脚本、样式表及图片。</span></p>
+<h4><span>样</span><span>式表</span><span lang="EN-US"> Style sheets</span></h4>
+<p class="MsoNormal"><span>样式表采用另一种不同的模式。理论上，既然样式表不改变<span lang="EN-US">Dom</span>树，也就没有必要停下文档的解析等待它们，然而，存在一个问题，脚本可能在文档的解析过程中请求样式信息，如果样式还没有加载和解析，脚本将得到错误的值，显然这将会导致很多问题，这看起来是个边缘情况，但确实很常见。<span lang="EN-US">Firefox</span>在存在样式表还在加载和解析时阻塞所有的脚本，而<span lang="EN-US">chrome</span>只在当脚本试图访问某些可能被未加载的样式表所影响的特定的样式属性时才阻塞这些脚本。</span></p>
+<h2><span>渲染</span><span>树</span><span>的构造</span><span lang="EN-US"> Render tree construction</span></h2>
+<p class="MsoNormal"><span>当<span lang="EN-US">Dom</span>树构建完成时，浏览器开始构建另一棵树&mdash;&mdash;渲染树。渲染树由元素显示序列中的可见元素组成，它是文档的可视化表示，构建这棵树是为了以正确的顺序绘制文档内容。</span></p>
+<p class="MsoNormal"><span lang="EN-US">Firefox</span><span>将渲染树中的元素称为<span lang="EN-US">frames</span>，<span lang="EN-US">webkit</span>则用<span lang="EN-US">renderer</span>或渲染对象来描述这些元素。</span></p>
+<p class="MsoNormal"><span>一个渲染对象直到怎么布局及绘制自己及它的<span lang="EN-US">children</span>。</span></p>
+<p class="MsoNormal"><span lang="EN-US">RenderObject</span><span>是<span lang="EN-US">Webkit</span>的渲染对象基类，它的定义如下：</span></p>
+<p class="MsoNormal"><span lang="EN-US">class RenderObject{</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>virtual
+void layout();</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>virtual
+void paint(PaintInfo);</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>virtual
+void rect repaintRect();</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>Node*
+node;<span>&nbsp; </span>//the DOM node</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>RenderStyle*
+style;<span>&nbsp; </span>// the computed style</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>RenderLayer*
+containgLayer; //the containing z-index layer</span></p>
+<p class="MsoNormal"><span lang="EN-US">}</span></p>
+<p class="MsoNormal"><span>每个渲染对象用一个和该节点的<span lang="EN-US">css</span>盒模型相对应的矩形区域来表示，正如<span lang="EN-US">css2</span>所描述的那样，它包含诸如宽、高和位置之类的几何信息。盒模型的类型受该节点相关的<span lang="EN-US">display</span>样式属性的影响（参考样式计算章节）。下面的<span lang="EN-US">webkit</span>代码说明了如何根据<span lang="EN-US">display</span>属性决定某个节点创建何种类型的渲染对象。</span></p>
+<p class="MsoNormal"><span lang="EN-US">RenderObject* RenderObject::createObject(Node*
+node, RenderStyle* style)</span></p>
+<p class="MsoNormal"><span lang="EN-US">{</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;
+</span>Document* doc = node-&gt;document();</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;
+</span>RenderArena* arena = doc-&gt;renderArena();</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp; </span>...</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;
+</span>RenderObject* o = 0;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp; </span>switch
+(style-&gt;display()) {</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>case NONE:</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>break;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>case INLINE:</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>o = new (arena) RenderInline(node);</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>break;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>case BLOCK:</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>o = new (arena) RenderBlock(node);</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>break;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>case INLINE_BLOCK:</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>o = new (arena) RenderBlock(node);</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>break;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>case LIST_ITEM:</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>o = new (arena) RenderListItem(node);</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>break;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>...</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp; </span>}</span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp; </span>return
+o;</span></p>
+<p class="MsoNormal"><span lang="EN-US">}</span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<p class="MsoNormal"><span>元素的类型也需要考虑，例如，表单控件和表格带有特殊的框架。</span></p>
+<p class="MsoNormal"><span>在<span lang="EN-US">webkit</span>中，如果一个元素想创建一个特殊的渲染对象，它需要复写&ldquo;<span lang="EN-US">createRenderer</span>&rdquo;方法，使渲染对象指向不包含几何信息的样式对象。</span></p>
+<h3><span>渲染</span><span>树</span><span>和</span><span lang="EN-US">Dom</span><span>树</span><span>的关系</span><span lang="EN-US"> The render tree relation to the DOM
+tree</span></h3>
+<p class="MsoNormal"><span>渲染对象和<span lang="EN-US">Dom</span>元素相对应，但这种对应关系不是一对一的，不可见的<span lang="EN-US">Dom</span>元素不会被插入渲染树，例如<span lang="EN-US">head</span>元素。另外，<span lang="EN-US">display</span>属性为<span lang="EN-US">none</span>的元素也不会在渲染树中出现（<span lang="EN-US">visibility</span>属性为<span lang="EN-US">hidden</span>的元素将出现在渲染树中）。</span></p>
+<p class="MsoNormal"><span>还有一些<span lang="EN-US">Dom</span>元素对应几个可见对象，它们一般是一些具有复杂结构的元素，无法用一个矩形来描述。例如，<span lang="EN-US">select</span>元素有三个渲染对象&mdash;&mdash;一个显示区域、一个下拉列表及一个按钮。同样，当文本因为宽度不够而折行时，新行将作为额外的渲染元素被添加。另一个多个渲染对象的例子是不规范的<span lang="EN-US">html</span>，根据<span lang="EN-US">css</span>规范，一个行内元素只能仅包含行内元素或仅包含块状元素，在存在混合内容时，将会创建匿名的块状渲染对象包裹住行内元素。</span></p>
+<p class="MsoNormal"><span>一些渲染对象和所对应的<span lang="EN-US">Dom</span>节点不在树上相同的位置，例如，浮动和绝对定位的元素在文本流之外，在两棵树上的位置不同，渲染树上标识出真实的结构，并用一个占位结构标识出它们原来的位置。</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="_x0000_i1038" type="#_x0000_t75" style='width:415pt;height:225pt;
+ visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image025.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image025.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_1307526506x245.png" alt="" width="731" height="396" /></span></p>
+<p class="MsoNormal"><span>图<span lang="EN-US">12</span>：渲染树及对应的<span lang="EN-US">Dom</span>树</span></p>
+<h3><span>创</span><span>建</span><span>树</span><span>的流程</span><span lang="EN-US"> The flow of constructing the tree</span></h3>
+<p class="MsoNormal"><span lang="EN-US">Firefox</span><span>中，表述为一个监听<span lang="EN-US">Dom</span>更新的监听器，将<span lang="EN-US">frame</span>的创建委派给<span lang="EN-US">Frame Constructor</span>，这个构建器计算样式（参看样式计算）并创建一个<span lang="EN-US">frame</span>。</span></p>
+<p class="MsoNormal"><span lang="EN-US">Webkit</span><span>中，计算样式并生成渲染对象的过程称为<span lang="EN-US">attachment</span>，每个<span lang="EN-US">Dom</span>节点有一个<span lang="EN-US">attach</span>方法，<span lang="EN-US">attachment</span>的过程是同步的，调用新节点的<span lang="EN-US">attach</span>方法将节点插入到<span lang="EN-US">Dom</span>树中。</span></p>
+<p class="MsoNormal"><span>处理<span lang="EN-US">html</span>和<span lang="EN-US">body</span>标签将构建渲染树的根，这个根渲染对象对应被<span lang="EN-US">css</span>规范称为<span lang="EN-US">containing block</span>的元素&mdash;&mdash;包含了其他所有块元素的顶级块元素。它的大小就是<span lang="EN-US">viewport</span>&mdash;&mdash;浏览器窗口的显示区域，<span lang="EN-US">Firefox</span>称它为<span lang="EN-US">viewPortFrame</span>，<span lang="EN-US">webkit</span>称为<span lang="EN-US">RenderView</span>，这个就是文档所指向的渲染对象，树中其他的部分都将作为一个插入的<span lang="EN-US">Dom</span>节点被创建。</span></p>
+<h3><span>样</span><span>式</span><span>计</span><span>算</span><span lang="EN-US"> Style Computation</span></h3>
+<p class="MsoNormal"><span>创建渲染树需要计算出每个渲染对象的可视属性，这可以通过计算每个元素的样式属性得到。</span></p>
+<p class="MsoNormal"><span>样式包括各种来源的样式表，行内样式元素及<span lang="EN-US">html</span>中的可视化属性（例如<span lang="EN-US">bgcolor</span>），可视化属性转化为<span lang="EN-US">css</span>样式属性。</span></p>
+<p class="MsoNormal"><span>样式表来源于浏览器默认样式表，及页面作者和用户提供的样式表&mdash;&mdash;有些样式是浏览器用户提供的（浏览器允许用户定义喜欢的样式，例如，在<span lang="EN-US">Firefox</span>中，可以通过在<span lang="EN-US">Firefox Profile</span>目录下放置样式表实现）。</span></p>
+<p class="MsoNormal"><span>计算样式的一些困难：</span></p>
+<p class="MsoListParagraphCxSpFirst"><span lang="EN-US"><span>1.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>样式数据是非常大的结构，保存大量的样式属性会带来内存问题</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>2.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>如果不进行优化，找到每个元素匹配的规则会导致性能问题，为每个元素查找匹配的规则都需要遍历整个规则表，这个过程有很大的工作量。选择符可能有复杂的结构，匹配过程如果沿着一条开始看似正确，后来却被证明是无用的路径，则必须去尝试另一条路径。</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span>例如，下面这个复杂选择符</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US">div div div div</span><span>｛<span lang="EN-US">&hellip;</span>｝</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span>这意味着规则应用到三个<span lang="EN-US">div</span>的后代<span lang="EN-US">div</span>元素，选择树上一条特定的路径去检查，这可能需要遍历节点树，最后却发现它只是两个<span lang="EN-US">div</span>的后代，并不使用该规则，然后则需要沿着另一条路径去尝试</span></p>
+<p class="MsoListParagraphCxSpLast"><span lang="EN-US"><span>3.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>应用规则涉及非常复杂的级联，它们定义了规则的层次</span></p>
+<p class="MsoNormal"><span>我们来看一下浏览器如何处理这些问题：</span></p>
+<h4><span>共享</span><span>样</span><span>式数据</span></h4>
+<p class="MsoNormal"><span lang="EN-US">webkit</span><span>节点引用样式对象（渲染样式），某些情况下，这些对象可以被节点间共享，这些节点需要是兄弟或是表兄弟节点，并且：</span></p>
+<p class="MsoListParagraphCxSpFirst"><span lang="EN-US"><span>1.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>这些元素必须处于相同的鼠标状态（比如不能一个处于<span lang="EN-US">hover</span>，而另一个不是）</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>2.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>不能有元素具有<span lang="EN-US">id</span></span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>3.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>标签名必须匹配</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>4.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="EN-US">class</span><span>属性必须匹配</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>5.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>对应的属性必须相同</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>6.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>链接状态必须匹配</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>7.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>焦点状态必须匹配</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>8.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>不能有元素被属性选择器影响</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>9.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>元素不能有行内样式属性</span></p>
+<p class="MsoListParagraphCxSpLast"><span lang="EN-US"><span>10.<span>&nbsp; </span></span></span><span>不能有生效的兄弟选择器，<span lang="EN-US">webcore</span>在任何兄弟选择器相遇时只是简单的抛出一个全局转换，并且在它们显示时使整个文档的样式共享失效，这些包括＋选择器和类似<span lang="EN-US">:first-child</span>和<span lang="EN-US">:last-child</span>这样的选择器。</span></p>
+<h4><span lang="EN-US">Firefox</span><span>规则树</span><span lang="EN-US"> Firefox rule tree</span></h4>
+<p class="MsoNormal"><span lang="EN-US">Firefox</span><span>用两个树用来简化样式计算－规则树和样式上下文树，<span lang="EN-US">webkit</span>也有样式对象，但它们并没有存储在类似样式上下文树这样的树中，只是由<span lang="EN-US">Dom</span>节点指向其相关的样式。</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="_x0000_i1037" type="#_x0000_t75" style='width:415pt;height:264pt;
+ visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image027.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image027.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_1307526690jrv7.png" alt="" width="640" height="407" /></span></p>
+<p class="MsoNormal"><span>图<span lang="EN-US">14</span>：<span lang="EN-US">Firefox</span>样式上下文树</span></p>
+<p class="MsoNormal"><span>样式上下文包含最终值，这些值是通过以正确顺序应用所有匹配的规则，并将它们由逻辑值转换为具体的值，例如，如果逻辑值为屏幕的百分比，则通过计算将其转化为绝对单位。样式树的使用确实很巧妙，它使得在节点中共享的这些值不需要被多次计算，同时也节省了存储空间。</span></p>
+<p class="MsoNormal"><span>所有匹配的规则都存储在规则树中，一条路径中的底层节点拥有最高的优先级，这棵树包含了所找到的所有规则匹配的路径（译注：可以取巧理解为每条路径对应一个节点，路径上包含了该节点所匹配的所有规则）。规则树并不是一开始就为所有节点进行计算，而是在某个节点需要计算样式时，才进行相应的计算并将计算后的路径添加到树中。</span></p>
+<p class="MsoNormal"><span>我们将树上的路径看成辞典中的单词，假如已经计算出了如下的规则树：</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="_x0000_i1036" type="#_x0000_t75" style='width:400pt;height:261pt;
+ visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image029.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image029.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_1307526706CQ0s.png" alt="" width="400" height="261" /></span></p>
+<p class="MsoNormal"><span>假如需要为内容树中的另一个节点匹配规则，现在知道匹配的规则（以正确的顺序）为<span lang="EN-US">B-E-I</span>，因为我们已经计算出了路径<span lang="EN-US">A-B-E-I-L</span>，所以树上已经存在了这条路径，剩下的工作就很少了。</span></p>
+<p class="MsoNormal"><span>现在来看一下树如何保存。</span></p>
+<h5><span>结</span><span>构化</span></h5>
+<p class="MsoNormal"><span>样式上下文按结构划分，这些结构包括类似<span lang="EN-US">border</span>或<span lang="EN-US">color</span>这样的特定分类的样式信息。一个结构中的所有特性不是继承的就是非继承的，对继承的特性，除非元素自身有定义，否则就从它的<span lang="EN-US">parent</span>继承。非继承的特性（称为<span lang="EN-US">reset</span>特性）如果没有定义，则使用默认的值。</span></p>
+<p class="MsoNormal"><span>样式上下文树缓存完整的结构（包括计算后的值），这样，如果底层节点没有为一个结构提供定义，则使用上层节点缓存的结构。</span></p>
+<h5><span>使用</span><span>规则树计</span><span>算</span><span>样</span><span>式上下文</span></h5>
+<p class="MsoNormal"><span>当为一个特定的元素计算样式时，首先计算出规则树中的一条路径，或是使用已经存在的一条，然后使用路径中的规则去填充新的样式上下文，从样式的底层节点开始，它具有最高优先级（通常是最特定的选择器），遍历规则树，直到填满结构。如果在那个规则节点没有定义所需的结构规则，则沿着路径向上，直到找到该结构规则。</span></p>
+<p class="MsoNormal"><span>如果最终没有找到该结构的任何规则定义，那么如果这个结构是继承型的，则找到其在内容树中的<span lang="EN-US">parent</span>的结构，这种情况下，我们也成功的共享了结构；如果这个结构是<span lang="EN-US">reset</span>型的，则使用默认的值。</span></p>
+<p class="MsoNormal"><span>如果特定的节点添加了值，那么需要做一些额外的计算以将其转换为实际值，然后在树上的节点缓存该值，使它的<span lang="EN-US">children</span>可以使用。</span></p>
+<p class="MsoNormal"><span>当一个元素和它的一个兄弟元素指向同一个树节点时，完整的样式上下文可以被它们共享。</span></p>
+<p class="MsoNormal"><span>来看一个例子：假设有下面这段<span lang="EN-US">html</span></span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;html&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span>&lt;body&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp; </span><span>&nbsp;</span>&lt;div class="err"
+id="div1"&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span><span>&nbsp; </span>&lt;p&gt;this is a </span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;span
+class="big"&gt; big error &lt;/span&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>this is also a</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;span
+class="big"&gt; very<span>&nbsp; </span>big<span>&nbsp; </span>error&lt;/span&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>error</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;/p&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;/div&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;div
+class="err" id="div2"&gt;another error&lt;/div&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp; </span><span>&nbsp;</span>&lt;/body&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;/html&gt;</span></p>
+<p class="MsoNormal"><span>以及下面这些规则</span></p>
+<p class="MsoNormal"><span lang="EN-US">1.<span>&nbsp;&nbsp; </span>div
+{margin:5px;color:black}</span></p>
+<p class="MsoNormal"><span lang="EN-US">2.<span>&nbsp;&nbsp; </span>.err
+{color:red}</span></p>
+<p class="MsoNormal"><span lang="EN-US">3.<span>&nbsp;&nbsp; </span>.big
+{margin-top:3px}</span></p>
+<p class="MsoNormal"><span lang="EN-US">4.<span>&nbsp;&nbsp; </span>div
+span {margin-bottom:4px}</span></p>
+<p class="MsoNormal"><span lang="EN-US">5.<span>&nbsp;&nbsp; </span>#div1
+{color:blue}</span></p>
+<p class="MsoNormal"><span lang="EN-US">6.<span>&nbsp;&nbsp; </span>#div2
+{color:green}</span></p>
+<p class="MsoNormal"><span>简化下问题，我们只填充两个结构&mdash;&mdash;<span lang="EN-US">color</span>和<span lang="EN-US">margin</span>，<span lang="EN-US">color</span>结构只包含一个成员－颜色，<span lang="EN-US">margin</span>结构包含四边。</span></p>
+<p class="MsoNormal"><span>生成的规则树如下（节点名：指向的规则）<span lang="EN-US"><br />
+</span></span><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="_x0000_i1035" type="#_x0000_t75" style='width:240pt;height:141pt;
+ visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image031.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image031.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_1307526686eY8e.png" alt="" width="500" height="294" /></span></p>
+<p class="MsoNormal"><span>上下文树如下（节点名：指向的规则节点）</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="_x0000_i1034" type="#_x0000_t75" style='width:192pt;height:147pt;
+ visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image033.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image033.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_13075266900FL0.png" alt="" width="400" height="305" /></span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<p class="MsoNormal"><span>假设我们解析<span lang="EN-US">html</span>，遇到第二个<span lang="EN-US">div</span>标签，我们需要为这个节点创建样式上下文，并填充它的样式结构。</span></p>
+<p class="MsoNormal"><span>我们进行规则匹配，找到这个<span lang="EN-US">div</span>匹配的规则为<span lang="EN-US">1</span>、<span lang="EN-US">2</span>、<span lang="EN-US">6</span>，我们发现规则树上已经存在了一条我们可以使用的路径<span lang="EN-US">1</span>、<span lang="EN-US">2</span>，我们只需为规则<span lang="EN-US">6</span>新增一个节点添加到下面（就是规则树中的<span lang="EN-US">F</span>）。</span></p>
+<p class="MsoNormal"><span>然后创建一个样式上下文并将其放到上下文树中，新的样式上下文将指向规则树中的节点<span lang="EN-US">F</span>。</span></p>
+<p class="MsoNormal"><span>现在我们需要填充这个样式上下文，先从填充<span lang="EN-US">margin</span>结构开始，既然最后一个规则节点没有添加<span lang="EN-US">margin</span>结构，沿着路径向上，直到找到缓存的前面插入节点计算出的结构，我们发现<span lang="EN-US">B</span>是最近的指定<span lang="EN-US">margin</span>值的节点。因为已经有了<span lang="EN-US">color</span>结构的定义，所以不能使用缓存的结构，既然<span lang="EN-US">color</span>只有一个属性，也就不需要沿着路径向上填充其他属性。计算出最终值（将字符串转换为<span lang="EN-US">RGB</span>等），并缓存计算后的结构。</span></p>
+<p class="MsoNormal"><span>第二个<span lang="EN-US">span</span>元素更简单，进行规则匹配后发现它指向规则<span lang="EN-US">G</span>，和前一个<span lang="EN-US">span</span>一样，既然有兄弟节点指向同一个节点，就可以共享完整的样式上下文，只需指向前一个<span lang="EN-US">span</span>的上下文。</span></p>
+<p class="MsoNormal"><span>因为结构中包含继承自<span lang="EN-US">parent</span>的规则，上下文树做了缓存（<span lang="EN-US">color</span>特性是继承来的，但<span lang="EN-US">Firefox</span>将其视为<span lang="EN-US">reset</span>并在规则树中缓存）。</span></p>
+<p class="MsoNormal"><span>例如，如果我们为一个<span lang="EN-US">paragraph</span>的文字添加规则：</span></p>
+<p class="MsoNormal"><span lang="EN-US">p {font-family:Verdana;font
+size:10px;font-weight:bold}</span></p>
+<p class="MsoNormal"><span>那么这个<span lang="EN-US">p</span>在内容树中的子节点<span lang="EN-US">div</span>，会共享和它<span lang="EN-US">parent</span>一样的<span lang="EN-US">font</span>结构，这种情况发生在没有为这个<span lang="EN-US">div</span>指定<span lang="EN-US">font</span>规则时。</span></p>
+<p class="MsoNormal"><span lang="EN-US">Webkit</span><span>中，并没有规则树，匹配的声明会被遍历四次，先是应用非<span lang="EN-US">important</span>的高优先级属性（之所以先应用这些属性，是因为其他的依赖于它们－比如<span lang="EN-US">display</span>），其次是高优先级<span lang="EN-US">important</span>的，接着是一般优先级非<span lang="EN-US">important</span>的，最后是一般优先级<span lang="EN-US">important</span>的规则。这样，出现多次的属性将被按照正确的级联顺序进行处理，最后一个生效。</span></p>
+<p class="MsoNormal"><span>总结一下，共享样式对象（结构中完整或部分内容）解决了问题<span lang="EN-US">1</span>和<span lang="EN-US">3</span>，<span lang="EN-US">Firefox</span>的规则树帮助以正确的顺序应用规则。</span></p>
+<h4><span>对规则进</span><span>行</span><span>处</span><span>理以</span><span>简</span><span>化匹配</span><span>过</span><span>程</span></h4>
+<p class="MsoNormal"><span>样式规则有几个来源：</span></p>
+<p class="MsoListParagraphCxSpFirst"><span lang="EN-US"><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span>外部样式表或<span lang="EN-US">style</span>标签内的<span lang="EN-US">css</span>规则</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span>行内样式属性</span></p>
+<p class="MsoListParagraphCxSpLast"><span lang="EN-US"><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang="EN-US">html</span><span>可视化属性（映射为相应的样式规则）</span></p>
+<p class="MsoNormal"><span>后面两个很容易匹配到元素，因为它们所拥有的样式属性和<span lang="EN-US">html</span>属性可以将元素作为<span lang="EN-US">key</span>进行映射。</span></p>
+<p class="MsoNormal"><span>就像前面问题<span lang="EN-US">2</span>所提到的，<span lang="EN-US">css</span>的规则匹配可能很狡猾，为了解决这个问题，可以先对规则进行处理，以使其更容易被访问。</span></p>
+<p class="MsoNormal"><span>解析完样式表之后，规则会根据选择符添加一些<span lang="EN-US">hash</span>映射，映射可以是根据<span lang="EN-US">id</span>、<span lang="EN-US">class</span>、标签名或是任何不属于这些分类的综合映射。如果选择符为<span lang="EN-US">id</span>，规则将被添加到<span lang="EN-US">id</span>映射，如果是<span lang="EN-US">class</span>，则被添加到<span lang="EN-US">class</span>映射，等等。</span></p>
+<p class="MsoNormal"><span>这个处理是匹配规则更容易，不需要查看每个声明，我们能从映射中找到一个元素的相关规则，这个优化使在进行规则匹配时减少了<span lang="EN-US">95</span>＋％的工作量。</span></p>
+<p class="MsoNormal"><span>来看下面的样式规则：</span></p>
+<p class="MsoNormal"><span lang="EN-US">p.error {color:red}</span></p>
+<p class="MsoNormal"><span lang="EN-US">#messageDiv {height:50px}</span></p>
+<p class="MsoNormal"><span lang="EN-US">div {margin:5px}</span></p>
+<p class="MsoNormal"><span>第一条规则将被插入<span lang="EN-US">class</span>映射，第二条插入<span lang="EN-US">id</span>映射，第三条是标签映射。</span></p>
+<p class="MsoNormal"><span>下面这个<span lang="EN-US">html</span>片段：</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;p class="error"&gt;an error
+occurred &lt;/p&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;div id=" messageDiv"&gt;this is a
+message&lt;/div&gt;</span></p>
+<p class="MsoNormal"><span>我们首先找到<span lang="EN-US">p</span>元素对应的规则，<span lang="EN-US">class</span>映射将包含一个&ldquo;<span lang="EN-US">error</span>&rdquo;的<span lang="EN-US">key</span>，找到<span lang="EN-US">p.error</span>的规则，<span lang="EN-US">div</span>在<span lang="EN-US">id</span>映射和标签映射中都有相关的规则，剩下的工作就是找出这些由<span lang="EN-US">key</span>对应的规则中哪些确实是正确匹配的。</span></p>
+<p class="MsoNormal"><span>例如，如果<span lang="EN-US">div</span>的规则是</span></p>
+<p class="MsoNormal"><span lang="EN-US">table div {margin:5px}</span></p>
+<p class="MsoNormal"><span>这也是标签映射产生的，因为<span lang="EN-US">key</span>是最右边的选择符，但它并不匹配这里的<span lang="EN-US">div</span>元素，因为这里的<span lang="EN-US">div</span>没有<span lang="EN-US">table</span>祖先。</span></p>
+<p class="MsoNormal"><span lang="EN-US">Webkit</span><span>和<span lang="EN-US">Firefox</span>都会做这个处理。</span></p>
+<h4><span>以正确的</span><span>级联顺</span><span>序</span><span>应</span><span>用</span><span>规则</span></h4>
+<p class="MsoNormal"><span>样式对象拥有对应所有可见属性的属性，如果特性没有被任何匹配的规则所定义，那么一些特性可以从<span lang="EN-US">parent</span>的样式对象中继承，另外一些使用默认值。</span></p>
+<p class="MsoNormal"><span>这个问题的产生是因为存在不止一处的定义，这里用级联顺序解决这个问题。</span></p>
+<h5><span>样</span><span>式表的</span><span>级联顺</span><span>序</span></h5>
+<p class="MsoNormal"><span>一个样式属性的声明可能在几个样式表中出现，或是在一个样式表中出现多次，因此，应用规则的顺序至关重要，这个顺序就是级联顺序。根据<span lang="EN-US">css2</span>的规范，级联顺序为（从低到高）：</span></p>
+<p class="MsoListParagraphCxSpFirst"><span lang="EN-US"><span>1.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>浏览器声明</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>2.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>用户声明</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>3.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>作者的一般声明</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>4.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>作者的<span lang="EN-US">important</span>声明</span></p>
+<p class="MsoListParagraphCxSpLast"><span lang="EN-US"><span>5.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>用户<span lang="EN-US">important</span>声明</span></p>
+<p class="MsoNormal"><span>浏览器声明是最不重要的，用户只有在声明被标记为<span lang="EN-US">important</span>时才会覆盖作者的声明。具有同等级别的声明将根据<span lang="EN-US">specifity</span>以及它们被定义时的顺序进行排序。<span lang="EN-US">Html</span>可视化属性将被转换为匹配的<span lang="EN-US">css</span>声明，它们被视为最低优先级的作者规则。</span></p>
+<h5><span lang="EN-US">Specifity</span></h5>
+<p class="MsoNormal"><span lang="EN-US">Css2</span><span>规范中定义的选择符<span lang="EN-US">specifity</span>如下：</span></p>
+<p class="MsoListParagraphCxSpFirst"><span lang="EN-US"><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span>如果声明来自<span lang="EN-US">style</span>属性，而不是一个选择器的规则，则计<span lang="EN-US">1</span>，否则计<span lang="EN-US">0</span>（＝<span lang="EN-US">a</span>）</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span>计算选择器中<span lang="EN-US">id</span>属性的数量（＝<span lang="EN-US">b</span>）</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span>计算选择器中<span lang="EN-US">class</span>及伪类的数量（＝<span lang="EN-US">c</span>）</span></p>
+<p class="MsoListParagraphCxSpLast"><span lang="EN-US"><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span>计算选择器中元素名及伪元素的数量（＝<span lang="EN-US">d</span>）</span></p>
+<p class="MsoNormal"><span>连接<span lang="EN-US">a</span>－<span lang="EN-US">b</span>－<span lang="EN-US">c</span>－<span lang="EN-US">d</span>四个数量（用一个大基数的计算系统）将得到<span lang="EN-US">specifity</span>。这里使用的基数由分类中最高的基数定义。例如，如果<span lang="EN-US">a</span>为<span lang="EN-US">14</span>，可以使用<span lang="EN-US">16</span>进制。不同情况下，<span lang="EN-US">a</span>为<span lang="EN-US">17</span>时，则需要使用阿拉伯数字<span lang="EN-US">17</span>作为基数，这种情况可能在这个选择符时发生<span lang="EN-US">html body div div &hellip;</span>（选择符中有<span lang="EN-US">17</span>个标签，一般不太可能）。</span></p>
+<p class="MsoNormal"><span>一些例子：</span></p>
+<p class="MsoNormal"><span lang="EN-US">*<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>{}<span>&nbsp; </span>/* a=0 b=0 c=0 d=0 -&gt;
+specificity = 0,0,0,0 */</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;</span>li<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>{}<span>&nbsp;
+</span>/* a=0 b=0 c=0 d=1 -&gt; specificity = 0,0,0,1 */</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;</span>li:first-line {}<span>&nbsp; </span>/* a=0 b=0 c=0 d=2 -&gt; specificity =
+0,0,0,2 */</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;</span>ul li<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>{}<span>&nbsp;
+</span>/* a=0 b=0 c=0 d=2 -&gt; specificity = 0,0,0,2 */</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;</span>ul
+ol+li<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>{}<span>&nbsp; </span>/* a=0 b=0 c=0 d=3 -&gt; specificity =
+0,0,0,3 */</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;</span>h1 +
+*[rel=up]{}<span>&nbsp; </span>/* a=0 b=0 c=1 d=1 -&gt;
+specificity = 0,0,1,1 */</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;</span>ul ol li.red<span>&nbsp; </span>{}<span>&nbsp; </span>/*
+a=0 b=0 c=1 d=3 -&gt; specificity = 0,0,1,3 */</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;</span>li.red.level<span>&nbsp;
+</span>{}<span>&nbsp; </span>/* a=0 b=0 c=2 d=1 -&gt;
+specificity = 0,0,2,1 */</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;</span>#x34y<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>{}<span>&nbsp;
+</span>/* a=0 b=1 c=0 d=0 -&gt; specificity = 0,1,0,0 */</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;</span>style=""<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>/* a=1 b=0 c=0 d=0 -&gt; specificity
+= 1,0,0,0 */</span></p>
+<h5><span>规则</span><span>排序</span></h5>
+<p class="MsoNormal"><span>规则匹配后，需要根据级联顺序对规则进行排序，<span lang="EN-US">webkit</span>先将小列表用冒泡排序，再将它们合并为一个大列表，<span lang="EN-US">webkit</span>通过为规则复写&ldquo;<span lang="EN-US">&gt;</span>&rdquo;操作来执行排序：</span></p>
+<p class="MsoNormal"><span lang="EN-US">static bool operator &gt;(CSSRuleData&amp; r1,
+CSSRuleData&amp; r2)</span></p>
+<p class="MsoNormal"><span lang="EN-US">{</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp; </span>int
+spec1 = r1.selector()-&gt;specificity();</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp; </span>int
+spec2 = r2.selector()-&gt;specificity();</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp; </span>return
+(spec1 == spec2) : r1.position() &gt; r2.position() : spec1 &gt; spec2; </span></p>
+<p class="MsoNormal"><span lang="EN-US">}</span></p>
+<h3><span>逐步</span><span>处</span><span>理</span> <span lang="EN-US">Gradual process</span></h3>
+<p class="MsoNormal"><span lang="EN-US">webkit</span><span>使用一个标志位标识所有顶层样式表都已加载，如果在<span lang="EN-US">attch</span>时样式没有完全加载，则放置占位符，并在文档中标记，一旦样式表完成加载就重新进行计算。</span></p>
+<h2><span>布局</span><span lang="EN-US"> Layout</span></h2>
+<p class="MsoNormal"><span>当渲染对象被创建并添加到树中，它们并没有位置和大小，计算这些值的过程称为<span lang="EN-US">layout</span>或<span lang="EN-US">reflow</span>。</span></p>
+<p class="MsoNormal"><span lang="EN-US">Html</span><span>使用基于流的布局模型，意味着大部分时间，可以以单一的途径进行几何计算。流中靠后的元素并不会影响前面元素的几何特性，所以布局可以在文档中从右向左、自上而下的进行。也存在一些例外，比如<span lang="EN-US">html tables</span>。</span></p>
+<p class="MsoNormal"><span>坐标系统相对于根<span lang="EN-US">frame</span>，使用<span lang="EN-US">top</span>和<span lang="EN-US">left</span>坐标。</span></p>
+<p class="MsoNormal"><span>布局是一个递归的过程，由根渲染对象开始，它对应<span lang="EN-US">html</span>文档元素，布局继续递归的通过一些或所有的<span lang="EN-US">frame</span>层级，为每个需要几何信息的渲染对象进行计算。</span></p>
+<p class="MsoNormal"><span>根渲染对象的位置是<span lang="EN-US">0,0</span>，它的大小是<span lang="EN-US">viewport</span>－浏览器窗口的可见部分。</span></p>
+<p class="MsoNormal"><span>所有的渲染对象都有一个<span lang="EN-US">layout</span>或<span lang="EN-US">reflow</span>方法，每个渲染对象调用需要布局的<span lang="EN-US">children</span>的<span lang="EN-US">layout</span>方法。</span></p>
+<h3><span lang="EN-US">Dirty bit </span><span>系</span><span>统</span></h3>
+<p class="MsoNormal"><span>为了不因为每个小变化都全部重新布局，浏览器使用一个<span lang="EN-US">dirty bit</span>系统，一个渲染对象发生了变化或是被添加了，就标记它及它的<span lang="EN-US">children</span>为<span lang="EN-US">dirty</span>－需要<span lang="EN-US">layout</span>。存在两个标识－<span lang="EN-US">dirty</span>及<span lang="EN-US">children are dirty</span>，<span lang="EN-US">children are dirty</span>说明即使这个渲染对象可能没问题，但它至少有一个<span lang="EN-US">child</span>需要<span lang="EN-US">layout</span>。</span></p>
+<h3><span>全局和增量</span><span lang="EN-US"> layout</span></h3>
+<p class="MsoNormal"><span>当<span lang="EN-US">layout</span>在整棵渲染树触发时，称为全局<span lang="EN-US">layout</span>，这可能在下面这些情况下发生：</span></p>
+<p class="MsoListParagraphCxSpFirst"><span lang="EN-US"><span>1.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>一个全局的样式改变影响所有的渲染对象，比如字号的改变</span></p>
+<p class="MsoListParagraphCxSpLast"><span lang="EN-US"><span>2.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>窗口<span lang="EN-US">resize</span></span></p>
+<p class="MsoNormal"><span lang="EN-US">layout</span><span>也可以是增量的，这样只有标志为<span lang="EN-US">dirty</span>的渲染对象会重新布局（也将导致一些额外的布局）。增量<span lang="EN-US"> layout</span>会在渲染对象<span lang="EN-US">dirty</span>时异步触发，例如，当网络接收到新的内容并添加到<span lang="EN-US">Dom</span>树后，新的渲染对象会添加到渲染树中。</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="_x0000_i1033" type="#_x0000_t75" style='width:245pt;height:256pt;
+ visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image035.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image035.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_1307526706Y58w.png" alt="" width="326" height="341" /></span></p>
+<p class="MsoNormal"><span>图<span lang="EN-US">20</span>：增量<span lang="EN-US"> layout</span></span></p>
+<h3><span>异步和同步</span><span lang="EN-US">layout</span></h3>
+<p class="MsoNormal"><span>增量<span lang="EN-US">layout</span>的过程是异步的，<span lang="EN-US">Firefox</span>为增量<span lang="EN-US">layout</span>生成了<span lang="EN-US">reflow</span>队列，以及一个调度执行这些批处理命令。<span lang="EN-US">Webkit</span>也有一个计时器用来执行增量<span lang="EN-US">layout</span>－遍历树，为<span lang="EN-US">dirty</span>状态的渲染对象重新布局。</span></p>
+<p class="MsoNormal"><span>另外，当脚本请求样式信息时，例如&ldquo;<span lang="EN-US">offsetHeight</span>&rdquo;，会同步的触发增量布局。</span></p>
+<p class="MsoNormal"><span>全局的<span lang="EN-US">layout</span>一般都是同步触发。</span></p>
+<p class="MsoNormal"><span>有些时候，<span lang="EN-US">layout</span>会被作为一个初始<span lang="EN-US">layout</span>之后的回调，比如滑动条的滑动。</span></p>
+<h3><span>优</span><span>化</span></h3>
+<p class="MsoNormal"><span>当一个<span lang="EN-US">layout</span>因为<span lang="EN-US">resize</span>或是渲染位置改变（并不是大小改变）而触发时，渲染对象的大小将会从缓存中读取，而不会重新计算。</span></p>
+<p class="MsoNormal"><span>一般情况下，如果只有子树发生改变，则<span lang="EN-US">layout</span>并不从根开始。这种情况发生在，变化发生在元素自身并且不影响它周围元素，例如，将文本插入文本域（否则，每次击键都将触发从根开始的重排）。</span></p>
+<h3><span lang="EN-US">layout</span><span>过</span><span>程</span></h3>
+<p class="MsoNormal"><span lang="EN-US">layout</span><span>一般有下面这几个部分：</span></p>
+<p class="MsoListParagraphCxSpFirst"><span lang="EN-US"><span>1.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="EN-US">parent</span><span>渲染对象决定它的宽度</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>2.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="EN-US">parent</span><span>渲染对象读取<span lang="EN-US">chilidren</span>，并：</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>1.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>放置<span lang="EN-US">child</span>渲染对象（设置它的<span lang="EN-US">x</span>和<span lang="EN-US">y</span>）</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>2.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>在需要时（它们当前为<span lang="EN-US">dirty</span>或是处于全局<span lang="EN-US">layout</span>或者其他原因）调用<span lang="EN-US">child</span>渲染对象的<span lang="EN-US">layout</span>，这将计算<span lang="EN-US">child</span>的高度</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>3.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="EN-US">parent</span><span>渲染对象使用<span lang="EN-US">child</span>渲染对象的累积高度，以及<span lang="EN-US">margin</span>和<span lang="EN-US">padding</span>的高度来设置自己的高度－这将被<span lang="EN-US">parent</span>渲染对象的<span lang="EN-US">parent</span>使用</span></p>
+<p class="MsoListParagraphCxSpLast"><span lang="EN-US"><span>4.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>将<span lang="EN-US">dirty</span>标识设置为<span lang="EN-US">false</span></span></p>
+<p class="MsoNormal"><span lang="EN-US">Firefox</span><span>使用一个&ldquo;<span lang="EN-US">state</span>&rdquo;对象（<span lang="EN-US">nsHTMLReflowState</span>）做为参数去布局（<span lang="EN-US">firefox</span>称为<span lang="EN-US">reflow</span>），<span lang="EN-US">state</span>包含<span lang="EN-US">parent</span>的宽度及其他内容。</span></p>
+<p class="MsoNormal"><span lang="EN-US">Firefox</span><span>布局的输出是一个&ldquo;<span lang="EN-US">metrics</span>&rdquo;对象（<span lang="EN-US">nsHTMLReflowMetrics</span>）。它包括渲染对象计算出的高度。</span></p>
+<h3><span>宽</span><span>度</span><span>计</span><span>算</span></h3>
+<p class="MsoNormal"><span>渲染对象的宽度使用容器的宽度、渲染对象样式中的宽度及<span lang="EN-US">margin</span>、<span lang="EN-US">border</span>进行计算。例如，下面这个<span lang="EN-US">div</span>的宽度：</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;div style="width:30%"/&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US">webkit</span><span>中宽度的计算过程是（<span lang="EN-US">RenderBox</span>类的<span lang="EN-US">calcWidth</span>方法）：</span></p>
+<p class="MsoListParagraphCxSpFirst"><span lang="EN-US"><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span>容器的宽度是容器的可用宽度和<span lang="EN-US">0</span>中的最大值，这里的可用宽度为：<span lang="EN-US">contentWidth=clientWidth()-paddingLeft()-paddingRight()</span>，<span lang="EN-US">clientWidth</span>和<span lang="EN-US">clientHeight</span>代表一个对象内部的不包括<span lang="EN-US">border</span>和滑动条的大小</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span>元素的宽度指样式属性<span lang="EN-US">width</span>的值，它可以通过计算容器的百分比得到一个绝对值</span></p>
+<p class="MsoListParagraphCxSpLast"><span lang="EN-US"><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span>加上水平方向上的<span lang="EN-US">border</span>和<span lang="EN-US">padding</span></span></p>
+<p class="MsoNormal"><span>到这里是最佳宽度的计算过程，现在计算宽度的最大值和最小值，如果最佳宽度大于最大宽度则使用最大宽度，如果小于最小宽度则使用最小宽度。最后缓存这个值，当需要<span lang="EN-US">layout</span>但宽度未改变时使用。</span></p>
+<h3><span lang="EN-US">Line breaking</span></h3>
+<p class="MsoNormal"><span>当一个渲染对象在布局过程中需要折行时，则暂停并告诉它的<span lang="EN-US">parent</span>它需要折行，<span lang="EN-US">parent</span>将创建额外的渲染对象并调用它们的<span lang="EN-US">layout</span>。</span></p>
+<h2><span>绘</span><span>制</span><span lang="EN-US"> Painting</span></h2>
+<p class="MsoNormal"><span>绘制阶段，遍历渲染树并调用渲染对象的<span lang="EN-US">paint</span>方法将它们的内容显示在屏幕上，绘制使用<span lang="EN-US">UI</span>基础组件，这在<span lang="EN-US">UI</span>的章节有更多的介绍。</span></p>
+<h3><span>全局和增量</span></h3>
+<p class="MsoNormal"><span>和布局一样，绘制也可以是全局的－绘制完整的树－或增量的。在增量的绘制过程中，一些渲染对象以不影响整棵树的方式改变，改变的渲染对象使其在屏幕上的矩形区域失效，这将导致操作系统将其看作<span lang="EN-US">dirty</span>区域，并产生一个<span lang="EN-US">paint</span>事件，操作系统很巧妙的处理这个过程，并将多个区域合并为一个。<span lang="EN-US">Chrome</span>中，这个过程更复杂些，因为渲染对象在不同的进程中，而不是在主进程中。<span lang="EN-US">Chrome</span>在一定程度上模拟操作系统的行为，表现为监听事件并派发消息给渲染根，在树中查找到相关的渲染对象，重绘这个对象（往往还包括它的<span lang="EN-US">children</span>）。</span></p>
+<h3><span>绘</span><span>制</span><span>顺</span><span>序</span></h3>
+<p class="MsoNormal"><span lang="EN-US">css2</span><span>定义了绘制过程的顺序－<span lang="EN-US"><a href="http://www.w3.org/TR/CSS21/zindex.html">http://www.w3.org/TR/CSS21/zindex.html</a></span>。这个就是元素压入堆栈的顺序，这个顺序影响着绘制，堆栈从后向前进行绘制。</span></p>
+<p class="MsoNormal"><span>一个块渲染对象的堆栈顺序是：</span></p>
+<p class="MsoListParagraphCxSpFirst"><span lang="EN-US"><span>1.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>背景色</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>2.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>背景图</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>3.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="EN-US">border</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>4.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="EN-US">children</span></p>
+<p class="MsoListParagraphCxSpLast"><span lang="EN-US"><span>5.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="EN-US">outline</span></p>
+<h3><span lang="EN-US">Firefox</span><span>显</span><span>示列表</span></h3>
+<p class="MsoNormal"><span lang="EN-US">Firefox</span><span>读取渲染树并为绘制的矩形创建一个显示列表，该列表以正确的绘制顺序包含这个矩形相关的渲染对象。</span></p>
+<p class="MsoNormal"><span>用这样的方法，可以使重绘时只需查找一次树，而不需要多次查找&mdash;&mdash;绘制所有的背景、所有的图片、所有的<span lang="EN-US">border</span>等等。</span></p>
+<p class="MsoNormal"><span lang="EN-US">Firefox</span><span>优化了这个过程，它不添加会被隐藏的元素，比如元素完全在其他不透明元素下面。</span></p>
+<h3><span lang="EN-US">Webkit</span><span>矩形存</span><span>储</span></h3>
+<p class="MsoNormal"><span>重绘前，<span lang="EN-US">webkit</span>将旧的矩形保存为位图，然后只绘制新旧矩形的差集。</span></p>
+<h2><span>动态变</span><span>化</span></h2>
+<p class="MsoNormal"><span>浏览器总是试着以最小的动作响应一个变化，所以一个元素颜色的变化将只导致该元素的重绘，元素位置的变化将大致元素的布局和重绘，添加一个<span lang="EN-US">Dom</span>节点，也会大致这个元素的布局和重绘。一些主要的变化，比如增加<span lang="EN-US">html</span>元素的字号，将会导致缓存失效，从而引起整数的布局和重绘。</span></p>
+<h2><span>渲染引擎的</span><span>线</span><span>程</span></h2>
+<p class="MsoNormal"><span>渲染引擎是单线程的，除了网络操作以外，几乎所有的事情都在单一的线程中处理，在<span lang="EN-US">Firefox</span>和<span lang="EN-US">Safari</span>中，这是浏览器的主线程，<span lang="EN-US">Chrome</span>中这是<span lang="EN-US">tab</span>的主线程。</span></p>
+<p class="MsoNormal"><span>网络操作由几个并行线程执行，并行连接的个数是受限的（通常是<span lang="EN-US">2</span>－<span lang="EN-US">6</span>个）。</span></p>
+<h3><span>事件循</span><span>环</span></h3>
+<p class="MsoNormal"><span>浏览器主线程是一个事件循环，它被设计为无限循环以保持执行过程的可用，等待事件（例如<span lang="EN-US">layout</span>和<span lang="EN-US">paint</span>事件）并执行它们。下面是<span lang="EN-US">Firefox</span>的主要事件循环代码。</span></p>
+<p class="MsoNormal"><span lang="EN-US">while (!mExiting)</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;
+</span>NS_ProcessNextEvent(thread);</span></p>
+<h2><span lang="EN-US">CSS2 </span><span>可</span><span>视</span><span>模型</span><span lang="EN-US"> CSS2 visual module</span></h2>
+<h3><span>画布</span>
+<span lang="EN-US">The Canvas</span></h3>
+<p class="MsoNormal"><span>根据<span lang="EN-US">CSS2</span>规范，术语<span lang="EN-US">canvas</span>用来描述格式化的结构所渲染的空间&mdash;&mdash;浏览器绘制内容的地方。画布对每个维度空间都是无限大的，但浏览器基于<span lang="EN-US">viewport</span>的大小选择了一个初始宽度。</span></p>
+<p class="MsoNormal"><span>根据<span lang="EN-US"><a href="http://www.w3.org/TR/CSS2/zindex.html">http://www.w3.org/TR/CSS2/zindex.html</a></span>的定义，画布如果是包含在其他画布内则是透明的，否则浏览器会指定一个颜色。</span></p>
+<h3><span lang="EN-US">CSS</span><span>盒模型</span></h3>
+<p class="MsoNormal"><span lang="EN-US">CSS</span><span>盒模型描述了矩形盒，这些矩形盒是为文档树中的元素生成的，并根据可视的格式化模型进行布局。每个<span lang="EN-US">box</span>包括内容区域（如图片、文本等）及可选的四周<span lang="EN-US">padding</span>、<span lang="EN-US">border</span>和<span lang="EN-US">margin</span>区域。</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="Picture_x0020_1" o:spid="_x0000_i1032" type="#_x0000_t75" style='width:382pt;
+ height:261pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image037.jpg" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image037.jpg"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_1307526694M5fb.jpg" alt="" width="509" height="348" /></span></p>
+<p class="MsoNormal"><span>每个节点生成<span lang="EN-US">0</span>－<span lang="EN-US">n</span>个这样的<span lang="EN-US">box</span>。</span></p>
+<p class="MsoNormal"><span>所有的元素都有一个<span lang="EN-US">display</span>属性，用来决定它们生成<span lang="EN-US">box</span>的类型，例如：</span></p>
+<p class="MsoNormal"><span lang="EN-US">block</span><span>－生成块状<span lang="EN-US">box</span></span></p>
+<p class="MsoNormal"><span lang="EN-US">inline</span><span>－生成一个或多个行内<span lang="EN-US">box</span></span></p>
+<p class="MsoNormal"><span lang="EN-US">none</span><span>－不生成<span lang="EN-US">box</span></span></p>
+<p class="MsoNormal"><span>默认的是<span lang="EN-US">inline</span>，但浏览器样式表设置了其他默认值，例如，<span lang="EN-US">div</span>元素默认为<span lang="EN-US">block</span>。可以访问<span lang="EN-US"><a href="http://www.w3.org/TR/CSS2/sample.html">http://www.w3.org/TR/CSS2/sample.html</a></span>查看更多的默认样式表示例。</span></p>
+<h3><span>定位策略</span><span lang="EN-US"> Position scheme</span></h3>
+<p class="MsoNormal"><span>这里有三种策略：</span></p>
+<p class="MsoListParagraphCxSpFirst"><span lang="EN-US"><span>1.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="EN-US">normal</span><span>－对象根据它在文档的中位置定位，这意味着它在渲染树和在<span lang="EN-US">Dom</span>树中位置一致，并根据它的盒模型和大小进行布局</span></p>
+<p class="MsoListParagraphCxSpMiddle"><span lang="EN-US"><span>2.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="EN-US">float</span><span>－对象先像普通流一样布局，然后尽可能的向左或是向右移动</span></p>
+<p class="MsoListParagraphCxSpLast"><span lang="EN-US"><span>3.<span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="EN-US">absolute</span><span>－对象在渲染树中的位置和<span lang="EN-US">Dom</span>树中位置无关</span></p>
+<p class="MsoNormal"><span lang="EN-US">static</span><span>和<span lang="EN-US">relative</span>是<span lang="EN-US">normal</span>，<span lang="EN-US">absolute</span>和<span lang="EN-US">fixed</span>属于<span lang="EN-US">absolute</span>。</span></p>
+<p class="MsoNormal"><span>在<span lang="EN-US">static</span>定位中，不定义位置而使用默认的位置。其他策略中，作者指定位置&mdash;&mdash;<span lang="EN-US">top</span>、<span lang="EN-US">bottom</span>、<span lang="EN-US">left</span>、<span lang="EN-US">right</span>。</span></p>
+<p class="MsoNormal"><span lang="EN-US">Box</span><span>布局的方式由这几项决定：<span lang="EN-US">box</span>的类型、<span lang="EN-US">box</span>的大小、定位策略及扩展信息（比如图片大小和屏幕尺寸）。</span></p>
+<h3><span lang="EN-US">Box</span><span>类</span><span>型</span></h3>
+<p class="MsoNormal"><span lang="EN-US">Block box</span><span>：构成一个块，即在浏览器窗口上有自己的矩形</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="Picture_x0020_3" o:spid="_x0000_i1031" type="#_x0000_t75" style='width:1in;
+ height:61pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image039.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image039.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_13075266951Kca.png" alt="" width="150" height="127" /></span></p>
+<p class="MsoNormal"><span lang="EN-US">Inline box</span><span>：并没有自己的块状区域，但包含在一个块状区域内</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="Picture_x0020_5" o:spid="_x0000_i1030" type="#_x0000_t75" style='width:2in;
+ height:112pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image041.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image041.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_130752669597Rd.png" alt="" width="300" height="233" /></span></p>
+<p class="MsoNormal"><span lang="EN-US">block</span><span>一个挨着一个垂直格式化，<span lang="EN-US">inline</span>则在水平方向上格式化。</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="Picture_x0020_7" o:spid="_x0000_i1029" type="#_x0000_t75" style='width:168pt;
+ height:155pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image043.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image043.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_1307526699Sj27.png" alt="" width="350" height="324" /></span></p>
+<p class="MsoNormal"><span lang="EN-US">Inline</span><span>盒模型放置在行内或是<span lang="EN-US">line box</span>中，每行至少和最高的<span lang="EN-US">box</span>一样高，当<span lang="EN-US">box</span>以<span lang="EN-US">baseline</span>对齐时&mdash;&mdash;即一个元素的底部和另一个<span lang="EN-US">box</span>上除底部以外的某点对齐，行高可以比最高的<span lang="EN-US">box</span>高。当容器宽度不够时，行内元素将被放到多行中，这在一个<span lang="EN-US">p</span>元素中经常发生。</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="Picture_x0020_9" o:spid="_x0000_i1028" type="#_x0000_t75" style='width:192pt;
+ height:133pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image045.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image045.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_1307526700b67m.png" alt="" width="400" height="277" /></span></p>
+<h3><span>定位</span><span lang="EN-US"> Position</span></h3>
+<h4><span lang="EN-US">Relative</span></h4>
+<p class="MsoNormal"><span>相对定位&mdash;&mdash;先按照一般的定位，然后按所要求的差值移动。</span></p>
+<p class="MsoNormal"><span><img src="http://hi.csdn.net/attachment/201106/8/2143330_1307526701hEXe.png" alt="" width="500" height="261" /></span></p>
+<h4><span lang="EN-US">Floats</span></h4>
+<p class="MsoNormal"><span>一个浮动的<span lang="EN-US">box</span>移动到一行的最左边或是最右边，其余的<span lang="EN-US">box</span>围绕在它周围。下面这段<span lang="EN-US">html</span>：</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;p&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;img style="float:right"
+src="images/image.gif" width="100"
+height="100"&gt;Lorem ipsum dolor sit amet, consectetuer...</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;/p&gt;</span></p>
+<p class="MsoNormal"><span>将显示为：</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="Picture_x0020_11" o:spid="_x0000_i1027" type="#_x0000_t75" style='width:333pt;
+ height:152pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image047.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image047.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_13075267013L13.png" alt="" width="444" height="203" /></span></p>
+<h4><span lang="EN-US">Absolute</span><span>和</span><span lang="EN-US">Fixed</span></h4>
+<p class="MsoNormal"><span>这种情况下的布局完全不顾普通的文档流，元素不属于文档流的一部分，大小取决于容器。<span lang="EN-US">Fixed</span>时，容器为<span lang="EN-US">viewport</span>（可视区域）。</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="Picture_x0020_13" o:spid="_x0000_i1026" type="#_x0000_t75" style='width:240pt;
+ height:165pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image049.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image049.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_1307526703A3YY.png" alt="" width="500" height="343" /></span></p>
+<p class="MsoNormal"><span>图<span lang="EN-US">17</span>：<span lang="EN-US">fixed</span></span></p>
+<p class="MsoNormal"><span>注意－<span lang="EN-US">fixed</span>即使在文档流滚动时也不会移动。</span></p>
+<h3><span lang="EN-US">Layered representation</span></h3>
+<p class="MsoNormal"><span>这个由<span lang="EN-US">CSS</span>属性中的<span lang="EN-US">z-index</span>指定，表示盒模型的第三个大小，即在<span lang="EN-US">z</span>轴上的位置。<span lang="EN-US">Box</span>分发到堆栈中（称为堆栈上下文），每个堆栈中靠后的元素将被较早绘制，栈顶靠前的元素离用户最近，当发生交叠时，将隐藏靠后的元素。堆栈根据<span lang="EN-US">z-index</span>属性排序，拥有<span lang="EN-US">z-index</span>属性的<span lang="EN-US">box</span>形成了一个局部堆栈，<span lang="EN-US">viewport</span>有外部堆栈，例如：</span></p>
+<p class="MsoNormal"><span lang="EN-US">&lt;STYLE type="text/css"&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>div {
+</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>position: absolute; </span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>left: 2in; </span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>top: 2in; </span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;
+</span>&lt;/STYLE&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;
+</span>&lt;P&gt;<span>&nbsp;&nbsp; </span></span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span><span>&nbsp;&nbsp;&nbsp; </span>&lt;DIV </span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>style="z-index:
+3;background-color:red; width: 1in; height: 1in; "&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span><span>&nbsp;&nbsp;&nbsp; </span>&lt;/DIV&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span><span>&nbsp;&nbsp;&nbsp; </span>&lt;DIV</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>style="z-index:
+1;background-color:green;width: 2in; height: 2in;"&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span><span>&nbsp;&nbsp;&nbsp; </span>&lt;/DIV&gt;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;&nbsp;
+</span>&lt;/p&gt;</span></p>
+<p class="MsoNormal"><span>结果是：</span></p>
+<p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape
+ id="Picture_x0020_15" o:spid="_x0000_i1025" type="#_x0000_t75" style='width:191pt;
+ height:170pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image051.png" mce_src="file://localhost/Users/zuoli/Library/Caches/TemporaryItems/msoclip/0clip_image051.png"
+  o:title="" />
+</v:shape><![endif]--><img style="border: 0px initial initial;" src="http://hi.csdn.net/attachment/201106/8/2143330_1307526704CIxI.png" alt="" width="254" height="227" /></span></p>
+<p class="MsoNormal"><span>虽然绿色<span lang="EN-US">div</span>排在红色<span lang="EN-US">div</span>后面，可能在正常流中也已经被绘制在后面，但<span lang="EN-US">z-index</span>有更高优先级，所以在根<span lang="EN-US">box</span>的堆栈中更靠前。</span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+<p class="MsoNormal"><span lang="EN-US"><span>&nbsp;</span></span></p>
+<!--EndFragment-->
+<p>&nbsp;</p>
+</div>
+<div class="share_buttons" id="sharePanel"></div>
+<!--192.168.1.237 2012-7-11 23:27:08-->
+<div class="article_next_prev">
+        <li class="prev_article">
+            <span>上一篇：</span><a href="/zzzaquarius/article/details/5846633">那个说烂了的 iframe 跨大域高度自适应  </a></li>
+</div>
+
+
+</div>
+<div id="ad_cen"></div>
+<script type="text/javascript">
+    new Ad(4, 'ad_cen');
+</script>
+<div id="comment_title" class="panel_head">查看评论<a name="comments"></a></div>
+<div id="comment_list"></div>
+<div id="comment_bar"></div>
+<div id="comment_form"></div>
+<div class="announce">* 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+<script type="text/javascript">
+    var fileName = '6532299';
+    var commentscount = 13;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+<div id="ad_bot"></div>
+<script type="text/javascript">
+    new Ad(5, 'ad_bot');
+</script>
+<div id="report_dialog"></div>
+
+
+<div class="clear"></div>
+</div>
+</div>
+
+<div id="side">
+    <div class="side">
+<div id="panel_Profile" class="panel">
+    <ul class="panel_head"><span>个人资料</span></ul>
+    <ul class="panel_body profile">
+        <div id="blog_userface">
+            <a href="http://my.csdn.net/zzzaquarius" target="_blank">
+            <img src="http://avatar.csdn.net/B/A/A/1_zzzaquarius.jpg" title="访问我的空间" style="max-width:90%"/>
+            </a>
+            <br />
+            <span><a href="http://my.csdn.net/zzzaquarius" target="_blank">zzzaquarius</a></span>
+        </div>
+<div class="interact">
+<!--<a href="#" class="attented" title="已关注"></a>-->
+<a href="#" class="attent" id="span_add_follow" title="[加关注]"></a>
+<a href="http://my.csdn.net/my/letter/send/zzzaquarius" class="letter" title="[发私信]"></a>
+</div>
+        <div id="blog_medal">
+        </div>
+        <ul id="blog_rank">
+            <li>访问：<span>17802次</span></li>
+            <li>积分：<span>180分</span></li>
+            <li>排名：<span>千里之外</span></li>
+        </ul>
+        <ul id="blog_statistics">
+            <li>原创：<span>4篇</span></li>
+            <li>转载：<span>0篇</span></li>
+            <li>译文：<span>1篇</span></li>
+            <li>评论：<span>15条</span></li>
+        </ul>
+    </ul>
+</div>
+<script type="text/javascript">
+    var _blogger = 'zzzaquarius';
+</script>
+<script type='text/javascript'>
+    $(document).ready(function () {
+        var un = getUN().toLowerCase();
+        if (un == _blogger.toLowerCase()) {
+            $('.interact').hide();
+        } else if(un) {
+            var url = "http://my.csdn.net/index.php/follow/check_is_followed/" + encodeURIComponent(un) + "/" + encodeURIComponent(_blogger) + "?jsonpcallback=?";
+            $.getJSON(url, {}, function (data) {
+                if (data.succ == 1 && data.info == 1) {
+                    $('#span_add_follow').attr('class', 'attented');
+                } else {
+                    $('#span_add_follow').click(guanzhu);
+                }
+            }, 'json');
+        }
+    });
+function guanzhu() {
+    var url = "http://my.csdn.net/index.php/follow/do_follow?jsonpcallback=?";
+    $.getJSON(url, { "username": _blogger }, function (data) {
+        if (data.succ == 1) {
+            alert('关注成功！');
+            $('#span_add_follow').attr('class', 'attented').click(function () { return false; });
+        } else {
+            alert(data.msg);
+        }
+    });
+    return false;
+}
+function getUN() {
+    var m = document.cookie.match(new RegExp("(^| )UserName=([^;]*)(;|$)"));
+    if (m) return m[2];
+    else return '';
+}
+</script>
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字" /></span>
+        <input id="btnSubmit" type="submit" value="搜索" title="search in blog" />
+        <input type="hidden" name="q" id="inputQ" />
+        <input type="hidden" name="t" value="blog" />
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div><div id="panel_Category" class="panel">
+    <ul class="panel_head"><span>文章分类</span></ul>
+    <ul class="panel_body">
+        <li>
+        <a href="http://blog.csdn.net/zzzaquarius/article/category/623103">JS</a><span>(2)</span>
+        </li>
+        <li>
+        <a href="http://blog.csdn.net/zzzaquarius/article/category/725618">web</a><span>(3)</span>
+        </li>
+    </ul>
+</div><div id="panel_Archive" class="panel">
+    <ul class="panel_head"><span>文章存档</span></ul>
+    <ul class="panel_body">
+        <div id="archive_list">
+        <!--归档统计-->
+        <li><a href="http://blog.csdn.net/zzzaquarius/article/month/2011/06">2011年06月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/zzzaquarius/article/month/2010/08">2010年08月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/zzzaquarius/article/month/2009/11">2009年11月</a><span>(2)</span></li>
+        </div>
+    </ul>
+</div>
+<div id="hotarticls" class="panel">
+    <ul class="panel_head"><span>阅读排行</span></ul>
+    <ul class="panel_body itemlist">
+        <li>
+            <a href="/zzzaquarius/article/details/6532299" title="［译］How browsers work">［译］How browsers work</a><span>(16045)</span>
+        </li>
+        <li>
+            <a href="/zzzaquarius/article/details/4902235" title="js- 引用和复制（传值和传址）">js- 引用和复制（传值和传址）</a><span>(899)</span>
+        </li>
+        <li>
+            <a href="/zzzaquarius/article/details/5846633" title="那个说烂了的 iframe 跨大域高度自适应  ">那个说烂了的 iframe 跨大域高度自适应  </a><span>(229)</span>
+        </li>
+        <li>
+            <a href="/zzzaquarius/article/details/5831511" title="图片缓存  拿你怎么办呢">图片缓存  拿你怎么办呢</a><span>(159)</span>
+        </li>
+        <li>
+            <a href="/zzzaquarius/article/details/4867101" title="js-----关于this">js-----关于this</a><span>(137)</span>
+        </li>
+    </ul>
+</div>
+<div id="hotarticls2" class="panel">
+    <ul class="panel_head"><span>评论排行</span></ul>
+    <ul class="panel_body itemlist">
+        <li>
+            <a href="/zzzaquarius/article/details/6532299" title="［译］How browsers work">［译］How browsers work</a><span>(13)</span>
+        </li>
+        <li>
+            <a href="/zzzaquarius/article/details/4902235" title="js- 引用和复制（传值和传址）">js- 引用和复制（传值和传址）</a><span>(1)</span>
+        </li>
+        <li>
+            <a href="/zzzaquarius/article/details/5831511" title="图片缓存  拿你怎么办呢">图片缓存  拿你怎么办呢</a><span>(1)</span>
+        </li>
+        <li>
+            <a href="/zzzaquarius/article/details/4867101" title="js-----关于this">js-----关于this</a><span>(0)</span>
+        </li>
+        <li>
+            <a href="/zzzaquarius/article/details/5846633" title="那个说烂了的 iframe 跨大域高度自适应  ">那个说烂了的 iframe 跨大域高度自适应  </a><span>(0)</span>
+        </li>
+    </ul>
+</div>
+<div id="homepageArticles" class="panel">
+    <ul class="panel_head"><span>推荐文章</span></ul>
+    <ul class="panel_body" id="ad_commend">
+    </ul>
+</div>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js"></script>
+<script type="text/javascript">
+    new Ad(12, 'ad_commend');
+</script><div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+    <a href="/zzzaquarius/article/details/6532299#comments">［译］How browsers work</a>
+    <p style="margin:0px;">lmafwo:
+学习
+    </p>
+    </li>
+    <li>
+    <a href="/zzzaquarius/article/details/6532299#comments">［译］How browsers work</a>
+    <p style="margin:0px;">z6482:
+感谢！
+    </p>
+    </li>
+    <li>
+    <a href="/zzzaquarius/article/details/6532299#comments">［译］How browsers work</a>
+    <p style="margin:0px;">beijing_josh:
+好文，看见翻译有个问题：“Firefox在存在样式表还在加载和解析时阻塞所有的脚本，而chrome只...
+    </p>
+    </li>
+    <li>
+    <a href="/zzzaquarius/article/details/6532299#comments">［译］How browsers work</a>
+    <p style="margin:0px;">kejzhao:
+好文章
+    </p>
+    </li>
+    <li>
+    <a href="/zzzaquarius/article/details/6532299#comments">［译］How browsers work</a>
+    <p style="margin:0px;">itbeihe:
+终于有人把这个翻译完了，感谢啊
+    </p>
+    </li>
+    <li>
+    <a href="/zzzaquarius/article/details/6532299#comments">［译］How browsers work</a>
+    <p style="margin:0px;">guandajian:
+佩服
+    </p>
+    </li>
+    <li>
+    <a href="/zzzaquarius/article/details/5831511#comments">图片缓存  拿你怎么办呢</a>
+    <p style="margin:0px;">lrwin:
+加随机请求参数
+    </p>
+    </li>
+    <li>
+    <a href="/zzzaquarius/article/details/6532299#comments">［译］How browsers work</a>
+    <p style="margin:0px;">tang253:
+顶！膜拜大师！
+    </p>
+    </li>
+    <li>
+    <a href="/zzzaquarius/article/details/6532299#comments">［译］How browsers work</a>
+    <p style="margin:0px;">xuhuankeven:
+后面没有了？。。。。
+    </p>
+    </li>
+    <li>
+    <a href="/zzzaquarius/article/details/6532299#comments">［译］How browsers work</a>
+    <p style="margin:0px;">PhoenixWaVe:
+支持一个
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<div class="clear"></div>
+</div>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/SyntaxHighlighter/shCore-src.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/article_code.js"></script>
+
+<script type="text/javascript" src="http://medal.blog.csdn.net/scripts/show.js"></script>
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=228955"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+
+<script type="text/javascript" src="http://csdnimg.cn/pubfooter/js/publib_footer.js"></script>
+
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js"></script>
+
+
+
+</div>
+</body>
+</html>

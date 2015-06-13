@@ -1,0 +1,11 @@
+TARGETNAME=MyFilter
+TARGETTYPE=DRIVER
+DRIVERTYPE=WDM
+TARGETPATH=OBJ
+
+INCLUDES=$(BASEDIR)\inc;\
+         $(BASEDIR)\inc\ddk;\
+		 $(BASEDIR)\inc\ddk\wxp;\
+
+		 
+SOURCES=DriverEntry.cpp stddcls.cpp

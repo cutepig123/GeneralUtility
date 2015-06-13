@@ -1,0 +1,85 @@
+<LOG>    <Message  type="Success">
+        <time>
+            Sun Aug 01 17:18:04 2010
+
+        </time>
+        <from>
+            MotherBoard
+        </from>
+        <comment>
+            Apply memory in Motherboard have success!
+        </comment>
+    </Message>
+    <Message  type="Success">
+        <time>
+            Sun Aug 01 17:18:04 2010
+
+        </time>
+        <from>
+            VirtualBIOS
+        </from>
+        <comment>
+            Found the execution file!
+        </comment>
+    </Message>
+    <Message  type="Success">
+        <time>
+            Sun Aug 01 17:18:04 2010
+
+        </time>
+        <from>
+            VirtualBIOS
+        </from>
+        <comment>
+            Read the execution file!
+        </comment>
+    </Message>
+    <Message  type="Success">
+        <time>
+            Sun Aug 01 17:18:04 2010
+
+        </time>
+        <from>
+            VirtualBIOS
+        </from>
+        <comment>
+            Found the BIOS_INT file!
+        </comment>
+    </Message>
+    <Message  type="Success">
+        <time>
+            Sun Aug 01 17:18:04 2010
+
+        </time>
+        <from>
+            VirtualBIOS
+        </from>
+        <comment>
+            Read the BIOS_INT file!
+        </comment>
+    </Message>
+    <Message  type="Success">
+        <time>
+            Sun Aug 01 17:18:04 2010
+
+        </time>
+        <from>
+            VirtualBIOS
+        </from>
+        <comment>
+            Found the BIOS_Stuff file!
+        </comment>
+    </Message>
+    <Message  type="Success">
+        <time>
+            Sun Aug 01 17:18:04 2010
+
+        </time>
+        <from>
+            VirtualBIOS
+        </from>
+        <comment>
+            Read the BIOS_Stuff file!
+        </comment>
+    </Message>
+</LOG>

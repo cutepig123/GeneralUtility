@@ -1,0 +1,10 @@
+TARGETNAME=main
+TARGETTYPE=PROGRAM
+TARGETPATH=OBJ
+UMTYPE=console 
+UMENTRY=main
+
+INCLUDES=$(BASEDIR)\inc;\
+         $(BASEDIR)\inc\ddk;\
+
+SOURCES=main.cpp

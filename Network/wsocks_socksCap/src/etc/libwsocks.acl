@@ -1,0 +1,11 @@
+acl	cond address 192.168.2.66
+	act BYPASS
+
+acl	cond address 127.0.0.0/8
+	act BYPASS
+
+acl	cond address 10.10.99.0/255.255.255.0
+	act HTTP 192.168.2.1:8080
+
+acl	cond any
+	act BYPASS

@@ -1,0 +1,36 @@
+386_OBJECTS= \
+    $(_OBJ_DIR)\i386\main.obj \
+    $(_OBJ_DIR)\i386\irpdispatch.obj \
+    $(_OBJ_DIR)\i386\attachdetach.obj \
+    $(_OBJ_DIR)\i386\notification.obj \
+    $(_OBJ_DIR)\i386\fastio.obj
+
+PASS0_386_OBJECTS=
+
+IA64_OBJECTS= \
+    $(_OBJ_DIR)\ia64\main.obj \
+    $(_OBJ_DIR)\ia64\irpdispatch.obj \
+    $(_OBJ_DIR)\ia64\attachdetach.obj \
+    $(_OBJ_DIR)\ia64\notification.obj \
+    $(_OBJ_DIR)\ia64\fastio.obj
+
+PASS0_IA64_OBJECTS=
+
+AMD64_OBJECTS= \
+    $(_OBJ_DIR)\amd64\main.obj \
+    $(_OBJ_DIR)\amd64\irpdispatch.obj \
+    $(_OBJ_DIR)\amd64\attachdetach.obj \
+    $(_OBJ_DIR)\amd64\notification.obj \
+    $(_OBJ_DIR)\amd64\fastio.obj
+
+PASS0_AMD64_OBJECTS=
+
+ARM_OBJECTS= \
+    $(_OBJ_DIR)\arm\main.obj \
+    $(_OBJ_DIR)\arm\irpdispatch.obj \
+    $(_OBJ_DIR)\arm\attachdetach.obj \
+    $(_OBJ_DIR)\arm\notification.obj \
+    $(_OBJ_DIR)\arm\fastio.obj
+
+PASS0_ARM_OBJECTS=
+
