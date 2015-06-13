@@ -185,7 +185,7 @@ IMG_WORD	FILE_SaveTifToMem(IMG_UBBUF const *pubbSbuf, IMG_CHAR const *pcFile)
 	// Query buffer size
 	size_t extimated_size =0;
 	wSts =est_tif_size<IMG_UBYTE>( pubbSbuf, &extimated_size);
-	if( DSP_ERROR_STATUS(wSts)) goto Exit;
+	if( ERROR_STATUS(wSts)) goto Exit;
 
 	memset (&clientdata, '\0', sizeof(clientdata));
 	clientdata.buffer = (IMG_UBYTE*)MEM_Malloc(extimated_size, SYS_BANK1_8);
@@ -199,7 +199,7 @@ IMG_WORD	FILE_SaveTifToMem(IMG_UBBUF const *pubbSbuf, IMG_CHAR const *pcFile)
 	
 	// Save to MEM
 	wSts =image_to_tiff<IMG_UBYTE> ( pubbSbuf, clientdata);;
-	if( DSP_ERROR_STATUS(wSts)) goto Exit;
+	if( ERROR_STATUS(wSts)) goto Exit;
 
 	// Save to file
 	FILE *fp =fopen(pcFile, "wb");
@@ -220,7 +220,7 @@ IMG_WORD	FILE_SaveFloatTifToMem(IMG_UBBUF const *pubbSbuf, IMG_CHAR const *pcFil
 	// Query buffer size
 	size_t extimated_size =0;
 	wSts =est_tif_size_float( pubbSbuf, &extimated_size);
-	if( DSP_ERROR_STATUS(wSts)) goto Exit;
+	if( ERROR_STATUS(wSts)) goto Exit;
 
 	memset (&clientdata, '\0', sizeof(clientdata));
 	clientdata.buffer = (IMG_UBYTE*)MEM_Malloc(extimated_size, SYS_BANK1_8);
@@ -234,7 +234,7 @@ IMG_WORD	FILE_SaveFloatTifToMem(IMG_UBBUF const *pubbSbuf, IMG_CHAR const *pcFil
 	
 	// Save to MEM
 	wSts =image_to_tiff_float ( pubbSbuf, clientdata);
-	if( DSP_ERROR_STATUS(wSts)) goto Exit;
+	if( ERROR_STATUS(wSts)) goto Exit;
 
 	// Save to file
 	FILE *fp =fopen(pcFile, "wb");
@@ -243,59 +243,4 @@ IMG_WORD	FILE_SaveFloatTifToMem(IMG_UBBUF const *pubbSbuf, IMG_CHAR const *pcFil
 Exit:
 	MEM_PopAllHeapStatus();
 	return wSts;
-}
-
-#define ITF_SPI_CHK_ERROR	if (DSP_ERROR_STATUS(wStatus)) goto Exit;
-
-static IMG_WORD	TestMilLoadSaveTiffImage(IMG_CHAR const *acProfPath)
-{
-	IMG_WORD	wStatus =OK;
-	IMG_RBUF	rbbuf;
-	IMG_WORD	wIsFile;
-	IMG_SIZE	szImg;
-	
-	MEM_PushAllHeapStatus();
-
-	if( !DOS_IsFileOrDirectoryExist(acProfPath, &wIsFile) || !wIsFile)
-	{
-		wStatus =ERR_INVALID_ARG; ITF_SPI_CHK_ERROR;
-	}
-
-	wStatus =FILE_ImageSize( (IMG_UBYTE*)acProfPath, &szImg);
-	ITF_SPI_CHK_ERROR;
-
-	wStatus =MEM_AllocBufAtBank( &szImg, SYS_BANK1_32, (IMG_VVBUF*)&rbbuf );
-	ITF_SPI_CHK_ERROR;
-
-	wStatus =FILE_LoadImageTiff_r( acProfPath,NULL, NULL,&rbbuf);
-	ITF_SPI_CHK_ERROR;
-
-	FILE_SaveImageTiff_r( &rbbuf,NULL, NULL,"T.tiff");
-	
-Exit:
-	MEM_PopAllHeapStatus();
-	return wStatus;
-}
-
-
-IMG_WORD Test2()
-{
-	MEM_PushAllHeapStatus();
-
-	IMG_UBBUF	ubbS;
-	IMG_COORD	coZ ={0,0};
-	IMG_WORD	wStatus =OK;
-	IMG_CHAR	*pcFile ="S.bmp";
-	
-	wStatus =LoadBmp_MEM( pcFile, ubbS);
-	if (DSP_ERROR_STATUS(wStatus)) goto Exit;
-
-	wStatus =FILE_SaveFloatTifToMem( &ubbS, "D.tiff");
-	if (DSP_ERROR_STATUS(wStatus)) goto Exit;
-
-	wStatus =TestMilLoadSaveTiffImage("D.tiff");
-	if (DSP_ERROR_STATUS(wStatus)) goto Exit;
-Exit:
-	MEM_PopAllHeapStatus();
-	return wStatus;
 }
