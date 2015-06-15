@@ -13,7 +13,7 @@
 class ImageSource : QObject
 {    Q_OBJECT
 public:
-    ImageSource(QString text = "Hello!",int w = 640,int h = 480) : m_width(w),m_height(h)
+    /*ImageSource(QString text = "Hello!",int w = 640,int h = 480) : m_width(w),m_height(h)
     {
         if (text.length() == 0) text = "Hello!";
         // Create pixmaps for each character
@@ -36,7 +36,19 @@ public:
             dummies.append(pm);
         }
         current = dummies.length();
-    }
+    }*/
+	ImageSource()
+	{
+		for(int i=0; i<4; i++)
+		{
+            QString imagePath=QString("pattern/%1.bmp").arg(i);
+
+            QPixmap* pm = new QPixmap(imagePath);
+            dummies.append(pm);
+		}
+        current = dummies.length();
+	}
+	
     QPixmap* nextImage()
     {
         --current;
@@ -75,10 +87,13 @@ public:
 
         setCentralWidget(view);
 
+        timer.start();
+        nanoSec =0;
+
 		// create timer to update the pixmapItem as fast as possible
         QTimer* updateTimer = new QTimer(this);
         QObject::connect(updateTimer,SIGNAL(timeout()),this,SLOT(doUpdate()));
-        updateTimer->start(1);
+        updateTimer->start(286);
 
         QTimer* fpsTimer = new QTimer(this);
         QObject::connect(fpsTimer,SIGNAL(timeout()),this,SLOT(showFPS()));
@@ -89,12 +104,13 @@ protected slots:
     void doUpdate()
     {
         pixmapItem->setPixmap(*imageSrc->nextImage());
-        ++frameCounter;
+
+        nanoSec = timer.nsecsElapsed();
+        timer.restart();
     }
     void showFPS()
     {
-        setWindowTitle(QString("FPS: %1").arg(frameCounter));
-        frameCounter = 0;
+        setWindowTitle(QString("ns/frame: %1").arg(nanoSec));
     }
 
 private:
@@ -102,7 +118,8 @@ private:
     QGraphicsView* view;
     ImageSource* imageSrc;
     QGraphicsPixmapItem* pixmapItem;
-    int frameCounter;
+    QElapsedTimer timer;
+    qint64 nanoSec;
 };
 
 #endif // MAINWINDOW_H
