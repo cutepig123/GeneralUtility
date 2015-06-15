@@ -89,11 +89,12 @@ public:
 
         timer.start();
         nanoSec =0;
+        mInterval =286e6;
 
 		// create timer to update the pixmapItem as fast as possible
         QTimer* updateTimer = new QTimer(this);
         QObject::connect(updateTimer,SIGNAL(timeout()),this,SLOT(doUpdate()));
-        updateTimer->start(286);
+        updateTimer->start(1);
 
         QTimer* fpsTimer = new QTimer(this);
         QObject::connect(fpsTimer,SIGNAL(timeout()),this,SLOT(showFPS()));
@@ -103,10 +104,13 @@ public:
 protected slots:
     void doUpdate()
     {
-        pixmapItem->setPixmap(*imageSrc->nextImage());
-
-        nanoSec = timer.nsecsElapsed();
-        timer.restart();
+        qint64 nanoSec2 = timer.nsecsElapsed();
+        if( nanoSec2 >= mInterval )
+        {
+            nanoSec =nanoSec2;
+            pixmapItem->setPixmap(*imageSrc->nextImage());
+            timer.restart();
+        }
     }
     void showFPS()
     {
@@ -120,6 +124,7 @@ private:
     QGraphicsPixmapItem* pixmapItem;
     QElapsedTimer timer;
     qint64 nanoSec;
+    qint64 mInterval;
 };
 
 #endif // MAINWINDOW_H
