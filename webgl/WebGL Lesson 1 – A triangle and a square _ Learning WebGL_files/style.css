@@ -1,0 +1,708 @@
+/*
+	Theme Name: Modern Style
+	Theme URL: http://flexithemes.com/themes/modern-style/
+	Description: Modern Style Theme with theme options page. Fixed-width, widget ready, two colums, right sidebar support hierarchical categories. Compatible with Wordpress 2.8 and higher. <br />New in version 1.1: Support for post thumbnails, ability to add custom logo and favicon from options page and some layout bug fixes. <br />New in version 1.2: Added an option to show the sidebar below header. By default the sidebar starts over header. Added css clearfix class for post items in files: index.php, archive.php, search.php, single.php, page.php
+	Author: FlexiThemes
+	Author URI: http://flexithemes.com
+	Version: 1.2
+	Tags: two-columns, fixed-width, right-sidebar, black, silver, theme-options, threaded-comments
+*/
+
+/******************************************************
+    [ LAYOUT ]
+*******************************************************/
+
+body {
+	background: #fff url(images/background.png) top left repeat-x;
+}
+
+#wrapper {
+}
+
+#container { 
+}
+
+a {
+    color: #21759B;
+}
+
+a:hover {
+    color: #d54e21;
+}
+
+/******************************************************
+    [ HEADER ]
+*******************************************************/
+
+#header {
+	height: 126px;
+}
+
+#header h1 {
+	margin: 0px !important;
+	padding: 25px 0 0 0px;
+	font-family:Verdana;
+    font-family:"Arial Black",Arial,Helvetica,Sans,FreeSans,Jamrul,Garuda,Kalimati;
+    font-size:500%;
+    font-variant:small-caps;
+
+}
+
+#header h1 a, #header h1 a:visited {
+	color: #fff;
+	text-decoration: none;
+}
+
+#header h1 a:hover {
+	color: #fff;
+	text-decoration: none;
+	}
+
+#header h2 {
+	color: #bdbdbd;
+	font-size: 18px;
+    font-family: Arial, Helvetica, Sans-serif;
+}
+
+.logo {
+    margin: 25px 0 0 0;
+}
+
+/******************************************************
+    [ NAVIGATION ]
+*******************************************************/
+.navcontainer {
+	height: 32px;
+    margin-top: 9px;
+}
+	
+#nav {
+	height: 30px;
+}
+
+#nav, #nav ul { 
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	line-height: 1;
+}
+
+#nav {
+	margin-bottom: 1px;
+	padding-left: 0px;
+}
+	
+#nav ul {
+	float: left;
+	list-style: none;
+	margin: 0px 0px 0px 0px;
+	padding: 0px;
+}
+	
+#nav li {
+	float: left;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+	
+#nav ul li {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+	
+#nav li a, #nav li a:link {
+	color: #262626;
+	display: block;
+    margin: 0px 5px 0px 5px;
+	padding: 7px 10px;
+	text-decoration: none;
+	font-size: 13px;
+	font-weight: bold;
+    font-family: Arial, Helvetica, Sans-serif;
+	text-transform: uppercase;
+    text-shadow: 0 1px 0 #fff;
+}
+	
+#nav li a:hover, #nav li a:active, .current_page_item {
+	background: url(images/nav-background.png) repeat-x;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    color: #fff;
+    text-shadow: 0 1px 0 #000;
+}
+	
+#nav  li.current_page_item a {
+	color:#fff;
+    text-shadow: 0 1px 0 #000;
+}
+
+#nav li:hover, #nav li.sfhover { 
+	position: static;
+}
+
+/******************************************************
+    [ CONTENT ]
+*******************************************************/
+#content-wrpapper {}
+
+#content {
+	background: #fff;
+	margin: 20px 10px 0 0;
+}
+
+.post {
+	margin-bottom: 15px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #ccc;
+}
+
+.post p {
+	margin-bottom: 10px;
+}
+
+.post_thumbnail {
+    padding: 6px;
+    background: #eee;
+   border: 1px solid #ddd;
+    margin: 0 10px 10px 0;
+}
+
+.title {
+	margin-bottom: 4px;
+	font-family: Arial, Helvetica, Sans-serif;
+    font-size: 26px;
+    color: #3a3939;
+    font-weight: bold;
+}
+
+.title a {
+	text-decoration: none;
+	color: #3a3939;
+}
+
+.title a:hover {
+	text-decoration: underline;
+    color: #3a3939;
+}
+
+.pagetitle {
+	margin-bottom: 8px;
+    background: #eee;
+	padding: 6px 12px;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 18px;
+    color: #21759B;
+}
+
+.postdate {
+	font-size: 13px;
+    color: #666666;
+}
+
+.postdate span {
+    padding: 3px 8px;
+    margin-right: 4px;
+    background: #ddd;
+}
+
+.postmeta {
+	font-size: 11px;
+	padding: 4px 6px;
+	background: #eee;
+}
+	
+.readmorecontent {
+	text-align: right;
+    margin-bottom: 8px;
+}
+
+a.readmore {
+	padding: 4px 15px;
+	background: #e1dddd;
+	color: #5b5b5b;
+    font-size: 12px;
+	text-decoration: none;
+    text-shadow: 0 1px 0 #fff;
+    -moz-border-radius: 12px;
+    -khtml-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+}
+
+a.readmore:hover {
+	background-color: #cdcbcb;
+}
+    
+.entry {
+	text-align: justify;
+	line-height: 20px;
+	padding-top: 8px;
+    font-size: 14px;
+    color: #5b5b5b;
+}
+.navigation {
+	padding: 10px 0;
+}
+
+blockquote {
+	overflow: hidden;
+	padding-left: 9px;
+	font-style: italic;
+	color: #666;
+	border-left: 3px solid #CADAE7;
+}
+	
+.post img {
+	max-width: 680px;
+}
+
+img.wp-smiley {
+	max-height: 12px;
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+	
+.aligncenter,
+div.aligncenter {
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+.alignleft {
+   float: left;
+}
+
+.alignright {
+   float: right;
+}
+
+.wp-caption {
+   border: 1px solid #ddd;
+   text-align: center;
+   background-color: #f3f3f3;
+   padding-top: 4px;
+   margin: 10px;
+   /* optional rounded corners for browsers that support it */
+   -moz-border-radius: 3px;
+   -khtml-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   border-radius: 3px;
+}
+
+.wp-caption img {
+   margin: 0;
+   padding: 0;
+   border: 0 none;
+}
+
+.wp-caption p.wp-caption-text {
+   font-size: 11px;
+   line-height: 17px;
+   padding: 0 4px 5px;
+   margin: 0;
+}
+	
+/******************************************************
+    [ SIDEBAR(S) ]
+*******************************************************/
+
+.banner125 {
+	margin: 6px;
+	}
+    
+#sidebar {
+    background: #e3e3e3;
+    border: 2px solid #c5c5c5;
+    padding: 10px;
+    margin-bottom: 10px;
+    -moz-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+	
+
+#subscriptions {
+	margin: 0;
+    margin: 15px 0 0 0;
+	text-align: center;
+	}
+    
+#subscriptions img {
+    margin:0;
+    padding:0;
+    vertical-align:top;
+    }
+    
+#sidebar a {
+	text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+#sidebar a:hover {
+	text-decoration: underline;
+    color: #d54e21;
+}
+	
+.searchlayout {
+    border: 1px solid #bebebe;
+    height: 30px;
+    margin: 5px;
+    padding: 0;
+    background: #fff url(images/sinputnbackground.png) top left repeat-x;
+    text-align: right;
+}
+#search input {
+	border: 0;
+    background: none;
+}
+	
+	
+#s {
+	width: 190px;
+	padding: 4px;
+    margin:3px 0 0 0;
+    background: none;
+}
+
+/* Social icons */
+.addthis_toolbox {
+	margin: 15px 0 0 0;
+	text-align: center;
+	}
+.addthis_toolbox .custom_images a
+{
+    width: 32px;
+    height: 32px;
+    margin: 0 2px 0 2px;
+    padding: 0;
+}
+
+.addthis_toolbox .custom_images a:hover img
+{
+    opacity: 1;
+}
+
+.addthis_toolbox .custom_images a img
+{
+    opacity: 0.75;
+}
+	
+    
+#sidebar h2 {
+	margin: 10px 0 0 0;
+	padding: 4px 8px;
+	background: #c5c5c5;
+	font-size: 14px;
+	font-family: Arial;
+	text-transform: uppercase;
+	font-weight: bold;
+	color: #414445;
+    text-shadow: 0 1px 0 #fff;
+}
+
+#sidebar ul {
+	list-style-type: none;
+	margin: 0px 0px 10px 0px;
+	padding: 0px;
+}
+	
+#sidebar ul li {
+	list-style-type: none;
+	margin: 0px 0px 5px 0px;
+	padding: 0px;
+}
+
+#sidebar ul ul {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+	
+#sidebar ul li li {
+	padding: 3px 0px 3px 15px;
+	margin: 0px;
+	background: url(images/arrow.gif) no-repeat top left;
+}
+	
+#sidebar ul li ul li {
+	background: url(images/arrow.gif) no-repeat top left;
+	padding: 2px 0px 2px 15px;
+	margin: 2px 0;
+}
+
+
+#wp-calendar th {
+	font-style: normal;
+	text-transform: capitalize;
+	color: #555;
+	background: none;
+}
+#wp-calendar caption {
+	padding: 2px 4px;
+	text-transform: uppercase;	margin: 2px 0 2px 0;
+}
+
+#wp-calendar td {
+	color: #999;
+	font: normal 12px 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+	letter-spacing: normal;
+	padding: 2px 0;
+	text-align: center;
+}
+
+#wp-calendar td:hover, #wp-calendar #today {
+	background: #eee;
+	color: #555;
+}
+	
+#wp-calendar {
+	empty-cells: show;
+	font-size: 14px;
+	margin: 0;
+	font-weight: bold; 
+	width: 100%;
+}
+
+
+/******************************************************
+    [ FOOTER ]
+*******************************************************/
+
+#footer {
+	background: #181818;
+	padding: 20px;
+	border-top: 4px solid #c5c5c5;
+	text-align: center;
+	color: #fff;
+    margin-bottom: 15px;
+    font-size: 13px;
+}
+
+#footer a {
+	color: #fff;
+} 
+
+#footer a:hover {
+	color: #fff;
+	text-decoration: none;
+} 
+
+.footer-credits {
+    text-align: center;
+    font-size: 11px !important;
+    color: #999 !important;
+    padding: 4px;
+}
+
+.footer-credits a {
+	color: #999 !important;
+} 
+
+.footer-credits  a:hover {
+	text-decoration: none;
+} 
+
+/* wp-pagenavi style overriding */
+.wp-pagenavi a, .wp-pagenavi a:link, .wp-pagenavi a:active {
+    color: #686868 !important;
+    background:#dfdfdf !important;
+    border: 1px solid #989898 !important;
+    font-size: 15px !important;
+    padding:  4px 8px !important;
+}
+.wp-pagenavi a:hover {
+    color: #494949 !important;
+    background:#dfdfdf !important;
+    border: 1px solid #626262 !important;
+    
+}
+.wp-pagenavi span.pages {
+    color: #676767 !important;
+    background:#fff !important;
+    border: 1px solid #b6b5b5 !important;
+    font-size: 15px !important;
+    padding:  4px 8px !important;
+}
+.wp-pagenavi span.current {
+    color: #434343 !important;
+    background:#fff !important;
+    border: 1px solid #b6b5b5 !important;
+    font-size: 15px !important;
+    padding:  4px 8px !important;
+    font-weight: bold;
+}
+.wp-pagenavi span.extend {
+    color: #434343 !important;
+    background:#fff !important;
+    border: 1px solid #b6b5b5 !important;
+    font-size: 15px !important;
+    padding:  4px 8px !important;
+    font-weight: bold;
+}	
+/******************************************************
+    [ COMMENTS ]
+*******************************************************/
+
+#comments h3 {
+	margin-bottom: 10px;	
+}
+
+#commentform input {
+	width: 170px;
+	padding: 2px;
+	margin: 5px 5px 1px 0;
+}
+
+#commentform {
+	margin: 5px 10px 0 0;
+}
+	
+#commentform textarea {
+	width: 100%;
+	padding: 2px;
+}
+	
+#respond:after {
+		content: "."; 
+	    display: block; 
+	    height: 0; 
+	    clear: both; 
+	    visibility: hidden;
+}
+	
+#commentform #submit {
+	margin: 0 0 5px auto;
+	float: right;
+}
+
+.alt {
+	margin: 0;
+	padding: 10px;
+}
+
+.commentlist {
+	padding: 5px;
+	text-align: justify;
+    background: #eee;
+    -moz-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin:0;
+}
+
+.commentlist li {
+	margin: 15px 0 10px;
+	padding: 5px 5px 10px 10px;
+	list-style: none;
+
+}
+	
+.commentlist li ul li { 
+	margin-right: -5px;
+	margin-left: 10px;
+}
+
+.commentlist p {
+	margin: 10px 5px 10px 0;
+}
+.children { padding: 0; }
+
+#commentform p {
+	margin: 5px 0;
+}
+
+.nocomments {
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+
+.commentmetadata {
+	margin: -22px 0 0 63px;
+	display: block;
+    font-size: 11px;
+    padding:0;
+}
+
+.comment-body {
+
+}
+
+.avatar { 
+    border: 3px solid #ffffff;  
+    margin-right: 10px; 
+    width: 40px; 
+    height: 40px; 
+    vertical-align: middle;
+    margin-bottom: 2px;
+}
+
+.comment-author {
+    background: #ddd;
+    padding: 5px;
+    display: block;
+}
+
+.reply {
+    text-align: right;
+}
+.comment-reply-link  {
+	padding: 4px 15px;
+	background: #e1dddd;
+	color: #5b5b5b;
+    font-size: 12px;
+	text-decoration: none;
+    text-shadow: 0 1px 0 #fff;
+    -moz-border-radius: 12px;
+    -khtml-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+}
+
+.comment-reply-link:hover {
+	background-color: #cdcbcb;
+    color: #5b5b5b;
+}
+	
+.fn, .fn a:link, .fn a:hover, .fn a:visited { 
+    color: #333; 
+    font-family: Arial, Helvetica, Sans-serif;
+    font-size: 16px; 
+    font-style: normal; 
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.says {
+    font-family: Arial, Helvetica, Sans-serif;
+    font-size: 14px; 
+}
+
+.commentmetadata a, .commentmetadata a:hover {
+    color: #999; 
+    text-decoration: none;
+}
+/******************************************************
+    [ MISC (WP GENERATED) ]
+*******************************************************/
+
+.categories {}
+.cat-item {}
+.current-cat {}
+.current-cat-parent {}
+.pagenav {}
+.page_item {}
+.current_page_item {}
+.current_page_parent {}
+.widget {}
+.widget_text {}
+.blogroll {}
+.linkcat{}
