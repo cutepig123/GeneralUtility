@@ -82,8 +82,10 @@
     <Compile Include="ImagePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ImagePanel.Designer.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="ImagePanel.Designer.cs" >
+	<DependentUpon>ImagePanel.cs</DependentUpon>
+    </Compile>
+	<Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserControl1.cs">
       <SubType>UserControl</SubType>
@@ -94,7 +96,10 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ImagePanel.resx" />
+    <EmbeddedResource Include="ImagePanel.resx" >
+	<DependentUpon>ImagePanel.cs</DependentUpon>
+    </EmbeddedResource>
+	
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

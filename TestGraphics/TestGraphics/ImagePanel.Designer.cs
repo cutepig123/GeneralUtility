@@ -55,6 +55,11 @@ namespace YLScsImage
             this.Controls.Add(this.vScrollBar1);
             this.Controls.Add(this.hScrollBar1);
             this.Name = "ImagePanel";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ImagePanel_KeyDown);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseUp);
+            
             this.ResumeLayout(false);
 
         }
