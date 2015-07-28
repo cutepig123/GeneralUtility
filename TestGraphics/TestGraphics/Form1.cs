@@ -48,5 +48,25 @@ namespace TestGraphics
                 imagePanel1.Image = b;
             }
         }
+
+        private void addLineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void zoomOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            imagePanel1.Zoom /= 2;
+        }
+
+        private void zoomInToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            imagePanel1.Zoom *= 2;
+        }
     }
 }

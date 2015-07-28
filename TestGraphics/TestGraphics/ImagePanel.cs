@@ -1,3 +1,4 @@
+//http://www.codeproject.com/Articles/26532/A-Zoomable-and-Scrollable-PictureBox
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -166,7 +167,7 @@ namespace YLScsImage
             else
             {
                 hScrollBar1.Visible = true;
-                viewRectHeight = Height - hScrollBar1.Height;
+                viewRectHeight = Height - hScrollBar1.Height - statusStrip1.Height;
             }
 
             // If the zoomed image is taller than view window, show the VScrollBar and adjust the view window
@@ -182,7 +183,8 @@ namespace YLScsImage
             }
 
             // Set up scrollbars
-            hScrollBar1.Location = new Point(0, Height - hScrollBar1.Height);
+            statusStrip1.Location = new Point(0, Height - statusStrip1.Height);
+            hScrollBar1.Location = new Point(0, Height - hScrollBar1.Height - statusStrip1.Height);
             hScrollBar1.Width = viewRectWidth;
             vScrollBar1.Location = new Point(Width - vScrollBar1.Width, 0);
             vScrollBar1.Height = viewRectHeight;
@@ -250,21 +252,21 @@ namespace YLScsImage
             return p;
         }
 
-        PointF ScalePointF(Point pt, float scale)
-        {
-            PointF p = new PointF();
-            p.X = pt.X * scale;
-            p.Y = pt.Y * scale;
-            return p;
-        }
+        //PointF ScalePointF(Point pt, float scale)
+        //{
+        //    PointF p = new PointF();
+        //    p.X = pt.X * scale;
+        //    p.Y = pt.Y * scale;
+        //    return p;
+        //}
 
-        Point ToPoint(PointF pt)
-        {
-            Point p = new Point();
-            p.X = (int)pt.X;
-            p.Y = (int)pt.Y;
-            return p;
-        }
+        //Point ToPoint(PointF pt)
+        //{
+        //    Point p = new Point();
+        //    p.X = (int)pt.X;
+        //    p.Y = (int)pt.Y;
+        //    return p;
+        //}
 
         private bool MouseIsOverEndpoint(PointF mouse_pt,
             out int pt_idx)
@@ -287,28 +289,28 @@ namespace YLScsImage
 
         private void ImagePanel_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Control && e.Shift && e.KeyCode == Keys.P)
-            {
-                MessageBox.Show("Hello");
-            }
+            //if (e.Control && e.Shift && e.KeyCode == Keys.P)
+            //{
+            //    MessageBox.Show("Hello");
+            //}
 
-            else if (e.Control && e.KeyCode == Keys.P)
-            {
-                Zoom = Zoom * 2;
-            }
+            //else if (e.Control && e.KeyCode == Keys.P)
+            //{
+            //    Zoom = Zoom * 2;
+            //}
 
-            else if (e.Control && e.KeyCode == Keys.O)
-            {
-                Zoom = Zoom / 2;
-            }
+            //else if (e.Control && e.KeyCode == Keys.O)
+            //{
+            //    Zoom = Zoom / 2;
+            //}
 
         }
 
         PointF GetMouseLocation(Point pt)
         {
             PointF p = new PointF();
-            p.X = (pt.X) / zoom + this.hScrollBar1.Value;
-            p.Y = (pt.Y) / zoom + this.vScrollBar1.Value;
+            p.X = (pt.X + this.hScrollBar1.Value) / zoom;
+            p.Y = (pt.Y + this.vScrollBar1.Value) / zoom ;
             return p;
         }
 
@@ -333,7 +335,7 @@ namespace YLScsImage
         private void ImagePanel_MouseDown(object sender, MouseEventArgs e)
         {
             PointF pt = GetMouseLocation(e.Location);
-            //toolStripStatusLabel1.Text = String.Format("{0} {1}", pt.X, pt.Y);
+            toolStripStatusLabel1.Text = String.Format("{0} {1}", pt.X, pt.Y);
 
             int pt_idx;
 
@@ -349,6 +351,11 @@ namespace YLScsImage
                 mMode = Mode.Mode_Default;
                 mEditPtIdx = -1;
             }
+
+        }
+
+        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
+        {
 
         }
 
