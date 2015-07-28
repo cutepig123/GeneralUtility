@@ -77,6 +77,7 @@ namespace YLScsImage
             this.Controls.Add(this.hScrollBar1);
             this.Name = "ImagePanel";
             this.Size = new System.Drawing.Size(150, 138);
+            this.DoubleClick += new System.EventHandler(this.ImagePanel_DoubleClick);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ImagePanel_KeyDown);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ImagePanel_MouseMove);

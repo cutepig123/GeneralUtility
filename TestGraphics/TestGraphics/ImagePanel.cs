@@ -27,14 +27,14 @@ namespace YLScsImage
             Pts.Add(new Point(30 * 5, 5 * 3));
         }
 
-		//Image mImage;
-        //float zoom;
-        private List<PointF> Pts = new List<PointF>();
+		private List<PointF> Pts = new List<PointF>();
+        PointF mCurrPt =new PointF();
         private int object_radius = 3;
         private int over_dist_squared = 5;
         enum Mode{
             Mode_Default,
-            Mode_EditPt
+            Mode_EditPt,
+            Mode_AddLine,
         };
 
         Mode mMode = Mode.Mode_Default;
@@ -149,6 +149,11 @@ namespace YLScsImage
                 e.Graphics.DrawEllipse(Pens.Black, rect);
             }
 
+            if(mMode==Mode.Mode_AddLine)
+            {
+                if (Pts.Count>0)
+                    e.Graphics.DrawLine(Pens.Blue, ScalePointF(Pts[Pts.Count - 1], zoom), ScalePointF(mCurrPt, zoom));
+            }
         }
 
         private void displayScrollbar()
@@ -321,29 +326,17 @@ namespace YLScsImage
                 Pts[mEditPtIdx] = GetMouseLocation(e.Location);
                 Invalidate();
             }
-
+            else if(mMode==Mode.Mode_AddLine)
+            {
+                mCurrPt = GetMouseLocation(e.Location);
+                Invalidate();
+            }
         }
 
         private void ImagePanel_MouseUp(object sender, MouseEventArgs e)
         {
-            this.Cursor = Cursors.Default;
-            mMode = Mode.Mode_Default;
-            mEditPtIdx = -1;
-
-        }
-
-        private void ImagePanel_MouseDown(object sender, MouseEventArgs e)
-        {
-            PointF pt = GetMouseLocation(e.Location);
-            toolStripStatusLabel1.Text = String.Format("{0} {1}", pt.X, pt.Y);
-
-            int pt_idx;
-
-            if (MouseIsOverEndpoint(pt, out pt_idx))
+            if (mMode == Mode.Mode_AddLine)
             {
-                this.Cursor = Cursors.Cross;
-                mMode = Mode.Mode_EditPt;
-                mEditPtIdx = pt_idx;
             }
             else
             {
@@ -351,7 +344,36 @@ namespace YLScsImage
                 mMode = Mode.Mode_Default;
                 mEditPtIdx = -1;
             }
+        }
 
+        private void ImagePanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (mMode == Mode.Mode_AddLine)
+            {
+                PointF pt = GetMouseLocation(e.Location);
+                Pts.Add(pt);
+                Invalidate();
+            }
+            else
+            {
+                PointF pt = GetMouseLocation(e.Location);
+                toolStripStatusLabel1.Text = String.Format("{0} {1}", pt.X, pt.Y);
+
+                int pt_idx;
+
+                if (MouseIsOverEndpoint(pt, out pt_idx))
+                {
+                    this.Cursor = Cursors.Cross;
+                    mMode = Mode.Mode_EditPt;
+                    mEditPtIdx = pt_idx;
+                }
+                else
+                {
+                    this.Cursor = Cursors.Default;
+                    mMode = Mode.Mode_Default;
+                    mEditPtIdx = -1;
+                }
+            }
         }
 
         private void toolStripStatusLabel1_Click(object sender, EventArgs e)
@@ -359,5 +381,21 @@ namespace YLScsImage
 
         }
 
+        public void AddLine()
+        {
+            mMode = Mode.Mode_AddLine;
+            Pts.Clear();
+            Invalidate();
+        }
+
+        private void ImagePanel_DoubleClick(object sender, EventArgs e)
+        {
+            if(mMode==Mode.Mode_AddLine)
+            {
+                this.Cursor = Cursors.Default;
+                mMode = Mode.Mode_Default;
+                mEditPtIdx = -1;
+            }
+        }
     }
 }

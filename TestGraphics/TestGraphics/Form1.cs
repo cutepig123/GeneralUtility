@@ -51,7 +51,7 @@ namespace TestGraphics
 
         private void addLineToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            imagePanel1.AddLine();
         }
 
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
