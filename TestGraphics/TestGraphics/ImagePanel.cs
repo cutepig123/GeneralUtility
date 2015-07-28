@@ -21,13 +21,18 @@ namespace YLScsImage
               ControlStyles.UserPaint | ControlStyles.ResizeRedraw |
               ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
 
-            Pts.Add(new Point(10 * 5, 10 * 3));
-            Pts.Add(new Point(10 * 5, 15 * 3));
-            Pts.Add(new Point(20 * 5, 10 * 3));
-            Pts.Add(new Point(30 * 5, 5 * 3));
+            mPts.Add(new Point(10 * 5, 10 * 3));
+            mPts.Add(new Point(10 * 5, 15 * 3));
+            mPts.Add(new Point(20 * 5, 10 * 3));
+            mPts.Add(new Point(30 * 5, 5 * 3));
         }
 
-		private List<PointF> Pts = new List<PointF>();
+		private List<PointF> mPts = new List<PointF>();
+        public List<PointF> Pts
+        {
+            get { return mPts; }
+        }
+
         PointF mCurrPt =new PointF();
         private int object_radius = 3;
         private int over_dist_squared = 5;
@@ -51,6 +56,7 @@ namespace YLScsImage
                 if (value < 0.001f) value = 0.001f;
                 zoom = value;
 
+                toolStripStatusLabel2.Text = String.Format("x{0}", zoom);
                 displayScrollbar();
                 setScrollbarValues();
                 Invalidate();
@@ -133,14 +139,14 @@ namespace YLScsImage
             e.Graphics.ResetTransform();
             e.Graphics.TranslateTransform(-this.hScrollBar1.Value, -this.vScrollBar1.Value );
 
-            for (int i = 0; i < Pts.Count - 1; i++)
+            for (int i = 0; i < mPts.Count - 1; i++)
             {
                 // Draw the segment.
-                e.Graphics.DrawLine(Pens.Blue, ScalePointF(Pts[i], zoom), ScalePointF(Pts[i + 1], zoom));
+                e.Graphics.DrawLine(Pens.Blue, ScalePointF(mPts[i], zoom), ScalePointF(mPts[i + 1], zoom));
             }
 
             // Draw the end points.
-            foreach (PointF pt in Pts)
+            foreach (PointF pt in mPts)
             {
                 Rectangle rect = new Rectangle(
                     (int)(pt.X * zoom - object_radius), (int)(pt.Y * zoom - object_radius),
@@ -151,8 +157,8 @@ namespace YLScsImage
 
             if(mMode==Mode.Mode_AddLine)
             {
-                if (Pts.Count>0)
-                    e.Graphics.DrawLine(Pens.Blue, ScalePointF(Pts[Pts.Count - 1], zoom), ScalePointF(mCurrPt, zoom));
+                if (mPts.Count>0)
+                    e.Graphics.DrawLine(Pens.Blue, ScalePointF(mPts[mPts.Count - 1], zoom), ScalePointF(mCurrPt, zoom));
             }
         }
 
@@ -276,10 +282,10 @@ namespace YLScsImage
         private bool MouseIsOverEndpoint(PointF mouse_pt,
             out int pt_idx)
         {
-            for (int i = 0; i < Pts.Count; i++)
+            for (int i = 0; i < mPts.Count; i++)
             {
                 // Check the starting point.
-                if (FindDistanceToPointSquared(mouse_pt, (Pts[i])) <
+                if (FindDistanceToPointSquared(mouse_pt, (mPts[i])) <
                     over_dist_squared)
                 {
                     pt_idx = i;
@@ -323,7 +329,7 @@ namespace YLScsImage
         {
             if (mMode == Mode.Mode_EditPt)
             {
-                Pts[mEditPtIdx] = GetMouseLocation(e.Location);
+                mPts[mEditPtIdx] = GetMouseLocation(e.Location);
                 Invalidate();
             }
             else if(mMode==Mode.Mode_AddLine)
@@ -351,7 +357,7 @@ namespace YLScsImage
             if (mMode == Mode.Mode_AddLine)
             {
                 PointF pt = GetMouseLocation(e.Location);
-                Pts.Add(pt);
+                mPts.Add(pt);
                 Invalidate();
             }
             else
@@ -384,7 +390,7 @@ namespace YLScsImage
         public void AddLine()
         {
             mMode = Mode.Mode_AddLine;
-            Pts.Clear();
+            mPts.Clear();
             Invalidate();
         }
 

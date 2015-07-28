@@ -34,9 +34,11 @@
             this.openImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.imagePanel1 = new YLScsImage.ImagePanel();
             this.zoomInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.getToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.imagePanel1 = new YLScsImage.ImagePanel();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,34 +79,23 @@
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addLineToolStripMenuItem,
             this.zoomInToolStripMenuItem,
-            this.zoomOutToolStripMenuItem});
+            this.zoomOutToolStripMenuItem,
+            this.getToolStripMenuItem,
+            this.toolStripMenuItem2});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(42, 21);
             this.editToolStripMenuItem.Text = "&Edit";
             // 
             // addLineToolStripMenuItem
             // 
+            this.addLineToolStripMenuItem.AutoToolTip = true;
             this.addLineToolStripMenuItem.Name = "addLineToolStripMenuItem";
             this.addLineToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.addLineToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.addLineToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.addLineToolStripMenuItem.Tag = "";
             this.addLineToolStripMenuItem.Text = "&Add line";
+            this.addLineToolStripMenuItem.ToolTipText = "Note: DblClick to draw the last point";
             this.addLineToolStripMenuItem.Click += new System.EventHandler(this.addLineToolStripMenuItem_Click);
-            // 
-            // imagePanel1
-            // 
-            this.imagePanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.imagePanel1.CanvasSize = new System.Drawing.Size(60, 40);
-            this.imagePanel1.Image = null;
-            this.imagePanel1.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
-            this.imagePanel1.Location = new System.Drawing.Point(0, 27);
-            this.imagePanel1.Name = "imagePanel1";
-            this.imagePanel1.Size = new System.Drawing.Size(284, 233);
-            this.imagePanel1.TabIndex = 0;
-            this.imagePanel1.Zoom = 1F;
-            this.imagePanel1.Load += new System.EventHandler(this.imagePanel1_Load);
-            this.imagePanel1.Click += new System.EventHandler(this.imagePanel1_Click);
             // 
             // zoomInToolStripMenuItem
             // 
@@ -123,6 +114,36 @@
             this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.zoomOutToolStripMenuItem.Text = "Zoom &Out";
             this.zoomOutToolStripMenuItem.Click += new System.EventHandler(this.zoomOutToolStripMenuItem_Click);
+            // 
+            // getToolStripMenuItem
+            // 
+            this.getToolStripMenuItem.Name = "getToolStripMenuItem";
+            this.getToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.getToolStripMenuItem.Text = "&Get Line";
+            this.getToolStripMenuItem.Click += new System.EventHandler(this.getToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(185, 22);
+            this.toolStripMenuItem2.Text = "&Refine line";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // imagePanel1
+            // 
+            this.imagePanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.imagePanel1.CanvasSize = new System.Drawing.Size(60, 40);
+            this.imagePanel1.Image = null;
+            this.imagePanel1.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
+            this.imagePanel1.Location = new System.Drawing.Point(0, 27);
+            this.imagePanel1.Name = "imagePanel1";
+            this.imagePanel1.Size = new System.Drawing.Size(284, 233);
+            this.imagePanel1.TabIndex = 0;
+            this.imagePanel1.Zoom = 1F;
+            this.imagePanel1.Load += new System.EventHandler(this.imagePanel1_Load);
+            this.imagePanel1.Click += new System.EventHandler(this.imagePanel1_Click);
             // 
             // Form1
             // 
@@ -152,6 +173,8 @@
         private System.Windows.Forms.ToolStripMenuItem addLineToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zoomInToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zoomOutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem getToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
 
 
     }

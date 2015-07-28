@@ -1,9 +1,6 @@
 ﻿/*
- issues
- * 1. 如果去掉button，则autoscroll不工作
- * 2. autoscroll的scrollbar大小不对
- * 3. Refresh有闪屏现象
- * 4. 如何让statusbar不随着scrollbar移动？
+todo
+ * 
  */
 
 //http://book.51cto.com/art/200811/98820.htm
@@ -67,6 +64,51 @@ namespace TestGraphics
         private void zoomInToolStripMenuItem_Click(object sender, EventArgs e)
         {
             imagePanel1.Zoom *= 2;
+        }
+
+        private void getToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            String text =String.Format("\r\n");
+            for(int i=0; i<imagePanel1.Pts.Count; i++)
+            {
+                string s =string.Format("{0}: {1} {2}\r\n", i,
+                    imagePanel1.Pts[i].X, imagePanel1.Pts[i].Y);
+
+                text += s;
+            }
+            string promptValue = Prompt.ShowDialog("All points of the line:", "Line",text);
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Not impl");
+        }
+    }
+
+    //http://stackoverflow.com/questions/5427020/prompt-dialog-in-windows-forms
+    public static class Prompt
+    {
+        public static string ShowDialog(string text, string caption, string cont)
+        {
+            Form prompt = new Form();
+            prompt.Width = 200;
+            prompt.Height = 550;
+            prompt.FormBorderStyle = FormBorderStyle.FixedDialog;
+            prompt.Text = caption;
+            prompt.StartPosition = FormStartPosition.CenterScreen;
+            Label textLabel = new Label() { Left = 50, Top = 20, Text = text };
+            TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 100, Height =400 };
+            textBox.Multiline = true;
+            textBox.ScrollBars = ScrollBars.Both;
+            textBox.Text = cont;
+            Button confirmation = new Button() { Text = "Ok", Left = 50, Width = 100, Top = 450, DialogResult = DialogResult.OK };
+            confirmation.Click += (sender, e) => { prompt.Close(); };
+            prompt.Controls.Add(textBox);
+            prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(textLabel);
+            prompt.AcceptButton = confirmation;
+
+            return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : "";
         }
     }
 }
