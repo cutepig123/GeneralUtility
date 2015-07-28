@@ -136,7 +136,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.imagePanel1.CanvasSize = new System.Drawing.Size(60, 40);
             this.imagePanel1.Image = null;
-            this.imagePanel1.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
+            this.imagePanel1.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
             this.imagePanel1.Location = new System.Drawing.Point(0, 27);
             this.imagePanel1.Name = "imagePanel1";
             this.imagePanel1.Size = new System.Drawing.Size(284, 233);

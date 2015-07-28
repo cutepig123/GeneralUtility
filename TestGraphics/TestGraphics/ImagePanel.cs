@@ -7,6 +7,7 @@ using System.Drawing.Drawing2D;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace YLScsImage
 {
@@ -53,12 +54,17 @@ namespace YLScsImage
             get { return zoom; }
             set
             {
-                if (value < 0.001f) value = 0.001f;
+                if (value < 1.0f / 16) value = 1.0f / 16;
+                PointF pt = GetMouseLocation(new Point(viewRectWidth/2, viewRectHeight/2));
                 zoom = value;
 
                 toolStripStatusLabel2.Text = String.Format("x{0}", zoom);
+
                 displayScrollbar();
                 setScrollbarValues();
+                
+                hScrollBar1.Value =Math.Min(hScrollBar1.Maximum, Math.Max(0,  (int)(pt.X * zoom) - viewRectWidth / 2));
+                vScrollBar1.Value =Math.Min(vScrollBar1.Maximum,Math.Max(0,   (int)(pt.Y * zoom) - viewRectHeight / 2));
                 Invalidate();
             }
         }
@@ -109,6 +115,17 @@ namespace YLScsImage
             setScrollbarValues();
             base.OnResize(e);
         }
+
+        float hscrollvalue
+        {
+            get { return hScrollBar1.Visible ? hScrollBar1.Value: 0; }
+        }
+
+        float vscrollvalue
+        {
+            get { return vScrollBar1.Visible ? vScrollBar1.Value : 0; }
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
              base.OnPaint(e);
@@ -117,7 +134,7 @@ namespace YLScsImage
             if(image!=null)
             {
                 Rectangle srcRect,distRect;
-                Point pt=new Point((int)(hScrollBar1.Value/zoom),(int)(vScrollBar1.Value/zoom));
+                Point pt = new Point((int)(hscrollvalue / zoom), (int)(vscrollvalue / zoom));
                 if (canvasSize.Width * zoom < viewRectWidth && canvasSize.Height * zoom < viewRectHeight)
                     srcRect = new Rectangle(0, 0, canvasSize.Width, canvasSize.Height);  // view all image
                 else srcRect = new Rectangle(pt, new Size((int)(viewRectWidth / zoom), (int)(viewRectHeight / zoom))); // view a portion of image
@@ -137,7 +154,7 @@ namespace YLScsImage
             }
 
             e.Graphics.ResetTransform();
-            e.Graphics.TranslateTransform(-this.hScrollBar1.Value, -this.vScrollBar1.Value );
+            e.Graphics.TranslateTransform(-hscrollvalue, -vscrollvalue);
 
             for (int i = 0; i < mPts.Count - 1; i++)
             {
@@ -173,6 +190,7 @@ namespace YLScsImage
             if (viewRectWidth > canvasSize.Width*zoom)
             {
                 hScrollBar1.Visible = false;
+                hScrollBar1.Value = 0;
                 viewRectHeight = Height;
             }
             else
@@ -185,6 +203,7 @@ namespace YLScsImage
             if (viewRectHeight > canvasSize.Height*zoom)
             {
                 vScrollBar1.Visible = false;
+                vScrollBar1.Value = 0;
                 viewRectWidth = Width;
             }
             else
@@ -320,8 +339,9 @@ namespace YLScsImage
         PointF GetMouseLocation(Point pt)
         {
             PointF p = new PointF();
-            p.X = (pt.X + this.hScrollBar1.Value) / zoom;
-            p.Y = (pt.Y + this.vScrollBar1.Value) / zoom ;
+
+            p.X = (pt.X + hscrollvalue) / zoom;
+            p.Y = (pt.Y + vscrollvalue) / zoom;
             return p;
         }
 
@@ -354,17 +374,18 @@ namespace YLScsImage
 
         private void ImagePanel_MouseDown(object sender, MouseEventArgs e)
         {
+            PointF pt = GetMouseLocation(e.Location);
+            Color color = image.GetPixel((int)pt.X, (int)pt.Y);
+            toolStripStatusLabel1.Text = String.Format("X {0} Y {1} R {2} R {3} R {4}", pt.X, pt.Y,
+                color.R, color.G,color.B);
+
             if (mMode == Mode.Mode_AddLine)
             {
-                PointF pt = GetMouseLocation(e.Location);
                 mPts.Add(pt);
                 Invalidate();
             }
             else
             {
-                PointF pt = GetMouseLocation(e.Location);
-                toolStripStatusLabel1.Text = String.Format("{0} {1}", pt.X, pt.Y);
-
                 int pt_idx;
 
                 if (MouseIsOverEndpoint(pt, out pt_idx))
