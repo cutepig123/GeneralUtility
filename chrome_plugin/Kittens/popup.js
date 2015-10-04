@@ -79,6 +79,17 @@ var kittenGenerator = {
 
 var svgNS = "http://www.w3.org/2000/svg";
 
+function drawIntro(svg) { 
+    svg.circle(75, 75, 50, 
+        {fill: 'none', stroke: 'red', strokeWidth: 3}); 
+    var g = svg.group({stroke: 'black', strokeWidth: 2}); 
+    svg.line(g, 15, 75, 135, 75); 
+    svg.line(g, 75, 15, 75, 135); 
+	
+	svg.text(522,20,"Log Path = newText",{fill:"red"});
+}
+
+	
 var mySvgGenerator={
   
   showHtml: function () {
@@ -86,7 +97,6 @@ var mySvgGenerator={
     for (var i = 0; i < 10; i++) {
       var img = document.createElement('div');
       img.innerText = "xx" + i.toString();
-    //  img.setAttribute('alt', kittens[i].getAttribute('title'));
       document.body.appendChild(img);
     }
   },
@@ -113,8 +123,7 @@ var mySvgGenerator={
   
   newG: function(){
 	var img = document.createElementNS(svgNS,'g');
-      //img.setAttribute('transform', transform);
-	  img.setAttribute('fill', 'none');
+      img.setAttribute('fill', 'none');
 	  return img;
   },
   
@@ -126,8 +135,6 @@ var mySvgGenerator={
 	svg.setAttribute('height', 600);
 	mySvg.appendChild(svg);
 	
-	//var g=this.newG();
-	//svg.appendChild(g);
 	var g=svg;
 	
 	var text=this.newText(522,20,"Log Path = newText","red");
@@ -136,21 +143,20 @@ var mySvgGenerator={
     for (var i = 0; i < 10; i++) {
 		//svg.appendChild(this.newText(0,100*i,'x'+i));
     }
+  },
+  
+  showSvgByJQuery: function () {
+	$('#mySvg').svg({onLoad: drawIntro});
+	
+    
   }
  };
-
-// Run our kitten generation script as soon as the document's DOM is ready.
-/*document.addEventListener('DOMContentLoaded', function () {
-  //kittenGenerator.requestKittens();
-  mySvgGenerator.showSvg();
-});*/
 
 function test(){
 	var xmlhttp = new XMLHttpRequest(); 
 	xmlhttp.open("GET","post.xml",false); 
 	xmlhttp.send(""); 
 	xmlDoc = xmlhttp.responseXML; 
-	//var tablink2 = xmlDoc.getElementsByTagName("alias")[0].childNodes[0].nodeValue;
 	alert(xmlDoc);
 }
 
@@ -163,7 +169,6 @@ function loadXMLDoc()
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		{
 			document.getElementById("myDiv").innerText=xmlhttp.responseText;
-			//alert(xmlhttp.responseText);
 		}
 		else
 			document.getElementById("myDiv").innerText="Error open file!";
@@ -182,8 +187,8 @@ id.innerText =("X:" + x + ", Y:" + y);
 }
 
 document.addEventListener('DOMContentLoaded', function () {
- loadXMLDoc();
- mySvgGenerator.showSvg();
+// loadXMLDoc();
+ mySvgGenerator.showSvgByJQuery();
 });
 
 document.addEventListener('mousedown', function (e) {
