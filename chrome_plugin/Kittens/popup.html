@@ -1,32 +1,10 @@
 <html>
 
 <head>
-<script type="text/javascript">
-	function test(){
-		var xmlhttp = new XMLHttpRequest(); 
-		xmlhttp.open("GET","post.xml",false); 
-		xmlhttp.send(""); 
-		xmlDoc = xmlhttp.responseXML; 
-		//var tablink2 = xmlDoc.getElementsByTagName("alias")[0].childNodes[0].nodeValue;
-		alert(xmlDoc);
-	}
-	
-	
-	function show_coords(event)
-	{
-	var x=event.clientX;
-	var y=event.clientY;
-	var id=document.getElementById("Position");
-	id.innerText =("X 坐标: " + x + ", Y 坐标: " + y);
-	}
-
-
-</script>
+<script src="popup.js"></script>
 </head>
 
-<body onload="test()" onmousedown="show_coords(event)">
-
-<button type="button" onclick="test()"  >Change Content</button>
+<body>
 
 <div>
 
@@ -45,7 +23,7 @@
 
   <g fill="none">
     <image xlink:href="bg.png" x="0" y="0" height="512px" width="512px" style="opacity:1.0" />
-    <image xlink:href="Mask.bmp" x="0" y="0" height="512px" width="512px" style="opacity:0.5" />
+    <image xlink:href="bg.png" x="0" y="0" height="512px" width="512px" style="opacity:0.5" />
     <path stroke="red" stroke-width="2" d="M164.5 114.5 L184.1 114.1 L254.9 114.9 L274 114" marker-start = "url(#StartMarker)" marker-mid = "url(#MidMarker)" marker-end = "url(#EndMarker)">
 	<title>eqt: 1.23x + 3.45y + 5.78 = 0</title>
     </path>
@@ -64,7 +42,8 @@
 </svg>
  </div>
  
- <div id="Position"/>
+ Position:<div id="Position"/>
+ myDiv: <div id="myDiv">
  
 </body>
 </html>

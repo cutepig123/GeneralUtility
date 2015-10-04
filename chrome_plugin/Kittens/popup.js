@@ -133,7 +133,51 @@ var mySvgGenerator={
  };
 
 // Run our kitten generation script as soon as the document's DOM is ready.
-document.addEventListener('DOMContentLoaded', function () {
+/*document.addEventListener('DOMContentLoaded', function () {
   //kittenGenerator.requestKittens();
   mySvgGenerator.showSvg();
+});*/
+
+function test(){
+	var xmlhttp = new XMLHttpRequest(); 
+	xmlhttp.open("GET","post.xml",false); 
+	xmlhttp.send(""); 
+	xmlDoc = xmlhttp.responseXML; 
+	//var tablink2 = xmlDoc.getElementsByTagName("alias")[0].childNodes[0].nodeValue;
+	alert(xmlDoc);
+}
+
+function loadXMLDoc()
+{
+	var xmlhttp;
+	xmlhttp=new XMLHttpRequest();
+	  
+	xmlhttp.onreadystatechange=function(){
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			document.getElementById("myDiv").innerText=xmlhttp.responseText;
+			alert(xmlhttp.responseText);
+		}
+		else
+			document.getElementById("myDiv").innerText="Error open file!";
+	};
+	  
+	xmlhttp.open("GET","post.xml",true);
+	xmlhttp.send();
+}
+
+function show_coords(event)
+{
+var x=event.clientX;
+var y=event.clientY;
+var id=document.getElementById("Position");
+id.innerText =("X:" + x + ", Y:" + y);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+ loadXMLDoc();
+});
+
+document.addEventListener('mousedown', function (e) {
+  show_coords(e);
 });
