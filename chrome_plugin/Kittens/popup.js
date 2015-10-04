@@ -77,8 +77,10 @@ var kittenGenerator = {
   }
 };
 
+var svgNS = "http://www.w3.org/2000/svg";
 
 var mySvgGenerator={
+  
   showHtml: function () {
     
     for (var i = 0; i < 10; i++) {
@@ -90,7 +92,8 @@ var mySvgGenerator={
   },
   
   newRect: function(x,y,w,h,color){
-	var img = document.createElement('rect');
+	
+	var img = document.createElementNS(svgNS,'rect');
       img.setAttribute('x', x);
 	  img.setAttribute('y', y);
 	  img.setAttribute('width', w);
@@ -99,35 +102,39 @@ var mySvgGenerator={
 	  return img;
   },
   
-  newText: function(x,y,text){
-	var img = document.createElement('text');
+  newText: function(x,y,text,color){
+	var img = document.createElementNS(svgNS,'text');
       img.setAttribute('x', x);
 	  img.setAttribute('y', y);
-	  img.innerHTML =text;
-	  //img.setAttribute('style', "stroke:#a08071;stroke-width:1");
+	  img.textContent =text;
+	  img.setAttribute('fill', "red");
 	  return img;
   },
   
-  newG: function(transform){
-	var img = document.createElement('g');
-      img.setAttribute('transform', transform);
+  newG: function(){
+	var img = document.createElementNS(svgNS,'g');
+      //img.setAttribute('transform', transform);
+	  img.setAttribute('fill', 'none');
 	  return img;
   },
   
   showSvg: function () {
-    var svg = document.createElement('svg');
-	svg.setAttribute('width', 800);
-	svg.setAttribute('height', 800);
+	var mySvg=document.getElementById("mySvg");
 	
-	document.body.appendChild(svg);
+    var svg = document.createElementNS(svgNS,'svg');
+	svg.setAttribute('width', 600);
+	svg.setAttribute('height', 600);
+	mySvg.appendChild(svg);
 	
-	var rect=this.newRect(0,0,600,600);
-	var g=this.newG("");
-	g.appendChild(rect);
-	svg.appendChild(g);
+	//var g=this.newG();
+	//svg.appendChild(g);
+	var g=svg;
+	
+	var text=this.newText(522,20,"Log Path = newText","red");
+	g.appendChild(text);
 	
     for (var i = 0; i < 10; i++) {
-		svg.appendChild(this.newText(0,100*i,'x'+i));
+		//svg.appendChild(this.newText(0,100*i,'x'+i));
     }
   }
  };
@@ -156,7 +163,7 @@ function loadXMLDoc()
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		{
 			document.getElementById("myDiv").innerText=xmlhttp.responseText;
-			alert(xmlhttp.responseText);
+			//alert(xmlhttp.responseText);
 		}
 		else
 			document.getElementById("myDiv").innerText="Error open file!";
@@ -176,6 +183,7 @@ id.innerText =("X:" + x + ", Y:" + y);
 
 document.addEventListener('DOMContentLoaded', function () {
  loadXMLDoc();
+ mySvgGenerator.showSvg();
 });
 
 document.addEventListener('mousedown', function (e) {
