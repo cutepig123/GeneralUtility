@@ -77,7 +77,63 @@ var kittenGenerator = {
   }
 };
 
+
+var mySvgGenerator={
+  showHtml: function () {
+    
+    for (var i = 0; i < 10; i++) {
+      var img = document.createElement('div');
+      img.innerText = "xx" + i.toString();
+    //  img.setAttribute('alt', kittens[i].getAttribute('title'));
+      document.body.appendChild(img);
+    }
+  },
+  
+  newRect: function(x,y,w,h,color){
+	var img = document.createElement('rect');
+      img.setAttribute('x', x);
+	  img.setAttribute('y', y);
+	  img.setAttribute('width', w);
+	  img.setAttribute('height', h);
+	  img.setAttribute('style', "stroke:#a08071;stroke-width:1");
+	  return img;
+  },
+  
+  newText: function(x,y,text){
+	var img = document.createElement('text');
+      img.setAttribute('x', x);
+	  img.setAttribute('y', y);
+	  img.innerHTML =text;
+	  //img.setAttribute('style', "stroke:#a08071;stroke-width:1");
+	  return img;
+  },
+  
+  newG: function(transform){
+	var img = document.createElement('g');
+      img.setAttribute('transform', transform);
+	  return img;
+  },
+  
+  showSvg: function () {
+    var svg = document.createElement('svg');
+	svg.setAttribute('width', 800);
+	svg.setAttribute('height', 800);
+	
+	document.body.appendChild(svg);
+	
+	var rect=this.newRect(0,0,600,600);
+	var g=this.newG("");
+	g.appendChild(rect);
+	svg.appendChild(g);
+	
+    for (var i = 0; i < 10; i++) {
+		svg.appendChild(this.newText(0,100*i,'x'+i));
+    }
+  }
+ };
+
 // Run our kitten generation script as soon as the document's DOM is ready.
 document.addEventListener('DOMContentLoaded', function () {
-  kittenGenerator.requestKittens();
+  //kittenGenerator.requestKittens();
+  mySvgGenerator.showSvg();
 });
