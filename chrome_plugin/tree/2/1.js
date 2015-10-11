@@ -44,24 +44,30 @@ var data = {
 function addItem(parentUL, branch) {
     for (var key in branch.children) {
         var item = branch.children[key];
-        $item = $('<li>', {
+        var myitem = $('<li>', {
             id: "item" + item.id
         });
-        $item.append($('<input>', {
+		if (item.children){
+			myitem.append($('<img>', {
+				src: "p.gif",
+			}));
+		};
+		//<img align="absmiddle" src="images/b.gif" class="zk_tree_icon_collapse">
+        myitem.append($('<input>', {
             type: "checkbox",
             id: "item" + item.id,
             name: "item" + item.id
         }));
-        $item.append($('<label>', {
+        myitem.append($('<label>', {
             for: "item" + item.id,
             text: item.title
         }));
-        parentUL.append($item);
+        parentUL.append(myitem);
         if (item.children) {
             var $ul = $('<ul>', {
                 style: 'display: none'
-            }).appendTo($item);
-            $item.append();
+            }).appendTo(myitem);
+            myitem.append();
             addItem($ul, item);
         }
     }
@@ -69,10 +75,16 @@ function addItem(parentUL, branch) {
 
 $(function () {
     addItem($('#root'), data);
-    $(':checkbox').change(function () {
-        $(this).closest('li').children('ul').toggle();
+	$('img').click(function () {
+        if($(this).attr('src')==="m.gif"){	// show->hide
+			$(this).attr('src',"p.gif");
+			$(this).closest('li').children('ul').hide();
+		}else{			// hide->show
+			$(this).attr('src',"m.gif");
+			$(this).closest('li').children('ul').show();
+		}	
     });
-    $('label').click(function(){
-        $(this).closest('li').find(':checkbox').trigger('click');
+    $(':checkbox').change(function () {
+       // $(this).closest('li').children('ul').toggle();
     });
 });
