@@ -6,3 +6,5 @@ Test MS windows functions
 ```js
    // code for coloring
    
+   OMG, it works now!
+   
