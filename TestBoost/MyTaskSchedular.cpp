@@ -37,11 +37,32 @@ public:
 };
 
 class MyMutex :noncopyable{
+	CRITICAL_SECTION cs;
+public:
+	MyMutex(){
+		InitializeCriticalSection(&cs);
+	}
+	~MyMutex(){
+		DeleteCriticalSection(&cs);
+	}
+	void lock(){
+		EnterCriticalSection(&cs);
+	}
+	void unlock(){
+		LeaveCriticalSection(&cs);
+	}
 };
 
 class MyLock :noncopyable{
+	MyMutex *p;
 public:
-	explicit MyLock(MyMutex &){}
+	explicit MyLock(MyMutex &m):p(&m){
+		m.lock();
+	}
+
+	~MyLock(){
+		p->unlock();
+	}
 };
 
 class MyTaskData:noncopyable
@@ -49,18 +70,22 @@ class MyTaskData:noncopyable
 private:
 	std::unique_ptr<MyTaskBase>	pTask;
 	MyEvent evt;
-	Handle prevReply;
+	std::unique_ptr<Handle>  prevReply;
 	const std::type_info *ptaskInfo;
+	std::string		m_desc;
+	DWORD m_threadid;	// which thread does it run at
 public:
 
-	MyTaskData() :ptaskInfo(0){}
-	MyTaskData(std::auto_ptr<MyTaskBase>	&task, const std::type_info &taskInfo, Handle *pprevReply)
-		:pTask(task.release()), ptaskInfo(&taskInfo) {
-		if (pprevReply) prevReply = *pprevReply;
+	//MyTaskData() :ptaskInfo(0), m_threadid(-1){}
+	MyTaskData(std::auto_ptr<MyTaskBase>	&task, const std::type_info &taskInfo, Handle *pprevReply, const char *desc)
+		:pTask(task.release()), ptaskInfo(&taskInfo), m_threadid(-1) {
+		if (pprevReply) prevReply.reset(new Handle(*pprevReply));
+		if (desc) m_desc = desc;
 	}
 	bool isFinished(){
 		return evt.Wait(1);
 	}
+	
 	void* getReply(const std::type_info &taskInfo){
 		evt.Wait();
 		if (taskInfo == *ptaskInfo)
@@ -69,34 +94,65 @@ public:
 	}
 
 	void Run(){
-		if (!prevReply.isEmpty())
-			prevReply.getReply<int>();
+		m_threadid = GetCurrentThreadId(); 
+		if (prevReply)
+			prevReply->getReply<int>();
 		pTask->operator()();
 		evt.Set();
+
+		printf("Task %s run at thread %Iu\n", m_desc.c_str(), m_threadid);
 	}
+	
+	bool isParentDone() const{
+		if (!prevReply)
+			return true;
+		return prevReply->isFinished();
+	}
+
+	bool match(DWORD threadid) const;
 };
 
 class Handle::Impl{
 public:
-	std::shared_ptr<MyTaskData>	p; 
-	
+	std::shared_ptr<MyTaskData>	p;
 };
 
-Handle::Handle():impl(0){
+struct Handle::Access{
+	static std::shared_ptr<MyTaskData> getTaskData(const Handle &h){
+		return h.impl->p;
+	}
 
+	static void reset(Handle &h, std::shared_ptr<MyTaskData>	p2)
+	{
+		h.impl.reset(new Impl);
+		h.impl->p = p2;
+	}
+};
+
+
+
+bool MyTaskData::match(DWORD threadid) const{
+	assert(threadid != 0);
+
+	if (!prevReply)
+		return true;
+
+	if (Handle::Access::getTaskData(*prevReply)->m_threadid == threadid)
+		return true;
+
+	return false;
+}
+
+Handle::Handle(){
 }
 
 Handle::~Handle(){
-	if (impl)
-	{
-		delete impl; impl = 0;
-	}
 }
 
-Handle::Handle(const Handle& rhs):impl(0) {
+Handle::Handle(const Handle& rhs) {
 	if (rhs.impl)
 	{
-		impl = new Impl(*rhs.impl);
+		impl.reset( new Impl(*rhs.impl));
 	}
 }
 
@@ -118,40 +174,57 @@ void *Handle::getReply(const std::type_info &t){
 
 bool Handle::isFinished() const{
 	if (!impl || !impl->p)
-		return true;
+		return false;
 	return impl->p->isFinished();
 }
 
 class MyTaskScheduler::Impl{
 public:
-	std::vector<HANDLE>		m_vThread;
+
+	struct MyThreadPara
+	{
+		HANDLE m_handle;
+		DWORD m_threadidx;
+	};
+
+	std::vector<MyThreadPara>		m_vThread;
 	BOOL					m_exit;
 	
 	MyAutoResetEvent		m_queueEvent;
 	MyMutex					m_queueMutex;
 	std::list< std::shared_ptr<MyTaskData> >	m_taskQueue;
 
+	std::shared_ptr<MyTaskData> getTaskAndPop(DWORD threadidx){
+		MyLock lock(m_queueMutex);
+		for (auto it = m_taskQueue.begin(), end = m_taskQueue.end(); it != end; ++it)
+		{
+			std::shared_ptr<MyTaskData> p = (*it);
+
+			if (p->isParentDone() && p->match(threadidx))
+			{
+				m_taskQueue.erase(it);
+				return p;
+			}
+		}
+
+		return std::shared_ptr<MyTaskData>();
+	}
 	static DWORD WINAPI MyThread(
 		LPVOID lpThreadParameter
 		){
 		Impl *This = (Impl*)lpThreadParameter;
+
+		DWORD threadidx = GetCurrentThreadId();
 		while (!This->m_exit){
 
-			This->m_queueEvent.Wait();
+			This->m_queueEvent.Wait(1000);	// No infinite loop to make sure can exit the thread looping normally
 			
-			while (1)
+			while (1)	// looping here because one event but may be more than one available tasks
 			{
 				std::shared_ptr<MyTaskData> task;
 
-				// dequeue
-				{
-					MyLock lock(This->m_queueMutex);
-					if (This->m_taskQueue.empty())
-						break;
-
-					task = This->m_taskQueue.front();
-					This->m_taskQueue.pop_front();
-				}
+				task = This->getTaskAndPop(threadidx);
+				if (!task)break;
 				
 				// run
 				task->Run();
@@ -160,11 +233,12 @@ public:
 		return 0;
 	}
 
-	explicit Impl(int nThread) :m_exit(FALSE){
+	explicit Impl(int nThread/*, int const aSid[]*/) :m_exit(FALSE){
 		for (int i = 0; i < nThread; i++){
-			HANDLE h = CreateThread(NULL, 0, &MyThread, this, 0, NULL);
-			assert(h != INVALID_HANDLE_VALUE);
-			m_vThread.push_back(h);
+			MyThreadPara t;
+			t.m_handle = CreateThread(NULL, 0, &MyThread, this, 0, &t.m_threadidx);
+			assert(t.m_handle != INVALID_HANDLE_VALUE);
+			m_vThread.push_back(t);
 		}
 	}
 
@@ -173,30 +247,30 @@ public:
 		m_exit = TRUE;
 		for (int i = 0; i < (int)m_vThread.size(); i++)
 		{
-			WaitForSingleObject(m_vThread[i], INFINITE);
+			WaitForSingleObject(m_vThread[i].m_handle, INFINITE);
 		}
 	}
 };
 
-MyTaskScheduler::MyTaskScheduler(int nThread)
-	:impl(new Impl(nThread)){
+MyTaskScheduler::MyTaskScheduler(int nThread/*, int const aSid[]*/)
+	:impl(new Impl(nThread/*, aSid*/)){
 }
 
 MyTaskScheduler::~MyTaskScheduler(){
 	delete impl;
 }
 
-Handle MyTaskScheduler::RunAsynTaskImpl(std::auto_ptr<MyTaskBase> p, const std::type_info &taskinfo, Handle *pstPrevReply){
+Handle MyTaskScheduler::RunAsynTaskImpl(std::auto_ptr<MyTaskBase> p, const std::type_info &taskinfo, Handle *pstPrevReply, const char *desc){
 	Handle h;
 
-	h.impl = new Handle::Impl;
-	h.impl->p.reset(new MyTaskData(p, taskinfo, pstPrevReply));
+	std::shared_ptr<MyTaskData> ptask(new MyTaskData(p, taskinfo, pstPrevReply, desc));
 	{
 		MyLock lock(impl->m_queueMutex);
 		
-		impl->m_taskQueue.push_back(h.impl->p);
+		impl->m_taskQueue.push_back(ptask);
 	}
-	
+	Handle::Access::reset(h, ptask);
+
 	impl->m_queueEvent.Set();
 
 	return h;
