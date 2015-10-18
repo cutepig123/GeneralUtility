@@ -55,3 +55,8 @@ add_executable(testMyTaskSchedular
 )
 
 #target_link_libraries (test  ${EXTRA_LIBS})
+
+
+add_executable(testSemaphore
+	testSemaphore.cpp
+)

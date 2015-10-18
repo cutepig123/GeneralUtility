@@ -65,6 +65,32 @@ public:
 	}
 };
 
+class MySemaphore : noncopyable{
+	HANDLE h;
+public:
+	MySemaphore(){
+		h =CreateSemaphore(0, 0, 10000, NULL);
+		assert(h && h != INVALID_HANDLE_VALUE);
+	}
+
+	DWORD WaitAndDec(DWORD t){
+		DWORD ret =WaitForSingleObject(h, t);
+		printf("Semaphore Waited return %d\n", ret);
+		return ret;
+	}
+	
+	void IncAndSignal(){
+		LONG lPreviousCount = 0;
+		BOOL ret = ReleaseSemaphore(h, 1, &lPreviousCount);
+		assert(ret);
+		printf("Semaphore Inc lPreviousCount %d\n", lPreviousCount);
+	}
+
+	~MySemaphore(){
+		BOOL ret = CloseHandle(h);
+		assert(ret);
+	}
+};
 class MyTaskData:noncopyable
 {
 private:
@@ -109,7 +135,7 @@ public:
 		return prevReply->isFinished();
 	}
 
-	bool match(DWORD threadid) const;
+	//bool match(DWORD threadid) const;
 };
 
 class Handle::Impl{
@@ -131,17 +157,17 @@ struct Handle::Access{
 
 
 
-bool MyTaskData::match(DWORD threadid) const{
-	assert(threadid != 0);
-
-	if (!prevReply)
-		return true;
-
-	if (Handle::Access::getTaskData(*prevReply)->m_threadid == threadid)
-		return true;
-
-	return false;
-}
+//bool MyTaskData::match(DWORD threadid) const{
+//	assert(threadid != 0);
+//
+//	if (!prevReply)
+//		return true;
+//
+//	if (Handle::Access::getTaskData(*prevReply)->m_threadid == threadid)
+//		return true;
+//
+//	return false;
+//}
 
 Handle::Handle(){
 }
@@ -187,27 +213,22 @@ public:
 		DWORD m_threadidx;
 	};
 
-	std::vector<MyThreadPara>		m_vThread;
+	std::vector<MyThreadPara>	m_vThread;
 	BOOL					m_exit;
 	
-	MyAutoResetEvent		m_queueEvent;
+	//MyAutoResetEvent		m_queueEvent;
+	MySemaphore				m_queueSemaphore;
 	MyMutex					m_queueMutex;
 	std::list< std::shared_ptr<MyTaskData> >	m_taskQueue;
 
 	std::shared_ptr<MyTaskData> getTaskAndPop(DWORD threadidx){
 		MyLock lock(m_queueMutex);
-		for (auto it = m_taskQueue.begin(), end = m_taskQueue.end(); it != end; ++it)
-		{
-			std::shared_ptr<MyTaskData> p = (*it);
+		if(m_taskQueue.empty())
+			return std::shared_ptr<MyTaskData>();
 
-			if (p->isParentDone() && p->match(threadidx))
-			{
-				m_taskQueue.erase(it);
-				return p;
-			}
-		}
-
-		return std::shared_ptr<MyTaskData>();
+		auto it = m_taskQueue.front();
+		m_taskQueue.pop_front();
+		return it;
 	}
 	static DWORD WINAPI MyThread(
 		LPVOID lpThreadParameter
@@ -217,15 +238,13 @@ public:
 		DWORD threadidx = GetCurrentThreadId();
 		while (!This->m_exit){
 
-			This->m_queueEvent.Wait(1000);	// No infinite loop to make sure can exit the thread looping normally
-			
-			while (1)	// looping here because one event but may be more than one available tasks
+			if (WAIT_OBJECT_0 == This->m_queueSemaphore.WaitAndDec(1000))
 			{
 				std::shared_ptr<MyTaskData> task;
 
 				task = This->getTaskAndPop(threadidx);
-				if (!task)break;
-				
+				assert(task);	
+
 				// run
 				task->Run();
 			}
@@ -271,7 +290,7 @@ Handle MyTaskScheduler::RunAsynTaskImpl(std::auto_ptr<MyTaskBase> p, const std::
 	}
 	Handle::Access::reset(h, ptask);
 
-	impl->m_queueEvent.Set();
+	impl->m_queueSemaphore.IncAndSignal();
 
 	return h;
 }
