@@ -1,96 +1,11 @@
 #include "MyTaskSchedular.h"
+#include <MySemaphore.hpp>
+#include <MyMutex.hpp>
 #include <Windows.h>
 #include <vector>
 #include <list>
 #include <assert.h>
 
-
-class MyEvent:noncopyable{
-	HANDLE h;
-public:
-	explicit MyEvent(BOOL bManualReset =TRUE)
-	{
-		h = CreateEvent(NULL, bManualReset, FALSE, NULL);
-	}
-
-	~MyEvent(){
-		CloseHandle(h);
-	}
-
-	bool Wait(DWORD tm=INFINITE){
-		return WaitForSingleObject(h, tm) == WAIT_OBJECT_0;
-	}
-
-	void Set(){
-		SetEvent(h);
-	}
-
-	void Reset(){
-		ResetEvent(h);
-	}
-};
-
-class MyAutoResetEvent :public MyEvent{
-public:
-	MyAutoResetEvent() :MyEvent(FALSE){
-	}
-};
-
-class MyMutex :noncopyable{
-	CRITICAL_SECTION cs;
-public:
-	MyMutex(){
-		InitializeCriticalSection(&cs);
-	}
-	~MyMutex(){
-		DeleteCriticalSection(&cs);
-	}
-	void lock(){
-		EnterCriticalSection(&cs);
-	}
-	void unlock(){
-		LeaveCriticalSection(&cs);
-	}
-};
-
-class MyLock :noncopyable{
-	MyMutex *p;
-public:
-	explicit MyLock(MyMutex &m):p(&m){
-		m.lock();
-	}
-
-	~MyLock(){
-		p->unlock();
-	}
-};
-
-class MySemaphore : noncopyable{
-	HANDLE h;
-public:
-	MySemaphore(){
-		h =CreateSemaphore(0, 0, 10000, NULL);
-		assert(h && h != INVALID_HANDLE_VALUE);
-	}
-
-	DWORD WaitAndDec(DWORD t){
-		DWORD ret =WaitForSingleObject(h, t);
-		printf("Semaphore Waited return %d\n", ret);
-		return ret;
-	}
-	
-	void IncAndSignal(){
-		LONG lPreviousCount = 0;
-		BOOL ret = ReleaseSemaphore(h, 1, &lPreviousCount);
-		assert(ret);
-		printf("Semaphore Inc lPreviousCount %d\n", lPreviousCount);
-	}
-
-	~MySemaphore(){
-		BOOL ret = CloseHandle(h);
-		assert(ret);
-	}
-};
 class MyTaskData:noncopyable
 {
 private:
@@ -155,19 +70,6 @@ struct Handle::Access{
 	}
 };
 
-
-
-//bool MyTaskData::match(DWORD threadid) const{
-//	assert(threadid != 0);
-//
-//	if (!prevReply)
-//		return true;
-//
-//	if (Handle::Access::getTaskData(*prevReply)->m_threadid == threadid)
-//		return true;
-//
-//	return false;
-//}
 
 Handle::Handle(){
 }

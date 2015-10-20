@@ -45,7 +45,7 @@ ENDIF(  )
 #add_subdirectory (src)
 
 
-#include_directories ("${CMAKE_CURRENT_LIST_DIR}")
+include_directories ("${CMAKE_CURRENT_LIST_DIR}")
 #include_directories ("${CMAKE_CURRENT_LIST_DIR}/test")
 
 add_executable(testMyTaskSchedular 	
@@ -60,3 +60,5 @@ add_executable(testMyTaskSchedular
 add_executable(testSemaphore 	testSemaphore.cpp)
 add_executable(testPPL 	testPPL.cpp)
 add_executable(testPPL_then 	testPPL_then.cpp)
+add_executable(TestMyBlockingQueue 	TestMyBlockingQueue.cpp)
+add_executable(TestThreadPool 	TestThreadPool.cpp)
