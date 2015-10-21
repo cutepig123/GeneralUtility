@@ -165,7 +165,7 @@ END
 // RT_MANIFEST
 //
 
-IDR_MANIFEST            RT_MANIFEST             "res\\RectTrack.manifest"
+//IDR_MANIFEST            RT_MANIFEST             "res\\RectTrack.manifest"
 
 /////////////////////////////////////////////////////////////////////////////
 //
