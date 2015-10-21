@@ -12,6 +12,8 @@ set(SRCS
 	Resource.h
 	stdafx.cpp
 	stdafx.h
+	trckrect.cpp
+	trckrect.h
 )
 
 add_executable(MFCRectTrack WIN32 ${SRCS})

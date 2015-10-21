@@ -2,7 +2,7 @@
 //
 
 #pragma once
-
+#include "trckrect.h"
 
 // CRectTrackDlg dialog
 class CRectTrackDlg : public CDialog
@@ -21,8 +21,8 @@ public:
 // Implementation
 protected:
 	HICON m_hIcon;
-	CRectTracker	m_rectTracker;
-	BOOL bDraw;
+	CMyRectTracker	m_rectTracker;
+	//BOOL bDraw;
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);

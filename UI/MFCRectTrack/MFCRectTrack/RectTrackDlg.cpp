@@ -51,7 +51,7 @@ CRectTrackDlg::CRectTrackDlg(CWnd* pParent /*=NULL*/)
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 
 	 m_rectTracker.m_rect.SetRect(0,0,100,100); 
-     m_rectTracker.m_nStyle=CRectTracker::resizeInside|CRectTracker::dottedLine; 
+     m_rectTracker.m_nStyle=CMyRectTracker::resizeInside|CMyRectTracker::dottedLine; 
 }
 
 void CRectTrackDlg::DoDataExchange(CDataExchange* pDX)
@@ -148,7 +148,7 @@ void CRectTrackDlg::OnPaint()
 		CBrush brush(RGB(0,0,255));//生成蓝色的画刷； 
 		CBrush  *oldBrush=dc.SelectObject(&brush);//将画刷选进dc; 
 		CRect rect; 
-		//GetTrueRect(&rect)得到CRectTracker中的m_rect的大小，将其传递给rect；
+		//GetTrueRect(&rect)得到CMyRectTracker中的m_rect的大小，将其传递给rect；
 		m_rectTracker.GetTrueRect(&rect);
 		//if(bDraw)
 			dc.Ellipse (rect);//画椭圆； 
@@ -173,11 +173,11 @@ void CRectTrackDlg::OnLButtonDown(UINT nFlags, CPoint point)
 	nIn=m_rectTracker.HitTest(point); //看看点到了哪了
 	if(nIn<0)  //不在四边形区域内；
 	{
-		//CRectTracker  temp;
+		//CMyRectTracker  temp;
 		//temp.TrackRubberBand(this,point,TRUE);
 		//temp.m_rect.NormalizeRect();
-		//CRectTracker interRect; 
-		////在建立一个CRectTracker;用于记录鼠标与椭圆的交集。
+		//CMyRectTracker interRect; 
+		////在建立一个CMyRectTracker;用于记录鼠标与椭圆的交集。
 		//if(interRect.m_rect.IntersectRect(temp.m_rect,m_rectTracker.m_rect))
 		//	bDraw=TRUE; //如果有交集，则画四边形的边界，说明选择了椭圆
 		//else   bDraw=FALSE;
@@ -189,8 +189,8 @@ void CRectTrackDlg::OnLButtonDown(UINT nFlags, CPoint point)
 		CClientDC dc(this);
 		m_rectTracker.Draw(&dc);
 		m_rectTracker.Track(this,point,TRUE);
-		// Track()是CRectTracker中最富魅力的函数。它时时的改变调用者的m_rect;
-		bDraw=TRUE;
+		// Track()是CMyRectTracker中最富魅力的函数。它时时的改变调用者的m_rect;
+		//bDraw=TRUE;
 		Invalidate();
 	}
 
