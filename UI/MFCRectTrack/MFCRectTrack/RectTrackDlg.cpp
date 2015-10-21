@@ -52,6 +52,7 @@ CRectTrackDlg::CRectTrackDlg(CWnd* pParent /*=NULL*/)
 
 	 m_rectTracker.m_rect.SetRect(0,0,100,100); 
      m_rectTracker.m_nStyle=CMyRectTracker::resizeInside|CMyRectTracker::dottedLine; 
+	 m_rectTracker.SetText(_T("MyRect"));
 }
 
 void CRectTrackDlg::DoDataExchange(CDataExchange* pDX)
@@ -147,11 +148,11 @@ void CRectTrackDlg::OnPaint()
 		CPaintDC dc(this); // device context for painting
 		CBrush brush(RGB(0,0,255));//生成蓝色的画刷； 
 		CBrush  *oldBrush=dc.SelectObject(&brush);//将画刷选进dc; 
-		CRect rect; 
+		//CRect rect; 
 		//GetTrueRect(&rect)得到CMyRectTracker中的m_rect的大小，将其传递给rect；
-		m_rectTracker.GetTrueRect(&rect);
+		//m_rectTracker.GetTrueRect(&rect);
 		//if(bDraw)
-			dc.Ellipse (rect);//画椭圆； 
+		//	dc.Ellipse (rect);//画椭圆； 
 		//Draw tracking rectangle. 
 		m_rectTracker.Draw(&dc);//这句画才真正的将这个四边形画出来；
 		//Select blue brush out of device context.

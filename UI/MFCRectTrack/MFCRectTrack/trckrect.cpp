@@ -103,7 +103,7 @@ void CMyRectTracker::Construct()
 	static BOOL bInitialized;
 	if (!bInitialized)
 	{
-
+		m_nInput = m_nOutput = 0;
 
 		// sanity checks for assumptions we make in the code
 		ASSERT(sizeof(((RECT*)NULL)->left) == sizeof(int));
@@ -263,6 +263,8 @@ void CMyRectTracker::Draw(CDC* pDC) const
 			rect.Height(), 0x000F0001 /* Pn */);
 	}
 
+	pDC->SetBkMode(TRANSPARENT);
+
 	// draw resize handles
 	if ((m_nStyle & (resizeInside|resizeOutside)) != 0)
 	{
@@ -273,10 +275,20 @@ void CMyRectTracker::Draw(CDC* pDC) const
 			{
 				GetHandleRect((TrackerHit)i, &rect);
 				pDC->FillSolidRect(rect, RGB(0, 0, 0));
+				CString s;
+				s.Format(_T("%d"), i);
+				pDC->TextOut(rect.left+3, rect.top+3, s);
 			}
 		}
 	}
 
+	rect = m_rect;
+	pDC->DrawText(m_text, &rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+	for (int i = 0; i < m_nInput; i++)
+	{
+
+	}
 	// cleanup pDC state
 	if (pOldPen != NULL)
 		pDC->SelectObject(pOldPen);

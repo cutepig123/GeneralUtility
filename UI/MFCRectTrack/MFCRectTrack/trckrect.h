@@ -29,8 +29,13 @@ public:
 	CRect m_rect;       // current position (always in pixels)
 	CSize m_sizeMin;    // minimum X and Y size during track operation
 	int m_nHandleSize;  // size of resize handles (default from WIN.INI)
+	int m_nInput;
+	int m_nOutput;
 
 // Operations
+	void SetText(LPCTSTR text){
+		m_text = text;
+	}
 	void Draw(CDC* pDC) const;
 	void GetTrueRect(LPRECT lpTrueRect) const;
 	BOOL SetCursor(CWnd* pWnd, UINT nHitTest) const;
@@ -57,6 +62,7 @@ protected:
 	CSize m_sizeLast;
 	BOOL m_bErase;          // TRUE if DrawTrackerRect is called for erasing
 	BOOL m_bFinalErase;     // TRUE if DragTrackerRect called for final erase
+	CString m_text;
 
 	// implementation helpers
 	int HitTestHandles(CPoint point) const;
