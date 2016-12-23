@@ -31,35 +31,17 @@ void main()
 
 	int nTrig = 10000;
 	const int nCam = 6;
-	const int nBuf = 20;
 
 #define	ADD_TIME(s)	astTi[nTime].info = s; astTi[nTime].t = tick_count::now(); nTime++;
 
-	typedef int waferid_t;
-	typedef continue_node<waferid_t>		node_t;
-	typedef const waferid_t&				msg_t;
-
-	struct Buffer
-	{};
-
-	struct Profile
-	{};
-
-	struct WaferData
-	{
-		vector<Buffer>	vGrabBuf[nCam];	// size  =nTrig
-		vector<Buffer>	vWarpBuf[nCam];	// size  =nBuf
-		vector<Profile>	vReconProf[nCam];// size  =nBuf
-		Profile	mergeProf[nCam];	// size  =nCam
-	};
+	typedef continue_node<continue_msg>		node_t;
+	typedef const continue_msg&		msg_t;
 
 	ADD_TIME("Init");
 	graph g;
 	ADD_TIME("After Define G");
 
-	vector<WaferData>	vWafer;
-	vector<node_t>	vGrab[nCam], vWarp[nCam], vRecon[nCam], vMerge[nCam];	// tasks
-
+	vector<node_t>	vGrab[nCam], vWarp[nCam], vRecon[nCam], vMerge[nCam];
 	for (int i = 0; i < nCam; i++)
 	{
 		vGrab[i].reserve(nTrig);
@@ -69,18 +51,10 @@ void main()
 
 		for (int j = 0; j < nTrig; j++)
 		{
-			vGrab[i].push_back(node_t(g, [&](msg_t wid) {
-				vWafer[wid].vGrabBuf[i][j] = Buffer();
-			}));
-			vWarp[i].push_back(node_t(g, [&](msg_t wid) {
-				vWafer[wid].vWarpBuf[i][j%nBuf] = Buffer();
-			}));
-			vRecon[i].push_back(node_t(g, [&](msg_t wid) {
-				vWafer[wid].vReconProf[i][j%nBuf] = Profile();
-			}));
-			vMerge[i].push_back(node_t(g, [&](msg_t wid) {
-				vWafer[wid].mergeProf[i] = Profile();
-			}));
+			vGrab[i].push_back(node_t(g, [=](msg_t) {}));
+			vWarp[i].push_back(node_t(g, [=](msg_t) {}));
+			vRecon[i].push_back(node_t(g, [=](msg_t) {}));
+			vMerge[i].push_back(node_t(g, [=](msg_t) {}));
 		}
 	}
 	
@@ -89,11 +63,6 @@ void main()
 		for (int j = 0; j < nTrig; j++)
 		{
 			make_edge(vGrab[i][j], vWarp[i][j]);
-
-			if (j>=nBuf)
-			{
-				make_edge(vWarp[i][j- nBuf], vWarp[i][j]);
-			}
 		}
 
 		for (int j = 0; j+2 < nTrig; j++)
@@ -107,12 +76,6 @@ void main()
 			{
 				make_edge(vMerge[i][j-1], vMerge[i][j]);
 			}
-
-			if (j >= nBuf)
-			{
-				make_edge(vRecon[i][j - nBuf], vRecon[i][j]);
-				make_edge(vMerge[i][j - nBuf], vRecon[i][j]);
-			}
 		}
 	}
 	ADD_TIME("After Setup Graph");
@@ -120,7 +83,7 @@ void main()
 	for (int i = 0; i < nCam; i++)
 	{
 		for (int j = 0; j < nTrig; j++)
-			vGrab[i][j].try_put(i);
+			vGrab[i][j].try_put(continue_msg());
 	}
 	ADD_TIME("After trigger");
 
