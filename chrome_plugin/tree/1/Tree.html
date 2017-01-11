@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0040)http://kazge.com/show/zkjs/src/tree.html -->
+<html version="g42dymwpi--nx"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Tree</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="tree with two style(show line, no line), checkbox node, radiobox node, contextmenu event">
+
+
+<meta name="keyword" content="tree,checkbox,radiobox,contextmenu,select,lazyload">
+
+<link rel="stylesheet" type="text/css" href="./Tree_files/demo.css">
+<link rel="stylesheet" type="text/css" href="./Tree_files/base.css">
+<link rel="stylesheet" type="text/css" href="./Tree_files/tree.css">
+
+<script type="text/javascript" src="./Tree_files/zk.base.js"></script>
+<script type="text/javascript" src="./Tree_files/zk.popupmenu.js"></script>
+<script type="text/javascript" src="./Tree_files/zk.treenode.js"></script>
+<script type="text/javascript" src="./Tree_files/zk.tree.js"></script>
+<script type="text/javascript">
+			var prefun = test_addNode;
+		
+			function initTree(showline){
+				var cont = zk.get("cont");
+				cont.innerHTML= '';
+				zk.Tree.S='images/b.gif';
+				zk.console=zk.get("logs");	
+				window.tree=new zk.Tree({showline:showline,to:cont});
+				window.gNode=new zk.TreeNode({tree:tree,text:"demos",key:"demo",iconCls:'demoicon'});
+				zk.setStyle(gNode.label,"color:red;font-size:18px;font-weight:bold;");
+				tree.addNode(tree.root,gNode);
+				zk.oe(tree,'select',function(){
+					zk.log('tree.selectedNode:' + tree.selectedNode.caption);
+				});
+				tree.oncontextmenu = function(e,node){
+					if (!node.contmenu){
+						node.contmenu=new zk.PopupMenu();
+					}
+					node.contmenu.removeitemAll();
+					var item = new zk.MenuItem({text:'menu for '+node.caption});
+					node.contmenu.additem(item);
+					
+					node.contmenu.show({event:e});	
+					
+					return false;
+				};
+				
+			}
+			
+			zk.ok(initTree);	
+			
+			//style
+			function test_style(showline){
+				initTree(showline);
+				prefun();
+			}
+			
+			//addNode
+			function test_addNode(){
+				prefun = test_addNode;
+				gNode.removeChildren();
+				var pe=new Date();
+				for (var i=0;i<10;i++){				
+					var node = new zk.TreeNode({tree:tree,text:i+''});
+					tree.addNode(gNode,node);
+				}					
+				var pd=new Date();
+				//alert("cost " + (pd-pe) + " ms");				
+			}	
+			
+			//event		
+			//onclick
+			function test_onclick(node){
+				alert(node.caption);
+			}
+			
+			//oncontextmenu
+			function test_oncontextmenu(node){
+				//it is just a callback,the contextmenu need you to handle it by youself
+				if (!node.contmenu){
+					node.contmenu=new PopupMenu();
+				}
+				node.contmenu.removeitemAll();
+				var item = new MenuItem(node.caption);
+				node.contmenu.additem(item);
+				
+				node.contmenu.show();	
+			}	
+			
+			//find by key
+			function test_findByKey(){
+	//			find the node by the key of the node "demo"
+				tree.nodes["demo"].select();
+			}		
+			
+			//lazy-loading
+			function test_lazyloading(){
+				prefun = test_lazyloading;
+				gNode.removeChildren();
+				var ln=new zk.TreeNode({tree:tree,text:"lazyloading",expandStyle:"always"});
+				
+				zk.oe(ln,'collapse',function(){ln.removeChildren();});
+				zk.oe(ln,'expand',function(){					
+					ln.setCaption("loading.....");
+					var inv=window.setInterval(function(){									
+						tree.addNode(ln,new zk.TreeNode({tree:tree,text:"lazy-1"}));
+						tree.addNode(ln,new zk.TreeNode({tree:tree,text:"lazy-2"}));
+						ln.setCaption("done");				
+						window.clearInterval(inv);
+					},2000);
+				});			
+				
+				tree.addNode(gNode,ln);
+			}
+			
+			//checkbox
+			function test_checkbox(){
+				prefun = test_checkbox;
+				gNode.removeChildren();
+				
+				for(var i=0;i<5;i++){
+					var node=new zk.TreeNode({tree:tree,text:"checkbox"+i,type:zk.Tree.CHECKBOX});			
+					tree.addNode(gNode,node);
+					//note:this method can't be called before this node is added to the tree
+					node.setChecked(true);
+					zk.oe(node,'click',function(e,data){
+						var node = e.src;
+						zk.log('node ' + node.caption + ' is ' + (!node.checked?'unchecked':'checked'));
+						var count = gNode.getChildrenCount();
+						for (var i = 0 ;i < count; i++){
+							cnode=gNode.children[i];
+							if (cnode.checked){
+								zk.log('gNode has ' + cnode.caption + ' checked.');
+							}								
+						}						
+					});
+				}			
+			}			
+			
+			//radiobox
+			function test_radiobox(){
+				prefun = test_radiobox;
+				gNode.removeChildren();
+	
+				for(var i=0;i<5;i++){
+					var node=new zk.TreeNode({tree:tree,text:"radiobox"+i,type:zk.Tree.RADIOBOX});						
+					tree.addNode(gNode,node);
+					//note:this method can't be called before this node is added to the tree			
+					node.setRadioCheck();
+				}
+				
+				zk.oe(gNode,'rdocheckchanged',function(e,data){
+					zk.log('radio select changed from ' + data.preNode.caption + ' to ' + data.curNode.caption);
+				});
+			}
+			
+			function test_multi(){
+				prefun = test_multi;
+				gNode.removeChildren();
+	
+				var node1=new zk.TreeNode({tree:tree,text:'1',type:zk.Tree.CHECKBOX});	
+				tree.addNode(gNode,node1);					
+				
+				for(var i=0;i<5;i++){
+					var node=new zk.TreeNode({tree:tree,text:"checkbox"+i,type:zk.Tree.CHECKBOX});			
+					tree.addNode(node1,node);					
+				}
+				zk.oe(node1,'click',function(){node1.setChecked(node1.checked,true);});
+	
+				var node2=new zk.TreeNode({tree:tree,text:'2',type:zk.Tree.RADIOBOX});	
+				node2.rdoBox.name='2';
+				tree.addNode(gNode,node2);
+				for(var i=0;i<5;i++){
+					var node=new zk.TreeNode({tree:tree,text:"radiobox"+i,type:zk.Tree.RADIOBOX});						
+					tree.addNode(node2,node);		
+					node.rdoBox.name='21';			
+				}
+				
+				var node3=new zk.TreeNode({tree:tree,text:"3",type:zk.Tree.CHECKBOX});			
+				tree.addNode(gNode,node3);
+				for(var i=0;i<5;i++){
+					var node=new zk.TreeNode({tree:tree,text:"radiobox"+i,type:zk.Tree.RADIOBOX});						
+					tree.addNode(node3,node);
+					node.rdoBox.name='31';						
+				}
+				
+				var node4=new zk.TreeNode({tree:tree,text:"4",type:zk.Tree.RADIOBOX});
+				//the radiobox with the same level will in the same group 	
+				node4.rdoBox.name='4';			
+				tree.addNode(gNode,node4);
+				for(var i=0;i<5;i++){
+					var node=new zk.TreeNode({tree:tree,text:"radiobox"+i,type:zk.Tree.CHECKBOX});						
+					tree.addNode(node4,node);					
+				}
+			}
+			
+			//performance
+			function test_performance(type){			
+				if (window.win){
+					window.win.close();
+				}
+				if (type){
+					window.win=window.open("pt.html?t=1&n="+zk.get("pn").value);
+				}else{
+					window.win=window.open("pt.html?t=0&n="+zk.get("pn").value);
+				}
+			}				
+		</script>
+<style type="text/css"></style></head>
+
+<body>
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr>
+			<td style="width: 30%;"><span id="cont"><div><span style="margin: 0px; padding: 0px; white-space: nowrap; display: block;"><span style="margin:0px;cursor:default;text-align:left;color:black;font-size:9pt;"><img align="absmiddle" src="./Tree_files/b.gif" class="undefined"><img align="absmiddle" src="./Tree_files/b.gif" class="demoicon" tabindex="1" style="margin-left: 0px;"><span style="color:red;font-size:18px;font-weight:bold;" tabindex="1">demos</span></span></span></div></span></td>
+			<td valign="top">
+				<table border="0" cellpadding="0" cellspacing="0" width="100%">
+					<tbody><tr>
+						<td><input onclick="test_style(true);" type="radio" name="treeStyle" value="showline" checked="checked">Style
+							One 
+						</td>	
+						<td>
+							<input onclick="test_style(false);" type="radio" name="treeStyle" value="noline">Style Two
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<button onclick="test_addNode();">add node</button>
+						</td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<td>
+							<button onclick="test_findByKey();">find node by
+								key,then select</button>
+						</td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<td>
+							<button onclick="test_lazyloading();">lazy loading</button>
+						</td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<td>
+							<button onclick="test_checkbox();">check box test</button>
+						</td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<td>
+							<button onclick="test_radiobox();">radio box test</button>
+						</td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<td>
+							<button onclick="test_multi();">multiple box test</button>
+						</td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<td>the nodes your want to load: <input type="text" id="pn" value="1000"><br>
+							<button onclick="test_performance(false);">performance
+								test for addNode</button>
+							<br>
+						</td>
+						<td>We may doubt if we need to load a tree with more than 200
+							nodes,and let user to select from one of them in the UI?I think
+							it is a bad smell.<br> I use this in many project,and have test
+							it many many times. I think it useful to share these experience.<br>
+							The biggest check point is the image,do not handle the image
+							filter by youself,and let the container do it.On a dynamic web
+							site,the IE can load 2000 nodes in one-time mode and 7000 totally
+							in lazy-loading mode.Firefox is work well when loading 8000+,I
+							didn't test anymore.<br> As this test is a static local
+							environment,I show the result here I have Test:<br>
+							<table border="0" cellpadding="2" cellspacing="0" width="100%">
+								<tbody><tr>
+									<td>nodes number</td>
+									<td>IE8</td>
+									<td>Chrome3.0</td>
+									<td>Firefox3.5</td>
+								</tr>
+								<tr>
+									<td>1000</td>
+									<td>2687(ms)</td>
+									<td>514(ms)</td>
+									<td>2026(ms)</td>
+
+								</tr>
+								<tr>
+									<td>10000</td>
+									<td>134954</td>
+									<td>6495</td>
+									<td>42416</td>
+								</tr>
+							</tbody></table>
+						</td>
+					</tr>
+				</tbody></table>
+			</td>
+		</tr>
+	</tbody></table>
+	<textarea id="logs" rows="20" cols="50"></textarea>
+
+
+
+</body></html>

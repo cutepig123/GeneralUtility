@@ -14,7 +14,8 @@ CBlockVariableChoose::CBlockVariableChoose()
 void CBlockVariableChoose::Init()
 {
    AddInput(0, _T("~"));
-   AddOutput(_T("Next"), 0);
+   AddOutput(_T("True"), 0);
+   AddOutput(_T("False"), 0);
 }
 
 WORD CBlockVariableChoose::GetType() const

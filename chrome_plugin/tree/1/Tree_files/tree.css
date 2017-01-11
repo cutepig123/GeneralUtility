@@ -1,0 +1,74 @@
+.zk_tree_icon_expand {
+	background-image: url("../images/tree/p.gif");
+}
+
+.zk_tree_icon_collapse {
+	background-image: url("../images/tree/m.gif");
+}
+
+.zk_tree_icon_expand_top {
+	background-image: url("../images/tree/Fp.gif");
+}
+
+.zk_tree_icon_expand_mid {
+	background-image: url("../images/tree/Tp.gif");
+}
+
+.zk_tree_icon_expand_end {
+	background-image: url("../images/tree/Lp.gif");
+}
+
+.zk_tree_icon_collapse_top {
+	background-image: url("../images/tree/Fm.gif");
+}
+
+.zk_tree_icon_collapse_mid {
+	background-image: url("../images/tree/Tm.gif");
+}
+
+.zk_tree_icon_collapse_end {
+	background-image: url("../images/tree/Lm.gif");
+}
+
+.zk_tree_icon_leaf {
+	background-image: url("../images/tree/T.gif");
+}
+
+.zk_tree_icon_leaf_top {
+	background-image: url("../images/tree/F.gif");
+}
+
+.zk_tree_icon_twig {
+	background-image: url("../images/tree/L.gif");
+}
+
+.zk_tree_icon_line {
+	background-image: url("../images/tree/I.gif");
+}
+
+.zk_tree_icon_blank {
+	background-image: url("../images/tree/b.gif");
+}
+
+.zk_tree_icon_default {	
+	background-image: url("../images/tree/file.gif");
+	background-position: 2px 0px
+}
+
+.zk_tree_icon_folder {	
+	background-image: url("../images/tree/folder.gif");
+	background-position: 2px 0px
+}
+
+.zk_tree_icon_folderopen {	
+	background-image: url("../images/tree/folderopen.gif");
+	background-position: 2px 0px
+}
+
+.zk_tree_icon_collapse_noline{
+	background: url("../images/tree/arrows.gif") no-repeat scroll -16px 0 transparent;
+}
+
+.zk_tree_icon_expand_noline{
+	background: url("../images/tree/arrows.gif") no-repeat scroll 0 0 transparent;
+}

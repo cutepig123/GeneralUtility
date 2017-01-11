@@ -375,7 +375,9 @@ namespace YLScsImage
         private void ImagePanel_MouseDown(object sender, MouseEventArgs e)
         {
             PointF pt = GetMouseLocation(e.Location);
-            Color color = image.GetPixel((int)pt.X, (int)pt.Y);
+            Color color =new Color();
+            if(image !=null)
+                color = image.GetPixel((int)pt.X, (int)pt.Y);
             toolStripStatusLabel1.Text = String.Format("X {0} Y {1} R {2} R {3} R {4}", pt.X, pt.Y,
                 color.R, color.G,color.B);
 

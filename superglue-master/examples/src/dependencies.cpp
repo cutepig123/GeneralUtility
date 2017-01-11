@@ -51,10 +51,10 @@ int main_dep() {
     Handle<Options> h[numSlices];
 
     SuperGlue<Options> sg;
-    sg.submit(new ScaleTask(2.0, data[0], h[0], data[1], h[1])); // h_1 = 2*h_0
-    sg.submit(new ScaleTask(3.0, data[0], h[0], data[2], h[2])); // h_2 = 3*h_0
     sg.submit(new SumTask(data[0], h[0], data[1], h[1], data[3], h[3])); // h_3 = h_0+h_1
     sg.submit(new SumTask(data[1], h[1], data[2], h[2], data[4], h[4])); // h_4 = h_1+h_2
+	sg.submit(new ScaleTask(2.0, data[0], h[0], data[1], h[1])); // h_1 = 2*h_0
+	sg.submit(new ScaleTask(3.0, data[0], h[0], data[2], h[2])); // h_2 = 3*h_0
 
     // Wait for all tasks to finish
     sg.barrier();

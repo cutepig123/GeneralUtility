@@ -11,11 +11,11 @@ int main_solar(int argc, char *argv[]);
 int main(int argc, char *argv[])
 {
 //	main_logging(argc, argv);
-//	main_dep();
+	main_dep();
 //	main_nbody(argc, argv);	// fail to compile
 //	main_nested1();	// inf loops??
 //	main_subtasks();	//OK
 //	main_subtasksdeps();	// crashes
 //	main_superglue(argc, argv);
-	main_solar(argc, argv);
+//	main_solar(argc, argv);
 }

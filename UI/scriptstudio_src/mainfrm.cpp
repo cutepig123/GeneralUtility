@@ -77,6 +77,7 @@ LRESULT CMainFrame::OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/
    // Load command bar images
    m_CmdBar.LoadImages(IDR_MAINFRAME);
    m_CmdBar.LoadImages(IDR_BLOCKS);
+   
    // Remove old menu
    SetMenu(NULL);
 

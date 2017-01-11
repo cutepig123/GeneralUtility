@@ -110,6 +110,7 @@ protected slots:
             nanoSec =nanoSec2;
             pixmapItem->setPixmap(*imageSrc->nextImage());
             timer.restart();
+            qDebug()<<nanoSec;
         }
     }
     void showFPS()

@@ -229,3 +229,5 @@ Debug_u
 vc*.idb
 CL*.tlog
 
+build-*_32bit-Debug/
+build-*_32bit-Release/

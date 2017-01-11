@@ -77,7 +77,7 @@ void initHolder(Placeholder &h, int n)
 	}
 }
 
-// split a placeholder
+// split a placeholder to element if necessary
 void split(Stack &stk, Placeholder &h)
 {
 	assert(!h.isSolved);

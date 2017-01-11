@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "RectTrack.h"
 #include "RectTrackDlg.h"
+#include "afxwin.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -26,6 +27,12 @@ public:
 // Implementation
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnBnClickedButton1();
+	afx_msg void OnPaint();
+	CComboBox m_cmbROP2;
+	virtual BOOL OnInitDialog();
+	afx_msg void OnCbnSelchangeCombo1();
 };
 
 CAboutDlg::CAboutDlg() : CDialog(CAboutDlg::IDD)
@@ -35,9 +42,13 @@ CAboutDlg::CAboutDlg() : CDialog(CAboutDlg::IDD)
 void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_COMBO1, m_cmbROP2);
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialog)
+//	ON_BN_CLICKED(IDC_BUTTON1, &CAboutDlg::OnBnClickedButton1)
+	ON_WM_PAINT()
+	ON_CBN_SELCHANGE(IDC_COMBO1, &CAboutDlg::OnCbnSelchangeCombo1)
 END_MESSAGE_MAP()
 
 
@@ -51,7 +62,7 @@ CRectTrackDlg::CRectTrackDlg(CWnd* pParent /*=NULL*/)
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 
 	 m_rectTracker.m_rect.SetRect(0,0,100,100); 
-     m_rectTracker.m_nStyle=CMyRectTracker::resizeInside|CMyRectTracker::dottedLine; 
+	 m_rectTracker.m_nStyle = CMyRectTracker::resizeInside | CMyRectTracker::dottedLine | CMyRectTracker::hatchInside;
 	 m_rectTracker.SetText(_T("MyRect"));
 }
 
@@ -211,4 +222,92 @@ BOOL CRectTrackDlg::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	if (pWnd == this && m_rectTracker.SetCursor(this, nHitTest)) 
           return TRUE; 
 	return CDialog::OnSetCursor(pWnd, nHitTest, message);
+}
+
+
+void CAboutDlg::OnBnClickedButton1()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+#define	ADD_MODE(x)		{x, _T(#x)},
+
+struct Rop2{ int mode; LPCTSTR pcmode; }g_astRop2[] = {
+	ADD_MODE(R2_BLACK)
+	ADD_MODE(R2_NOTMERGEPEN)
+	ADD_MODE(R2_MASKNOTPEN)
+	ADD_MODE(R2_NOTCOPYPEN)
+	ADD_MODE(R2_MASKPENNOT)
+	ADD_MODE(R2_NOT)
+	ADD_MODE(R2_XORPEN)
+	ADD_MODE(R2_NOTMASKPEN)
+	ADD_MODE(R2_MASKPEN)
+	ADD_MODE(R2_NOTXORPEN)
+	ADD_MODE(R2_NOP)
+	ADD_MODE(R2_MERGENOTPEN)
+	ADD_MODE(R2_COPYPEN)
+	ADD_MODE(R2_MERGEPENNOT)
+	ADD_MODE(R2_MERGEPEN)
+	ADD_MODE(R2_WHITE)
+	ADD_MODE(R2_LAST)
+};
+
+int GetRop2(LPCTSTR s)
+{
+	for (int i = 0; i < sizeof(g_astRop2) / sizeof(g_astRop2[0]); i++)
+	{
+		if (_tcscmp(g_astRop2[i].pcmode, s) == 0)
+			return g_astRop2[i].mode;
+	}
+	ASSERT(0);
+	return 0;
+}
+
+void CAboutDlg::OnPaint()
+{
+	CPaintDC dc(this); // device context for painting
+	// TODO: Add your message handler code here
+	// Do not call CDialog::OnPaint() for painting messages
+	CString s;
+	m_cmbROP2.GetWindowText(s);
+	int rop2 = GetRop2(s);
+	int oldRop =dc.SetROP2(rop2);
+	CPen pen(PS_SOLID, 2, RGB(0, 255, 0));
+	CPen *oldpen =dc.SelectObject(&pen);
+	CBrush brush(RGB(255, 0, 0));
+
+	dc.Rectangle(50, 50, 100, 100);
+	dc.Ellipse(0, 0, 150, 150);
+
+	CRect rect(60, 60, 80, 80);
+	dc.FillRect(rect, &brush);
+	dc.TextOut(0,0,CString(_T("Hello")));
+
+	dc.SelectObject(oldpen);
+	dc.SetROP2(oldRop);
+}
+
+BOOL CAboutDlg::OnInitDialog()
+{
+	CDialog::OnInitDialog();
+
+	// TODO:  Add extra initialization here
+	for (int i = 0; i < sizeof(g_astRop2) / sizeof(g_astRop2[0]); i++)
+	{
+		m_cmbROP2.AddString(g_astRop2[i].pcmode);
+	}
+	m_cmbROP2.SetCurSel(0);
+	
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// EXCEPTION: OCX Property Pages should return FALSE
+}
+
+
+void CAboutDlg::OnCbnSelchangeCombo1()
+{
+	// TODO: Add your control notification handler code here
+	Invalidate();
+	//UpdateWindow();
 }

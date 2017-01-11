@@ -5,7 +5,7 @@
 #include "common.h"
 #include "sg/option/instr_trace.hpp"
 
-#define	N_TRIG		200
+#define	N_TRIG		20
 #define	FACTOR		10*1000
 #define	GRAB_TIME	3.5*FACTOR
 #define	SHEAR_TIME	1*FACTOR
@@ -149,13 +149,13 @@ void compute(LOG_TimeUnit *LOG_start,
     LOG_TimeUnit curr = *LOG_start = LOG_getTimeStart();
 
     for (int k = 0; k < N_TRIG; ++k) {
-        tm.submit(new grab( k, k>0?&hGrab[k-1]:0, hGrab[k] ));
-    }
-	
-	for (int k = 0; k < N_TRIG; ++k) {
         tm.submit(new shear( k, hGrab[k], hShear[k] ));
     }
 	
+	for (int k = 0; k < N_TRIG; ++k) {
+		tm.submit(new grab(k, k>0 ? &hGrab[k - 1] : 0, hGrab[k]));
+	}
+
 	// In fact we have max 20 reconstruct at same time because we uses a pool...
 	for( int i=0; i<N_CAM; i++ )
 	{
@@ -217,3 +217,5 @@ int main_solar(int argc, char *argv[]) {
    
     return 0;
 }
+
+
