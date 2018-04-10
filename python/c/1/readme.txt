@@ -19,3 +19,5 @@ Type "help", "copyright", "credits" or "license" for more information.
                2 个目录  9,884,504,064 可用字节
 0
 >>>
+
+https://docs.python.org/3.6/extending/extending.html
