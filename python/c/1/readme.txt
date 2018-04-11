@@ -1,3 +1,6 @@
+﻿目的：
+手写python binding，用于学习
+
 G:\temp\1\Debug>python_d
 Python 3.6.5 (v3.6.5:f59c0932b4, Mar 28 2018, 17:04:45) [MSC v.1900 64 bit (AMD64)] on win32
 Type "help", "copyright", "credits" or "license" for more information.
