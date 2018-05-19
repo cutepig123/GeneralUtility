@@ -104,3 +104,46 @@ end
 --]]
 
 s:withdraw(200.00)
+
+print('--new Account with privacy')
+--https://www.lua.org/pil/16.4.html
+function newAccount (initialBalance)
+  local self = {balance = initialBalance}
+
+  local withdraw = function (v)
+					 self.balance = self.balance - v
+				   end
+
+  local deposit = function (v)
+					self.balance = self.balance + v
+				  end
+
+  local getBalance = function () return self.balance end
+
+  return {
+	withdraw = withdraw,
+	deposit = deposit,
+	getBalance = getBalance
+  }
+end
+
+    acc1 = newAccount(100.00)
+    acc1.withdraw(40.00)
+    print(acc1.getBalance())     --> 60
+	
+
+print('--The Single-Method Approach')
+function newObject (value)
+  return function (action, v)
+	if action == "get" then return value
+	elseif action == "set" then value = v
+	else error("invalid action")
+	end
+  end
+end
+--Its use is straightforward:
+d = newObject(0)
+print(d("get"))    --> 0
+d("set", 10)
+print(d("get"))    --> 10
+
