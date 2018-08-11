@@ -243,12 +243,30 @@
 
         var s2={'bank':bank, 'balance':s};
 
-        alert(JSON.stringify(s2));
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if(dd<10) {
+            dd = '0'+dd
+        }
+
+        if(mm<10) {
+            mm = '0'+mm
+        }
+
+        today = '' + yyyy + mm + dd;
+        var sFinal = {"value1":s2, "value2":today};
+
+       // document.write(today);
+
+        alert(JSON.stringify(sFinal));
 
         GM_xmlhttpRequest ( {
             method:     "POST",
             url:        'https://maker.ifttt.com/trigger/bankmoney/with/key/feQcXd0QuePnJb23E97bv',
-            data:       JSON.stringify({"value1":s2, "value2":"HELLO"}),
+            data:       JSON.stringify(sFinal),
             headers:    {
                 "Content-Type": "application/json"
             },
