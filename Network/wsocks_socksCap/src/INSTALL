@@ -1,9 +1,0 @@
-1. Modify the variable WSOCKS_PREFIX in the Makefile, if you want to install
-   it to an other directory instead of the default one "/usr/local".
-2. type the command
-      make && make install
-   in the current directoy.
-3. edit the config file libwsocks.acl in the directory WSOCKS_PREFIX/etc
-4. use the command
-      wsocks command ...
-   to make this command use the special proxy transparently.

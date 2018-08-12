@@ -1,3 +1,0 @@
-F:/wamp/www/git_repos/GitHub/GeneralUtility/suanfayishu/sln/CMakeFiles/ALL_BUILD.dir
-F:/wamp/www/git_repos/GitHub/GeneralUtility/suanfayishu/sln/CMakeFiles/ZERO_CHECK.dir
-F:/wamp/www/git_repos/GitHub/GeneralUtility/suanfayishu/sln/CMakeFiles/ex1.dir

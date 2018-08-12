@@ -1,1 +1,0 @@
-javascript:(function(){var s = document.createElement('script');s.setAttribute('type','text/javascript');var t=document,n=t.location.href,r=t.title;var url ="http://localhost/git_repos/GitHub/GeneralUtility/jquery/MyPocket/msg.php?href=" + encodeURIComponent(n) + '&title=' + encodeURIComponent(r);s.setAttribute('src',url);document.head.appendChild(s);})();

@@ -1,8 +1,0 @@
-DEFINE_TYPE(char)
-DEFINE_TYPE(short)
-DEFINE_TYPE(int)
-DEFINE_TYPE(long)
-DEFINE_TYPE(double)
-DEFINE_TYPE(float)
-
-

@@ -1,2 +1,0 @@
-set PYTHON_INCLUDE=G:\Python36\include
-set PYTHON_LIB=G:\Python36\libs\python3_d.lib
