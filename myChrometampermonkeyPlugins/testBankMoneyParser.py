@@ -2,13 +2,14 @@ import json
 import csv
 import datetime
 
-filename = '%s.csv'%datetime.datetime.now().strftime("%Y%m%d")
+today= datetime.datetime.now().strftime("%Y%m%d")
+filename = '%s.csv'%today
 with open(filename, 'w') as csvfile:
 	fieldnames = ['OccurredAt', 'bank', 'name', 'HKD', 'RMB', 'USD']
 	writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 	writer.writeheader()
 	 
-	for line in open('bankmoney2','r').readlines():
+	for line in open('%s.txt'%today,'r').readlines():
 		line = line.strip()
 		if line.endswith('---'):
 			line =line[:-3]
@@ -22,5 +23,5 @@ with open(filename, 'w') as csvfile:
 		print (t["Value 1"]["bank"])
 		t1=t["Value 1"]
 		for t11 in t1['balance']:
-			writer.writerow({'OccurredAt': t["OccurredAt"], 'bank': t1['bank'], 'name':t11['name'], t11['type']:t11['balance']})
+			writer.writerow({'OccurredAt': t["OccurredAt"], 'bank': t1['bank'], 'name':t11['name'], t11['type'].strip():t11['balance']})
    
